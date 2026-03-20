@@ -78,6 +78,15 @@ bot.on('message', (msg) => {
         const source = userSources[chatId] || 'telegram';
         const lowerText = text.toLowerCase().trim();
 
+        const currentState = userStates[chatId];
+
+        // --- Lead Capture Answer Interceptor ---
+        if (currentState && currentState.step === 'awaiting_lead_info') {
+            userStates[chatId] = { step: 'asked_details', answers: text };
+            console.log(`[Lead] User ${chatId} answers: ${text}`);
+            return bot.sendMessage(chatId, "Я помогаю женщинам запустить доход через AI и Telegram. Хочешь подробности?");
+        }
+
         if (lowerText.includes('привет') || lowerText === 'тест') {
             return bot.sendMessage(chatId, "Привет! Я работаю");
         }
@@ -85,12 +94,16 @@ bot.on('message', (msg) => {
         // 1. КОНТЕНТ / ПОСТ
         // 4. ДА (Воронка продаж)
         if (lowerText === 'да' || lowerText === 'да!') {
-            const currentState = userStates[chatId];
-            if (!currentState) {
-                userStates[chatId] = 'asked_details';
-                return bot.sendMessage(chatId, "Я помогаю женщинам запустить доход через AI и Telegram. Хочешь подробности?");
-            } else if (currentState === 'asked_details') {
-                userStates[chatId] = 'finished';
+            // Read updated currentState references
+            const cur = userStates[chatId];
+            if (!cur) {
+                userStates[chatId] = { step: 'awaiting_lead_info' };
+                const promptQs = `Напиши, пожалуйста:
+1. Есть ли у тебя Instagram?
+2. Хочешь для себя или на продажу?`;
+                return bot.sendMessage(chatId, promptQs);
+            } else if (cur.step === 'asked_details') {
+                userStates[chatId] = { step: 'finished', answers: cur.answers };
                 return bot.sendMessage(chatId, "Напиши мне в личку или перейди сюда: https://t.me/your_username");
             }
         }
