@@ -5,17 +5,23 @@ dotenv.config();
 
 const token = process.env.TELEGRAM_BOT_TOKEN;
 
+let bot = null;
 if (!token) {
-    console.error("CRITICAL: TELEGRAM_BOT_TOKEN is missing from .env file.");
-    process.exit(1);
+    console.warn("⚠️ WARNING: TELEGRAM_BOT_TOKEN is missing. Bot features are disabled, but web server will run.");
+} else {
+    bot = new TelegramBot(token, { polling: false });
+    console.log("🚀 Telegram Bot initialized with Webhooks...");
 }
-
-const bot = new TelegramBot(token, { polling: false });
 
 // In-memory state to track sources
 const userSources = {};
 
 module.exports = function(app) {
+    if (!bot) {
+        console.warn("⚠️ Skipping Telegram Bot routes initialization because bot is null.");
+        return;
+    }
+
     // 2. Webhook Route
     app.post(`/bot${token}`, (req, res) => {
         bot.processUpdate(req.body);
@@ -25,7 +31,7 @@ module.exports = function(app) {
 
 
 
-console.log("🚀 Telegram Bot is running in polling mode...");
+
 
 // 1. START MESSAGE
 bot.onText(/\/start(?:\s+(.+))?/, (msg, match) => {
