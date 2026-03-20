@@ -82,9 +82,20 @@ bot.on('message', (msg) => {
 
         // --- Lead Capture Answer Interceptor ---
         if (currentState && currentState.step === 'awaiting_lead_info') {
-            userStates[chatId] = { step: 'asked_details', answers: text };
+            userStates[chatId] = { step: 'finished', answers: text };
             console.log(`[Lead] User ${chatId} answers: ${text}`);
-            return bot.sendMessage(chatId, "Я помогаю женщинам запустить доход через AI и Telegram. Хочешь подробности?");
+            
+            bot.sendMessage(chatId, "Супер, тебе это идеально подходит.\nЯ сейчас объясню, как можно начать уже сегодня");
+            
+            setTimeout(() => {
+                const plan = `📝 **Твой пошаговый план:**\n\n` +
+                `1️⃣ **Упаковка:** Оформи профиль так, чтобы он продавал за тебя.\n` +
+                `2️⃣ **Контент с ИИ:** Генерируй сценарии Reels и посты за 15 минут в день.\n` +
+                `3️⃣ **Трафик:** Настрой автоматическую воронку в Telegram.\n\n` +
+                `👉 **Напиши мне в личку "ХОЧУ СТАРТ", чтобы забрать готовые шаблоны:** https://t.me/your_username`;
+                bot.sendMessage(chatId, plan, { parse_mode: 'Markdown' });
+            }, 1500);
+            return;
         }
 
         if (lowerText.includes('привет') || lowerText === 'тест') {
