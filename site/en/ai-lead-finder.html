@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<script>
+    (function() {
+        const params = new URLSearchParams(window.location.search);
+        const isPro = params.get('pro') === 'true';
+        if (!isPro) {
+            const isRu = window.location.pathname.includes('/ru/');
+            const domain = params.get('domain') || '';
+            const dest = isRu ? '/ru/report.html' : '/en/report.html';
+            window.location.href = dest + (domain ? '?domain=' + encodeURIComponent(domain) : '');
+        }
+    })();
+    </script>
+<link href="/favicon.png" rel="icon" type="image/png"/>
+<link href="/favicon.png" rel="shortcut icon"/>
+<link href="/favicon.png" rel="apple-touch-icon"/>
+<meta charset="utf-8"/>
+<meta content="index, follow" name="robots"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AI Lead Finder — Discover Potential SEO Clients | InfoLady</title>
+<meta content="Find websites in your niche with low AI visibility and high potential for SEO services. Generate a targeted lead list with contact information and scan scores." name="description"/>
+<meta content="AI lead finder, SEO leads, website prospects, B2B lead generation, AI visibility leads, SEO client finder, niche website discovery" name="keywords"/>
+<meta content="InfoLady" name="author"/>
+<meta content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" name="robots"/>
+<!-- Open Graph -->
+<meta content="website" property="og:type"/>
+<meta content="https://infolady.online/tools/ai-lead-finder.html" property="og:url"/>
+<meta content="AI Lead Finder — Discover Potential SEO Clients | InfoLady" property="og:title"/>
+<meta content="Find websites with low AI visibility in any niche — your future SEO clients. Get contact info, scan scores, and outreach templates." property="og:description"/>
+<meta content="https://infolady.online/og-image.jpg" property="og:image"/>
+<meta content="en_US" property="og:locale"/>
+<meta content="InfoLady" property="og:site_name"/>
+<!-- Twitter Card -->
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="AI Lead Finder | InfoLady" name="twitter:title"/>
+<meta content="Discover websites with low AI visibility in any niche. Generate targeted SEO lead lists instantly." name="twitter:description"/>
+<meta content="https://infolady.online/og-image.jpg" name="twitter:image"/>
+<!-- AI Discovery / GEO -->
+<meta content="AI-powered B2B lead finder for SEO agencies and freelancers" name="ai-content"/>
+<meta content="InfoLady AI Lead Finder discovers websites in any niche with low AI visibility scores, making them ideal prospects for SEO services. The tool generates scored lead lists with contact information and ready-to-use personalized outreach templates." name="ai-summary"/>
+<meta content="Lead Generation, SEO Tools, B2B Sales, AI Visibility" name="ai-category"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="/style.css" rel="stylesheet"/>
+<script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "InfoLady AI Lead Finder",
+      "url": "https://infolady.online/tools/ai-lead-finder.html",
+      "applicationCategory": "SalesApplication",
+      "operatingSystem": "Web",
+      "description": "Find high-quality leads using AI-powered search and analysis.",
+      "offers": {}
+    }
+    </script>
+<script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "AI Lead Finder",
+      "url": "https://infolady.online/tools/ai-lead-finder.html",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Web",
+      "offers": {},
+      "description": "Finds websites with low AI search visibility in any niche to help SEO agencies discover potential clients.",
+      "provider": { "@type": "Organization", "name": "InfoLady", "url": "https://infolady.online" }
+    }
+    </script>
+<!-- Multilingual SEO -->
+<link href="https://infolady.online/en/ai-lead-finder.html" rel="canonical"/>
+<link href="https://infolady.online/en/ai-lead-finder.html" hreflang="en" rel="alternate"/>
+<link href="https://infolady.online/en/ai-lead-finder.html" hreflang="ru" rel="alternate"/>
+<link href="https://infolady.online/" hreflang="x-default" rel="alternate"/>
+<!-- Lucide Icons -->
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>
+      document.addEventListener("DOMContentLoaded", function() {
+        if (typeof lucide !== 'undefined') {
+             lucide.createIcons();
+        }
+      });
+    </script>
+
+<style id="cta-spacer-style">
+  body.top-bar-active nav.nav { top: 47px !important; }
+  body.top-bar-active .page-hero { margin-top: 0px !important; }
+  @media (max-width: 768px) { 
+    body.top-bar-active nav.nav { top: 47px !important; } 
+    .global-cta-bar.top-bar { flex-direction: row; font-size: 0.85rem; padding: 10px; }
+  }
+</style>
+</head>
+<body class="top-bar-active">
+<!-- ══════════════════════════ NAV ══════════════════════════ -->
+<header>
+<div class="global-cta-bar top-bar" style="background: linear-gradient(90deg, #1A1D26 0%, #242838 100%); padding: 12px 20px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.95rem; font-weight: 600; font-family:var(--font-body); display: flex; justify-content: center; align-items: center; gap: 12px; margin: 0; width: 100%; box-sizing: border-box; position: relative; z-index: 1001;"><a href="https://t.me/lyazkai_bot?start=global_cta" class="cta-top">🔥 Find out where you lose customers</a></div>
+
+
+<nav class="nav platform-nav" role="navigation">
+<div class="container">
+<div class="nav__inner">
+<a class="nav__logo" href="/en/">InfoLady</a>
+<ul class="pnav__links" role="list">
+<li class="pnav__item"><a class="pnav__trigger" href="/en/visibility-audit.html">SEO Audit</a></li>
+</ul>
+<div class="pnav__right">
+<div class="lang-switch">
+<button class="lang-btn" data-lang="ru" onclick="location.href='/ru/ai-lead-finder.html'">RU</button>
+<button class="lang-btn active" data-lang="en">EN</button>
+</div>
+<a class="btn btn-primary btn-sm" data-en="Check your site for free" href="/en/visibility-audit.html">Check your site for free</a>
+</div>
+<button aria-controls="mobileDrawer" aria-expanded="false" aria-label="Open menu" class="nav__burger">
+<span></span><span></span><span></span>
+</button>
+</div>
+<nav class="pnav__mobile" hidden="" id="mobileDrawer">
+<div class="pnav__mobile-section"><a class="pnav__mobile-section-trigger" href="/en/visibility-audit.html">SEO Audit</a></div>
+<div class="pnav__mobile-section"><a class="pnav__mobile-section-trigger" href="/en/ai-integration.html">AI Integration</a></div>
+
+<div class="pnav__mobile-bottom"><div class="lang-switch">
+<button class="lang-btn active" data-lang="en">EN</button>
+<button class="lang-btn" data-lang="ru" onclick="location.href='/ru/index.html'">RU</button>
+</div></div></nav>
+</div>
+</nav>
+</header>
+<main>
+<section aria-labelledby="leadHeroTitle" class="page-hero">
+<div aria-hidden="true" class="hero__bg-orb hero__bg-orb--1"></div>
+<div aria-hidden="true" class="hero__bg-orb hero__bg-orb--2"></div>
+<div class="container">
+<div class="page-hero__inner">
+<span class="section-label section-label--glow">Leads</span>
+<h1 id="leadHeroTitle">AI Lead<br/><span class="gradient-text">Finder</span></h1>
+<p class="lead">Discover websites with low AI visibility in any niche — your future SEO clients. Get
+                        contact info, scan scores, and ready-to-use outreach templates.</p>
+<div class="stats-row" style="justify-content:center;max-width:480px;margin-inline:auto;">
+<div class="stat-card">
+<div class="stat-card__num">500+</div>
+<div class="stat-card__label">Leads Found Daily</div>
+</div>
+<div class="stat-card">
+<div class="stat-card__num">78%</div>
+<div class="stat-card__label">Avg. Low Visibility Rating</div>
+</div>
+<div class="stat-card">
+<div class="stat-card__num">3.2x</div>
+<div class="stat-card__label">Reply Rate</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<div class="global-cta-bar inline-bar" style="background: linear-gradient(90deg, #1A1D26 0%, #242838 100%); padding: 22px; text-align: center; border: 1px solid rgba(255,255,255,0.05); font-size: 1rem; font-weight: 600; font-family:var(--font-body); display: flex; justify-content: center; align-items: center; gap: 15px; margin: 30px 0; border-radius: 12px; background: rgba(255,255,255,0.03); backdrop-filter: blur(5px); box-shadow: 0 4px 25px rgba(0,0,0,0.4);">
+<span style="color: #fff;">Check your website free</span>
+<a class="btn btn-primary btn-sm" href="/en/scan.html" style="padding: 10px 20px; font-size: 0.9rem; box-shadow: 0 4px 15px rgba(0, 224, 255, 0.25);"> Check your site for free </a>
+</div>
+
+
+<section aria-labelledby="leadToolTitle" class="section section--tinted">
+<div class="container">
+<div class="tool-box">
+<div class="tool-box__label">Lead Finder</div>
+<h2 id="leadToolTitle">Find SEO Leads in Your Niche</h2>
+<p>Enter an industry or niche to discover websites that need AI SEO optimization</p>
+<div class="input-cta-row">
+<input aria-label="Industry or niche" id="leadNiche" placeholder="e.g. real estate, dental clinic, e-commerce" type="text"/>
+<button class="btn btn-primary" onclick="findLeads()">🔎 Find Leads</button>
+</div>
+<div class="loading-block" id="leadLoading">
+<div class="spinner"></div>
+<p style="margin-top:14px;">Scanning niche for low-visibility websites…</p>
+</div>
+<div class="results-block" id="leadResults">
+<p style="font-size:.85rem;color:var(--text-dim);margin-bottom:16px;">Found 10 websites with low
+                            AI visibility — ideal prospects for your SEO services:</p>
+<div class="data-table-wrap" style="margin-bottom:20px;">
+<table class="data-table">
+<thead>
+<tr>
+<th>Website</th>
+<th>Visibility Rating</th>
+<th>SEO Score</th>
+<th>Key Issue</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>petershome.com</td>
+<td><span class="score-badge score-badge--low">18</span></td>
+<td><span class="score-badge score-badge--mid">52</span></td>
+<td>No structured data</td>
+<td><a href="/en/ai-outreach.html" style="color:var(--accent-secondary);font-size:.82rem;">Generate
+                                                outreach →</a></td>
+</tr>
+<tr>
+<td>dentalsmile.net</td>
+<td><span class="score-badge score-badge--low">22</span></td>
+<td><span class="score-badge score-badge--mid">61</span></td>
+<td>Zero AI citations</td>
+<td><a href="/en/ai-outreach.html" style="color:var(--accent-secondary);font-size:.82rem;">Generate
+                                                outreach →</a></td>
+</tr>
+<tr>
+<td>greenlawns.io</td>
+<td><span class="score-badge score-badge--low">14</span></td>
+<td><span class="score-badge score-badge--low">38</span></td>
+<td>Weak content structure</td>
+<td><a href="/en/ai-outreach.html" style="color:var(--accent-secondary);font-size:.82rem;">Generate
+                                                outreach →</a></td>
+</tr>
+<tr>
+<td>fastcookery.com</td>
+<td><span class="score-badge score-badge--low">31</span></td>
+<td><span class="score-badge score-badge--mid">55</span></td>
+<td>Missing FAQ schema</td>
+<td><a href="/en/ai-outreach.html" style="color:var(--accent-secondary);font-size:.82rem;">Generate
+                                                outreach →</a></td>
+</tr>
+<tr>
+<td>homestyle.ru</td>
+<td><span class="score-badge score-badge--low">19</span></td>
+<td><span class="score-badge score-badge--mid">48</span></td>
+<td>No E-E-A-T signals</td>
+<td><a href="/en/ai-outreach.html" style="color:var(--accent-secondary);font-size:.82rem;">Generate
+                                                outreach →</a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div style="display:flex;gap:12px;flex-wrap:wrap;">
+<div class="lead-inline" style="flex:1;min-width:260px;padding:20px;text-align:left;">
+<h4 style="margin-bottom:8px;">🔒 Get Full Lead List (10 websites)</h4>
+<p style="font-size:.85rem;margin-bottom:16px;">Enter your email to receive the complete
+                                    list with contact details.</p>
+<input placeholder="your@email.com" style="width:100%;background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:var(--r-md);padding:10px 14px;color:var(--text-main);font-family:var(--font-body);font-size:.9rem;outline:none;margin-bottom:10px;" type="email"/>
+<button class="btn btn-primary" style="width:100%;">Send Full List →</button>
+</div>
+<div style="flex:0;">
+<a class="btn btn-ghost" href="/en/ai-outreach.html" style="height:100%;display:flex;align-items:center;">✍️ Create Outreach Messages</a>
+</div>
+</div>
+</div>
+</div>
+<!-- Lead Capture CTA -->
+<section class="section section--tinted lead-cta-section" style="margin-top: 40px; margin-bottom: 24px; border-radius: 16px; border: 1px solid var(--border); background: var(--bg-card); padding: 40px; text-align: center;">
+<h2 data-en="Need help fixing your SEO?" style="margin-bottom: 12px;">Need help fixing your SEO?</h2>
+<p data-en="Your website has issues that may affect your search visibility. Get a free SEO consultation from professionals." style="color: var(--text-muted); margin-bottom: 24px; max-width: 600px; margin-left: auto; margin-right: auto;">Your website has issues that may affect your search visibility. Get a free SEO consultation from professionals.</p>
+<button class="btn btn-primary lead-cta-trigger" data-en="Check your site for free" style="font-size: 1.1rem; padding: 14px 28px;">Check your site for free</button>
+</section>
+</div>
+</section>
+<section aria-labelledby="leadFeaturesTitle" class="section">
+<div class="container">
+<div class="section-header"><span class="section-label">How It Works</span>
+<h2 id="leadFeaturesTitle">From Niche to Prospect in 3 Steps</h2>
+</div>
+<div class="process-flow">
+<div class="process-step-h fade-up">
+<div class="process-step-h__num">1</div>
+<h4>Enter Your Niche</h4>
+<p>Specify an industry, location, or keyword</p>
+</div>
+<div class="process-step-h fade-up">
+<div class="process-step-h__num">2</div>
+<h4>AI Scans Prospects</h4>
+<p>We find &amp; score websites with upgrade potential</p>
+</div>
+<div class="process-step-h fade-up">
+<div class="process-step-h__num">3</div>
+<h4>Generate Outreach</h4>
+<p>One-click personalized email for each prospect</p>
+</div>
+</div>
+</div>
+</section>
+<section aria-labelledby="leadCtaTitle" class="cta-section">
+<div aria-hidden="true" class="cta-section__glow"></div>
+<div class="container">
+<h2 id="leadCtaTitle">Ready to Automate Lead Generation?</h2>
+<p>Set up automatic outreach campaigns with AI-personalized messages</p>
+<div class="cta-section__actions">
+<a class="btn btn-ghost btn-lg" href="/en/ai-outreach.html">📧 Outreach Generator</a>
+<a class="btn btn-primary btn-lg" href="/en/ai-auto-outreach.html">⚡ Auto Outreach →</a>
+</div>
+</div>
+</section>
+<!-- ════════════ INTERLINKING BLOCK ════════════ -->
+<section class="related-articles-section" style="padding: 4rem 0; background: var(--bg-surface);">
+<div class="container">
+<h3 style="margin-bottom: 2rem;">Related Resources</h3>
+<div class="grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
+<div class="card" style="padding: 1.5rem; border-radius: 12px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1);">
+</div>
+<div class="card" style="padding: 1.5rem; border-radius: 12px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1);">
+</div>
+<div class="card" style="padding: 1.5rem; border-radius: 12px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1);">
+</div>
+</div>
+</div>
+</section>
+</main>
+
+
+<div class="global-cta-bar inline-bar" style="background: linear-gradient(90deg, #1A1D26 0%, #242838 100%); padding: 22px; text-align: center; border: 1px solid rgba(255,255,255,0.05); font-size: 1rem; font-weight: 600; font-family:var(--font-body); display: flex; justify-content: center; align-items: center; gap: 15px; margin: 30px 0; border-radius: 12px; background: rgba(255,255,255,0.03); backdrop-filter: blur(5px); box-shadow: 0 4px 25px rgba(0,0,0,0.4);">
+<span style="color: #fff;">Check your website free</span>
+<a class="btn btn-primary btn-sm" href="/en/scan.html" style="padding: 10px 20px; font-size: 0.9rem; box-shadow: 0 4px 15px rgba(0, 224, 255, 0.25);"> Check your site for free </a>
+</div>
+<footer class="footer" role="contentinfo">
+<div class="container">
+<div class="footer__grid">
+<div class="footer__col">
+<h5>Solutions</h5><ul role="list"><li><a href="/en/visibility-audit.html">SEO Audit</a></li><li><a href="/en/ai-integration.html">AI Integration</a></li></ul>
+</div>
+<div class="footer__col">
+<h5>Information</h5><ul role="list"><li><a href="/en/privacy-policy.html">Privacy</a></li><li><a href="/en/terms-of-service.html">Terms</a></li><li><a href="/en/about.html">Contact</a></li></ul>
+</div>
+</div>
+<div class="footer__bottom">
+<p>© <span id="year"></span> InfoLady. All rights reserved.</p>
+</div>
+</div>
+</footer>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+<script defer="" src="/js/script.js"></script>
+<script defer="" src="/js/lead-capture.js"></script>
+<script defer="" src="/js/leads-app.js"></script>
+<script>
+        function findLeads() {
+            const loading = document.getElementById('leadLoading');
+            const results = document.getElementById('leadResults');
+            results.classList.remove('visible');
+            loading.classList.add('visible');
+            setTimeout(() => { loading.classList.remove('visible'); results.classList.add('visible'); results.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }, 3200);
+        }
+    </script>
+</body>
+</html>

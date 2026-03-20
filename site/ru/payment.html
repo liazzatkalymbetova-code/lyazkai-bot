@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Оплата — InfoLady</title>
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        :root {
+            --bg-dark: #0B0E14;
+            --accent-primary: #00E0FF;
+            --accent-secondary: #7C5AFF;
+            --text-dim: rgba(255, 255, 255, 0.7);
+            --bg-card: rgba(255, 255, 255, 0.02);
+            --border: rgba(255, 255, 255, 0.04);
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: #fff;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .payment-card {
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 40px;
+            max-width: 440px;
+            width: 100%;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .logo {
+            font-weight: 800;
+            font-size: 1.5rem;
+            color: #fff;
+            text-decoration: none;
+            display: inline-block;
+            margin-bottom: 24px;
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            margin-bottom: 32px;
+        }
+
+        .details-box {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+            text-align: left;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            font-size: 0.95rem;
+        }
+
+        .detail-row:last-child {
+            margin-bottom: 0;
+            padding-top: 12px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .detail-label {
+            color: var(--text-dim);
+        }
+
+        .detail-value {
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .detail-value.price {
+            color: var(--accent-primary);
+            font-size: 1.25rem;
+            font-weight: 800;
+        }
+
+        .instruction {
+            background: rgba(255, 171, 0, 0.05);
+            border: 1px solid rgba(255, 171, 0, 0.2);
+            color: #FFAB00;
+            padding: 14px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            margin-bottom: 24px;
+            font-weight: 600;
+        }
+
+        .cta-btn {
+            display: block;
+            background: linear-gradient(135deg, #00E0FF 0%, #7C5AFF 100%);
+            color: #000;
+            text-decoration: none;
+            padding: 16px;
+            border-radius: 14px;
+            font-weight: 800;
+            font-size: 1rem;
+            margin-bottom: 16px;
+            box-shadow: 0 4px 15px rgba(0, 224, 255, 0.2);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 224, 255, 0.3);
+        }
+
+        .trust-info {
+            font-size: 0.8rem;
+            color: var(--text-dim);
+            line-height: 1.4;
+        }
+
+        .trust-info p {
+            margin: 4px 0;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 24px;
+            color: var(--text-dim);
+            font-size: 0.85rem;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .back-link:hover {
+            color: #fff;
+        }
+    
+        /* VALUE BOX STYLES */
+        .value-box {
+            background: #0f172a;
+            padding: 20px;
+            border-radius: 16px;
+            margin-bottom: 24px;
+            color: #fff;
+            text-align: left;
+        }
+        .value-box h2 { font-size: 20px; margin-bottom: 12px; color: #fff; }
+        .value-box ul { padding-left: 18px; margin-bottom: 12px; }
+        .value-box li { margin-bottom: 8px; font-size: 0.95rem; color: rgba(255,255,255,0.9); }
+        .result { color: #4ade80; font-weight: bold; margin-bottom: 8px; font-size: 0.95rem; }
+        .urgency { color: #facc15; font-weight: 600; font-size: 0.9rem; }
+</style>
+</head>
+<body>
+
+    <div class="payment-card">
+        <a href="/ru/" class="logo">InfoLady</a>
+        <h1>Оплата маркетинг аудита</h1>
+        <p class="subtitle">Вы получаете доступ к автоматическому AI-аудиту</p>
+
+        
+        <div class="value-box">
+          <h2>Что вы получите</h2>
+          <ul>
+            <li>✔ Анализ всех ошибок сайта</li>
+            <li>✔ Где вы теряете клиентов</li>
+            <li>✔ Как увеличить заявки</li>
+            <li>✔ Пошаговый план роста</li>
+          </ul>
+          <p class="result">📈 После внедрения: рост заявок на 20–50%</p>
+          <p class="urgency">🔥 Доступ по акционной цене сегодня</p>
+        </div>
+
+        <div class="details-box">
+            <div class="detail-row">
+                <span class="detail-label">Тариф</span>
+                <span class="detail-value" id="plan-title">Загрузка...</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Тип</span>
+                <span class="detail-value">AI Аудит</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">К оплате</span>
+                <span class="detail-value price" id="plan-price">...</span>
+            </div>
+        </div>
+
+        <div class="instruction" id="plan-instruction">
+            ⚠️ Ожидание параметров...
+        </div>
+
+        
+        <div style="margin-bottom: 20px; text-align: left;">
+            <label for="userEmail" style="display:block; font-size: 0.85rem; color: var(--text-dim); margin-bottom: 8px;">Введите email для получения отчёта</label>
+            <input type="email" id="userEmail" placeholder="your@email.com" style="width:100%; padding:14px; border-radius:12px; background: rgba(255,255,255,0.04); border: 1px solid var(--border); color:#fff; font-family:inherit; font-size:0.95rem; outline:none; box-sizing:border-box;" required>
+        </div>
+<a href="https://pay.kaspi.kz/pay/fpquqhbx" class="cta-btn" target="_blank" onclick="handlePayment()">Оплатить через Kaspi</a>
+
+        <div class="trust-info">
+            <p>⚡ Мгновенный отчёт после оплаты</p>
+            <p>🔒 Единоразовый платёж, без подписок</p>
+            <p>📄 PDF версия входит в стоимость</p>
+            <p style="color: #00e0ff; font-weight: 700; margin-top: 10px;">🔥 Акционная цена: 4500 ₸</p>
+        </div>
+
+        <a href="/ru/#pricing" class="back-link">← Вернуться к ценам</a>
+    </div>
+
+    <script>
+        (function() {
+            const params = new URLSearchParams(window.location.search);
+            const plan = params.get('plan');
+            
+            if (!plan) {
+                window.location.href = '/ru/index.html';
+                return;
+            }
+
+            const config = {
+                basic: { title: 'GEO аудит', price: '4500 ₸' },
+                standard: { title: 'Маркетинг аудит', price: '12000 ₸' }
+            };
+
+            if (!config[plan]) {
+                window.location.href = '/ru/index.html';
+                return;
+            }
+
+            // Save choice
+            localStorage.setItem('selected_plan', plan);
+
+            // Update UI
+            document.getElementById('plan-title').textContent = config[plan].title;
+            document.getElementById('plan-price').textContent = config[plan].price;
+            document.getElementById('plan-instruction').innerHTML = `⚠️ Введите сумму вручную: <span style="font-size:1.1rem; font-weight:800; color:#fff;">${config[plan].price}</span>`;
+        })();
+
+        function handlePayment() {
+            const emailInput = document.getElementById('userEmail');
+            const email = emailInput ? emailInput.value.trim() : '';
+            if (!email || !email.includes('@')) {
+                alert('Пожалуйста, введите корректный email для получения отчёта.');
+                event.preventDefault(); // Stop Kaspi tab open
+                if(emailInput) emailInput.focus();
+                return false;
+            }
+            localStorage.setItem('user_email', email);
+            console.log("Kaspi clicked, email saved:", email);
+            return true;
+        }
+    </script>
+</body>
+</html>

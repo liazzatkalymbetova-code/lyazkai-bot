@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="shortcut icon" href="/favicon.png">
+    <link rel="apple-touch-icon" href="/favicon.png">
+    <meta charset="UTF-8">
+    <meta name="robots" content="index, follow">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account — InfoLady AI SEO Platform</title>
+    <meta name="description"
+        content="Create your free InfoLady account to access AI SEO audit reports and your personal dashboard.">
+    <meta name="robots" content="index, follow">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        .auth-page {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            background: var(--bg-base);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .auth-card {
+            width: 100%;
+            max-width: 440px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--r-xl);
+            padding: 48px 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .auth-logo {
+            display: block;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--text-main);
+            text-decoration: none;
+            margin-bottom: 32px;
+        }
+
+        .auth-logo span {
+            background: var(--grad-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .auth-title {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .auth-sub {
+            color: var(--text-muted);
+            font-size: .9rem;
+            margin-bottom: 28px;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: .85rem;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 6px;
+        }
+
+        .form-group input {
+            width: 100%;
+            background: rgba(255, 255, 255, .04);
+            border: 1px solid var(--border);
+            border-radius: var(--r-full);
+            padding: 13px 18px;
+            color: var(--text-main);
+            font-family: var(--font-body);
+            font-size: .95rem;
+            outline: none;
+            box-sizing: border-box;
+            transition: border-color .2s;
+        }
+
+        .form-group input:focus {
+            border-color: var(--accent-secondary);
+        }
+
+        .auth-btn {
+            width: 100%;
+            margin-top: 8px;
+        }
+
+        .auth-links {
+            margin-top: 20px;
+            text-align: center;
+            font-size: .88rem;
+            color: var(--text-muted);
+        }
+
+        .auth-links a {
+            color: var(--accent-secondary);
+            text-decoration: none;
+        }
+
+        .auth-error {
+            display: none;
+            background: rgba(255, 90, 31, .12);
+            border: 1px solid rgba(255, 90, 31, .3);
+            border-radius: var(--r-md);
+            padding: 10px 14px;
+            font-size: .88rem;
+            color: var(--accent-tertiary);
+            margin-bottom: 16px;
+        }
+
+        .auth-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: .12;
+            pointer-events: none;
+        }
+
+        .auth-orb-1 {
+            width: 300px;
+            height: 300px;
+            background: var(--accent-primary);
+            top: -80px;
+            left: -80px;
+        }
+
+        .auth-orb-2 {
+            width: 250px;
+            height: 250px;
+            background: var(--accent-secondary);
+            bottom: -60px;
+            right: -60px;
+        }
+
+        .perks {
+            display: grid;
+            gap: 6px;
+            margin-bottom: 24px;
+        }
+
+        .perk {
+            display: flex;
+            gap: 8px;
+            font-size: .85rem;
+            color: var(--text-muted);
+        }
+
+        .perk-icon {
+            color: var(--accent-secondary);
+        }
+    </style>
+<link rel="canonical" href="https://infolady.online/platform/register.html">
+    <!-- Multilingual SEO -->
+    <link rel="alternate" hreflang="en" href="https://infolady.online/platform/register.html" />
+    <link rel="alternate" hreflang="ru" href="https://infolady.online/platform/register-ru.html" />
+    <link rel="alternate" hreflang="x-default" href="https://infolady.online/platform/register.html" />
+</head>
+
+<body>
+    <div class="auth-page">
+        <div class="auth-orb auth-orb-1"></div>
+        <div class="auth-orb auth-orb-2"></div>
+        <div class="auth-card">
+            <div style="display: flex; justify-content: space-between; align-items: start;">
+                <a href="/index.html" class="auth-logo">Info<span>Lady</span></a>
+<ul class="pnav__links" role="list">
+<li class="pnav__item"><a class="pnav__trigger" href="/en/digital-tools.html">Digital Tools</a></li>
+<li class="pnav__item"><a class="pnav__trigger" href="/en/visibility-audit.html">Audit</a></li>
+<li class="pnav__item has-dropdown">
+<button class="pnav__trigger" data-i18n="nav_platform">Platform</button>
+<div class="pnav__dropdown">
+<a href="/en/platform.html">Platform Overview</a>
+<a href="/en/visibility-rating.html">Visibility Rating</a>
+<a href="/en/visibility-audit.html">Search Visibility Audit</a>
+<a href="/en/search-trend-radar.html">Search Trend Radar</a>
+<a href="/en/visibility-badge.html">Visibility Badge</a>
+<a href="/en/white-label.html">White Label</a>
+<a href="/en/how-it-works.html">How it Works</a>
+<a href="/en/methodology.html">Methodology</a>
+</div>
+</li>
+<li class="pnav__item"><a class="pnav__trigger" href="/en/ai-seo-learning.html">Learning</a></li>
+</ul>
+                <div class="lang-switch" style="display:flex; gap: 4px;">
+                    <button class="lang-btn active" data-lang="ru"
+                        style="font-size: 0.75rem; padding: 4px 8px; border-radius: 4px; border: 1px solid var(--border); background: var(--bg-card); color: var(--text-muted); cursor: pointer;">RU</button>
+                    <button class="lang-btn" data-lang="en"
+                        style="font-size: 0.75rem; padding: 4px 8px; border-radius: 4px; border: 1px solid transparent; background: transparent; color: var(--text-muted); cursor: pointer;">EN</button>
+                </div>
+            </div>
+
+            <h1 class="auth-title" data-i18n="register_title">Create your account</h1>
+            <p class="auth-sub" data-i18n="register_sub">Free forever — no credit card required</p>
+
+            <div class="perks">
+                <div class="perk"><span class="perk-icon">✅</span> <span data-i18n="reg_perk1">Access your AI SEO audit
+                        reports</span></div>
+                <div class="perk"><span class="perk-icon">✅</span> <span data-i18n="reg_perk2">Track all your website
+                        analyses</span></div>
+                <div class="perk"><span class="perk-icon">✅</span> <span data-i18n="reg_perk3">Download PDF reports
+                        anytime</span></div>
+            </div>
+
+            <div class="auth-error" id="regError"><span data-i18n="reg_error">Email already registered.</span> <a
+                    href="/platform/login.html" data-i18n="reg_error_link">Log in instead →</a>
+            </div>
+
+            <form id="registerForm" onsubmit="handleRegister(event)">
+                <div class="form-group">
+                    <label for="regName" data-i18n="lbl_name">Full Name</label>
+                    <input type="text" id="regName" placeholder="Your Name" required autocomplete="name">
+                </div>
+                <div class="form-group">
+                    <label for="regEmail" data-i18n="lbl_email">Email</label>
+                    <input type="email" id="regEmail" placeholder="your@email.com" required autocomplete="email">
+                </div>
+                <div class="form-group">
+                    <label for="regPassword" data-i18n="lbl_password">Password</label>
+                    <input type="password" id="regPassword" placeholder="••••••••" required minlength="6"
+                        autocomplete="new-password">
+                </div>
+                <button type="submit" class="btn btn-primary btn-lg auth-btn" id="regBtn"
+                    data-i18n="register_btn">Create Account →</button>
+            </form>
+
+            <div class="auth-links">
+                <span data-i18n="register_login_prompt">Already have an account?</span> <a href="/platform/login.html"
+                    data-i18n="register_login_link">Login →</a><br>
+                <a href="/index.html" style="color:var(--text-dim);margin-top:8px;display:inline-block;"
+                    data-i18n="login_back">← Back to
+                    InfoLady</a>
+            </div>
+        </div>
+    </div>
+    <script>
+        /* Redirect if already logged in */
+        if (localStorage.getItem('infolady_session')) {
+            window.location.href = 'dashboard.html';
+        }
+
+        // --- Translation Setup ---
+        const authT = {
+            en: {
+                lbl_name: "Full Name",
+                lbl_email: "Email",
+                lbl_password: "Password",
+                login_back: "← Back to InfoLady",
+                register_title: "Create your account",
+                register_sub: "Free forever — no credit card required",
+                register_btn: "Create Account →",
+                register_login_prompt: "Already have an account?",
+                register_login_link: "Login →",
+                btn_creating_acc: "Creating account...",
+                reg_perk1: "Access your AI SEO audit reports",
+                reg_perk2: "Track all your website analyses",
+                reg_perk3: "Download PDF reports anytime",
+                reg_error: "Email already registered.",
+                reg_error_link: "Log in instead →",
+            },
+            ru: {
+                lbl_name: "Ваше имя",
+                lbl_email: "Email",
+                lbl_password: "Пароль",
+                login_back: "← На главную InfoLady",
+                register_title: "Создание аккаунта",
+                register_sub: "Анализируйте и отслеживайте сайты бесплатно",
+                register_btn: "Создать аккаунт →",
+                register_login_prompt: "Уже есть аккаунт?",
+                register_login_link: "Войти →",
+                btn_creating_acc: "Создаём аккаунт...",
+                reg_perk1: "Доступ к вашим AI SEO-отчётам",
+                reg_perk2: "История всех проверок сайтов",
+                reg_perk3: "Скачивание PDF-отчётов в любое время",
+                reg_error: "Email уже зарегистрирован.",
+                reg_error_link: "Войти в аккаунт →",
+            }
+        };
+
+        // --- Multi-lang logic ---
+        let currentLang = localStorage.getItem('il_lang') || 'ru';
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('il_lang', lang);
+            document.documentElement.lang = lang;
+
+            // Toggle active button styles
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                if (btn.dataset.lang === lang) {
+                    btn.classList.add('active');
+                    btn.style.borderColor = 'var(--border)';
+                    btn.style.background = 'var(--bg-card)';
+                } else {
+                    btn.classList.remove('active');
+                    btn.style.borderColor = 'transparent';
+                    btn.style.background = 'transparent';
+                }
+            });
+
+            // Replace strings
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (authT[lang] && authT[lang][key]) {
+                    el.textContent = authT[lang][key];
+                }
+            });
+        }
+
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => setLanguage(e.target.dataset.lang));
+        });
+
+        // Initial setup
+        setLanguage(currentLang);
+
+        function handleRegister(e) {
+            e.preventDefault();
+            var name = document.getElementById('regName').value.trim();
+            var email = document.getElementById('regEmail').value.trim().toLowerCase();
+            var password = document.getElementById('regPassword').value;
+            var btn = document.getElementById('regBtn');
+            var errEl = document.getElementById('regError');
+
+            btn.textContent = authT[currentLang]['btn_creating_acc'];
+            btn.disabled = true;
+            errEl.style.display = 'none';
+
+            setTimeout(function () {
+                var users = JSON.parse(localStorage.getItem('il_users') || '[]');
+                var exists = users.some(function (u) { return u.email === email; });
+
+                if (exists) {
+                    errEl.style.display = 'block';
+                    btn.textContent = authT[currentLang]['register_btn'];
+                    btn.disabled = false;
+                    return;
+                }
+
+                var newUser = { name: name, email: email, password: btoa(password), since: new Date().toISOString() };
+                users.push(newUser);
+                localStorage.setItem('il_users', JSON.stringify(users));
+                localStorage.setItem('infolady_session', JSON.stringify({ name: name, email: email, since: newUser.since }));
+                window.location.href = 'dashboard.html';
+            }, 700);
+        }
+    </script>
+<script src="/lead-capture.js" defer></script>
+<script src="/leads-app.js" defer></script>
+</body>
+
+</html>

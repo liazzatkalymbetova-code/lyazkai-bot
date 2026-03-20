@@ -1,0 +1,128 @@
+{
+  "summary": {
+    "total_files_on_disk": 604,
+    "crawled_pages": 530,
+    "orphan_pages_count": 74,
+    "orphan_pages_sample": [
+      "legacy_backup/ru-analytics-folder/ai-competitor-intelligence.html",
+      "legacy_backup/terms-of-service.html",
+      "legacy_backup/ai-tools-for-real-estate.html",
+      "legacy_backup/ru-analytics-folder/ai-traffic-analytics.html",
+      "legacy_backup/ai-report-generator.html",
+      "legacy_backup/tools/ai-lead-finder.html",
+      "legacy_backup/ai-content-optimizer.html",
+      "legacy_backup/ai-score.html",
+      "legacy_backup/admin-leads.html",
+      "legacy_backup/tools/ai-seo-marketplace.html",
+      "legacy_backup/ai-seo-audit.html",
+      "legacy_backup/analytics/ai-market-map.html",
+      "legacy_backup/en-analytics-folder/ai-score.html",
+      "legacy_backup/ai-competitor-intelligence.html",
+      "legacy_backup/ai-seo-learning.html",
+      "legacy_backup/ai-tools-for-bloggers.html",
+      "legacy_backup/ru-analytics-folder/ai-market-map.html",
+      "legacy_backup/analytics/ai-traffic-analytics.html",
+      "legacy_backup/tools/ai-content-optimizer.html",
+      "legacy_backup/register.html"
+    ],
+    "depth_violations_count": 25,
+    "depth_violations_sample": [
+      "en/tools/ai-content-optimizer.html",
+      "en/tools/ai-lead-finder.html",
+      "en/tools/ai-outreach.html",
+      "en/tools/ai-tools-for-marketing.html",
+      "en/tools/ai-report-generator.html",
+      "en/tools/ai-tools-for-teachers.html",
+      "en/tools/ai-tools-for-bloggers.html",
+      "platform/ai-seo-guide.html",
+      "platform/ai-seo-learning.html",
+      "platform/white-label.html"
+    ],
+    "missing_in_sitemap_count": 0,
+    "missing_in_sitemap_sample": [],
+    "cluster_errors_count": 0,
+    "noindex_pages": []
+  },
+  "top_linked_pages": [
+    [
+      "ru/index.html",
+      262
+    ],
+    [
+      "en/index.html",
+      261
+    ],
+    [
+      "en/free-seo-checker.html",
+      157
+    ],
+    [
+      "ru/ai-seo-tools.html",
+      155
+    ],
+    [
+      "ru/free-seo-checker.html",
+      150
+    ],
+    [
+      "en/ai-seo-tools.html",
+      148
+    ],
+    [
+      "ru/about.html",
+      146
+    ],
+    [
+      "en/about.html",
+      142
+    ],
+    [
+      "en/seo-for-dentists.html",
+      104
+    ],
+    [
+      "ru/seo-for-dentists.html",
+      104
+    ],
+    [
+      "ru/ai-seo-learning.html",
+      52
+    ],
+    [
+      "ru/report.html",
+      50
+    ],
+    [
+      "en/ai-seo-learning.html",
+      45
+    ],
+    [
+      "en/report.html",
+      43
+    ],
+    [
+      "en/ai-seo-audit.html",
+      30
+    ],
+    [
+      "ru/ai-seo-audit.html",
+      30
+    ],
+    [
+      "en/ai-radar.html",
+      29
+    ],
+    [
+      "ru/ai-radar.html",
+      29
+    ],
+    [
+      "en/white-label.html",
+      26
+    ],
+    [
+      "en/ai-seo-guide.html",
+      26
+    ]
+  ]
+}

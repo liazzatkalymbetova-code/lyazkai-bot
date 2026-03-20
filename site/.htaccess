@@ -1,0 +1,73 @@
+RewriteEngine On
+
+# 1. Force non-WWW
+RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+
+# 2. Language routing for root (Accept-Language)
+RewriteCond %{REQUEST_URI} ^/$
+RewriteCond %{HTTP:Accept-Language} ^en [NC]
+RewriteRule ^$ /en/ [R=301,L]
+
+RewriteCond %{REQUEST_URI} ^/$
+RewriteRule ^$ /ru/ [R=301,L]
+
+# --- SaaS Pretty URLs & Redirects ---
+# Rewrite /en/scan to /en/scan.html
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(en|ru)/scan$ /$1/scan.html [L]
+RewriteRule ^(en|ru)/report$ /$1/report.html [L]
+
+# Redirect old free-seo-checker to new scan
+RewriteRule ^(en|ru)/free-seo-checker\.html$ /$1/scan.html [R=301,L]
+RewriteRule ^free-seo-checker\.html$ /en/scan.html [R=301,L]
+
+# 3. Explicit File Redirects (Historical -> SaaS structure)
+# Terminology: AI Score -> Visibility Rating
+RewriteRule ^ai-score\.html$ /en/visibility-rating.html [R=301,L]
+RewriteRule ^ru/ai-score\.html$ /ru/visibility-rating.html [R=301,L]
+
+# Terminology: AI Audit -> Visibility Audit
+RewriteRule ^ai-seo-audit\.html$ /en/visibility-audit.html [R=301,L]
+RewriteRule ^ru/ai-seo-audit\.html$ /ru/visibility-audit.html [R=301,L]
+RewriteRule ^ru/audit/ai-seo-audit\.html$ /ru/visibility-audit.html [R=301,L]
+
+# Terminology: AI Radar -> Search Trend Radar
+RewriteRule ^ai-radar\.html$ /en/search-trend-radar.html [R=301,L]
+RewriteRule ^ru/ai-radar\.html$ /ru/search-trend-radar.html [R=301,L]
+RewriteRule ^ru/analytics/ai-radar\.html$ /ru/search-trend-radar.html [R=301,L]
+
+# Terminology: AI Tools -> Digital Tools
+RewriteRule ^ai-seo-tools\.html$ /en/digital-tools.html [R=301,L]
+RewriteRule ^ru/ai-seo-tools\.html$ /ru/digital-tools.html [R=301,L]
+
+# Legacy Pages
+RewriteRule ^ai-seo-for-beginners\.html$ /en/ai-seo-for-beginners.html [R=301,L]
+RewriteRule ^seo-learning\.html$ /en/ai-seo-learning.html [R=301,L]
+RewriteRule ^ai-seo-guide\.html$ /en/ai-seo-guide.html [R=301,L]
+
+# 4. Niche SEO Checker Consolidation (Mass Redirects)
+# 4.1 Extensionless Access Support (Redirects to .html)
+RewriteRule ^ru/seo-checker-for-([^/.]+)/?$ /ru/seo-checker-for-$1.html [R=301,L]
+RewriteRule ^en/seo-checker-for-([^/.]+)/?$ /en/seo-checker-for-$1.html [R=301,L]
+RewriteRule ^seo-checker-for-([^/.]+)/?$ /en/seo-checker-for-$1.html [R=301,L]
+
+# 4.2 Standard Root-to-Subdirectory Redirects
+RewriteRule ^seo-checker-for-(.*)\.html$ /en/seo-checker-for-$1.html [R=301,L]
+RewriteRule ^scan/seo-checker-for-(.*)\.html$ /en/seo-checker-for-$1.html [R=301,L]
+
+# 5. Security: Block access to backups
+RedirectMatch 403 ^/legacy_backup(/.*|$)
+
+# 6. Cache-Control for HTML
+<FilesMatch "\.(html|htm|php)$">
+    Header set Cache-Control "public, no-cache, must-revalidate"
+</FilesMatch>
+
+# Explicitly pass Authorization header to the environment
+RewriteCond %{HTTP:Authorization} ^(.*)
+RewriteRule .* - [e=HTTP_AUTHORIZATION:%1]
+
+# Route all /api requests to the native PHP backend
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^api/(.*)$ api/index.php?path=$1 [QSA,L]

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta content="noindex, nofollow" name="robots"/>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="index, follow" name="robots"/>
+<title data-i18n="report_title">SEO Audit Report</title>
+<link href="/favicon.png" rel="icon" type="image/png"/>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<!-- Styles -->
+<link href="/style.css" rel="stylesheet"/>
+<!-- jsPDF & html2pdf -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<link href="https://infolady.online/en/report.html" rel="canonical"/>
+<!-- Multilingual SEO -->
+<link href="https://infolady.online/report.html" hreflang="en" rel="alternate"/>
+<link href="https://infolady.online/ru/report.html" hreflang="ru" rel="alternate"/>
+<link href="https://infolady.online/report.html" hreflang="x-default" rel="alternate"/>
+<meta content="InfoLady SEO Solutions - Advanced AI monitoring and diagnostic tools for digital transition and topical authority." name="description"/></head>
+<body class="report-body">
+<!-- Controls Bar (Hidden in Print) -->
+<div class="report-controls no-print">
+<div class="container report-controls__inner">
+<div class="report-controls__left">
+<a class="btn btn-secondary btn-sm" data-i18n="btn_back_home" href="/index.html">← Back to Home</a>
+<ul class="pnav__links" role="list">
+<li class="pnav__item"><a class="pnav__trigger" href="/en/digital-tools.html">Digital Tools</a></li>
+<li class="pnav__item"><a class="pnav__trigger" href="/en/visibility-audit.html">Audit</a></li>
+<li class="pnav__item has-dropdown">
+<button class="pnav__trigger" data-i18n="nav_platform">Platform</button>
+<div class="pnav__dropdown">
+<a href="/en/platform.html">Platform Overview</a>
+<a href="/en/visibility-rating.html">Visibility Rating</a>
+<a href="/en/visibility-audit.html">Search Visibility Audit</a>
+<a href="/en/search-trend-radar.html">Search Trend Radar</a>
+<a href="/en/visibility-badge.html">Visibility Badge</a>
+<a href="/en/white-label.html">White Label</a>
+<a href="/en/how-it-works.html">How it Works</a>
+<a href="/en/methodology.html">Methodology</a>
+</div>
+</li>
+<li class="pnav__item"><a class="pnav__trigger" href="/en/ai-seo-learning.html">Learning</a></li>
+</ul>
+<button class="btn btn-ghost btn-sm" data-i18n="btn_edit_branding" id="btnEditBranding">⚙️ White
+                    Label</button>
+</div>
+<div class="report-controls__right">
+<div class="lang-switch">
+<button class="lang-btn" data-lang="ru">RU</button>
+<button class="lang-btn" data-lang="en">EN</button>
+</div>
+<button class="btn btn-primary btn-sm" data-i18n="btn_export_pdf" id="btnExportPdf">📥 Download
+                    PDF</button>
+<button class="btn btn-secondary btn-sm" data-i18n="btn_share_link" id="btnShareLink">🔗 Share
+                    Link</button>
+</div>
+</div>
+</div>
+<!-- A4 Report Container -->
+<div class="report-wrapper">
+<div class="report-page" id="reportContent">
+<!-- Brand Header -->
+<header class="report-header">
+<div class="report-header__agency" id="agencyBrandArea">
+<!-- Injected via JS based on settings -->
+<img alt="Logo" class="report-header__logo" id="agencyLogo" src="/favicon.png"/>
+<div class="report-header__prepared">
+<span data-i18n="prepared_by">Prepared by:</span>
+<strong id="agencyName">InfoLady</strong>
+</div>
+</div>
+<div class="report-header__meta">
+<h1 data-i18n="report_title">SEO Audit Report</h1>
+<div class="report-domain" id="targetDomain">example.com</div>
+<div class="report-date" id="reportDate"></div>
+</div>
+</header>
+<!-- Section: Scores -->
+<div class="report-section report-scores">
+<div class="report-score-card">
+<h3 data-i18n="seo_score">SEO score</h3>
+<div class="score-circle score-circle--green">
+<span class="score-val">92</span>
+</div>
+</div>
+<div class="report-score-card">
+<h3 data-i18n="ai_visibility">AI visibility</h3>
+<div class="score-circle score-circle--yellow">
+<span class="score-val">68</span>
+</div>
+</div>
+</div>
+<!-- Section: Technical Issues -->
+<div class="report-section">
+<h2 class="report-section__title" data-i18n="technical_issues">Technical issues</h2>
+<div class="report-list">
+<div class="report-item report-item--error">
+<span class="report-icon">⚠️</span>
+<div class="report-item__content">
+<strong>Missing H1 Tags on secondary pages</strong>
+<p>Search engines and AI bots may struggle to understand document structure.</p>
+</div>
+
+<div class="footer__cols">
+<div class="footer__col">
+<h5 data-en="Solutions">Solutions</h5>
+<ul role="list">
+<li><a href="/en/seo-industries.html">Industry Guides</a></li>
+<li><a href="/en/ai-seo-guide.html">Action Plan</a></li>
+<li><a href="/en/ai-seo-marketplace.html">Services</a></li>
+</ul>
+</div>
+<div class="footer__col">
+<h5 data-en="Platform">Platform</h5>
+<ul role="list">
+<li><a href="/en/platform.html">Platform Overview</a></li>
+<li><a href="/en/visibility-rating.html">Visibility Rating</a></li>
+<li><a href="/en/visibility-audit.html">Visibility Audit</a></li>
+<li><a href="/en/how-it-works.html">How it Works</a></li>
+<li><a href="/en/methodology.html">Methodology</a></li>
+</ul>
+</div>
+<div class="footer__col">
+<h5 data-en="Information">Information</h5>
+<ul role="list">
+<li><a href="/en/about.html">About</a></li>
+<li><a href="/en/privacy-policy.html">Privacy</a></li>
+<li><a href="/en/terms-of-service.html">Terms</a></li>
+</ul>
+</div>
+</div>
+
+</div>
+<div class="report-item report-item--warning">
+<span class="report-icon">⚡</span>
+<div class="report-item__content">
+<strong>Slow TTFB (Time to First Byte)</strong>
+<p>Server response time is above recommended 200ms.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Section: AI Citations -->
+<div class="report-section">
+<h2 class="report-section__title" data-i18n="ai_citations">AI search citations</h2>
+<div class="report-list">
+<div class="report-item report-item--success">
+<span class="report-icon">🤖</span>
+<div class="report-item__content">
+<strong>ChatGPT Plus (Web Browsing)</strong>
+<p>Site is successfully crawled and referenced in contextual searches.</p>
+</div>
+</div>
+<div class="report-item report-item--warning">
+<span class="report-icon">🔍</span>
+<div class="report-item__content">
+<strong>Google Gemini (SGE)</strong>
+<p>Partial visibility. Missing structured data for clear AI summarization.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Section: Recommendations -->
+<div class="report-section">
+<h2 class="report-section__title" data-i18n="improvement_recs">Improvement recommendations</h2>
+<div class="report-cards">
+<div class="report-card">
+<h4>1. Schema Markup</h4>
+<p>Implement FAQ and Organization schema to boost AI-driven answers.</p>
+</div>
+<div class="report-card">
+<h4>2. Page Speed</h4>
+<p>Optimize large uncompressed images on the homepage.</p>
+</div>
+<div class="report-card">
+<h4>3. Content Depth</h4>
+<p>Expand service descriptions to provide richer context for Perplexity and Gemini.</p>
+</div>
+</div>
+</div>
+<footer class="report-footer">
+<p><span data-i18n="report_generated_by">Report generated automatically</span> — <span id="footerDomain">example.com</span></p>
+</footer>
+</div>
+</div>
+<!-- White Label Settings Modal -->
+<div class="modal" hidden="" id="wlModal">
+<div class="modal__overlay" id="wlOverlay"></div>
+<div class="modal__content">
+<div class="modal__header">
+<h3 data-i18n="wl_settings">White-Label Settings</h3>
+<button class="modal__close" id="wlClose">✕</button>
+</div>
+<div class="modal__body">
+<div class="form-group">
+<label data-i18n="wl_agency_name">Agency Name</label>
+<input id="wlAgencyNameInput" placeholder="My SEO Agency" type="text"/>
+</div>
+<div class="form-group">
+<label data-i18n="wl_agency_logo">Agency Logo URL / Base64</label>
+<input id="wlAgencyLogoInput" placeholder="https://..." type="text"/>
+</div>
+<div class="form-group">
+<label data-i18n="wl_plan">Plan</label>
+<select id="wlPlanSelect">
+<option data-i18n="plan_free" value="free">Free</option>
+<option data-i18n="plan_pro" value="pro">Pro</option>
+<option data-i18n="plan_agency" value="agency">Agency</option>
+</select>
+</div>
+<button class="btn btn-primary btn-block mt-16" data-i18n="btn_save" id="wlSaveBtn">Save
+                    Settings</button>
+</div>
+</div>
+</div>
+<script defer="" src="/script.js"></script>
+<script defer="" src="/report-app.js"></script>
+</body>
+</html>

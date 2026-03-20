@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link href="/favicon.png" rel="icon" type="image/png"/>
+<link href="/favicon.png" rel="shortcut icon"/>
+<link href="/favicon.png" rel="apple-touch-icon"/>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Dashboard — InfoLady AI SEO Platform</title>
+<meta content="index, follow" name="robots"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="/style.css" rel="stylesheet"/>
+<link href="https://infolady.online/platform/dashboard.html" rel="canonical"/>
+<!-- Multilingual SEO -->
+<link href="https://infolady.online/platform/dashboard.html" hreflang="en" rel="alternate"/>
+<link href="https://infolady.online/platform/dashboard-ru.html" hreflang="ru" rel="alternate"/>
+<link href="https://infolady.online/platform/dashboard.html" hreflang="x-default" rel="alternate"/>
+<meta content="InfoLady SEO Solutions - Advanced AI monitoring and diagnostic tools for digital transition and topical authority." name="description"/></head>
+<body class="dashboard-body">
+<div class="dashboard-layout">
+<!-- Sidebar Navigation -->
+<aside class="dash-sidebar">
+<div class="dash-sidebar__inner">
+<a class="dash-logo" href="/index.html">Info<span>Lady</span></a>
+<ul class="pnav__links" role="list">
+<li class="pnav__item"><a class="pnav__trigger" href="/en/digital-tools.html">Digital Tools</a></li>
+<li class="pnav__item"><a class="pnav__trigger" href="/en/visibility-audit.html">Audit</a></li>
+<li class="pnav__item has-dropdown">
+<button class="pnav__trigger" data-i18n="nav_platform">Platform</button>
+<div class="pnav__dropdown">
+<a href="/en/platform.html">Platform Overview</a>
+<a href="/en/visibility-rating.html">Visibility Rating</a>
+<a href="/en/visibility-audit.html">Search Visibility Audit</a>
+<a href="/en/search-trend-radar.html">Search Trend Radar</a>
+<a href="/en/visibility-badge.html">Visibility Badge</a>
+<a href="/en/white-label.html">White Label</a>
+<a href="/en/how-it-works.html">How it Works</a>
+<a href="/en/methodology.html">Methodology</a>
+</div>
+</li>
+<li class="pnav__item"><a class="pnav__trigger" href="/en/ai-seo-learning.html">Learning</a></li>
+</ul>
+<nav class="dash-nav">
+<button class="dash-nav-item active" data-view="overview">
+<span class="icon">📊</span> <span data-i18n="nav_overview">Overview</span>
+</button>
+<button class="dash-nav-item" data-view="websites">
+<span class="icon">🌐</span> <span data-i18n="nav_websites">My Websites</span>
+</button>
+<button class="dash-nav-item" data-view="reports">
+<span class="icon">📄</span> <span data-i18n="nav_reports">Audit Reports</span>
+</button>
+<button class="dash-nav-item" data-view="insights">
+<span class="icon">🤖</span> <span data-i18n="nav_insights">AI Insights</span>
+</button>
+<button class="dash-nav-item" data-view="settings">
+<span class="icon">⚙️</span> <span data-i18n="nav_settings">Account Settings</span>
+</button>
+</nav>
+<div class="dash-sidebar__bottom">
+<div class="lang-switch" style="display:flex; justify-content: center; gap: 4px; margin-bottom: 24px;">
+<button class="lang-btn active" data-lang="ru" style="font-size: 0.75rem; padding: 4px 12px; border-radius: 4px; border: 1px solid var(--border); background: var(--bg-card); color: var(--text-muted); cursor: pointer;">RU</button>
+<button class="lang-btn" data-lang="en" style="font-size: 0.75rem; padding: 4px 12px; border-radius: 4px; border: 1px solid transparent; background: transparent; color: var(--text-muted); cursor: pointer;">EN</button>
+</div>
+<div class="dash-user">
+<div class="dash-user__avatar" id="dashInitial">U</div>
+<div class="dash-user__info">
+<div class="dash-user__name" id="dashName">Loading...</div>
+<div class="dash-user__plan" id="dashPlanLabel">Free Plan</div>
+</div>
+</div>
+<button class="btn btn-ghost btn-block" data-i18n="btn_logout" onclick="handleLogout()" style="margin-top: 12px; font-size: .8rem; padding: 8px;">Logout</button>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="dash-main">
+<header class="dash-header">
+<h1 data-i18n="nav_overview" id="viewTitle">Overview</h1>
+<div class="dash-header__actions">
+<a class="btn btn-primary btn-sm" data-i18n="btn_new_scan" href="/en/free-seo-checker.html">+ New
+                        Scan</a>
+</div>
+</header>
+<div class="dash-content">
+<!-- View: Overview -->
+<div class="view-panel active" id="view-overview">
+<div class="metrics-grid">
+<div class="metric-card">
+<div class="metric-value" id="statSites">0</div>
+<div class="metric-label" data-i18n="stat_sites">Tracked Websites</div>
+</div>
+<div class="metric-card">
+<div class="metric-value" id="statScans" style="color:var(--accent-secondary);">0</div>
+<div class="metric-label" data-i18n="stat_scans">Total Scans Run</div>
+</div>
+<div class="metric-card">
+<div class="metric-value" id="statAvgScore" style="color:var(--accent-primary);">0</div>
+<div class="metric-label" data-i18n="stat_avg">Average SEO Score</div>
+</div>
+</div>
+<h3 data-i18n="title_recent_activity" style="margin-top: 40px; margin-bottom: 16px;">Recent Activity
+                    </h3>
+<div class="dash-table-wrapper">
+<table class="dash-table" id="recentActivityTable">
+<thead>
+<tr>
+<th data-i18n="col_domain">Domain</th>
+<th data-i18n="col_score">SEO Score</th>
+<th data-i18n="col_date">Date</th>
+<th data-i18n="col_action">Action</th>
+</tr>
+</thead>
+<tbody>
+<!-- JS Populated -->
+</tbody>
+</table>
+<div class="empty-state" id="emptyActivity" style="display: none;">
+<span style="font-size:2rem;">📭</span>
+<p data-i18n="empty_activity">No scans run yet.</p>
+<a class="btn btn-secondary btn-sm" data-i18n="btn_run_first" href="/en/free-seo-checker.html" style="margin-top: 12px;">Run your first scan</a>
+</div>
+</div>
+</div>
+<!-- View: My Websites -->
+<div class="view-panel" id="view-websites">
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+<h3 data-i18n="title_manage_sites">Manage Websites</h3>
+<button class="btn btn-secondary btn-sm" data-i18n="btn_add_site" onclick="showAddSiteModal()">+
+                            Add Website</button>
+</div>
+<div class="dash-table-wrapper">
+<table class="dash-table" id="sitesTable">
+<thead>
+<tr>
+<th data-i18n="col_domain">Domain</th>
+<th data-i18n="col_added">Added On</th>
+<th data-i18n="col_action">Action</th>
+</tr>
+</thead>
+<tbody>
+<!-- JS Populated -->
+</tbody>
+</table>
+<div class="empty-state" id="emptySites" style="display: none;">
+<span style="font-size:2rem;">🌐</span>
+<p data-i18n="empty_sites">No websites added to your tracking list.</p>
+</div>
+
+<div class="footer__cols">
+<div class="footer__col">
+<h5 data-en="Solutions">Solutions</h5>
+<ul role="list">
+<li><a href="/en/seo-industries.html">Industry Guides</a></li>
+<li><a href="/en/ai-seo-guide.html">Action Plan</a></li>
+<li><a href="/en/ai-seo-marketplace.html">Services</a></li>
+</ul>
+</div>
+<div class="footer__col">
+<h5 data-en="Platform">Platform</h5>
+<ul role="list">
+<li><a href="/en/platform.html">Platform Overview</a></li>
+<li><a href="/en/visibility-rating.html">Visibility Rating</a></li>
+<li><a href="/en/visibility-audit.html">Visibility Audit</a></li>
+<li><a href="/en/how-it-works.html">How it Works</a></li>
+<li><a href="/en/methodology.html">Methodology</a></li>
+</ul>
+</div>
+<div class="footer__col">
+<h5 data-en="Information">Information</h5>
+<ul role="list">
+<li><a href="/en/about.html">About</a></li>
+<li><a href="/en/privacy-policy.html">Privacy</a></li>
+<li><a href="/en/terms-of-service.html">Terms</a></li>
+</ul>
+</div>
+</div>
+
+</div>
+</div>
+<!-- View: Audit Reports -->
+<div class="view-panel" id="view-reports">
+<h3 data-i18n="title_scan_history" style="margin-bottom: 24px;">Scan History</h3>
+<div class="dash-table-wrapper">
+<table class="dash-table" id="reportsTable">
+<thead>
+<tr>
+<th data-i18n="col_domain">Domain</th>
+<th data-i18n="col_score_seo">SEO</th>
+<th data-i18n="col_score_ai">AI Visibility</th>
+<th data-i18n="col_score_tech">Tech</th>
+<th data-i18n="col_date">Date</th>
+<th data-i18n="col_action">Action</th>
+</tr>
+</thead>
+<tbody>
+<!-- JS Populated -->
+</tbody>
+</table>
+<div class="empty-state" id="emptyReports" style="display: none;">
+<span style="font-size:2rem;">📊</span>
+<p data-i18n="empty_reports">You have not generated any reports yet.</p>
+</div>
+</div>
+</div>
+<!-- View: AI Insights -->
+<div class="view-panel" id="view-insights">
+<div class="empty-state" style="padding: 60px 0;">
+<span style="font-size:3rem;">🧠</span>
+<h3 data-i18n="insights_title" style="margin: 16px 0 8px;">AI Competitor Insights</h3>
+<p data-i18n="insights_sub" style="color:var(--text-muted); max-width: 400px; margin: 0 auto 24px;">Pro users unlock deep entity mapping and query gap analysis for
+                            tracked domains.</p>
+<a class="btn btn-primary" data-i18n="btn_upgrade_pro" href="/audit/visibility-audit.html#pricing">Upgrade to Pro</a>
+</div>
+</div>
+<!-- View: Account Settings -->
+<div class="view-panel" id="view-settings">
+<div class="settings-card">
+<h4 data-i18n="settings_profile">Profile Information</h4>
+<div class="form-group" style="margin-top: 16px;">
+<label data-i18n="lbl_name">Full Name</label>
+<input class="dash-input" disabled="" id="setProfileName" type="text"/>
+</div>
+<div class="form-group">
+<label data-i18n="lbl_email">Email Address</label>
+<input class="dash-input" disabled="" id="setProfileEmail" type="email"/>
+</div>
+<div style="border-top: 1px solid var(--border); margin: 32px 0;"></div>
+<h4 data-i18n="settings_plan" style="margin-bottom: 16px;">Current Plan</h4>
+<div style="background: rgba(255,255,255,0.03); padding: 20px; border-radius: 8px; border: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
+<div>
+<strong id="setCurrentPlan" style="font-size: 1.2rem; color: var(--accent-secondary);">Free Plan</strong>
+<p data-i18n="plan_limit_1" id="setPlanLimit" style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">Limit: 1 Website</p>
+</div>
+<a class="btn btn-ghost btn-sm" data-i18n="btn_upgrade" href="/audit/visibility-audit.html#pricing">Upgrade Plan</a>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- Modals -->
+<div class="dash-modal" hidden="" id="addSiteModal">
+<div class="dash-modal__overlay" onclick="closeDashModals()"></div>
+<div class="dash-modal__content">
+<div class="dash-modal__header">
+<h3 data-i18n="modal_add_title">Add New Website</h3>
+<button class="dash-modal__close" onclick="closeDashModals()">✕</button>
+</div>
+<div class="dash-modal__body">
+<div class="auth-error" data-i18n="err_limit" id="addSiteError" style="display:none;">Website limit
+                    reached! Upgrade your plan.</div>
+<div class="form-group">
+<label data-i18n="col_domain">Domain</label>
+<input class="dash-input" id="addSiteInput" placeholder="example.com" type="text"/>
+</div>
+<button class="btn btn-primary btn-block" data-i18n="btn_add_site_confirm" onclick="submitAddSite()">Add
+                    Website</button>
+</div>
+</div>
+</div>
+<script src="/dashboard-app.js"></script>
+<script defer="" src="/lead-capture.js"></script>
+<script defer="" src="/leads-app.js"></script>
+</body>
+</html>

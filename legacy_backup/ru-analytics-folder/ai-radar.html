@@ -1,0 +1,482 @@
+<html lang="ru">
+<head>
+<link href="/favicon.png" rel="icon" type="image/png"/>
+<link href="/favicon.png" rel="shortcut icon"/>
+<link href="/favicon.png" rel="apple-touch-icon"/>
+<meta charset="utf-8"/>
+<meta content="index, follow" name="robots"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title data-en="ИИ Radar — Track Brand Visibility in ИИ Search" data-ru="ИИ Радар — Отслеживайте упоминания вашего бренда">ИИ Радар — Отслеживайте отзывы о вашем бренде</title>
+<meta content="Отслеживайте, как часто ваш бренд появляется в результатах поиска ИИ от ChatGPT, Google ИИ и Perplexity. Отслеживайте видимость, упоминания и частоту цитирования." name="description"/>
+<meta content="ИИ visibility tracking, brand mentions ИИ, ChatGPT citations, Google ИИ visibility, ИИ search monitoring, brand awareness ИИ" name="keywords"/>
+<meta content="InfoLady" name="author"/>
+<meta content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" name="robots"/>
+<!-- Open Graph -->
+<meta content="website" property="og:type"/>
+<meta content="https://infolady.online/analytics/search-trend-radar.html" property="og:url"/>
+<meta content="ИИ Radar — отслеживайте видимость бренда в поиске ИИ" property="og:title"/>
+<meta content="Посмотрите, как часто ваш бренд появляется в ответах ИИ. Контролируйте присутствие искусственного интеллекта во всех основных моделях." property="og:description"/>
+<meta content="https://infolady.online/og-image.jpg" property="og:image"/>
+<meta content="ru_RU" property="og:locale"/>
+<meta content="InfoLady" property="og:site_name"/>
+<!-- Twitter Card -->
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="ИИ Радар | Отслеживайте видимость ИИ" name="twitter:title"/>
+<meta content="Отслеживайте видимость и цитируемость вашего бренда в поисковых системах искусственного интеллекта, таких как ChatGPT и Google ИИ." name="twitter:description"/>
+<meta content="https://infolady.online/og-image.jpg" name="twitter:image"/>
+<!-- ИИ Discovery / GEO -->
+<meta content="ИИ brand visibility tracker and mention monitor" name="ai-content"/>
+<meta content="InfoLady ИИ Radar tracks brand presence across ИИ search engines, providing metrics on visibility scores, mention frequency, and citation rates for any domain." name="ai-summary"/>
+<meta content="ИИ Monitoring, Brand Tracking, SEO Analytics, GEO Tools" name="ai-category"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="/style.css" rel="stylesheet"/>
+<script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "InfoLady ИИ Radar",
+      "url": "https://infolady.online/analytics/search-trend-radar.html",
+      "applicationCategory": "SEOApplication",
+      "operatingSystem": "Web",
+      "description": "Track your brand visibility in ИИ search engines like ChatGPT and Google ИИ.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+    </script>
+<style>
+        .radar-svg {
+            max-width: 320px;
+            margin: 0 auto;
+            display: block;
+        }
+
+        .radar-polygon {
+            fill: rgba(124, 92, 255, .2);
+            stroke: rgba(124, 92, 255, .7);
+            stroke-width: 2;
+            transition: all 1.2s ease;
+        }
+
+        .radar-grid {
+            fill: none;
+            stroke: rgba(255, 255, 255, .08);
+            stroke-width: 1;
+        }
+
+        .radar-axis {
+            stroke: rgba(255, 255, 255, .12);
+            stroke-width: 1;
+        }
+
+        .radar-point {
+            fill: var(--accent-primary);
+        }
+
+        .radar-label-text {
+            fill: var(--text-muted);
+            font-size: 11px;
+            font-family: Inter, sans-serif;
+        }
+
+        /* Payment Buttons styling */
+        .payment-btns {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .kaspi-pay {
+            background: #E60023;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: transform 0.2s;
+        }
+
+        .kaspi-pay:hover {
+            transform: translateY(-2px);
+            color: white;
+        }
+
+        .paypal-pay {
+            background: #0070BA;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: transform 0.2s;
+        }
+
+        .paypal-pay:hover {
+            transform: translateY(-2px);
+            color: white;
+        }
+    </style>
+<!-- Multilingual SEO -->
+    <link rel="canonical" href="https://infolady.online/ru/analytics/search-trend-radar.html" />
+    <link rel="alternate" hreflang="en" href="https://infolady.online/en/analytics/search-trend-radar.html" />
+    <link rel="alternate" hreflang="ru" href="https://infolady.online/ru/analytics/search-trend-radar.html" />
+    <link rel="alternate" hreflang="x-default" href="https://infolady.online/analytics/search-trend-radar.html" />
+</head>
+<!-- ══════════════════════════ NAV ══════════════════════════ -->
+<header>
+<nav class="nav platform-nav" role="navigation">
+<div class="container">
+<div class="nav__inner">
+<a class="nav__logo" href="/ru/">InfoLady</a>
+<ul class="pnav__links" role="list">
+<li class="pnav__item"><a class="pnav__trigger" href="/en/digital-tools.html">Digital Tools</a></li>
+<li class="pnav__item"><a class="pnav__trigger" href="/en/visibility-audit.html">Audit</a></li>
+<li class="pnav__item has-dropdown">
+<button class="pnav__trigger" data-i18n="nav_platform">Platform</button>
+<div class="pnav__dropdown">
+<a href="/en/platform.html">Platform Overview</a>
+<a href="/en/visibility-rating.html">Visibility Rating</a>
+<a href="/en/visibility-audit.html">Search Visibility Audit</a>
+<a href="/en/search-trend-radar.html">Search Trend Radar</a>
+<a href="/en/visibility-badge.html">Visibility Badge</a>
+<a href="/en/white-label.html">White Label</a>
+<a href="/en/how-it-works.html">How it Works</a>
+<a href="/en/methodology.html">Methodology</a>
+</div>
+</li>
+<li class="pnav__item"><a class="pnav__trigger" href="/en/ai-seo-learning.html">Learning</a></li>
+</ul>
+<div class="pnav__right">
+<div class="lang-switch">
+<button class="lang-btn active" data-lang="ru">RU</button>
+<button class="lang-btn" onclick="location.href='/en/analytics/search-trend-radar.html'" data-lang="en">EN</button>
+</div>
+<a class="btn btn-primary btn-sm" data-en="Free Scan" data-ru="Бесплатный анализ" href="/ru/free-seo-checker.html">Бесплатный анализ</a>
+</div>
+<button aria-controls="mobileDrawer" aria-expanded="false" aria-label="Open menu" class="nav__burger">
+<span></span><span></span><span></span>
+</button>
+</div>
+<nav class="pnav__mobile" hidden="" id="mobileDrawer">
+<div class="pnav__mobile-section">
+<a class="pnav__mobile-section-trigger" data-en="Free Scan" data-ru="Сканер" href="/ru/free-seo-checker.html">Сканер</a>
+</div>
+<div class="pnav__mobile-section">
+<a class="pnav__mobile-section-trigger" data-en="ИИ Tools" data-ru="ИИ Инструменты" href="/ru/tools/digital-tools.html">Инструменты ИИ</a>
+</div>
+<div class="pnav__mobile-section">
+<a class="pnav__mobile-section-trigger" data-en="ИИ Radar" data-ru="ИИ Радар" href="/ru/analytics/search-trend-radar.html">ИИ Радар</a>
+</div>
+<div class="pnav__mobile-section">
+<a class="pnav__mobile-section-trigger" data-en="ИИ Audit" data-ru="ИИ Аудит" href="/ru/audit/visibility-audit.html">ИИ Аудит</a>
+</div>
+<div class="pnav__mobile-section">
+<a class="pnav__mobile-section-trigger" data-en="Pricing" data-ru="Цены" href="/ru/audit/visibility-audit.html#pricing">Цены</a>
+</div>
+<div class="pnav__mobile-bottom">
+<button class="pnav__mobile-section-trigger" data-en="Learning" data-ru="Обучение">Обучение</button>
+<div class="pnav__mobile-section-links">
+<a data-en="Courses" data-ru="Курсы" href="/ru/platform/ai-seo-learning.html">Курсы</a>
+<a data-en="ИИ SEO Guide" data-ru="ИИ SEO Гайд" href="/ru/platform/ai-seo-guide.html">ИИ SEO Гайд</a>
+</div>
+</div>
+<div class="pnav__mobile-section">
+<button class="pnav__mobile-section-trigger" data-en="Platform" data-ru="Платформа">Платформа</button>
+<div class="pnav__mobile-section-links">
+<a data-en="ИИ Score" data-ru="ИИ Оценка" href="/ru/analytics/visibility-badge.html">ИИ-оценка</a>
+<a href="/ru/platform/white-label.html">Белая этикетка</a>
+</div>
+</div>
+<div class="pnav__mobile-section">
+<a class="pnav__mobile-section-trigger" data-en="About" data-ru="О проекте" href="/ru/about.html" style="display:block; width:100%; text-align:left;">О проекте</a>
+</div>
+<div class="pnav__mobile-bottom">
+<div class="lang-switch">
+<button class="lang-btn active" data-lang="ru">RU</button>
+<button class="lang-btn" onclick="location.href='/en/analytics/search-trend-radar.html'" data-lang="en">EN</button>
+</div>
+<a class="btn btn-primary btn-sm" data-en="Free Scan" data-ru="Бесплатный анализ" href="/ru/free-seo-checker.html">Бесплатный анализ</a>
+</div>
+</nav>
+</div>
+</nav>
+</header>
+<main>
+<section aria-labelledby="radarHeroTitle" class="page-hero">
+<div aria-hidden="true" class="hero__bg-orb hero__bg-orb--1"></div>
+<div aria-hidden="true" class="hero__bg-orb hero__bg-orb--2"></div>
+<div class="container">
+<div class="page-hero__inner">
+<span class="section-label section-label--glow">Бренд Монитор</span>
+<h1 data-en="Track Your Brand Visibility in ИИ Search" data-ru="Отслеживайте упоминания вашего бренда в ИИ поиске" id="radarHeroTitle">Отслеживайте отзывы о вашем бренде в ИИ-поиске</h1>
+<p class="lead" data-en="See how often your brand appears in ИИ answers from ChatGPT, Google ИИ and other ИИ search engines." data-ru="Проверьте, как часто ваш бренд появляется в ответах ИИ систем, таких как ChatGPT и Google ИИ.">Проверьте, как часто ваш бренд появляется в ответах систем искусственного интеллекта, таких как ChatGPT и Google ИИ.</p>
+</div>
+
+<div class="footer__cols">
+<div class="footer__col">
+<h5 data-en="Solutions">Solutions</h5>
+<ul role="list">
+<li><a href="/en/seo-industries.html">Industry Guides</a></li>
+<li><a href="/en/ai-seo-guide.html">Action Plan</a></li>
+<li><a href="/en/ai-seo-marketplace.html">Services</a></li>
+</ul>
+</div>
+<div class="footer__col">
+<h5 data-en="Platform">Platform</h5>
+<ul role="list">
+<li><a href="/en/platform.html">Platform Overview</a></li>
+<li><a href="/en/visibility-rating.html">Visibility Rating</a></li>
+<li><a href="/en/visibility-audit.html">Visibility Audit</a></li>
+<li><a href="/en/how-it-works.html">How it Works</a></li>
+<li><a href="/en/methodology.html">Methodology</a></li>
+</ul>
+</div>
+<div class="footer__col">
+<h5 data-en="Information">Information</h5>
+<ul role="list">
+<li><a href="/en/about.html">About</a></li>
+<li><a href="/en/privacy-policy.html">Privacy</a></li>
+<li><a href="/en/terms-of-service.html">Terms</a></li>
+</ul>
+</div>
+</div>
+
+</div>
+</section>
+<section aria-labelledby="radarToolTitle" class="section section--tinted">
+<div class="container">
+<div class="tool-box">
+<div class="tool-box__label">ИИ Радар</div>
+<h2 data-en="Analyze Brand Mentions" data-ru="Анализ упоминаний бренда" id="radarToolTitle">Анализ упоминаний бренда</h2>
+<p data-en="Enter your domain to track your ИИ search occupancy and citations." data-ru="Введите ваш домен, чтобы отследить присутствие и цитируемость в ИИ поиске.">Введите свой домен, чтобы отслеживать присутствие и цитируемость в поиске ИИ.</p>
+<div class="input-cta-row">
+<input aria-label="Domain" data-en-placeholder="yourdomain.com" data-ru-placeholder="vashdomen.com" id="radarUrl" placeholder="вашдомен.com" type="text"/>
+<button class="btn btn-primary" data-en="Scan ИИ Visibility" data-ru="Проверить ИИ видимость" onclick="runRadar()">Посмотреть видимость ИИ</button>
+</div>
+<div class="loading-block" id="radarLoading">
+<div class="spinner"></div>
+<p data-en="Monitoring ИИ search engines..." data-ru="Мониторинг ИИ поисковиков..." style="margin-top:14px;">Мониторинг ИИ поисковиков...</p>
+</div>
+<div class="results-block" id="radarResults" style="text-align:center;">
+<h3 data-en="Your Brand ИИ Visibility Report" data-ru="Отчет об ИИ-видимости вашего бренда" style="margin-bottom:20px;">Отчет об ИИ-видимости вашего бренда</h3>
+<!-- New Metrics Row -->
+<div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 16px; margin-bottom: 30px;">
+<div style="background: rgba(255,255,255,0.03); padding: 20px; border-radius: 16px; border: 1px solid var(--border);">
+<div data-en="ИИ Visibility Score" data-ru="ИИ Visibility Score" style="font-size: 0.8rem; color: var(--text-dim); margin-bottom: 8px;">Оценка видимости ИИ</div>
+<div id="resScore" style="font-size: 2rem; font-weight: 700; color: var(--accent-primary);">
+                                74%</div>
+</div>
+<div style="background: rgba(255,255,255,0.03); padding: 20px; border-radius: 16px; border: 1px solid var(--border);">
+<div data-en="ИИ Mentions" data-ru="ИИ упоминания" style="font-size: 0.8rem; color: var(--text-dim); margin-bottom: 8px;">ИИ воспоминания</div>
+<div id="resMentions" style="font-size: 2rem; font-weight: 700; color: var(--accent-secondary);">1,2 тыс.</div>
+</div>
+<div style="background: rgba(255,255,255,0.03); padding: 20px; border-radius: 16px; border: 1px solid var(--border);">
+<div data-en="Citation Frequency" data-ru="Частота цитирования" style="font-size: 0.8rem; color: var(--text-dim); margin-bottom: 8px;">Частота цитирования</div>
+<div id="resCitations" style="font-size: 2rem; font-weight: 700; color: var(--accent-tertiary);">0.85</div>
+</div>
+</div>
+<svg aria-label="ИИ Visibility Radar Chart" class="radar-svg" viewbox="0 0 300 300">
+<!-- Grid rings -->
+<polygon class="radar-grid" points="150,60 224,105 224,195 150,240 76,195 76,105"></polygon>
+<polygon class="radar-grid" points="150,90 207,120 207,180 150,210 93,180 93,120"></polygon>
+<polygon class="radar-grid" points="150,120 190,135 190,165 150,180 110,165 110,135"></polygon>
+<!-- Axes -->
+<line class="radar-axis" x1="150" x2="150" y1="60" y2="150"></line>
+<line class="radar-axis" x1="224" x2="150" y1="105" y2="150"></line>
+<line class="radar-axis" x1="224" x2="150" y1="195" y2="150"></line>
+<line class="radar-axis" x1="150" x2="150" y1="240" y2="150"></line>
+<line class="radar-axis" x1="76" x2="150" y1="195" y2="150"></line>
+<line class="radar-axis" x1="76" x2="150" y1="105" y2="150"></line>
+<!-- Data polygon -->
+<polygon class="radar-polygon" id="radarPolygon" points="150,135 196,128 207,175 150,225 110,168 100,120" style="opacity:0;transition:opacity 1s ease;"></polygon>
+<!-- Labels -->
+<text class="radar-label-text" data-en="ChatGPT" data-ru="ChatGPT" text-anchor="middle" x="150" y="52">ChatGPT</text>
+<text class="radar-label-text" data-en="Google ИИ" data-ru="Google ИИ" text-anchor="start" x="238" y="103">Google ИИ</text>
+<text class="radar-label-text" data-en="Perplexity" data-ru="Perplexity" text-anchor="start" x="238" y="200">Растерянность</text>
+<text class="radar-label-text" data-en="Claude" data-ru="Claude" text-anchor="middle" x="150" y="258">Клод</text>
+<text class="radar-label-text" data-en="Gemini" data-ru="Gemini" text-anchor="end" x="62" y="200">Близнецы</text>
+<text class="radar-label-text" data-en="Bing ИИ" data-ru="Bing ИИ" text-anchor="end" x="62" y="103">Бинг ИИ</text>
+</svg>
+<div style="margin-top: 40px; padding: 30px; background: rgba(124, 92, 255, 0.05); border-radius: 20px; border: 1px solid rgba(124, 92, 255, 0.2);">
+<h4 data-en="Improve your ИИ visibility with a full ИИ SEO audit" data-ru="Улучшите свою ИИ видимость с помощью полного ИИ SEO аудита" style="margin-bottom: 12px;">Улучшите свою видимость ИИ с помощью полного ИИ SEO-аудита</h4>
+<p data-en="Get detailed recommendations on how to rank higher in ИИ research and increase brand authority." data-ru="Получите подробные рекомендации о том, как занять более высокие позиции в ИИ поиске и повысить авторитет бренда." style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 24px;">Получите подробные рекомендации о том, как занять более высокие позиции в поиске ИИ и повысить авторитет бренда.</p>
+<div class="payment-btns">
+<a class="kaspi-pay" href="https://pay.kaspi.kz/pay/fpquqhbx" target="_blank">
+                                💳 <span data-en="Pay with Kaspi (42,000 ₸)" data-ru="Оплатить через Kaspi (42 000 ₸)">Оплатить через Каспи (42 000 ₸)</span>
+</a>
+<a class="paypal-pay" href="https://paypal.me/infolady" target="_blank">
+                                🌍 <span data-en="Pay with PayPal ($99)" data-ru="Оплатить через PayPal ($99)">Оплатить через PayPal ($99)</span>
+</a>
+</div>
+</div>
+<div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:30px;">
+<a class="btn btn-primary" data-en="Learn More About Audit" data-ru="Подробнее об аудите" href="/ru/audit/visibility-audit.html">Подробнее об аудите</a>
+<button class="btn btn-ghost" data-en="New Scan" data-ru="Новый поиск" onclick="location.reload()">Новый поиск</button>
+</div>
+</div>
+<!-- Lead Capture CTA -->
+<section class="section section--tinted lead-cta-section" style="margin-top: 40px; border-radius: 16px; border: 1px solid var(--border); background: var(--bg-card); padding: 40px; text-align: center;">
+<h2 data-en="Need help fixing your SEO?" data-ru="Нужна помощь с SEO?" style="margin-bottom: 12px;">Нужна помощь с SEO?</h2>
+<p data-en="Your website has issues that may affect your search visibility. Get a free SEO consultation from professionals." data-ru="Мы обнаружили проблемы, которые могут снижать видимость сайта в поиске. Получите бесплатную консультацию SEO-специалиста." style="color: var(--text-muted); margin-bottom: 24px; max-width: 600px; margin-left: auto; margin-right: auto;">Мы обнаружили проблемы, которые могут снизить видимость сайта в поиске. Получите бесплатную консультацию SEO-специалиста.</p>
+<button class="btn btn-primary lead-cta-trigger" data-en="Get SEO Help" data-ru="Получить помощь SEO" style="font-size: 1.1rem; padding: 14px 28px;">Получить SEO-помощь</button>
+</section>
+</div>
+</div>
+</section>
+<section aria-labelledby="radarDimsTitle" class="section">
+<div class="container">
+<div class="section-header"><span class="section-label" data-en="6 Visibility Factors" data-ru="6 факторов видимости">6 фактор внешний</span>
+<h2 data-en="How We Measure Your ИИ Presence" data-ru="Как мы измеряем ваше присутствие в ИИ" id="radarDimsTitle">Как мы измеряем ваше присутствие в ИИ</h2>
+</div>
+<div class="feature-grid">
+<div class="feature-card fade-up">
+<div class="feature-card__icon">📋</div>
+<h3 data-en="Semantic Data" data-ru="Семантические данные">Семантические данные</h3>
+<p data-en="Structured data that allows ИИ models to parse your brand facts accurately." data-ru="Структурированные данные, позволяющие ИИ моделям точно парсить факты о вашем бренде.">Структурированные данные позволяют модели искусственного интеллекта точно анализировать факты о вашем бренде.</p>
+</div>
+<div class="feature-card fade-up">
+<div class="feature-card__icon">✍️</div>
+<h3 data-en="Content Authority" data-ru="Авторитетность контента">Авторитетность контента</h3>
+<p data-en="The depth and expertise of your content that drives ИИ citations." data-ru="Глубина и экспертность вашего контента, которые стимулируют упоминания в ИИ.">Глубина и экспертность вашего контента, которые стимулируют упоминания об искусственном интеллекте.</p>
+</div>
+<div class="feature-card fade-up">
+<div class="feature-card__icon">🤖</div>
+<h3 data-en="Model Alignment" data-ru="Соответствие моделям">Соответствие модели</h3>
+<p data-en="How well your technical SEO aligns with LLM training datasets." data-ru="Насколько хорошо ваше техническое SEO соответствует наборам данных для обучения LLM.">Насколько хорошо ваше техническое SEO соответствует наборам данных для обучения LLM.</p>
+</div>
+<div class="feature-card fade-up">
+<div class="feature-card__icon">⚡</div>
+<h3 data-en="Response Quality" data-ru="Качество ответов">Качество ответов</h3>
+<p data-en="Performance factors that influence the speed of ИИ content retrieval." data-ru="Факторы производительности, влияющие на скорость извлечения контента для ИИ.">Факторы производительности, влияющие на скорость извлечения контента для ИИ.</p>
+</div>
+<div class="feature-card fade-up">
+<div class="feature-card__icon">🏅</div>
+<h3 data-en="Brand Trust" data-ru="Доверие к бренду">Доверие к бренду</h3>
+<p data-en="Authority signals from across the web that ИИ uses to verify facts." data-ru="Сигналы авторитетности из сети, которые ИИ использует для проверки фактов.">Сигналы достоверности из сети, которые ИИ использует для проверки фактов.</p>
+</div>
+<div class="feature-card fade-up">
+<div class="feature-card__icon">📱</div>
+<h3 data-en="Accessibility" data-ru="Доступность">Доступность</h3>
+<p data-en="Layout stability and mobile indexing for seamless ИИ crawler access." data-ru="Стабильность верстки и мобильная индексация для беспрепятственного доступа краулеров ИИ.">Стабильность верстки и мобильная индексация для беспрепятственного доступа краулеров ИИ.</p>
+</div>
+</div>
+</div>
+</section>
+<section class="cta-section">
+<div aria-hidden="true" class="cta-section__glow"></div>
+<div class="container">
+<h2>Превратите данные радара в результаты</h2>
+<p>Получите профессиональный план действий по улучшению каждого аспекта радара</p>
+<div class="cta-section__actions"><a class="btn btn-ghost btn-lg" href="/ru/analytics/ai-market-map.html">🗺️
+                    Рынок
+                    Карта</a><a class="btn btn-primary btn-lg" href="/ru/audit/visibility-audit.html">📊 Полный аудит →</a></div>
+</div>
+</section>
+<!-- ════════════ INTERLINKING BLOCK ════════════ -->
+<section class="related-articles-section" style="padding: 4rem 0; background: var(--bg-surface);">
+<div class="container">
+<h3 style="margin-bottom: 2rem;">Полезные материалы</h3>
+<div class="grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
+<div class="card" style="padding: 1.5rem; border-radius: 12px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1);">
+<a href="/ru/ai-seo-tools.html" style="color: var(--primary); text-decoration: none; font-weight: 500;">Каталог ИИ SEO-инструментов →</a>
+</div>
+<div class="card" style="padding: 1.5rem; border-radius: 12px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1);">
+<a href="/ru/tools/ai-tools-for-teachers.html" style="color: var(--primary); text-decoration: none; font-weight: 500;">ИИ-инструменты для учителей →</a>
+</div>
+<div class="card" style="padding: 1.5rem; border-radius: 12px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1);">
+<a href="/ru/tools/ai-tools-for-lawyers.html" style="color: var(--primary); text-decoration: none; font-weight: 500;">ИИ-инструменты для юристов →</a>
+</div>
+</div>
+</div>
+</section>
+</main>
+<footer class="footer">
+<div class="container">
+<div class="footer__grid">
+<div class="footer__brand"><a class="nav__logo" href="/ru/">InfoLady</a>
+<p>SEO-платформа с искусственным интеллектом</p>
+</div>
+<div class="footer__col">
+<h5 data-en="Marketplace" data-ru="Маркетплейс">Маркетплейс</h5>
+<ul role="list">
+<li><a data-en="Recommended Tools" data-ru="Рекомендуемые инструменты" href="/ru/tools/ai-seo-marketplace.html">Рекомендуемые инструменты</a></li>
+</ul>
+</div>
+<div class="footer__col">
+<h5 data-en="Learning" data-ru="Обучение">Обучение</h5>
+<ul role="list">
+<li><a data-en="Courses" data-ru="Курсы" href="/ru/platform/ai-seo-learning.html">Курсы</a></li>
+<li><a data-en="ИИ SEO Guide" data-ru="ИИ SEO Гайд" href="/ru/platform/ai-seo-guide.html">ИИ SEO Гайд</a></li>
+</ul>
+</div>
+<div class="footer__col">
+<h5 data-en="Platform" data-ru="Платформа">Платформа</h5>
+<ul role="list"><li><a href="/en/visibility-rating.html">Visibility Rating</a></li>
+<li><a href="/en/visibility-audit.html">Visibility Audit</a></li>
+<li><a href="/en/how-it-works.html">How it Works</a></li>
+<li><a href="/en/methodology.html">Methodology</a></li></ul>
+</div>
+</div>
+<div class="footer__bottom">
+<p>© <span id="year"></span> InfoLady.</p>
+</div>
+</div>
+</footer>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+<script defer="" src="/script.js"></script>
+<script defer="" src="/leads-app.js"></script>
+<script>
+    function runRadar() {
+        const url = document.getElementById('radarUrl').value;
+        if (!url) return alert('Please enter a domain');
+
+        const loading = document.getElementById('radarLoading');
+        const results = document.getElementById('radarResults');
+        results.classList.remove('visible');
+        loading.classList.add('visible');
+
+        // Simulate analysis
+        setTimeout(() => {
+            loading.classList.remove('visible');
+            results.classList.add('visible');
+
+            // Generate random-ish but plausible metrics
+            const score = Math.floor(Math.random() * 40) + 50; // 50-90%
+            const mentions = (Math.random() * 5 + 0.5).toFixed(1); // 0.5-5.5K
+            const citations = (Math.random() * 0.6 + 0.3).toFixed(2); // 0.3-0.9
+
+            document.getElementById('resScore').textContent = score + '%';
+            document.getElementById('resMentions').textContent = mentions + 'K';
+            document.getElementById('resCitations').textContent = citations;
+
+            // Randomize radar points for visual effect
+            const p1 = Math.floor(Math.random() * 60) + 90;
+            const p2 = Math.floor(Math.random() * 60) + 90;
+            const p3 = Math.floor(Math.random() * 60) + 90;
+            const p4 = Math.floor(Math.random() * 60) + 90;
+            const p5 = Math.floor(Math.random() * 60) + 90;
+            const p6 = Math.floor(Math.random() * 60) + 90;
+
+            // Simple mapping to SVG coordinates (origin 150,150)
+            // This is just for visual animation, not real math
+            const poly = document.getElementById('radarPolygon');
+            poly.setAttribute('points', `150,${p1} ${150 + (150 - p2)},${p2 + 30} ${150 + (150 - p3)},${300 - p3 - 30} 150,${300 - p4} ${150 - (150 - p5)},${300 - p5 - 30} ${150 - (150 - p6)},${p6 + 30}`);
+
+            setTimeout(() => { poly.style.opacity = '1'; }, 200);
+            results.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }, 2400);
+    }
+</script>
+
+</html>

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+
+<html lang="ru" prefix="og: https://ogp.me/ns#">
+<head>
+    <meta name="geo.region" content="KZ">
+  <meta name="geo.placename" content="Almaty">
+  <meta name="geo.position" content="43.238949;76.889709">
+  <meta name="ICBM" content="43.238949, 76.889709">
+  <meta name="language" content="ru">
+  <meta name="target-country" content="KZ">
+
+<meta charset="utf-8"/>
+<meta content="index, follow" name="robots"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+<link href="/favicon.png" rel="icon" type="image/png"/>
+<link href="/favicon.png" rel="shortcut icon"/>
+<link href="/favicon.png" rel="apple-touch-icon"/>
+<!-- SEO -->
+<title>AI SEO Проверка сайта — Инспектор InfoLady</title>
+<meta content="Оцените соответствие сайта алгоритмам поиска нового поколения." name="description"/>
+<meta content="ai проверка сайта, инспектор видимости, seo рейтинг" name="keywords"/>
+<link href="/style.css" rel="stylesheet"/>
+<script src="https://unpkg.com/lucide@latest"></script>
+
+<style id="cta-spacer-style">
+  body.top-bar-active nav.nav { top: 47px !important; }
+  body.top-bar-active .page-hero { margin-top: 0px !important; }
+  @media (max-width: 768px) { 
+    body.top-bar-active nav.nav { top: 47px !important; } 
+    .global-cta-bar.top-bar { flex-direction: row; font-size: 0.85rem; padding: 10px; }
+  }
+</style>
+
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Organization",
+ "name": "InfoLady",
+ "url": "https://infolady.online",
+ "logo": "https://infolady.online/favicon.png",
+ "areaServed": ["KZ","RU","Global"],
+ "sameAs": [
+   "https://t.me/lyazkai_bot?start=audit_root_ai-seo-checker"
+ ]
+}
+</script>
+</head>
+<body class="top-bar-active">
+<header>
+<div class="global-cta-bar top-bar" style="background: linear-gradient(90deg, #1A1D26 0%, #242838 100%); padding: 12px 20px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.95rem; font-weight: 600; font-family:var(--font-body); display: flex; justify-content: center; align-items: center; gap: 12px; margin: 0; width: 100%; box-sizing: border-box; position: relative; z-index: 1001;"><a href="https://t.me/lyazkai_bot?start=global_cta" class="cta-top">🔥 Узнать, где теряете клиентов</a></div>
+
+
+<nav class="nav platform-nav" role="navigation">
+<div class="container">
+<div class="nav__inner">
+<a class="nav__logo" href="/ru/">InfoLady</a>
+<ul class="pnav__links" role="list">
+<li class="pnav__item"><a class="pnav__trigger" href="/en/visibility-audit.html">SEO Audit</a></li>
+</ul>
+<div class="pnav__right">
+<div class="lang-switch">
+<button class="lang-btn active" data-lang="ru">RU</button>
+<button class="lang-btn" data-lang="en" onclick="location.href='/en/ai-seo-checker.html'">EN</button>
+</div>
+<a class="btn btn-primary btn-sm" href="/ru/visibility-audit.html">Проверить сайт бесплатно</a>
+</div>
+</div>
+</div>
+</nav>
+</header>
+<main style="min-height: calc(100vh - 160px); display: flex; align-items: center; background: radial-gradient(circle at 50% 120%, rgba(124, 58, 237, 0.08), rgba(0,0,0,0));">
+<section class="hero" style="width: 100%; padding: 40px 0;">
+<div class="container">
+<div class="hero__content" style="max-width: 640px; margin: 0 auto; text-align: center;">
+<div style="background: rgba(0, 224, 255, 0.1); border: 1px solid rgba(0, 224, 255, 0.2); border-radius: 20px; padding: 6px 12px; font-size: 0.82rem; color: #00e0ff; display: inline-flex; align-items: center; gap: 6px; margin-bottom: 16px;">
+<i data-lucide="sparkles" style="width: 14px; height: 14px;"></i>
+<span>Автоматический Инспектор</span>
+</div>
+<h1 style="margin-bottom: 16px;">
+<span>AI SEO Анализатор</span><br/>
+<span class="gradient-text">Инспектор Видимости</span>
+</h1>
+<p class="lead" style="margin-bottom: 32px; color: var(--text-dim);">Оцените готовность вашего сайта к алгоритмам индексации нового поколения.</p>
+<div class="hero__actions-scan" style="max-width: 500px; margin: 0 auto;">
+<div class="hero__input-wrapper">
+<input class="hero__scan-input" data-placeholder-ru="Введите URL сайта (example.com)" id="heroScanInput" placeholder="Введите URL сайта (example.com)" required="" type="url"/>
+</div>
+<button class="btn btn-primary btn-lg" id="heroScanSubmit">
+<span>Запустить Инспектор</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<div class="global-cta-bar inline-bar" style="background: linear-gradient(90deg, #1A1D26 0%, #242838 100%); padding: 22px; text-align: center; border: 1px solid rgba(255,255,255,0.05); font-size: 1rem; font-weight: 600; font-family:var(--font-body); display: flex; justify-content: center; align-items: center; gap: 15px; margin: 30px 0; border-radius: 12px; background: rgba(255,255,255,0.03); backdrop-filter: blur(5px); box-shadow: 0 4px 25px rgba(0,0,0,0.4);">
+<span style="color: #fff;">Проверь свой сайт бесплатно</span>
+<a class="btn btn-primary btn-sm" href="/ru/scan.html" style="padding: 10px 20px; font-size: 0.9rem; box-shadow: 0 4px 15px rgba(0, 224, 255, 0.25);"> Попробовать сейчас </a>
+</div>
+
+
+</main>
+
+
+<div class="global-cta-bar inline-bar" style="background: linear-gradient(90deg, #1A1D26 0%, #242838 100%); padding: 22px; text-align: center; border: 1px solid rgba(255,255,255,0.05); font-size: 1rem; font-weight: 600; font-family:var(--font-body); display: flex; justify-content: center; align-items: center; gap: 15px; margin: 30px 0; border-radius: 12px; background: rgba(255,255,255,0.03); backdrop-filter: blur(5px); box-shadow: 0 4px 25px rgba(0,0,0,0.4);">
+<span style="color: #fff;">Проверь свой сайт бесплатно</span>
+<a class="btn btn-primary btn-sm" href="/ru/scan.html" style="padding: 10px 20px; font-size: 0.9rem; box-shadow: 0 4px 15px rgba(0, 224, 255, 0.25);"> Попробовать сейчас </a>
+</div>
+
+<section class="ai-block">
+<h2>Как мы помогаем бизнесу</h2>
+<p>Мы внедряем ИИ в бизнесы в Казахстане, СНГ и по всему миру.</p>
+<p>Помогаем автоматизировать заявки, увеличить конверсию и привлекать клиентов через современные AI-системы.</p>
+<p>Наши услуги включают внедрение ИИ в Казахстане, AI автоматизацию бизнеса в Алматы и по всему СНГ, а также оптимизацию того, как получать заявки из сайта в Казахстане.</p>
+</section>
+
+<section class="faq">
+<h2>Частые вопросы</h2>
+
+<h3>Как ИИ увеличивает заявки?</h3>
+<p>ИИ автоматизирует обработку клиентов и повышает конверсию сайта.</p>
+
+<h3>Сколько стоит внедрение?</h3>
+<p>Зависит от бизнеса, начинается с аудита.</p>
+
+<h3>Подходит ли для малого бизнеса?</h3>
+<p>Да, особенно если нет заявок.</p>
+</section>
+<footer class="footer">
+<div class="container">
+<div class="footer__grid">
+<div class="footer__col">
+<h5>Решения</h5><ul role="list"><li><a href="/ru/visibility-audit.html">Аудит SEO</a></li><li><a href="/ru/ai-integration.html">Внедрение AI</a></li></ul>
+</div>
+<div class="footer__col">
+<h5>Информация</h5><ul role="list"><li><a href="/ru/privacy-policy.html">Конфиденциальность</a></li><li><a href="/ru/terms-of-service.html">Условия</a></li></ul>
+</div>
+</div>
+<div class="footer__bottom">
+<p>© <span id="year"></span> InfoLady. Все права защищены.</p>
+</div>
+</div>
+</footer>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+<script defer="" src="/js/script.js"></script>
+
+<div class="mobile-cta">
+<a href="https://t.me/lyazkai_bot?start=mobile_cta">
+Получить клиентов
+</a>
+</div>
+</body>
+</html>

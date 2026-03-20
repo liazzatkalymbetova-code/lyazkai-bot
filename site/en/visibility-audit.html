@@ -1,0 +1,1217 @@
+<!DOCTYPE html>
+
+<html lang="en" prefix="og: https://ogp.me/ns#">
+<head>
+<link href="/favicon.png" rel="icon" type="image/png"/>
+<link href="/favicon.png" rel="shortcut icon"/>
+<link href="/favicon.png" rel="apple-touch-icon"/>
+<meta charset="utf-8"/>
+<meta content="index, follow" name="robots"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+<!-- SEO -->
+<title>Search Visibility Audit | Search Perception Analysis | InfoLady</title>
+<meta content="Professional search visibility and GEO audit that analyzes how your website appears in modern search engines and provides a clear strategy for growth." name="description"/>
+<meta content="search visibility audit, GEO audit, search perception, ChatGPT SEO, Google AI Overviews, Perplexity SEO, website audit, visibility rating" name="keywords"/>
+<meta content="InfoLady — Lyazzat Kalymbetova" name="author"/>
+<!-- Open Graph -->
+<meta content="website" property="og:type"/>
+<meta content="https://infolady.online/audit/visibility-audit.html" property="og:url"/>
+<meta content="Search Visibility Audit | InfoLady" property="og:title"/>
+<meta content="Professional analysis of your website's SEO performance, search perception visibility, marketing structure and conversion potential." property="og:description"/>
+<meta content="https://infolady.online/og-image.jpg" property="og:image"/>
+<meta content="en_US" property="og:locale"/>
+<meta content="InfoLady" property="og:site_name"/>
+<!-- Twitter Card -->
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="Search Visibility Audit | InfoLady" name="twitter:title"/>
+<meta content="Professional search visibility audit that analyzes how your website appears in modern search engines." name="twitter:description"/>
+<meta content="https://infolady.online/og-image.jpg" name="twitter:image"/>
+<!-- Modern Search Discovery / GEO -->
+<meta content="Professional search visibility audit service for website visibility in modern search engines" name="ai-content"/>
+<meta content="InfoLady Search Visibility Audit is a professional service analyzing how websites appear in modern search engines like ChatGPT, Google AI Overviews, and Perplexity. The audit covers structured data, content quality, citation potential, technical SEO, marketing structure, and conversion potential." name="ai-summary"/>
+<meta content="SEO Audit, GEO Optimization, Search Visibility, Website Analysis" name="ai-category"/>
+<meta content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" name="robots"/>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<!-- Styles -->
+<link href="/style.css?v=1" rel="stylesheet"/>
+<script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "InfoLady Search Visibility Auditor",
+      "url": "https://infolady.online/audit/visibility-audit.html",
+      "applicationCategory": "SEOApplication",
+      "operatingSystem": "Web",
+      "description": "Professional search visibility audit tool for analyzing website visibility in modern search engines.",
+      "offers": {}
+    }
+    </script>
+<!-- Page-specific styles -->
+<style>
+        /* ── Audit Hero ── */
+        .audit-hero {
+            min-height: 80svh;
+            background: var(--bg-main);
+            display: flex;
+            align-items: center;
+            padding-top: 96px;
+            padding-bottom: 64px;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .audit-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--grad-hero);
+            pointer-events: none;
+        }
+
+        .audit-hero__inner {
+            position: relative;
+            z-index: 1;
+            max-width: 780px;
+            margin-inline: auto;
+        }
+
+        .audit-hero h1 {
+            margin-bottom: 20px;
+        }
+
+        .audit-hero .lead {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            margin-bottom: 40px;
+            line-height: 1.7;
+        }
+
+        .audit-hero__actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            justify-content: center;
+        }
+
+        /* ── Scanner Section ── */
+        .scanner-section {
+            background: var(--bg-secondary);
+            padding-block: var(--section-py);
+        }
+
+        .scanner-box {
+            max-width: 680px;
+            margin-inline: auto;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--r-xl);
+            padding: clamp(28px, 5vw, 52px);
+        }
+
+        .scanner-box h2 {
+            margin-bottom: 12px;
+        }
+
+        .scanner-box>p {
+            margin-bottom: 32px;
+            font-size: 1.05rem;
+        }
+
+        .scanner__input-row {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .scanner__input-row input {
+            flex: 1;
+            min-width: 220px;
+            background: rgba(255, 255, 255, .04);
+            border: 1px solid var(--border);
+            border-radius: var(--r-full);
+            padding: 14px 22px;
+            color: var(--text-main);
+            font-family: var(--font-body);
+            font-size: 1rem;
+            transition: border-color var(--dur-mid) var(--ease), box-shadow var(--dur-mid) var(--ease);
+            outline: none;
+        }
+
+        .scanner__input-row input::placeholder {
+            color: var(--text-dim);
+        }
+
+        .scanner__input-row input:focus {
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 0 3px rgba(124, 92, 255, .18);
+        }
+
+        /* ── Scan Results ── */
+        .scan-scores {
+            display: none;
+            margin-top: 36px;
+            padding-top: 32px;
+            border-top: 1px solid var(--border);
+            animation: fadeUp .45s var(--ease) forwards;
+        }
+
+        .scan-scores.visible {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 28px;
+        }
+
+        .score-card {
+            background: rgba(255, 255, 255, .04);
+            border: 1px solid var(--border);
+            border-radius: var(--r-lg);
+            padding: 20px 24px;
+            text-align: center;
+        }
+
+        .score-card__label {
+            font-size: .78rem;
+            font-weight: 700;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            color: var(--text-dim);
+            margin-bottom: 10px;
+        }
+
+        .score-card__value {
+            font-family: var(--font-display);
+            font-size: 2.4rem;
+            font-weight: 800;
+        }
+
+        .score-card--seo .score-card__value {
+            background: linear-gradient(135deg, #febc2e, #ff9502);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .score-card--ai .score-card__value {
+            background: var(--grad-text);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .score-card__max {
+            font-size: 1rem;
+            color: var(--text-dim);
+            font-weight: 400;
+            -webkit-text-fill-color: var(--text-dim);
+        }
+
+        .score-bar {
+            height: 6px;
+            background: rgba(255, 255, 255, .08);
+            border-radius: 3px;
+            margin-top: 12px;
+            overflow: hidden;
+        }
+
+        .score-bar__fill {
+            height: 100%;
+            border-radius: 3px;
+            transition: width 1.2s cubic-bezier(.4, 0, .2, 1);
+        }
+
+        .score-card--seo .score-bar__fill {
+            background: linear-gradient(90deg, #febc2e, #ff9502);
+            width: 0%;
+        }
+
+        .score-card--ai .score-bar__fill {
+            background: var(--grad-primary);
+            width: 0%;
+        }
+
+        .issues-title {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--text-main);
+            margin-bottom: 16px;
+        }
+
+        .issues-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 28px;
+        }
+
+        .issue-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(255, 77, 240, .06);
+            border: 1px solid rgba(255, 77, 240, .15);
+            border-radius: var(--r-md);
+            padding: 12px 16px;
+            font-size: .92rem;
+            color: var(--text-muted);
+        }
+
+        .issue-item::before {
+            content: '⚠';
+            font-size: 1rem;
+            color: #ff4df0;
+            flex-shrink: 0;
+        }
+
+        /* ── Deliverables ── */
+        .deliverables__grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--gap);
+        }
+
+        .deliverable-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--r-lg);
+            padding: 24px 28px;
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            transition: transform var(--dur-mid) var(--ease), box-shadow var(--dur-mid) var(--ease), border-color var(--dur-mid) var(--ease);
+        }
+
+        .deliverable-item:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-card-hover);
+            border-color: var(--border-hover);
+        }
+
+        .deliverable-item__icon {
+            width: 44px;
+            height: 44px;
+            border-radius: var(--r-sm);
+            background: rgba(124, 92, 255, .15);
+            border: 1px solid rgba(124, 92, 255, .25);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            flex-shrink: 0;
+        }
+
+        .deliverable-item__text {
+            font-size: .95rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+            padding-top: 4px;
+        }
+
+        /* ── Sample Report ── */
+        .report-preview {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--r-xl);
+            overflow: hidden;
+            max-width: 820px;
+            margin-inline: auto;
+            box-shadow: var(--shadow-card), var(--glow-sm);
+        }
+
+        .report-preview__header {
+            background: rgba(255, 255, 255, .04);
+            border-bottom: 1px solid var(--border);
+            padding: 14px 24px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .report-preview__dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .report-preview__dot:nth-child(1) {
+            background: #ff5f57;
+        }
+
+        .report-preview__dot:nth-child(2) {
+            background: #febc2e;
+        }
+
+        .report-preview__dot:nth-child(3) {
+            background: #28c840;
+        }
+
+        .report-preview__title {
+            margin-left: 8px;
+            font-size: .78rem;
+            color: var(--text-dim);
+        }
+
+        .report-preview__img {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+        .report-preview__footer {
+            padding: 24px;
+            text-align: center;
+            border-top: 1px solid var(--border);
+        }
+
+        /* ── Pricing ── */
+        .pricing__grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--gap);
+            align-items: stretch;
+        }
+
+        .pricing-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--r-xl);
+            padding: 36px 28px;
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            transition: transform var(--dur-mid) var(--ease), box-shadow var(--dur-mid) var(--ease), border-color var(--dur-mid) var(--ease);
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-card-hover);
+        }
+
+        .pricing-card--featured {
+            background: linear-gradient(135deg, rgba(124, 92, 255, .12) 0%, rgba(0, 224, 255, .06) 100%);
+            border-color: rgba(124, 92, 255, .45);
+            box-shadow: var(--glow-sm);
+            position: relative;
+        }
+
+        .pricing-card__badge {
+            position: absolute;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--grad-primary);
+            color: #fff;
+            font-size: .72rem;
+            font-weight: 700;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            padding: 5px 16px;
+            border-radius: var(--r-full);
+            white-space: nowrap;
+        }
+
+        .pricing-card__name {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: .06em;
+        }
+
+        .pricing-card__price {
+            font-family: var(--font-display);
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--text-main);
+            margin-bottom: 24px;
+            line-height: 1;
+        }
+
+        .pricing-card--featured .pricing-card__price {
+            background: var(--grad-text);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .pricing-card__features {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 32px;
+            flex: 1;
+        }
+
+        .pricing-card__feature {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-size: .9rem;
+            color: var(--text-muted);
+        }
+
+        .pricing-card__feature .check {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: rgba(0, 224, 255, .15);
+            color: var(--accent-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: .65rem;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        /* ── Request Form ── */
+        .audit-form__wrap {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 64px;
+            align-items: center;
+        }
+
+        .audit-form__text h2 {
+            margin-top: 12px;
+            margin-bottom: 20px;
+        }
+
+        .audit-form__text p {
+            font-size: 1.05rem;
+            margin-bottom: 32px;
+        }
+
+        .audit-form__benefits {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .audit-form__benefit {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: .95rem;
+            color: var(--text-muted);
+        }
+
+        .audit-form {
+            background: rgba(255, 255, 255, .04);
+            border: 1px solid var(--border);
+            border-radius: var(--r-xl);
+            padding: clamp(24px, 4vw, 44px);
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            font-size: .85rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            letter-spacing: .03em;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            background: rgba(255, 255, 255, .04);
+            border: 1px solid var(--border);
+            border-radius: var(--r-md);
+            padding: 12px 18px;
+            color: var(--text-main);
+            font-family: var(--font-body);
+            font-size: .95rem;
+            transition: border-color var(--dur-mid) var(--ease), box-shadow var(--dur-mid) var(--ease);
+            outline: none;
+            resize: vertical;
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: var(--text-dim);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 0 3px rgba(124, 92, 255, .18);
+        }
+
+        .form-group select {
+            appearance: none;
+            -webkit-appearance: none;
+            cursor: pointer;
+        }
+
+        .form-group select option {
+            background: var(--bg-card);
+        }
+
+        .form-note {
+            text-align: center;
+            margin-top: 12px;
+            font-size: .78rem;
+            color: var(--text-dim);
+        }
+
+        .form-note a {
+            color: var(--accent-primary);
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+
+        /* Success message */
+        .form-success {
+            display: none;
+            text-align: center;
+            padding: 32px;
+        }
+
+        .form-success__icon {
+            font-size: 3rem;
+            margin-bottom: 16px;
+        }
+
+        .form-success h3 {
+            margin-bottom: 10px;
+        }
+
+        /* ── Consultant ── */
+        .consultant-section {
+            background: var(--bg-secondary);
+            padding-block: var(--section-py);
+        }
+
+        .consultant-card {
+            max-width: 600px;
+            margin-inline: auto;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--r-xl);
+            padding: clamp(28px, 5vw, 52px);
+            text-align: center;
+            box-shadow: var(--shadow-card), var(--glow-sm);
+        }
+
+        .consultant-card__avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: var(--grad-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.2rem;
+            margin-inline: auto;
+            margin-bottom: 20px;
+            box-shadow: var(--glow-sm);
+        }
+
+        .consultant-card__name {
+            font-family: var(--font-display);
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--text-main);
+            margin-bottom: 8px;
+        }
+
+        .consultant-card__roles {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            margin-top: 12px;
+        }
+
+        .consultant-tag {
+            font-size: .75rem;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: var(--r-full);
+            background: rgba(124, 92, 255, .12);
+            border: 1px solid rgba(124, 92, 255, .25);
+            color: var(--accent-primary);
+            letter-spacing: .04em;
+        }
+
+        /* ── Scanning animation ── */
+        .scan-loading {
+            display: none;
+            text-align: center;
+            padding: 24px;
+            color: var(--text-muted);
+            font-size: .92rem;
+        }
+
+        .scan-loading.visible {
+            display: block;
+        }
+
+        .scan-spinner {
+            width: 36px;
+            height: 36px;
+            border: 3px solid rgba(124, 92, 255, .2);
+            border-top-color: var(--accent-primary);
+            border-radius: 50%;
+            animation: spinSlow .7s linear infinite;
+            margin: 0 auto 12px;
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 900px) {
+            .audit-hero {
+                min-height: auto;
+                padding-top: 60px;
+                padding-bottom: 40px;
+            }
+
+            .scanner-section {
+                padding-block: 40px;
+            }
+
+            .pricing__grid {
+                grid-template-columns: 1fr;
+                max-width: 480px;
+                margin-inline: auto;
+            }
+
+            .audit-form__wrap {
+                grid-template-columns: 1fr;
+                gap: 36px;
+            }
+
+            .scan-scores {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .scanner__input-row {
+                flex-direction: column;
+            }
+
+            .scanner__input-row button {
+                width: 100%;
+            }
+        }
+    </style>
+<!-- PayPal SDK (sandbox) -->
+<script data-sdk-integration-source="button-factory" src="https://www.paypal.com/sdk/js?currency=USD&amp;client-id=ASqiemk9c7mWcBRpPQLiz1yXK5dWJSRc6kyfWH3AVuVVnjThsdiValcNRNBo5nKCbRQU0bwX69CDHmf8&amp;intent=capture"></script>
+<!-- JSON-LD -->
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Search Visibility Audit",
+    "provider": {
+      "@type": "Person",
+      "name": "Lyazzat Kalymbetova",
+      "jobTitle": "Search Visibility Consultant",
+      "url": "https://infolady.online/"
+    },
+    "description": "Professional search visibility audit analyzing website performance in modern search engines including ChatGPT, Google AI Overviews, and Perplexity.",
+    "url": "https://infolady.online/audit/visibility-audit.html",
+    "offers": [
+      {"@type": "Offer", "name": "Basic Audit", "price": "9", "priceCurrency": "USD"},
+      {"@type": "Offer", "name": "Full Visibility Audit", "price": "99", "priceCurrency": "USD"},
+      {"@type": "Offer", "name": "Premium Marketing + Search Audit", "price": "199", "priceCurrency": "USD"}
+    ]
+  }
+  </script>
+<!-- Multilingual SEO -->
+<link href="https://infolady.online/en/visibility-audit.html" rel="canonical"/>
+<link href="https://infolady.online/en/visibility-audit.html" hreflang="en" rel="alternate"/>
+<link href="https://infolady.online/en/visibility-audit.html" hreflang="ru" rel="alternate"/>
+<link href="https://infolady.online/" hreflang="x-default" rel="alternate"/>
+<!-- Lucide Icons -->
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>
+      document.addEventListener("DOMContentLoaded", function() {
+        if (typeof lucide !== 'undefined') {
+             lucide.createIcons();
+        }
+      });
+    </script>
+
+<style id="cta-spacer-style">
+  body.top-bar-active nav.nav { top: 47px !important; }
+  body.top-bar-active .page-hero { margin-top: 0px !important; }
+  @media (max-width: 768px) { 
+    body.top-bar-active nav.nav { top: 47px !important; } 
+    .global-cta-bar.top-bar { flex-direction: row; font-size: 0.85rem; padding: 10px; }
+  }
+</style>
+</head>
+<body class="page-audit top-bar-active">
+<!-- ══════════════════════════ NAV ══════════════════════════ -->
+<!-- ══════════════════════════ NAV ══════════════════════════ -->
+<header>
+<div class="global-cta-bar top-bar" style="background: linear-gradient(90deg, #1A1D26 0%, #242838 100%); padding: 12px 20px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.95rem; font-weight: 600; font-family:var(--font-body); display: flex; justify-content: center; align-items: center; gap: 12px; margin: 0; width: 100%; box-sizing: border-box; position: relative; z-index: 1001;"><a href="https://t.me/lyazkai_bot?start=global_cta" class="cta-top">🔥 Find out where you lose customers</a></div>
+
+
+<nav class="nav platform-nav" role="navigation">
+<div class="container">
+<div class="nav__inner">
+<a class="nav__logo" href="/en/">InfoLady</a>
+<ul class="pnav__links" role="list">
+<li class="pnav__item"><a class="pnav__trigger" href="/en/visibility-audit.html">SEO Audit</a></li>
+</ul>
+<div class="pnav__right">
+<div class="lang-switch">
+<button class="lang-btn" data-lang="ru" onclick="location.href='/ru/visibility-audit.html'">RU</button>
+<button class="lang-btn active" data-lang="en">EN</button>
+</div>
+<a class="btn btn-secondary btn-sm" data-i18n="btn_free_scan" href="/en/visibility-audit.html">Check your site for free</a>
+</div>
+<button aria-controls="mobileDrawer" aria-expanded="false" aria-label="Open menu" class="nav__burger">
+<span></span><span></span><span></span>
+</button>
+</div>
+<nav class="pnav__mobile" hidden="" id="mobileDrawer">
+<div class="pnav__mobile-section"><a class="pnav__mobile-section-trigger" href="/en/visibility-audit.html">SEO Audit</a></div>
+<div class="pnav__mobile-section"><a class="pnav__mobile-section-trigger" href="/en/ai-integration.html">AI Integration</a></div>
+
+<div class="pnav__mobile-bottom"><div class="lang-switch">
+<button class="lang-btn active" data-lang="en">EN</button>
+<button class="lang-btn" data-lang="ru" onclick="location.href='/ru/index.html'">RU</button>
+</div></div></nav>
+</div>
+</nav>
+</header>
+<main>
+<!-- ══════════════════════════ HERO ══════════════════════════ -->
+<section aria-labelledby="auditHeroTitle" class="audit-hero">
+<div aria-hidden="true" class="hero__bg-orb hero__bg-orb--1"></div>
+<div aria-hidden="true" class="hero__bg-orb hero__bg-orb--2"></div>
+<div aria-hidden="true" class="hero__bg-orb hero__bg-orb--3"></div>
+<div aria-hidden="true" class="hero__grid-line"></div>
+<div class="container">
+<div class="audit-hero__inner">
+<span class="section-label section-label--glow">Search Visibility Audit</span>
+<h1 id="auditHeroTitle">
+                        Search Visibility<br/>
+<span class="gradient-text">Website Audit</span>
+</h1>
+<p class="lead">
+                        Understand how your website performs in modern search and perception engines.<br/>
+                        Professional analysis of SEO performance, visibility rating, marketing structure and
+                        conversion potential.
+                    </p>
+<div class="audit-hero__actions">
+<a class="btn btn-primary btn-lg" href="#scanner" id="heroScanBtn">
+<span aria-hidden="true">🔍</span> Check your site for free
+</a>
+<a class="btn btn-ghost btn-lg" href="#sample-report">View Sample Report</a>
+</div>
+</div>
+</div>
+</section>
+<div class="global-cta-bar inline-bar" style="background: linear-gradient(90deg, #1A1D26 0%, #242838 100%); padding: 22px; text-align: center; border: 1px solid rgba(255,255,255,0.05); font-size: 1rem; font-weight: 600; font-family:var(--font-body); display: flex; justify-content: center; align-items: center; gap: 15px; margin: 30px 0; border-radius: 12px; background: rgba(255,255,255,0.03); backdrop-filter: blur(5px); box-shadow: 0 4px 25px rgba(0,0,0,0.4);">
+<span style="color: #fff;">Check your website free</span>
+<a class="btn btn-primary btn-sm" href="/en/scan.html" style="padding: 10px 20px; font-size: 0.9rem; box-shadow: 0 4px 15px rgba(0, 224, 255, 0.25);"> Check your site for free </a>
+</div>
+
+
+<!-- ══════════════════════════ FREE AUDIT ══════════════════ -->
+<section aria-labelledby="scannerTitle" class="scanner-section" id="scanner">
+<div class="container">
+<div class="scanner-box fade-up">
+<div class="section-label" style="display:inline-block;margin-bottom:16px;">Free Check</div>
+<h2 id="scannerTitle">Free Search Visibility Check</h2>
+<p>Enter your website URL to instantly analyze SEO and visibility rating.</p>
+<div class="scanner__input-row">
+<input aria-label="Website URL to scan" autocomplete="url" id="scanUrl" placeholder="https://yourwebsite.com" type="url"/>
+<button class="btn btn-primary" id="scanBtn" onclick="runScan()">
+<span aria-hidden="true">🔍</span> Scan Website
+                        </button>
+</div>
+<!-- Loading state -->
+<div class="scan-loading" id="scanLoading">
+<div class="scan-spinner"></div>
+                        Analyzing your website…
+                    </div>
+<!-- Results -->
+<div class="scan-scores">
+<div class="score-card score-card--seo">
+<div class="score-card__label" data-en="SEO Score">SEO Score</div>
+<div class="score-card__value"><span id="seoVal">—</span><span class="score-card__max"> /
+                                    100</span></div>
+<div class="score-bar">
+<div class="score-bar__fill" id="seoBar"></div>
+</div>
+</div>
+<div class="score-card score-card--ai">
+<div class="score-card__label" data-en="Performance">Performance</div>
+<div class="score-card__value"><span id="perfVal">—</span><span class="score-card__max"> /
+                                    100</span></div>
+<div class="score-bar">
+<div class="score-bar__fill" id="aiBar"></div>
+</div>
+</div>
+</div>
+<div class="issues-title">⚠ Detected Issues</div>
+<div class="issues-list" role="list">
+<div class="issue-item" role="listitem">Missing structured data (JSON-LD)</div>
+<div class="issue-item" role="listitem">Weak internal linking structure</div>
+<div class="issue-item" role="listitem">Low perception rating — content not optimized
+                            for modern search extractors</div>
+<div class="issue-item" role="listitem">Poor content structure for modern search engines</div>
+</div>
+<!-- Lead Capture CTA -->
+<section class="section section--tinted lead-cta-section" style="margin-top: 40px; margin-bottom: 24px; border-radius: 16px; border: 1px solid var(--border); background: var(--bg-card); padding: 40px; text-align: center;">
+<h2 data-en="Need help fixing your SEO?" style="margin-bottom: 12px;">Need help fixing your SEO?</h2>
+<p data-en="Your website has issues that may affect your search visibility. Get a free SEO consultation from professionals." style="color: var(--text-muted); margin-bottom: 24px; max-width: 600px; margin-left: auto; margin-right: auto;">Your website has issues that may affect your search visibility. Get a free SEO consultation from professionals.</p>
+<button class="btn btn-primary lead-cta-trigger" data-en="Check your site for free" style="font-size: 1.1rem; padding: 14px 28px;">Check your site for free</button>
+</section>
+<a class="btn btn-primary btn-block" href="#paypal-checkout" onclick="showPayPalSection();return false;">
+                        Get full report
+                    </a>
+</div>
+</div>
+</section>
+<!-- ══════════════════════════ PAYPAL CHECKOUT ═════════════ -->
+<section aria-labelledby="paypalTitle" class="section section--tinted" id="paypal-checkout" style="display:none;">
+<div class="container">
+<div class="scanner-box fade-up" style="max-width:600px;margin:0 auto;">
+<div class="section-label" data-en="Instant Report" style="display:inline-block;margin-bottom:16px;">Instant Report</div>
+<h2 data-en="Get Full Search Visibility Report" id="paypalTitle">Get Full Search Visibility Report</h2>
+<p data-en="Enter your details and pay once — we'll generate your full AI SEO audit report instantly.">Enter your details and pay once — we'll generate your full AI SEO audit report instantly.</p>
+<!-- Pricing display -->
+<div style="display:flex;align-items:center;justify-content:center;gap:24px;margin:20px 0;flex-wrap:wrap;">
+<div class="lang-price" data-lang-en="" style="text-align:center;">
+<div style="font-size:2.5rem;font-weight:800;color:var(--accent-secondary);line-height:1;">
+                                </div>
+<div style="font-size:.85rem;color:var(--text-muted);margin-top:4px;">USD · one-time</div>
+</div>
+<div class="lang-price" data-lang-ru="" style="text-align:center;display:none;">
+<div style="font-size:2.5rem;font-weight:800;color:var(--accent-secondary);line-height:1;">
+                                4500 ₸</div>
+<div style="font-size:.85rem;color:var(--text-muted);margin-top:4px;">KZT · разово</div>
+</div>
+<ul style="list-style:none;padding:0;margin:0;text-align:left;font-size:.88rem;color:var(--text-muted);">
+<li>✅ <span data-en="Technical SEO analysis">Technical SEO analysis</span></li>
+<li>✅ <span data-en="Visibility Rating &amp; GEO Score">Visibility Rating &amp; GEO Score</span></li>
+<li>✅ <span data-en="Content recommendations">Content recommendations</span></li>
+<li>✅ <span data-en="Competitor insights">Competitor insights</span></li>
+<li>✅ <span data-en="PDF action plan">PDF action plan</span>
+</li>
+</ul>
+</div>
+<!-- Lead capture form -->
+<form id="paypalLeadForm" onsubmit="return false;" style="display:grid;gap:12px;margin-bottom:20px;">
+<input data-placeholder-en="your@email.com" id="paypalEmail" placeholder="your@email.com" required="" style="background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:var(--r-full);padding:13px 22px;color:var(--text-main);font-family:var(--font-body);font-size:.95rem;outline:none;" type="email"/>
+<input data-placeholder-en="https://yourwebsite.com" id="paypalSiteUrl" placeholder="https://yourwebsite.com" required="" style="background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:var(--r-full);padding:13px 22px;color:var(--text-main);font-family:var(--font-body);font-size:.95rem;outline:none;" type="url"/>
+</form>
+<!-- Kaspi payment button (KZT) -->
+<div class="kaspi-pay-container" style="margin-bottom:20px; display:none;">
+<a class="kaspi-pay" href="https://pay.kaspi.kz/pay/fpquqhbx" style="width:100%;" target="_blank">
+                            💳 <span data-en="Pay with Kaspi">Pay with Kaspi</span>
+</a>
+</div>
+<!-- PayPal button container (USD) -->
+<div id="paypal-button-container" style="min-height:55px;"></div>
+<p style="font-size:.78rem;color:var(--text-dim);margin-top:12px;text-align:center;">
+                        🔒 <span data-en="Secure payment. We never store your details.">Secure payment. We never store your details.</span>
+</p>
+</div>
+</div>
+</section>
+<!-- ══════════════════════════ DELIVERABLES ══════════════════ -->
+<section aria-labelledby="deliverablesTitle" class="section" id="deliverables">
+<div class="container">
+<div class="section-header">
+<span class="section-label">What You Receive</span>
+<h2 id="deliverablesTitle">Full Audit Deliverables</h2>
+<p>A comprehensive professional report covering every dimension of your online visibility</p>
+</div>
+<div class="deliverables__grid">
+<div class="deliverable-item fade-up">
+<div class="deliverable-item__icon">🔧</div>
+<div class="deliverable-item__text">Technical SEO audit — crawl issues, Core Web Vitals,
+                            indexability</div>
+</div>
+<div class="deliverable-item fade-up">
+<div class="deliverable-item__icon">🤖</div>
+<div class="deliverable-item__text">Modern search visibility analysis — ChatGPT, Google AI
+                            Overviews, Perplexity</div>
+</div>
+<div class="deliverable-item fade-up">
+<div class="deliverable-item__icon">📊</div>
+<div class="deliverable-item__text">Website marketing structure review — messaging, positioning,
+                            funnels</div>
+</div>
+<div class="deliverable-item fade-up">
+<div class="deliverable-item__icon">💡</div>
+<div class="deliverable-item__text">Conversion optimization analysis — UX, CTAs, landing page
+                            effectiveness</div>
+</div>
+<div class="deliverable-item fade-up">
+<div class="deliverable-item__icon">🏆</div>
+<div class="deliverable-item__text">Competitor positioning review — how you compare in AI &amp;
+                            traditional search</div>
+</div>
+<div class="deliverable-item fade-up">
+<div class="deliverable-item__icon">🗺️</div>
+<div class="deliverable-item__text">Prioritized action plan — clear next steps ranked by impact
+                        </div>
+</div>
+<div class="deliverable-item fade-up">
+<div class="deliverable-item__icon">📄</div>
+<div class="deliverable-item__text">Professional PDF report — ready to share with your team or
+                            stakeholders</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ══════════════════════════ SAMPLE REPORT ═════════════════ -->
+<section aria-labelledby="sampleReportTitle" class="section section--tinted" id="sample-report">
+<div class="container">
+<div class="section-header">
+<span class="section-label">Sample Report</span>
+<h2 id="sampleReportTitle">See What You'll Receive</h2>
+<p>A preview of the professional AI SEO &amp; GEO audit report format</p>
+</div>
+<div class="report-preview fade-up">
+<div class="report-preview__header">
+<span class="report-preview__dot"></span>
+<span class="report-preview__dot"></span>
+<span class="report-preview__dot"></span>
+<span class="report-preview__title">Search Visibility Audit Report — infolady.online</span>
+</div>
+<img alt="Sample AI SEO &amp; GEO audit report showing GEO Score, Key Findings, Prioritized Action Plan, and Competitive Landscape sections" class="report-preview__img" height="615" loading="lazy" src="/en/audit-report-preview.png" width="820"/>
+<div class="report-preview__footer">
+<a class="btn btn-primary" href="#audit-form">
+<span aria-hidden="true">📄</span> Download Sample Audit
+                        </a>
+</div>
+</div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;max-width:820px;margin:32px auto 0;text-align:center;">
+<div class="fade-up" style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r-lg);padding:20px;">
+<div style="font-size:1.6rem;margin-bottom:8px;">🌐</div>
+<div style="font-weight:700;color:var(--text-main);margin-bottom:4px;">GEO Score</div>
+<div style="font-size:.85rem;color:var(--text-muted);">Generative Engine Optimization rating
+                        </div>
+</div>
+<div class="fade-up" style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r-lg);padding:20px;">
+<div style="font-size:1.6rem;margin-bottom:8px;">🔍</div>
+<div style="font-weight:700;color:var(--text-main);margin-bottom:4px;">Key Findings</div>
+<div style="font-size:.85rem;color:var(--text-muted);">Critical issues &amp; quick wins</div>
+</div>
+<div class="fade-up" style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r-lg);padding:20px;">
+<div style="font-size:1.6rem;margin-bottom:8px;">🗺️</div>
+<div style="font-weight:700;color:var(--text-main);margin-bottom:4px;">Action Plan</div>
+<div style="font-size:.85rem;color:var(--text-muted);">Prioritized steps for growth</div>
+</div>
+<div class="fade-up" style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r-lg);padding:20px;">
+<div style="font-size:1.6rem;margin-bottom:8px;">📈</div>
+<div style="font-weight:700;color:var(--text-main);margin-bottom:4px;">Competitive Landscape
+                        </div>
+<div style="font-size:.85rem;color:var(--text-muted);">How you rank vs. competitors</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ══════════════════════════ PRICING ═══════════════════════ -->
+<!-- Removed pricing block -->
+<!-- ══════════════════════════ REQUEST FORM ══════════════════ -->
+<section aria-labelledby="auditFormTitle" class="section section--integrator" id="audit-form">
+<div class="container">
+<div class="audit-form__wrap">
+<div class="audit-form__text">
+<span class="section-label section-label--glow">Request Audit</span>
+<h2 id="auditFormTitle">Request Website Audit</h2>
+<p>Share your website and goals — I'll analyze your AI search visibility and deliver a clear
+                            strategy for growth.</p>
+<div class="audit-form__benefits">
+<div class="audit-form__benefit">
+<span aria-hidden="true">✅</span> Results delivered within 48–72 hours
+                            </div>
+<div class="audit-form__benefit">
+<span aria-hidden="true">✅</span> Professional PDF report included
+                            </div>
+<div class="audit-form__benefit">
+<span aria-hidden="true">✅</span> Actionable, prioritized recommendations
+                            </div>
+<div class="audit-form__benefit">
+<span aria-hidden="true">✅</span> AI &amp; traditional search engines covered
+                            </div>
+</div>
+</div>
+<div>
+<form class="audit-form" id="auditForm" novalidate="">
+<div class="form-group">
+<label for="auditUrl">Website URL</label>
+<input autocomplete="url" id="auditUrl" name="url" placeholder="https://yourwebsite.com" required="" type="url"/>
+</div>
+<div class="form-group">
+<label for="auditEmail">Email Address</label>
+<input autocomplete="email" id="auditEmail" name="email" placeholder="your@email.com" required="" type="email"/>
+</div>
+<div class="form-group">
+<label for="auditBusiness">Business Description</label>
+<textarea id="auditBusiness" name="business" placeholder="Briefly describe your business, target audience, and main goals for improving your online visibility…" required="" rows="4"></textarea>
+</div>
+<div class="form-group">
+<label for="auditPackage">Audit Package</label>
+<select id="auditPackage" name="package">
+<option data-en="Select a package…" value="">Select a package…</option>
+</select>
+</div>
+<button class="btn btn-primary btn-lg btn-block" id="auditSubmitBtn" type="submit">
+                                Request Website Audit →
+                            </button>
+<p class="form-note">By submitting, you agree to our <a href="/en/privacy-policy.html">privacy
+                                    policy</a></p>
+</form>
+<div class="form-success" id="auditSuccess">
+<div class="form-success__icon">🎉</div>
+<h3>Request Received!</h3>
+<p>I'll be in touch within 24 hours to confirm your audit details and next steps.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ══════════════════════════ CONSULTANT ════════════════════ -->
+<section aria-labelledby="consultantTitle" class="consultant-section">
+<div class="container">
+<div class="section-header">
+<span class="section-label">Your Auditor</span>
+<h2 id="consultantTitle">Prepared by</h2>
+</div>
+<div class="consultant-card fade-up">
+<div aria-hidden="true" class="consultant-card__avatar">👩‍💻</div>
+<div class="consultant-card__name">Lyazzat Kalymbetova</div>
+<p style="margin-top:8px;">Helping businesses grow their visibility in both traditional and AI
+                        search engines through data-driven audits and actionable strategies.</p>
+<div class="consultant-card__roles">
+<span class="consultant-tag">Search Visibility Consultant</span>
+<span class="consultant-tag">Marketing Analyst</span>
+<span class="consultant-tag">InfoLady</span>
+</div>
+</div>
+</div>
+</section>
+<!-- ══════════════════════════ CTA ═══════════════════════════ -->
+<section aria-labelledby="ctaAuditTitle" class="cta-section">
+<div aria-hidden="true" class="cta-section__glow"></div>
+<div class="container">
+<h2 id="ctaAuditTitle">Ready to See Where You Stand in Modern Search?</h2>
+<p>Check your site for free or request a full professional audit today</p>
+<div class="cta-section__actions">
+<a class="btn btn-ghost btn-lg" href="#scanner">
+<span aria-hidden="true">🔍</span> Scan My Website — Free
+                    </a>
+<a class="btn btn-primary btn-lg" data-i18n="btn_request_audit" href="#audit-form">Request Full
+                        Audit</a>
+</div>
+</div>
+</section>
+<!-- ════════════ INTERLINKING BLOCK ════════════ -->
+<section class="related-articles-section" style="padding: 4rem 0; background: var(--bg-surface);">
+<div class="container">
+<h3 style="margin-bottom: 2rem;">Related Resources</h3>
+<div class="grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
+<div class="card" style="padding: 1.5rem; border-radius: 12px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1);">
+<a href="#scanner" style="color: var(--primary); text-decoration: none; font-weight: 500;">Free Website SEO Audit →</a>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- ══════════════════════════ FOOTER ════════════════════════ -->
+
+
+<div class="global-cta-bar inline-bar" style="background: linear-gradient(90deg, #1A1D26 0%, #242838 100%); padding: 22px; text-align: center; border: 1px solid rgba(255,255,255,0.05); font-size: 1rem; font-weight: 600; font-family:var(--font-body); display: flex; justify-content: center; align-items: center; gap: 15px; margin: 30px 0; border-radius: 12px; background: rgba(255,255,255,0.03); backdrop-filter: blur(5px); box-shadow: 0 4px 25px rgba(0,0,0,0.4);">
+<span style="color: #fff;">Check your website free</span>
+<a class="btn btn-primary btn-sm" href="/en/scan.html" style="padding: 10px 20px; font-size: 0.9rem; box-shadow: 0 4px 15px rgba(0, 224, 255, 0.25);"> Check your site for free </a>
+</div>
+<footer class="footer" role="contentinfo">
+<div class="container">
+<div class="footer__grid">
+<div class="footer__col">
+<h5>Solutions</h5><ul role="list"><li><a href="/en/visibility-audit.html">SEO Audit</a></li><li><a href="/en/ai-integration.html">AI Integration</a></li></ul>
+</div>
+<div class="footer__col">
+<h5>Information</h5><ul role="list"><li><a href="/en/privacy-policy.html">Privacy</a></li><li><a href="/en/terms-of-service.html">Terms</a></li><li><a href="/en/about.html">Contact</a></li></ul>
+</div>
+</div>
+<div class="footer__bottom">
+<p>© <span id="year"></span> InfoLady. All rights reserved.</p>
+</div>
+</div>
+</footer>
+<script>
+window.showPayPalSection = function() {
+    const el = document.getElementById('paypal-checkout');
+    if (el) el.style.display = 'block';
+    el.scrollIntoView({ behavior: 'smooth' });
+};
+
+document.addEventListener('DOMContentLoaded', function() {
+    if (typeof paypal !== 'undefined') {
+        paypal.Buttons({
+            createOrder: function(data, actions) {
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: '9.00'
+                        }
+                    }]
+                });
+            },
+            onApprove: async function(data, actions) {
+                const details = await actions.order.capture();
+                const email = document.getElementById('paypalEmail') ? document.getElementById('paypalEmail').value : '';
+                const siteUrl = document.getElementById('paypalSiteUrl') ? document.getElementById('paypalSiteUrl').value : '';
+                
+                // Submit lead
+                if (window.InfoLadyLeads) {
+                    await window.InfoLadyLeads.submitLead({
+                        email: email,
+                        domain: siteUrl,
+                        source: 'paypal_success'
+                    });
+                }
+                
+                // Redirect
+                window.location.href = '/en/report.html?url=' + encodeURIComponent(siteUrl) + '&unlocked=true';
+            }
+        }).render('#paypal-button-container');
+    }
+
+    // Kaspi Wireup
+    const kaspiBtn = document.querySelector('.kaspi-pay');
+    if (kaspiBtn) {
+        kaspiBtn.addEventListener('click', async function(e) {
+            const email = document.getElementById('paypalEmail') ? document.getElementById('paypalEmail').value : '';
+            const siteUrl = document.getElementById('paypalSiteUrl') ? document.getElementById('paypalSiteUrl').value : '';
+            if (email && siteUrl && window.InfoLadyLeads) {
+                 await window.InfoLadyLeads.submitLead({
+                    email: email,
+                    domain: siteUrl,
+                    source: 'kaspi_click'
+                 });
+            }
+        });
+    }
+});
+</script>
+<script src="/js/script.js?v=1"></script>
+</body>
+</html>

@@ -1,0 +1,435 @@
+<html lang="ru">
+<head>
+<link href="/favicon.png" rel="icon" type="image/png"/>
+<link href="/favicon.png" rel="shortcut icon"/>
+<link href="/favicon.png" rel="apple-touch-icon"/>
+<meta charset="utf-8"/>
+<meta content="index, follow" name="robots"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Образовательный Хаб SEO | InfoLady</title>
+<meta content="Расширьте свои знания в поиске механизмов." name="description"/>
+<meta content="бесплатный SEO чекер, проверка SEO, анализатор сайта, проверка ИИ SEO, бесплатный анализ сайта, проверка ИИ видимости" name="keywords"/>
+<meta content="InfoLady" name="author"/>
+<meta content="noindex, nofollow" name="robots"/>
+<meta content="website" property="og:type"/>
+<meta content="https://infolady.online/scan/free-seo-checker.html" property="og:url"/>
+<meta content="Бесплатная SEO-проверка ИИ | InfoLady" property="og:title"/>
+<meta content="Мгновенный бесплатный SEO-анализ — проверьте рейтинг SEO вашего веб-сайта, его техническое состояние, видимость искусственного интеллекта и качество контента." property="og:description"/>
+<meta content="https://infolady.online/og-image.jpg" property="og:image"/>
+<meta content="ru_RU" property="og:locale"/>
+<meta content="InfoLady" property="og:site_name"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="Бесплатная SEO-проверка ИИ | InfoLady" name="twitter:title"/>
+<meta content="Проверьте свой рейтинг SEO, видимость искусственного интеллекта и техническое состояние — бесплатно, мгновенно и без необходимости входа в систему." name="twitter:description"/>
+<meta content="https://infolady.online/og-image.jpg" name="twitter:image"/>
+<meta content="Бесплатный мгновенный инструмент ИИ SEO-анализа сайта" name="ai-content"/>
+<meta content="Бесплатный SEO чекер InfoLady — инструмент для быстрого анализа сайта, который проверяет SEO-оценку, техническое состояние, ИИ-видимость (GEO score) и качество контента за 3 секунды. Без регистрации. Полный ИИ SEO-аудит доступен за $79." name="ai-summary"/>
+<meta content="Бесплатный SEO-инструмент, Анализ сайта, Проверка ИИ-видимости" name="ai-category"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="/style.css" rel="stylesheet"/>
+<script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"SoftwareApplication","name":"InfoLady Free SEO Checker","url":"https://infolady.online/scan/free-seo-checker.html","applicationCategory":"SEOApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Free instant ИИ SEO analysis: SEO score, technical health, ИИ visibility, content quality.","provider":{"@type":"Organization","name":"InfoLady","url":"https://infolady.online"}}
+    </script>
+<script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {"@type":"Question","name":"Бесплатный ли этот SEO-чекер?","acceptedAnswer":{"@type":"Answer","text":"Да — полностью бесплатно. Без регистрации, без кредитных карт, без скрытых платежей. Введите URL любого сайта и получите мгновенные результаты."}},
+        {"@type":"Question","name":"Что анализирует бесплатный SEO-чекер?","acceptedAnswer":{"@type":"Answer","text":"Чекер анализирует четыре ключевых показателя: SEO-оценка (50+ сигналов на странице), Техническое состояние (скорость страницы, CWV, мобильность, HTTPS), ИИ Visibility — our GEO score showing how likely your site is to be cited by ChatGPT and Google ИИ Overviews — and Качество контента (читабельность, плотность ключевых слов, сигналы E-E-A-T)."}},
+        {"@type":"Question","name":"Что такое ИИ-видимость (GEO-оценка)?","acceptedAnswer":{"@type":"Answer","text":"ИИ-видимость, также называемая GEO — Generative Engine Optimization — измеряет вероятность цитирования или рекомендации вашего сайта поисковыми системами на базе ИИ, такими как ChatGPT, Google ИИ Overviews и Perplexity."}},
+        {"@type":"Question","name":"Чем отличается бесплатный чекер от полного ИИ SEO-аудита?","acceptedAnswer":{"@type":"Answer","text":"Бесплатный чекер дает быстрый обзор 4 показателей. Полный аудит за $79 — это PDF-отчет из 5 разделов с точными инструкциями по исправлению, анализом конкурентов и планом действий."}},
+        {"@type":"Question","name":"Насколько точны SEO-оценки?","acceptedAnswer":{"@type":"Answer","text":"Оценки генерируются на основе ИИ-анализа открытых сигналов сайта. Для получения наиболее точного анализа рекомендуется профессиональный аудит."}}
+      ]
+    }
+    </script>
+<style>
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin: 24px 0;
+        }
+
+        .metric-card {
+            background: rgba(255, 255, 255, .03);
+            border: 1px solid var(--border);
+            border-radius: var(--r-lg);
+            padding: 18px;
+            text-align: center;
+        }
+
+        .metric-value {
+            font-size: 2.2rem;
+            font-weight: 800;
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+
+        .metric-label {
+            font-size: .8rem;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .metric-bar {
+            height: 5px;
+            background: var(--border);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .metric-bar-fill {
+            height: 100%;
+            border-radius: 3px;
+            transition: width 1s ease-out;
+            width: 0;
+        }
+
+        .checker-input {
+            width: 100%;
+            background: rgba(255, 255, 255, .05);
+            border: 1px solid var(--border);
+            border-radius: var(--r-full);
+            padding: 14px 22px;
+            color: var(--text-main);
+            font-family: var(--font-body);
+            font-size: 1rem;
+            outline: none;
+            box-sizing: border-box;
+            transition: border-color .2s;
+        }
+
+        .checker-input:focus {
+            border-color: var(--accent-secondary);
+        }
+
+        @media(max-width:540px) {
+            .metrics-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+<link href="https://infolady.online/ru/seo-learning.html" rel="canonical"/>
+<!-- Multilingual SEO -->
+    <link rel="canonical" href="https://infolady.online/ru/seo-learning.html" />
+    <link rel="alternate" hreflang="en" href="https://infolady.online/en/seo-learning.html" />
+    <link rel="alternate" hreflang="ru" href="https://infolady.online/ru/seo-learning.html" />
+    <link rel="alternate" hreflang="x-default" href="https://infolady.online/seo-learning.html" />
+</head>
+<body>
+<!-- ══════════════════════════ NAV ══════════════════════════ -->
+<header>
+<nav class="nav platform-nav" role="navigation">
+<div class="container">
+<div class="nav__inner">
+<a class="nav__logo" href="/ru/">InfoLady</a>
+<ul class="pnav__links" role="list">
+<li class="pnav__item"><a class="pnav__trigger" href="/en/digital-tools.html">Digital Tools</a></li>
+<li class="pnav__item"><a class="pnav__trigger" href="/en/visibility-audit.html">Audit</a></li>
+<li class="pnav__item has-dropdown">
+<button class="pnav__trigger" data-i18n="nav_platform">Platform</button>
+<div class="pnav__dropdown">
+<a href="/en/platform.html">Platform Overview</a>
+<a href="/en/visibility-rating.html">Visibility Rating</a>
+<a href="/en/visibility-audit.html">Search Visibility Audit</a>
+<a href="/en/search-trend-radar.html">Search Trend Radar</a>
+<a href="/en/visibility-badge.html">Visibility Badge</a>
+<a href="/en/white-label.html">White Label</a>
+<a href="/en/how-it-works.html">How it Works</a>
+<a href="/en/methodology.html">Methodology</a>
+</div>
+</li>
+<li class="pnav__item"><a class="pnav__trigger" href="/en/ai-seo-learning.html">Learning</a></li>
+</ul>
+<div class="pnav__right">
+<div class="lang-switch">
+<button class="lang-btn active" data-lang="ru">RU</button>
+<button class="lang-btn" onclick="location.href='/en/seo-learning.html'" data-lang="en">EN</button>
+</div>
+<a class="btn btn-primary btn-sm" data-i18n="btn_free_scan" href="/ru/free-seo-checker.html">Бесплатный анализ</a>
+</div>
+<button aria-controls="mobileDrawer" aria-expanded="false" aria-label="Open menu" class="nav__burger">
+<span></span><span></span><span></span>
+</button>
+</div>
+<nav class="pnav__mobile" hidden="" id="mobileDrawer">
+<div class="pnav__mobile-section">
+<a class="pnav__mobile-section-trigger" data-i18n="nav_scanner" href="/ru/free-seo-checker.html">Сканер</a>
+</div>
+<div class="pnav__mobile-section">
+<a class="pnav__mobile-section-trigger" data-i18n="nav_tools" href="/ru/digital-tools.html">Инструменты ИИ</a>
+</div>
+<div class="pnav__mobile-section">
+<a class="pnav__mobile-section-trigger" data-i18n="nav_radar" href="/ru/search-trend-radar.html">ИИ Радар</a>
+</div>
+<div class="pnav__mobile-section">
+<a class="pnav__mobile-section-trigger" data-i18n="nav_audit" href="/ru/visibility-audit.html">ИИ Аудит</a>
+</div>
+<div class="pnav__mobile-section">
+<a class="pnav__mobile-section-trigger" data-i18n="nav_pricing" href="/ru/visibility-audit.html#pricing">Цены</a>
+</div>
+<div class="pnav__mobile-section">
+<a class="pnav__mobile-section-trigger" data-i18n="nav_marketplace" href="/ru/ai-seo-marketplace.html" style="display:block; width:100%; text-align:left;">Маркетплейс</a>
+</div>
+<div class="pnav__mobile-section">
+<button class="pnav__mobile-section-trigger" data-i18n="nav_learning">Обучение</button>
+<div class="pnav__mobile-section-links">
+<a data-en="Courses" data-ru="Курсы" href="/ru/ai-seo-learning.html">Курсы</a>
+<a data-en="ИИ SEO Guide" data-ru="ИИ SEO Гайд" href="/ru/ai-seo-guide.html">ИИ SEO Гайд</a>
+</div>
+</div>
+<div class="pnav__mobile-section">
+<button class="pnav__mobile-section-trigger" data-i18n="nav_platform">Платформа</button>
+<div class="pnav__mobile-section-links">
+<a data-en="ИИ Score" data-ru="ИИ Оценка" href="/ru/visibility-badge.html">ИИ-оценка</a>
+<a href="/ru/white-label.html">Белая этикетка</a>
+</div>
+</div>
+<div class="pnav__mobile-section">
+<a class="pnav__mobile-section-trigger" data-i18n="nav_about" href="/ru/about.html" style="display:block; width:100%; text-align:left;">О проекте</a>
+</div>
+<div class="pnav__mobile-bottom">
+<div class="lang-switch">
+<button class="lang-btn active" data-lang="ru">RU</button>
+<button class="lang-btn" onclick="location.href='/en/seo-learning.html'" data-lang="en">EN</button>
+</div>
+<a class="btn btn-primary btn-sm" data-i18n="btn_free_scan" href="/ru/free-seo-checker.html">Бесплатный анализ</a>
+</div>
+</nav>
+</div>
+</nav>
+</header>
+<main>
+<section class="hero" style="padding: 100px 0 60px;">
+<div aria-hidden="true" class="hero__bg-orb hero__bg-orb--1"></div>
+<div aria-hidden="true" class="hero__bg-orb hero__bg-orb--2"></div>
+<div class="container" style="text-align: center;">
+<span class="section-label" style="display:inline-block;padding:5px 16px;background:rgba(124,92,255,0.1);border:1px solid rgba(124,92,255,0.2);border-radius:20px;color:var(--accent-p);font-size:0.75rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:16px;">Хаб Тем</span>
+<h1 style="margin-top:20px;">Образовательный Хаб SEO</h1>
+<p class="lead" style="max-width:800px;margin:20px auto;">Расширьте свои знания в поиске механизмов.</p>
+</div>
+
+<div class="footer__cols">
+<div class="footer__col">
+<h5 data-en="Solutions">Solutions</h5>
+<ul role="list">
+<li><a href="/en/seo-industries.html">Industry Guides</a></li>
+<li><a href="/en/ai-seo-guide.html">Action Plan</a></li>
+<li><a href="/en/ai-seo-marketplace.html">Services</a></li>
+</ul>
+</div>
+<div class="footer__col">
+<h5 data-en="Platform">Platform</h5>
+<ul role="list">
+<li><a href="/en/platform.html">Platform Overview</a></li>
+<li><a href="/en/visibility-rating.html">Visibility Rating</a></li>
+<li><a href="/en/visibility-audit.html">Visibility Audit</a></li>
+<li><a href="/en/how-it-works.html">How it Works</a></li>
+<li><a href="/en/methodology.html">Methodology</a></li>
+</ul>
+</div>
+<div class="footer__col">
+<h5 data-en="Information">Information</h5>
+<ul role="list">
+<li><a href="/en/about.html">About</a></li>
+<li><a href="/en/privacy-policy.html">Privacy</a></li>
+<li><a href="/en/terms-of-service.html">Terms</a></li>
+</ul>
+</div>
+</div>
+
+</section>
+<section class="section">
+<div class="container" style="max-width:900px;">
+<div class="section-header"><h2>Обзор</h2></div>
+<p style="color:var(--text-muted);font-size:1.1rem;margin-bottom:40px;line-height:1.7;">Получите доступ к курсам, гайдам и сертификатам, которые приведут вас от новичка к более высокому SEO-стратегии.</p>
+<div class="section-header"><h2>Связанные Руководства и Статьи</h2></div>
+<div style="display:grid;grid-template-columns:1fr;gap:20px;">
+<a href="/ru/platform/ai-seo-learning.html" style="display:block;padding:24px;border:1px solid var(--border);border-radius:var(--r-lg);background:var(--bg-card);text-decoration:none;transition:transform 0.2s;margin-bottom:10px;">
+<h3 style="color:var(--text);font-size:1.2rem;margin-bottom:8px;">Образовательная программа SEO</h3>
+<p style="color:var(--text-muted);font-size:0.95rem;">Продвинутые курсы и программы</p>
+</a>
+</div>
+</div>
+</section>
+
+<section class="section"><div class="container"><div class="section-header"><h2>SEO по отраслям</h2></div><div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px;"><a href="/ru/visibility-audit.html#accountants.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Accountants</a><a href="/ru/visibility-audit.html#acupuncture.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Acupuncture</a><a href="/ru/visibility-audit.html#architects.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Architects</a><a href="/ru/visibility-audit.html#attorneys.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Attorneys</a><a href="/ru/visibility-audit.html#auto-repair.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Auto Repair</a><a href="/ru/visibility-audit.html#bakeries.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Bakeries</a><a href="/ru/visibility-audit.html#bandb.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Bandb</a><a href="/ru/visibility-audit.html#barbershops.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Barbershops</a><a href="/ru/visibility-audit.html#body-shops.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Body Shops</a><a href="/ru/visibility-audit.html#business-coaches.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Business Coaches</a><a href="/ru/visibility-audit.html#car-dealers.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Car Dealers</a><a href="/ru/visibility-audit.html#car-wash.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Car Wash</a><a href="/ru/visibility-audit.html#caterers.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Caterers</a><a href="/ru/visibility-audit.html#chiropractors.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Chiropractors</a><a href="/ru/visibility-audit.html#cleaners.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Cleaners</a><a href="/ru/visibility-audit.html#clinics.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Clinics</a><a href="/ru/visibility-audit.html#consultants.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Consultants</a><a href="/ru/visibility-audit.html#contractors.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Contractors</a><a href="/ru/visibility-audit.html#couriers.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Couriers</a><a href="/ru/visibility-audit.html#cpa.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Cpa</a><a href="/ru/visibility-audit.html#crossfit.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Crossfit</a><a href="/ru/visibility-audit.html#dance-studios.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Dance Studios</a><a href="/ru/visibility-audit.html#daycare.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Daycare</a><a href="/ru/visibility-audit.html#dentists.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Dentists</a><a href="/ru/visibility-audit.html#dermatologists.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Dermatologists</a><a href="/ru/visibility-audit.html#djs.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Djs</a><a href="/ru/visibility-audit.html#doctors.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Doctors</a><a href="/ru/visibility-audit.html#dog-trainers.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Dog Trainers</a><a href="/ru/visibility-audit.html#dog-walkers.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Dog Walkers</a><a href="/ru/visibility-audit.html#driving-schools.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Driving Schools</a><a href="/ru/visibility-audit.html#ecommerce.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Ecommerce</a><a href="/ru/visibility-audit.html#electricians.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Electricians</a><a href="/ru/visibility-audit.html#engineers.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Engineers</a><a href="/ru/visibility-audit.html#event-venues.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Event Venues</a><a href="/ru/visibility-audit.html#financial-advisors.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Financial Advisors</a><a href="/ru/visibility-audit.html#florists.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Florists</a><a href="/ru/visibility-audit.html#franchises.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Franchises</a><a href="/ru/visibility-audit.html#funeral-homes.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Funeral Homes</a><a href="/ru/visibility-audit.html#gyms.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Gyms</a><a href="/ru/visibility-audit.html#hair-salons.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Hair Salons</a><a href="/ru/visibility-audit.html#hospitals.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Hospitals</a><a href="/ru/visibility-audit.html#hotels.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Hotels</a><a href="/ru/visibility-audit.html#hvac.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Hvac</a><a href="/ru/visibility-audit.html#insurance-agents.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Insurance Agents</a><a href="/ru/visibility-audit.html#it-support.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">It Support</a><a href="/ru/visibility-audit.html#landscapers.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Landscapers</a><a href="/ru/visibility-audit.html#law-firms.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Law Firms</a><a href="/ru/visibility-audit.html#lawyers.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Lawyers</a><a href="/ru/visibility-audit.html#life-coaches.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Life Coaches</a><a href="/ru/visibility-audit.html#locksmiths.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Locksmiths</a><a href="/ru/visibility-audit.html#manufacturers.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Manufacturers</a><a href="/ru/visibility-audit.html#marketing-agencies.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Marketing Agencies</a><a href="/ru/visibility-audit.html#martial-arts.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Martial Arts</a><a href="/ru/visibility-audit.html#massage-therapists.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Massage Therapists</a><a href="/ru/visibility-audit.html#mechanics.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Mechanics</a><a href="/ru/visibility-audit.html#medical-practices.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Medical Practices</a><a href="/ru/visibility-audit.html#mortgage-brokers.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Mortgage Brokers</a><a href="/ru/visibility-audit.html#movers.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Movers</a><a href="/ru/visibility-audit.html#music-lessons.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Music Lessons</a><a href="/ru/visibility-audit.html#musicians.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Musicians</a><a href="/ru/visibility-audit.html#nail-salons.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Nail Salons</a><a href="/ru/visibility-audit.html#notaries.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Notaries</a><a href="/ru/visibility-audit.html#optometrists.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Optometrists</a><a href="/ru/visibility-audit.html#orthodontists.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Orthodontists</a><a href="/ru/visibility-audit.html#painters.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Painters</a><a href="/ru/visibility-audit.html#pediatricians.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Pediatricians</a><a href="/ru/visibility-audit.html#personals-trainers.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Personals Trainers</a><a href="/ru/visibility-audit.html#pest-control.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Pest Control</a><a href="/ru/visibility-audit.html#pet-boarding.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Pet Boarding</a><a href="/ru/visibility-audit.html#pet-grooming.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Pet Grooming</a><a href="/ru/visibility-audit.html#pharmacies.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Pharmacies</a><a href="/ru/visibility-audit.html#photographers.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Photographers</a><a href="/ru/visibility-audit.html#pilates-studios.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Pilates Studios</a><a href="/ru/visibility-audit.html#plastic-surgeons.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Plastic Surgeons</a><a href="/ru/visibility-audit.html#plumbers.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Plumbers</a><a href="/ru/visibility-audit.html#pool-builders.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Pool Builders</a><a href="/ru/visibility-audit.html#preschools.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Preschools</a><a href="/ru/visibility-audit.html#private-schools.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Private Schools</a><a href="/ru/visibility-audit.html#psychologists.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Psychologists</a><a href="/ru/visibility-audit.html#real-estate.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Real Estate</a><a href="/ru/visibility-audit.html#recruitment.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Recruitment</a><a href="/ru/visibility-audit.html#rehab-centers.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Rehab Centers</a><a href="/ru/visibility-audit.html#remodelers.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Remodelers</a><a href="/ru/visibility-audit.html#restaurants.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Restaurants</a><a href="/ru/visibility-audit.html#roofers.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Roofers</a><a href="/ru/visibility-audit.html#salons.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Salons</a><a href="/ru/visibility-audit.html#seo-agencies.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Seo Agencies</a><a href="/ru/visibility-audit.html#solar-companies.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Solar Companies</a><a href="/ru/visibility-audit.html#spas.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Spas</a><a href="/ru/visibility-audit.html#storage.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Storage</a><a href="/ru/visibility-audit.html#tattoo-shops.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Tattoo Shops</a><a href="/ru/visibility-audit.html#tax-prep.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Tax Prep</a><a href="/ru/visibility-audit.html#therapists.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Therapists</a><a href="/ru/visibility-audit.html#towing.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Towing</a><a href="/ru/visibility-audit.html#travel-agencies.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Travel Agencies</a><a href="/ru/visibility-audit.html#tree-service.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Tree Service</a><a href="/ru/visibility-audit.html#trucking.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Trucking</a><a href="/ru/visibility-audit.html#tutors.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Tutors</a><a href="/ru/visibility-audit.html#veterinarians.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Veterinarians</a><a href="/ru/visibility-audit.html#web-designers.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Web Designers</a><a href="/ru/visibility-audit.html#wedding-planners.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Wedding Planners</a><a href="/ru/visibility-audit.html#wholesalers.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Wholesalers</a><a href="/ru/visibility-audit.html#yoga-studios.html" style="padding:12px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:8px; text-decoration:none; color:var(--text-main); font-size:0.9rem; transition: background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.05)'" onmouseout="this.style.background='rgba(255,255,255,0.02)'">Yoga Studios</a></div></div></section>
+<section class="cta-section" style="padding:80px 0;background:var(--bg-card);border-top:1px solid var(--border);margin-top:40px;">
+<div class="container" style="text-align:center;">
+<h2>Готовы освоить SEO?</h2>
+<div class="cta-section__actions" style="margin-top:30px;">
+<a class="btn btn-primary btn-lg" href="/ru/free-seo-checker.html" style="margin-bottom:10px;padding:14px 32px;border-radius:30px;">Начать бесплатный анализ</a>
+</div>
+</div>
+</section>
+</main>
+<footer class="footer" role="contentinfo">
+<div class="container">
+<div class="footer__grid">
+<div class="footer__brand"><a class="nav__logo" href="/ru/">InfoLady</a>
+<p data-en="ИИ SEO Platform — analyze, optimize, and grow in ИИ search." data-ru="ИИ SEO Платформа — анализируйте и растите в ИИ поиске.">ИИ SEO Platform — анализируйте и растите в ИИ-поиске.</p>
+</div>
+<div class="footer__col">
+<h5 data-en="Tools" data-ru="Инструменты">Инструменты</h5>
+<ul role="list">
+<li><a data-en="All ИИ Tools" data-ru="Все ИИ инструменты" href="/ru/ai-tools-directory.html">Все инструменты искусственного интеллекта</a></li>
+<li><a data-en="Free Checker" data-ru="Бесплатный сканер" href="/ru/free-seo-checker.html">Бесплатный сканер</a></li>
+<li><a data-en="Full Audit" data-ru="Полный аудит" href="/ru/visibility-audit.html">Полный аудит</a></li>
+</ul>
+</div>
+<div class="footer__col">
+<h5 data-en="Information" data-ru="Информация">Информация</h5>
+<ul role="list">
+<li><a data-i18n="nav_about" href="/ru/about.html">О проекте</a></li>
+<li><a data-en="Privacy Policy" data-ru="Политика конфиденциальности" href="/platform/privacy-policy-ru.html">Политика конфиденциальности</a></li>
+<li><a data-en="Terms of Service" data-ru="Условия использования" href="/platform/terms-of-service-ru.html">Условия использования</a></li>
+<li><a data-en="Cookie Policy" data-ru="Cookie файлы" href="/platform/cookie-policy-ru.html">файлы cookie</a></li>
+<li><a href="/ru/seo-learning.html">SEO-обучение</a></li>
+<li><a href="/ru/report.html">Предварительный просмотр отчета</a></li>
+<li><a href="/ru/ai-seo-tools.html">Инструменты искусственного интеллекта</a></li>
+</ul>
+</div>
+</div>
+<div class="footer__bottom">
+<p>© <span id="year"></span> InfoLady. <span data-en="All rights reserved." data-ru="Все права защищены.">Все права защищены.</span></p>
+</div>
+</div>
+</footer>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+<script defer="" src="/script.js"></script>
+<script>
+        document.getElementById('checkerUrl').addEventListener('keydown', function (e) { if (e.key === 'Enter') runChecker(); });
+
+        // Auto-run if URL parameter is present
+        window.addEventListener('DOMContentLoaded', function () {
+            var params = new URLSearchParams(window.location.search);
+            var urlParam = params.get('url');
+            if (urlParam) {
+                document.getElementById('checkerUrl').value = urlParam;
+                runChecker();
+            }
+
+            document.getElementById('btnGenerateReport').addEventListener('click', function () {
+                var url = document.getElementById('checkerUrl').value.trim();
+                if (!url) { document.getElementById('checkerUrl').focus(); return; }
+
+                // Extract domain
+                var domain = url.replace(/^https?:\/\//i, '').split('/')[0];
+                window.location.href = '/report.html?domain=' + encodeURIComponent(domain);
+            });
+        });
+
+        async function runChecker() {
+            var urlInput = document.getElementById('checkerUrl');
+            var url = urlInput.value.trim();
+            if (!url) { urlInput.focus(); return; }
+
+            // Basic URL normalization
+            if (!/^https?:\/\//i.test(url)) {
+                url = 'https://' + url;
+                urlInput.value = url;
+            }
+
+            var loading = document.getElementById('checkerLoading');
+            var results = document.getElementById('checkerResults');
+            var btn = document.getElementById('checkerBtn');
+            var issuesList = document.querySelector('#moreIssues').parentElement.querySelector('div:nth-child(2)');
+            var errorMsg = document.getElementById('checkerError');
+
+            if (!errorMsg) {
+                errorMsg = document.createElement('div');
+                errorMsg.id = 'checkerError';
+                errorMsg.style.cssText = 'color:var(--accent-tertiary); background:rgba(255,100,100,0.1); padding:15px; border-radius:10px; margin-top:20px; display:none; text-align:center; font-size:0.9rem;';
+                results.parentElement.appendChild(errorMsg);
+            }
+
+            results.style.display = 'none';
+            errorMsg.style.display = 'none';
+            loading.classList.add('visible');
+            btn.disabled = true;
+
+            const isRu = document.documentElement.lang === 'ru';
+            btn.textContent = isRu ? 'Анализируем...' : 'Analyzing...';
+
+            try {
+                // Call the REAL local Node.js SEO Backend
+                const apiUrl = `https://seo-backend-rrke.onrender.com/api/scan?url=${encodeURIComponent(url)}`;
+                const response = await fetch(apiUrl);
+                
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.error || 'Server Analysis Failed');
+                }
+                
+                const data = await response.json();
+
+                const seo = data.seoScore;
+                const performance = data.performanceScore;
+                const bestPractices = data.aiScore;
+                const accessibility = data.contentScore;
+                const failedAudits = data.issues;
+
+                // Update UI scores
+                document.getElementById('mSeo').textContent = seo;
+                document.getElementById('mTech').textContent = performance;
+                document.getElementById('mAi').textContent = bestPractices;
+                document.getElementById('mContent').textContent = accessibility;
+
+                // Animate bars
+                setTimeout(function () {
+                    document.getElementById('mSeoBar').style.width = seo + '%';
+                    document.getElementById('mTechBar').style.width = performance + '%';
+                    document.getElementById('mAiBar').style.width = bestPractices + '%';
+                    document.getElementById('mContentBar').style.width = accessibility + '%';
+                }, 100);
+
+                // Map real issues into the list
+                if (failedAudits && failedAudits.length > 0) {
+                    issuesList.innerHTML = failedAudits.map(a => `<div>• ${isRu ? a.title : a.enTitle}</div>`).join('');
+                } else {
+                    issuesList.innerHTML = `<div>• ${isRu ? 'Критических проблем не обнаружено' : 'No critical issues detected'}</div>`;
+                }
+
+                loading.classList.remove('visible');
+                results.style.display = '';
+                results.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+                // Save to dashboard local database if session exists
+                var sessionRaw = localStorage.getItem('infolady_session');
+                if (sessionRaw) {
+                    var session = JSON.parse(sessionRaw);
+                    var scans = JSON.parse(localStorage.getItem('il_scans') || '[]');
+
+                    scans.push({
+                        email: session.email,
+                        domain: url.replace(/^https?:\/\//i, '').split('/')[0],
+                        seoScore: seo,
+                        techScore: performance,
+                        aiScore: bestPractices,
+                        contentScore: accessibility,
+                        date: new Date().toISOString()
+                    });
+
+                    localStorage.setItem('il_scans', JSON.stringify(scans));
+                }
+
+                btn.disabled = false;
+                btn.innerHTML = isRu ? '✅ Проверить SEO' : '✅ Check SEO';
+
+            } catch (err) {
+                console.error("Analysis Error:", err);
+                loading.classList.remove('visible');
+                errorMsg.textContent = isRu
+                    ? 'Ошибка при анализе сайта: сервер недоступен или отклонил запрос.'
+                    : `Error analyzing website: ${err.message}`;
+                errorMsg.style.display = 'block';
+                btn.disabled = false;
+                btn.innerHTML = isRu ? '✅ Проверить SEO' : '✅ Check SEO';
+            }
+}
+    </script>
+</body>
+</html>

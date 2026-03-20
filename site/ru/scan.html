@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+
+<html lang="ru">
+<head>
+    <meta name="geo.region" content="KZ">
+  <meta name="geo.placename" content="Almaty">
+  <meta name="geo.position" content="43.238949;76.889709">
+  <meta name="ICBM" content="43.238949, 76.889709">
+  <meta name="language" content="ru">
+  <meta name="target-country" content="KZ">
+
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Анализ сайта | Платформа InfoLady</title>
+<meta content="Запустите профессиональный анализ поисковой видимости. Узнайте, как ChatGPT и Google Gemini воспринимают ваш бренд." name="description"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="/style.css" rel="stylesheet"/>
+<style>
+        .scan-container {
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            position: relative;
+        }
+        .scan-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 48px;
+            width: 100%;
+            max-width: 700px;
+            position: relative;
+            z-index: 10;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            text-align: center;
+        }
+        .scan-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, #fff 0%, #a5b4fc 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .scan-header p {
+            color: var(--text-muted);
+            margin-bottom: 32px;
+            font-size: 1.1rem;
+        }
+        .scan-input-group {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+        .scan-input {
+            flex: 1;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px 24px;
+            color: #fff;
+            font-size: 1.1rem;
+            outline: none;
+            transition: all 0.3s;
+        }
+        .scan-input:focus {
+            border-color: var(--accent-primary);
+            background: rgba(255,255,255,0.08);
+            box-shadow: 0 0 0 4px rgba(0,224,255,0.1);
+        }
+        .scan-btn {
+            padding: 16px 32px;
+            font-size: 1rem;
+        }
+        .scan-hints {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-top: 32px;
+            color: var(--text-dim);
+            font-size: 0.85rem;
+        }
+        .scan-hint-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .loading-overlay {
+            position: absolute;
+            inset: 0;
+            background: var(--bg-card);
+            border-radius: 24px;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 20;
+        }
+        .loading-overlay.active { display: flex; }
+        .spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(0,224,255,0.1);
+            border-top-color: var(--accent-primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 24px;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .loading-steps {
+            text-align: left;
+            width: 250px;
+            margin-top: 20px;
+        }
+        .loading-step {
+            margin-bottom: 8px;
+            color: var(--text-dim);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .loading-step.active { color: var(--text-main); font-weight: 600; }
+        .loading-step.done { color: #28c840; }
+        .loading-step.done::before { content: '✓ '; }
+    </style>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        if (typeof lucide !== 'undefined') {
+             lucide.createIcons();
+        }
+      });
+    </script>
+
+
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Organization",
+ "name": "InfoLady",
+ "url": "https://infolady.online",
+ "logo": "https://infolady.online/favicon.png",
+ "areaServed": ["KZ","RU","Global"],
+ "sameAs": [
+   "https://t.me/lyazkai_bot?start=audit_root_scan"
+ ]
+}
+</script>
+<meta name="keywords" content="website audit Kazakhstan Almaty"/>
+</head>
+<body class="platform-body">
+<header>
+<a href="https://t.me/lyazkai_bot?start=global_cta" class="cta-top">🔥 Узнать, где теряете клиентов</a>
+<nav class="nav platform-nav">
+<div class="container">
+<div class="nav__inner">
+<a class="nav__logo" href="/ru/">InfoLady</a>
+<div class="pnav__right">
+<div class="lang-switch">
+<button class="lang-btn active">RU</button>
+<button class="lang-btn" onclick="location.href='/en/scan.html'">EN</button>
+</div>
+</div>
+</div>
+</div>
+</nav>
+</header>
+<main>
+<div class="scan-container">
+<div aria-hidden="true" class="hero__bg-orb hero__bg-orb--1"></div>
+<div class="scan-card fade-up">
+<div class="loading-overlay" id="loadingOverlay">
+<div class="spinner"></div>
+<h2 id="loadingTitle">Анализ окружения</h2>
+<div class="loading-steps">
+<div class="loading-step" id="step1">Подключение к индексам...</div>
+<div class="loading-step" id="step2">Аудит технических сигналов...</div>
+<div class="loading-step" id="step3">Симуляция ИИ-восприятия...</div>
+<div class="loading-step" id="step4">Генерация отчета...</div>
+</div>
+</div>
+<div class="scan-header">
+<h1>Анализ видимости</h1>
+<p>Введите URL сайта, чтобы запустить движок анализа поисковой видимости.</p>
+</div>
+<div class="scan-input-group">
+<input class="scan-input" id="scanUrl" placeholder="https://example.com" required="" type="url"/>
+<button class="btn btn-primary scan-btn" onclick="startScan()">Запустить анализ</button>
+</div>
+<div class="scan-hints">
+<div class="scan-hint-item"><span>🔒</span> Безопасно</div>
+<div class="scan-hint-item"><span>⚡</span> Мгновенно</div>
+<div class="scan-hint-item"><span>🤖</span> На базе ИИ</div>
+</div>
+</div>
+</div>
+
+<section class="ai-block">
+<h2>Как мы помогаем бизнесу</h2>
+<p>Мы внедряем ИИ в бизнесы в Казахстане, СНГ и по всему миру.</p>
+<p>Помогаем автоматизировать заявки, увеличить конверсию и привлекать клиентов через современные AI-системы.</p>
+<p>Наши услуги включают внедрение ИИ в Казахстане, AI автоматизацию бизнеса в Алматы и по всему СНГ, а также оптимизацию того, как получать заявки из сайта в Казахстане.</p>
+</section>
+
+<section class="faq">
+<h2>Частые вопросы</h2>
+
+<h3>Как ИИ увеличивает заявки?</h3>
+<p>ИИ автоматизирует обработку клиентов и повышает конверсию сайта.</p>
+
+<h3>Сколько стоит внедрение?</h3>
+<p>Зависит от бизнеса, начинается с аудита.</p>
+
+<h3>Подходит ли для малого бизнеса?</h3>
+<p>Да, особенно если нет заявок.</p>
+</section>
+</main>
+<script src="/js/script.js"></script>
+<script>
+        function startScan() {
+            const url = document.getElementById('scanUrl').value.trim();
+            if (!url) return document.getElementById('scanUrl').focus();
+
+            const overlay = document.getElementById('loadingOverlay');
+            overlay.classList.add('active');
+
+            const steps = [
+                { id: 'step1', time: 800 },
+                { id: 'step2', time: 1500 },
+                { id: 'step3', time: 1200 },
+                { id: 'step4', time: 1000 }
+            ];
+
+            let totalTime = 0;
+            steps.forEach((step, index) => {
+                totalTime += step.time;
+                setTimeout(() => {
+                    const el = document.getElementById(step.id);
+                    el.classList.add('active');
+                    if (index > 0) document.getElementById(steps[index-1].id).className = 'loading-step done';
+                    
+                    if (index === steps.length - 1) {
+                        setTimeout(() => {
+                            const domain = url.replace(/^https?:\/\//i, '').split('/')[0];
+                            const params = new URLSearchParams(window.location.search);
+                            const src = params.get('src') || '';
+                            const ref = params.get('ref') || '';
+                            location.href = `/ru/report.html?domain=${encodeURIComponent(domain)}&url=${encodeURIComponent(url)}&src=${encodeURIComponent(src)}&ref=${encodeURIComponent(ref)}`;
+                        }, 1000);
+                    }
+                }, totalTime);
+            });
+        }
+
+        // Auto-run if URL param
+        const params = new URLSearchParams(window.location.search);
+        if (params.get('url')) {
+            document.getElementById('scanUrl').value = params.get('url');
+            setTimeout(startScan, 500);
+        }
+    </script>
+
+<div class="mobile-cta">
+<a href="https://t.me/lyazkai_bot?start=mobile_cta">
+Получить клиентов
+</a>
+</div>
+</body>
+</html>

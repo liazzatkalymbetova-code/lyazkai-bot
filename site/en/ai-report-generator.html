@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<script>
+    (function() {
+        const params = new URLSearchParams(window.location.search);
+        const isPro = params.get('pro') === 'true';
+        if (!isPro) {
+            const isRu = window.location.pathname.includes('/ru/');
+            const domain = params.get('domain') || '';
+            const dest = isRu ? '/ru/report.html' : '/en/report.html';
+            window.location.href = dest + (domain ? '?domain=' + encodeURIComponent(domain) : '');
+        }
+    })();
+    </script>
+<link href="/favicon.png" rel="icon" type="image/png"/>
+<link href="/favicon.png" rel="shortcut icon"/>
+<link href="/favicon.png" rel="apple-touch-icon"/>
+<meta charset="utf-8"/>
+<meta content="index, follow" name="robots"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AI Report Generator — Automated PDF SEO Reports | InfoLady</title>
+<meta content="Generate automated PDF SEO and AI visibility reports for any website. White-label reports for agencies and freelancers." name="description"/>
+<meta content="AI SEO report generator, PDF SEO report, automated website report, white-label SEO report, AI visibility report" name="keywords"/>
+<meta content="InfoLady" name="author"/>
+<meta content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" name="robots"/>
+<meta content="website" property="og:type"/>
+<meta content="https://infolady.online/tools/ai-report-generator.html" property="og:url"/>
+<meta content="AI Report Generator | InfoLady" property="og:title"/>
+<meta content="Generate professional PDF SEO and AI visibility reports automatically." property="og:description"/>
+<meta content="https://infolady.online/og-image.jpg" property="og:image"/>
+<meta content="en_US" property="og:locale"/>
+<meta content="InfoLady" property="og:site_name"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="AI Report Generator | InfoLady" name="twitter:title"/>
+<meta content="Automated PDF SEO &amp; AI visibility reports for any website." name="twitter:description"/>
+<meta content="https://infolady.online/og-image.jpg" name="twitter:image"/>
+<meta content="Automated AI SEO PDF report generator tool" name="ai-content"/>
+<meta content="InfoLady AI Report Generator creates structured 5-section PDF reports covering Technical SEO, AI Visibility, Content recommendations, Competitor Insights, and Action Plan." name="ai-summary"/>
+<meta content="SEO Reports, AI Visibility, Website Audit Tools" name="ai-category"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="/style.css" rel="stylesheet"/>
+<script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "InfoLady AI Report Generator",
+      "url": "https://infolady.online/tools/ai-report-generator.html",
+      "applicationCategory": "SEOApplication",
+      "operatingSystem": "Web",
+      "description": "Generate comprehensive AI SEO reports for your clients or team.",
+      "offers": {}
+    }
+    </script>
+<script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"SoftwareApplication","name":"AI Report Generator","url":"https://infolady.online/tools/ai-report-generator.html","applicationCategory":"SEOApplication","operatingSystem":"Web","offers": {},"description":"Generates structured PDF SEO and AI visibility audit reports.","provider":{"@type":"Organization","name":"InfoLady","url":"https://infolady.online"}}
+    </script>
+<style>
+        @media print {
+
+            header,
+            footer,
+            nav,
+            .cta-section,
+            #reportInfo,
+            #generatorSection,
+            .page-hero,
+            .hero__bg-orb,
+            .btn,
+            #reportActions {
+                display: none !important;
+            }
+
+            #reportOutput {
+                display: block !important;
+                padding: 0 !important;
+            }
+
+            #reportDocument {
+                border: none !important;
+                box-shadow: none !important;
+                padding: 20px !important;
+                background: #fff !important;
+                color: #111 !important;
+            }
+
+            .report-section h3 {
+                color: #1a1a2e !important;
+            }
+
+            body,
+            html {
+                background: #fff !important;
+                color: #111 !important;
+            }
+
+            .data-table td,
+            .data-table th {
+                color: #111 !important;
+                border-color: #ccc !important;
+            }
+        }
+    </style>
+<!-- Multilingual SEO -->
+<link href="https://infolady.online/en/ai-report-generator.html" rel="canonical"/>
+<link href="https://infolady.online/en/ai-report-generator.html" hreflang="en" rel="alternate"/>
+<link href="https://infolady.online/en/ai-report-generator.html" hreflang="ru" rel="alternate"/>
+<link href="https://infolady.online/" hreflang="x-default" rel="alternate"/>
+<!-- Lucide Icons -->
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>
+      document.addEventListener("DOMContentLoaded", function() {
+        if (typeof lucide !== 'undefined') {
+             lucide.createIcons();
+        }
+      });
+    </script>
+
+<style id="cta-spacer-style">
+  body.top-bar-active nav.nav { top: 47px !important; }
+  body.top-bar-active .page-hero { margin-top: 0px !important; }
+  @media (max-width: 768px) { 
+    body.top-bar-active nav.nav { top: 47px !important; } 
+    .global-cta-bar.top-bar { flex-direction: row; font-size: 0.85rem; padding: 10px; }
+  }
+</style>
+</head>
+<body class="top-bar-active">
+<!-- ══════════════════════════ NAV ══════════════════════════ -->
+<header>
+<div class="global-cta-bar top-bar" style="background: linear-gradient(90deg, #1A1D26 0%, #242838 100%); padding: 12px 20px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.95rem; font-weight: 600; font-family:var(--font-body); display: flex; justify-content: center; align-items: center; gap: 12px; margin: 0; width: 100%; box-sizing: border-box; position: relative; z-index: 1001;"><a href="https://t.me/lyazkai_bot?start=global_cta" class="cta-top">🔥 Find out where you lose customers</a></div>
+
+
+<nav class="nav platform-nav" role="navigation">
+<div class="container">
+<div class="nav__inner">
+<a class="nav__logo" href="/en/">InfoLady</a>
+<ul class="pnav__links" role="list">
+<li class="pnav__item"><a class="pnav__trigger" href="/en/visibility-audit.html">SEO Audit</a></li>
+</ul>
+<div class="pnav__right">
+<div class="lang-switch">
+<button class="lang-btn" data-lang="ru" onclick="location.href='/ru/ai-report-generator.html'">RU</button>
+<button class="lang-btn active" data-lang="en">EN</button>
+</div>
+<a class="btn btn-primary btn-sm" data-en="Check your site for free" href="/en/visibility-audit.html">Check your site for free</a>
+</div>
+<button aria-controls="mobileDrawer" aria-expanded="false" aria-label="Open menu" class="nav__burger">
+<span></span><span></span><span></span>
+</button>
+</div>
+<nav class="pnav__mobile" hidden="" id="mobileDrawer">
+<div class="pnav__mobile-section"><a class="pnav__mobile-section-trigger" href="/en/visibility-audit.html">SEO Audit</a></div>
+<div class="pnav__mobile-section"><a class="pnav__mobile-section-trigger" href="/en/ai-integration.html">AI Integration</a></div>
+
+<div class="pnav__mobile-bottom"><div class="lang-switch">
+<button class="lang-btn active" data-lang="en">EN</button>
+<button class="lang-btn" data-lang="ru" onclick="location.href='/ru/index.html'">RU</button>
+</div></div></nav>
+</div>
+</nav>
+</header>
+<main>
+<!-- Hero -->
+<section class="page-hero">
+<div aria-hidden="true" class="hero__bg-orb hero__bg-orb--1"></div>
+<div aria-hidden="true" class="hero__bg-orb hero__bg-orb--2"></div>
+<div class="container">
+<div class="page-hero__inner">
+<span class="section-label section-label--glow" id="heroBadge">Platform</span>
+<h1>AI SEO<br/><span class="gradient-text">Audit Report</span></h1>
+<p class="lead" id="heroSubtitle">Generate a professional AI SEO &amp; GEO report for any website —
+                        or receive your paid report instantly.</p>
+</div>
+</div>
+</section>
+<div class="global-cta-bar inline-bar" style="background: linear-gradient(90deg, #1A1D26 0%, #242838 100%); padding: 22px; text-align: center; border: 1px solid rgba(255,255,255,0.05); font-size: 1rem; font-weight: 600; font-family:var(--font-body); display: flex; justify-content: center; align-items: center; gap: 15px; margin: 30px 0; border-radius: 12px; background: rgba(255,255,255,0.03); backdrop-filter: blur(5px); box-shadow: 0 4px 25px rgba(0,0,0,0.4);">
+<span style="color: #fff;">Check your website free</span>
+<a class="btn btn-primary btn-sm" href="/en/scan.html" style="padding: 10px 20px; font-size: 0.9rem; box-shadow: 0 4px 15px rgba(0, 224, 255, 0.25);"> Check your site for free </a>
+</div>
+
+
+<!-- Generator Input -->
+<section class="section section--tinted" id="generatorSection">
+<div class="container">
+<div class="tool-box">
+<div class="tool-box__label">Report Generator</div>
+<h2>Generate PDF Report</h2>
+<p>Enter a website URL to generate a full 5-section AI SEO audit report</p>
+<div style="display:grid;gap:12px;margin-bottom:16px;">
+<input aria-label="Client website URL" id="reportUrl" placeholder="https://clientwebsite.com" style="background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:var(--r-full);padding:13px 22px;color:var(--text-main);font-family:var(--font-body);font-size:.95rem;outline:none;" type="url"/>
+<input id="reportEmail" placeholder="Send report to email (optional)" style="background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:var(--r-full);padding:13px 22px;color:var(--text-main);font-family:var(--font-body);font-size:.95rem;outline:none;" type="email"/>
+</div>
+<button class="btn btn-primary" onclick="genReport()" style="width:100%;justify-content:center;">📄
+                        Generate PDF Report</button>
+<div class="loading-block" id="reportLoading">
+<div class="spinner"></div>
+<p style="margin-top:14px;">Analyzing site and generating your report…</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Structured Report Output (hidden until generated) -->
+<section class="section" id="reportOutput" style="display:none;">
+<div class="container" style="max-width:860px;">
+<div id="reportDocument" style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r-xl);padding:40px;margin-bottom:24px;">
+<!-- Report Header -->
+<div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:32px;padding-bottom:20px;border-bottom:1px solid var(--border);">
+<div>
+<div id="reportBadge" style="font-size:.78rem;color:var(--accent-secondary);font-weight:600;letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px;">✓ Standard Report</div>
+<h2 id="reportTitle" style="margin:0 0 4px;font-size:1.5rem;">AI SEO &amp; GEO Audit Report
+                            </h2>
+<div style="font-size:.88rem;color:var(--text-muted);">Generated on <span id="reportDate"></span> · InfoLady Platform</div>
+<div id="reportSiteLabel" style="font-size:.85rem;color:var(--text-dim);margin-top:4px;">
+</div>
+</div>
+<div style="text-align:right;">
+<div id="overallScore" style="font-size:2.6rem;font-weight:800;color:var(--accent-secondary);">—</div>
+<div style="font-size:.78rem;color:var(--text-muted);">Overall Score / 100</div>
+</div>
+</div>
+<!-- Section 1: Technical SEO -->
+<div class="report-section" style="margin-bottom:28px;padding-bottom:28px;border-bottom:1px solid var(--border);">
+<h3 style="margin-bottom:16px;">🔧 Technical SEO Analysis</h3>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:16px;">
+<div style="background:rgba(0,224,255,.06);border:1px solid rgba(0,224,255,.15);border-radius:var(--r-lg);padding:14px;text-align:center;">
+<div id="techSpeedScore" style="font-size:1.7rem;font-weight:800;color:var(--accent-secondary);">—</div>
+<div style="font-size:.78rem;color:var(--text-muted);">Page Speed</div>
+</div>
+<div style="background:rgba(0,224,255,.06);border:1px solid rgba(0,224,255,.15);border-radius:var(--r-lg);padding:14px;text-align:center;">
+<div style="font-size:1.7rem;font-weight:800;color:#28c840;">✓</div>
+<div style="font-size:.78rem;color:var(--text-muted);">Mobile Friendly</div>
+</div>
+<div style="background:rgba(0,224,255,.06);border:1px solid rgba(0,224,255,.15);border-radius:var(--r-lg);padding:14px;text-align:center;">
+<div id="techCrawlIssues" style="font-size:1.7rem;font-weight:800;color:#febc2e;">—
+                                </div>
+<div style="font-size:.78rem;color:var(--text-muted);">Crawl Issues</div>
+</div>
+<div style="background:rgba(0,224,255,.06);border:1px solid rgba(0,224,255,.15);border-radius:var(--r-lg);padding:14px;text-align:center;">
+<div style="font-size:1.7rem;font-weight:800;color:#ff5f57;">✗</div>
+<div style="font-size:.78rem;color:var(--text-muted);">Missing Schema</div>
+</div>
+</div>
+<ul style="list-style:none;padding:0;margin:0;display:grid;gap:8px;font-size:.9rem;color:var(--text-muted);">
+<li>⚠ No JSON-LD structured data detected — AI engines cannot parse your content entities
+                            </li>
+<li>⚠ Core Web Vitals: LCP above 2.5s threshold — impacts both ranking and user experience
+                            </li>
+<li>✅ SSL certificate valid and HTTPS enforced</li>
+<li>✅ Sitemap.xml accessible and properly formatted</li>
+</ul>
+</div>
+<!-- Section 2: AI Visibility -->
+<div class="report-section" style="margin-bottom:28px;padding-bottom:28px;border-bottom:1px solid var(--border);">
+<h3 style="margin-bottom:16px;">🤖 AI Visibility &amp; GEO Score</h3>
+<div style="display:flex;align-items:center;gap:24px;flex-wrap:wrap;margin-bottom:16px;">
+<div style="flex-shrink:0;text-align:center;">
+<div id="aiScoreDisp" style="font-size:3rem;font-weight:800;color:var(--accent-tertiary);">—</div>
+<div style="font-size:.78rem;color:var(--text-muted);">GEO Score / 100</div>
+</div>
+<div style="flex:1;min-width:200px;display:grid;gap:10px;">
+<div><span style="font-size:.8rem;color:var(--text-dim);">ChatGPT Citation
+                                        Potential</span>
+<div style="background:var(--border);border-radius:4px;height:7px;margin-top:5px;">
+<div id="chatgptBar" style="width:18%;height:100%;background:var(--accent-tertiary);border-radius:4px;transition:width .8s;">
+</div>
+</div>
+</div>
+<div><span style="font-size:.8rem;color:var(--text-dim);">Google AI Overviews</span>
+<div style="background:var(--border);border-radius:4px;height:7px;margin-top:5px;">
+<div id="googleBar" style="width:25%;height:100%;background:#febc2e;border-radius:4px;transition:width .8s;">
+</div>
+</div>
+</div>
+<div><span style="font-size:.8rem;color:var(--text-dim);">Perplexity Indexability</span>
+<div style="background:var(--border);border-radius:4px;height:7px;margin-top:5px;">
+<div id="perplexityBar" style="width:30%;height:100%;background:var(--accent-secondary);border-radius:4px;transition:width .8s;">
+</div>
+</div>
+</div>
+</div>
+</div>
+<p style="font-size:.88rem;color:var(--text-muted);">AI visibility is critically low. Content
+                            lacks entity-based structure, FAQPage schema, and clear topical authority signals required
+                            for AI citation.</p>
+</div>
+<!-- Section 3: Content Recommendations -->
+<div class="report-section" style="margin-bottom:28px;padding-bottom:28px;border-bottom:1px solid var(--border);">
+<h3 style="margin-bottom:16px;">✍️ Content Recommendations</h3>
+<div style="display:grid;gap:10px;font-size:.9rem;">
+<div style="display:flex;gap:12px;padding:12px;background:rgba(255,255,255,.03);border-radius:var(--r-md);border-left:3px solid var(--accent-tertiary);">
+<div><strong>Add FAQ sections with FAQPage JSON-LD</strong> — AI engines extract Q&amp;A
+                                    pairs. Add 5+ FAQ blocks per key page.</div>
+</div>
+<div style="display:flex;gap:12px;padding:12px;background:rgba(255,255,255,.03);border-radius:var(--r-md);border-left:3px solid var(--accent-tertiary);">
+<div><strong>Add "What is…?" entity definitions</strong> — Include clear definitions at
+                                    page top for AI indexers and entity extraction.</div>
+</div>
+<div style="display:flex;gap:12px;padding:12px;background:rgba(255,255,255,.03);border-radius:var(--r-md);border-left:3px solid #febc2e;">
+<div><strong>Improve E-E-A-T signals</strong> — Add author bios, credentials, expert
+                                    citations, and verifiable data sources.</div>
+</div>
+<div style="display:flex;gap:12px;padding:12px;background:rgba(255,255,255,.03);border-radius:var(--r-md);border-left:3px solid #febc2e;">
+<div><strong>Keyword density optimization</strong> — Primary keywords appear too
+                                    infrequently. Target 1.5–2.5% density on key pages.</div>
+</div>
+</div>
+</div>
+<!-- Section 4: Competitor Insights -->
+<div class="report-section" style="margin-bottom:28px;padding-bottom:28px;border-bottom:1px solid var(--border);">
+<h3 style="margin-bottom:16px;">🏆 Competitor Insights</h3>
+<div class="data-table-wrap">
+<table class="data-table" style="font-size:.85rem;">
+<thead>
+<tr>
+<th>Website</th>
+<th>SEO Score</th>
+<th>Visibility Rating</th>
+<th>Schema</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr style="background:rgba(0,224,255,.04);">
+<td id="yourDomain">yoursite.com <span style="color:var(--accent-secondary);font-size:.72rem;font-weight:700;">●
+                                                Your Site</span></td>
+<td><span class="score-badge score-badge--mid" id="compYourSeo">58</span></td>
+<td><span class="score-badge score-badge--low" id="compYourAi">22</span></td>
+<td style="color:#ff5f57;">✗</td>
+<td style="color:var(--accent-tertiary);font-size:.8rem;">Needs work</td>
+</tr>
+<tr>
+<td>competitor1.com</td>
+<td><span class="score-badge">74</span></td>
+<td><span class="score-badge score-badge--mid">45</span></td>
+<td style="color:#28c840;">✓</td>
+<td style="color:var(--text-muted);font-size:.8rem;">Ahead</td>
+</tr>
+<tr>
+<td>competitor2.com</td>
+<td><span class="score-badge">81</span></td>
+<td><span class="score-badge score-badge--mid">61</span></td>
+<td style="color:#28c840;">✓</td>
+<td style="color:var(--text-muted);font-size:.8rem;">Leader</td>
+</tr>
+<tr>
+<td>competitor3.com</td>
+<td><span class="score-badge score-badge--mid">68</span></td>
+<td><span class="score-badge score-badge--mid">38</span></td>
+<td style="color:#febc2e;">~</td>
+<td style="color:var(--text-muted);font-size:.8rem;">Moderate</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p style="font-size:.82rem;color:var(--text-dim);margin-top:10px;">Competitors average 48 AI
+                            visibility vs. your score — close the gap with GEO optimization.</p>
+</div>
+<!-- Section 5: Action Plan -->
+<div class="report-section">
+<h3 style="margin-bottom:16px;">📋 Prioritized Action Plan</h3>
+<div style="display:grid;gap:8px;">
+<div style="display:flex;gap:14px;align-items:flex-start;padding:12px;background:rgba(255,90,31,.07);border:1px solid rgba(255,90,31,.2);border-radius:var(--r-md);">
+<span style="background:var(--accent-tertiary);color:#fff;border-radius:50%;width:26px;height:26px;min-width:26px;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;">1</span>
+<div><strong>Add JSON-LD structured data</strong> — Organization, WebPage, FAQPage
+                                    schemas. <span style="color:var(--accent-tertiary);font-size:.82rem;">Impact:
+                                        CRITICAL</span></div>
+</div>
+<div style="display:flex;gap:14px;align-items:flex-start;padding:12px;background:rgba(255,90,31,.07);border:1px solid rgba(255,90,31,.2);border-radius:var(--r-md);">
+<span style="background:var(--accent-tertiary);color:#fff;border-radius:50%;width:26px;height:26px;min-width:26px;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;">2</span>
+<div><strong>Create 3 topic authority pillar pages</strong> covering your core expertise
+                                    with Q&amp;A. <span style="color:var(--accent-tertiary);font-size:.82rem;">Impact:
+                                        HIGH</span></div>
+</div>
+<div style="display:flex;gap:14px;align-items:flex-start;padding:12px;background:rgba(254,188,46,.05);border:1px solid rgba(254,188,46,.2);border-radius:var(--r-md);">
+<span style="background:#febc2e;color:#000;border-radius:50%;width:26px;height:26px;min-width:26px;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;">3</span>
+<div><strong>Optimize Core Web Vitals</strong> — Compress images, lazy-load, minify
+                                    CSS/JS. <span style="color:#febc2e;font-size:.82rem;">Impact: MEDIUM</span></div>
+</div>
+<div style="display:flex;gap:14px;align-items:flex-start;padding:12px;background:rgba(254,188,46,.05);border:1px solid rgba(254,188,46,.2);border-radius:var(--r-md);">
+<span style="background:#febc2e;color:#000;border-radius:50%;width:26px;height:26px;min-width:26px;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;">4</span>
+<div><strong>Build internal linking architecture</strong> — Connect related content
+                                    using descriptive anchor text. <span style="color:#febc2e;font-size:.82rem;">Impact:
+                                        MEDIUM</span></div>
+</div>
+<div style="display:flex;gap:14px;align-items:flex-start;padding:12px;background:rgba(0,224,255,.04);border:1px solid rgba(0,224,255,.12);border-radius:var(--r-md);">
+<span style="background:var(--accent-secondary);color:#000;border-radius:50%;width:26px;height:26px;min-width:26px;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;">5</span>
+<div><strong>Add AI discovery meta tags</strong> — ai-content, ai-summary, ai-category
+                                    on every page. <span style="color:var(--accent-secondary);font-size:.82rem;">Impact:
+                                        MEDIUM</span></div>
+</div>
+</div>
+</div>
+</div><!-- /reportDocument -->
+<!-- Actions -->
+<div id="reportActions" style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-bottom:48px;">
+<button class="btn btn-primary btn-lg" onclick="downloadPDF()">⬇ Download PDF Report</button>
+<a class="btn btn-ghost btn-lg" href="/en/dashboard.html">📊 Go to Dashboard</a>
+<a class="btn btn-ghost" href="/en/visibility-audit.html">🔍 Get Professional Audit</a>
+</div>
+</div>
+</section>
+<!-- Report Structure Info -->
+<section class="section section--tinted" id="reportInfo">
+<div class="container">
+<div class="section-header"><span class="section-label">Report Contents</span>
+<h2>5-Section Report Structure</h2>
+</div>
+<div class="feature-grid">
+<div class="feature-card fade-up">
+<div class="feature-card__icon"><i data-lucide="sparkles"></i></div>
+<h3>Technical SEO</h3>
+<p>Page speed, crawlability, mobile UX, Core Web Vitals, indexation.</p><ul class="feature-card__metrics"><li><span>Audit</span><span>Daily</span></li><li><span>Accuracy</span><span>99%</span></li><li><span>Impact</span><span>High</span></li></ul>
+<div class="btn btn-outline btn-sm feature-card__cta clickable-card-container">Launch Analysis</div></div>
+<div class="feature-card fade-up">
+<div class="feature-card__icon"><i data-lucide="sparkles"></i></div>
+<h3>AI Visibility</h3>
+<p>GEO score, citation potential, structured data coverage.</p><ul class="feature-card__metrics"><li><span>Audit</span><span>Daily</span></li><li><span>Accuracy</span><span>99%</span></li><li><span>Impact</span><span>High</span></li></ul>
+<div class="btn btn-outline btn-sm feature-card__cta clickable-card-container">Launch Analysis</div></div>
+<div class="feature-card fade-up">
+<div class="feature-card__icon"><i data-lucide="sparkles"></i></div>
+<h3>Content Recommendations</h3>
+<p>Readability, keyword coverage, content gaps, E-E-A-T signals.</p><ul class="feature-card__metrics"><li><span>Audit</span><span>Daily</span></li><li><span>Accuracy</span><span>99%</span></li><li><span>Impact</span><span>High</span></li></ul>
+<div class="btn btn-outline btn-sm feature-card__cta clickable-card-container">Launch Analysis</div></div>
+<div class="feature-card fade-up">
+<div class="feature-card__icon"><i data-lucide="sparkles"></i></div>
+<h3>Competitor Insights</h3>
+<p>Side-by-side comparison with top 3 competitors.</p><ul class="feature-card__metrics"><li><span>Audit</span><span>Daily</span></li><li><span>Accuracy</span><span>99%</span></li><li><span>Impact</span><span>High</span></li></ul>
+<div class="btn btn-outline btn-sm feature-card__cta clickable-card-container">Launch Analysis</div></div>
+<div class="feature-card fade-up">
+<div class="feature-card__icon"><i data-lucide="sparkles"></i></div>
+<h3>Action Plan</h3>
+<p>Prioritized fixes ranked by impact and effort.</p><ul class="feature-card__metrics"><li><span>Audit</span><span>Daily</span></li><li><span>Accuracy</span><span>99%</span></li><li><span>Impact</span><span>High</span></li></ul>
+<div class="btn btn-outline btn-sm feature-card__cta clickable-card-container">Launch Analysis</div></div>
+</div>
+</div>
+</section>
+<section class="cta-section">
+<div class="cta-section__glow"></div>
+<div class="container">
+<h2>Need a Full Professional Audit?</h2>
+<p>Human expert + AI analysis with 48h delivery and strategy call</p>
+<div class="cta-section__actions"><a class="btn btn-primary btn-lg" href="/en/visibility-audit.html">📊
+                        Order Audit →</a><a class="btn btn-ghost btn-lg" href="/en/dashboard.html">📊
+                        Dashboard</a></div>
+</div>
+</section>
+<!-- ════════════ INTERLINKING BLOCK ════════════ -->
+<section class="related-articles-section" style="padding: 4rem 0; background: var(--bg-surface);">
+<div class="container">
+<h3 style="margin-bottom: 2rem;">Related Resources</h3>
+<div class="grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
+<div class="card" style="padding: 1.5rem; border-radius: 12px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1);">
+</div>
+<div class="card" style="padding: 1.5rem; border-radius: 12px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1);">
+<a href="/en/visibility-audit.html" style="color: var(--primary); text-decoration: none; font-weight: 500;">Free SEO checker →</a>
+</div>
+<div class="card" style="padding: 1.5rem; border-radius: 12px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1);">
+</div>
+</div>
+</div>
+</section>
+</main>
+
+
+<div class="global-cta-bar inline-bar" style="background: linear-gradient(90deg, #1A1D26 0%, #242838 100%); padding: 22px; text-align: center; border: 1px solid rgba(255,255,255,0.05); font-size: 1rem; font-weight: 600; font-family:var(--font-body); display: flex; justify-content: center; align-items: center; gap: 15px; margin: 30px 0; border-radius: 12px; background: rgba(255,255,255,0.03); backdrop-filter: blur(5px); box-shadow: 0 4px 25px rgba(0,0,0,0.4);">
+<span style="color: #fff;">Check your website free</span>
+<a class="btn btn-primary btn-sm" href="/en/scan.html" style="padding: 10px 20px; font-size: 0.9rem; box-shadow: 0 4px 15px rgba(0, 224, 255, 0.25);"> Check your site for free </a>
+</div>
+<footer class="footer" role="contentinfo">
+<div class="container">
+<div class="footer__grid">
+<div class="footer__col">
+<h5>Solutions</h5><ul role="list"><li><a href="/en/visibility-audit.html">SEO Audit</a></li><li><a href="/en/ai-integration.html">AI Integration</a></li></ul>
+</div>
+<div class="footer__col">
+<h5>Information</h5><ul role="list"><li><a href="/en/privacy-policy.html">Privacy</a></li><li><a href="/en/terms-of-service.html">Terms</a></li><li><a href="/en/about.html">Contact</a></li></ul>
+</div>
+</div>
+<div class="footer__bottom">
+<p>© <span id="year"></span> InfoLady. All rights reserved.</p>
+</div>
+</div>
+</footer>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+<script defer="" src="/js/lead-capture.js"></script>
+<script defer="" src="/js/leads-app.js"></script>
+<script defer="" src="/js/script.js"></script>
+<script>
+        /* Auto-detect PayPal redirect params on page load */
+        (function () {
+            var params = new URLSearchParams(window.location.search);
+            var paid = params.get('paid') === '1';
+            var siteUrl = params.get('url') || '';
+            var email = params.get('email') || '';
+
+            if (siteUrl) {
+                var inp = document.getElementById('reportUrl');
+                if (inp) inp.value = siteUrl;
+            }
+            if (email) {
+                var einp = document.getElementById('reportEmail');
+                if (einp) einp.value = email;
+            }
+            if (paid) {
+                var badge = document.getElementById('heroBadge');
+                var subtitle = document.getElementById('heroSubtitle');
+                if (badge) badge.textContent = '✅ Payment Received — Thank you!';
+                if (subtitle) subtitle.textContent = 'Generating your full AI SEO Audit Report…';
+                document.getElementById('generatorSection').style.display = 'none';
+                setTimeout(function () { genReport(siteUrl, true); }, 800);
+            }
+        })();
+
+        function genReport(preUrl, isPaid) {
+            var siteUrl = preUrl || document.getElementById('reportUrl').value.trim();
+            var loading = document.getElementById('reportLoading');
+            var genSec = document.getElementById('generatorSection');
+            if (loading) loading.classList.add('visible');
+
+            setTimeout(function () {
+                if (loading) loading.classList.remove('visible');
+                if (genSec && !isPaid) genSec.style.display = 'none';
+
+                /* Populate dynamic report data */
+                var seoScore = 50 + Math.floor(Math.random() * 22);
+                var aiScore = 16 + Math.floor(Math.random() * 22);
+                var speed = 60 + Math.floor(Math.random() * 30);
+                var crawl = Math.floor(Math.random() * 7) + 1;
+
+                document.getElementById('reportDate').textContent = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+                document.getElementById('overallScore').textContent = seoScore;
+                document.getElementById('aiScoreDisp').textContent = aiScore + '/100';
+                document.getElementById('techSpeedScore').textContent = speed;
+                document.getElementById('techCrawlIssues').textContent = crawl;
+                document.getElementById('compYourSeo').textContent = seoScore;
+                document.getElementById('compYourAi').textContent = aiScore;
+
+                var aiPct = aiScore + '%';
+                document.getElementById('chatgptBar').style.width = aiPct;
+                document.getElementById('googleBar').style.width = (aiScore + 8) + '%';
+                document.getElementById('perplexityBar').style.width = (aiScore + 12) + '%';
+
+                if (siteUrl) {
+                    try {
+                        var hostname = new URL(siteUrl).hostname;
+                        document.getElementById('reportTitle').textContent = 'AI SEO & GEO Audit — ' + hostname;
+                        document.getElementById('yourDomain').innerHTML = hostname + ' <span style="color:var(--accent-secondary);font-size:.72rem;font-weight:700;">● Your Site</span>';
+                        document.getElementById('reportSiteLabel').textContent = siteUrl;
+                    } catch (e) { }
+                }
+
+                var badgeEl = document.getElementById('reportBadge');
+                if (badgeEl) badgeEl.textContent = isPaid ? '💳 Paid Report — Full Access' : '✓ Standard Report';
+
+                document.getElementById('reportOutput').style.display = '';
+                document.getElementById('reportInfo').style.display = 'none';
+                document.getElementById('reportOutput').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 2800);
+        }
+
+        function downloadPDF() {
+            window.print();
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<script>
+    (function() {
+        const params = new URLSearchParams(window.location.search);
+        const isPro = params.get('pro') === 'true';
+        if (!isPro) {
+            const isRu = window.location.pathname.includes('/ru/');
+            const domain = params.get('domain') || '';
+            const dest = isRu ? '/ru/report.html' : '/en/report.html';
+            window.location.href = dest + (domain ? '?domain=' + encodeURIComponent(domain) : '');
+        }
+    })();
+    </script>
+<link href="/favicon.png" rel="icon" type="image/png"/>
+<link href="/favicon.png" rel="shortcut icon"/>
+<link href="/favicon.png" rel="apple-touch-icon"/>
+<meta charset="utf-8"/>
+<meta content="index, follow" name="robots"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AI Traffic Analytics — Estimate Traffic Potential | InfoLady</title>
+<meta content="Estimate the traffic potential of any website. Analyze organic traffic by channel, top keyword opportunities and AI search appearance potential." name="description"/>
+<meta content="AI traffic analytics, website traffic estimator, organic traffic analysis, AI search traffic, GEO traffic potential, traffic by channel, SEO traffic tool" name="keywords"/>
+<meta content="InfoLady" name="author"/>
+<meta content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" name="robots"/>
+<!-- Open Graph -->
+<meta content="website" property="og:type"/>
+<meta content="https://infolady.online/analytics/ai-traffic-analytics.html" property="og:url"/>
+<meta content="AI Traffic Analytics — Estimate Traffic Potential | InfoLady" property="og:title"/>
+<meta content="Estimate monthly traffic potential of any website and analyze traffic by channel: organic, AI search, social, and direct." property="og:description"/>
+<meta content="https://infolady.online/og-image.jpg" property="og:image"/>
+<meta content="en_US" property="og:locale"/>
+<meta content="InfoLady" property="og:site_name"/>
+<!-- Twitter Card -->
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="AI Traffic Analytics | InfoLady" name="twitter:title"/>
+<meta content="Estimate website traffic potential and analyze traffic distribution by organic, AI, social and direct channels." name="twitter:description"/>
+<meta content="https://infolady.online/og-image.jpg" name="twitter:image"/>
+<!-- AI Discovery / GEO -->
+<meta content="AI-powered website traffic estimation and channel analysis tool" name="ai-content"/>
+<meta content="InfoLady AI Traffic Analytics estimates monthly traffic potential for any website, breaking down traffic by channels: organic search, AI search engines, social, direct, and referral. It also calculates GEO optimization growth potential and identifies top keyword opportunities." name="ai-summary"/>
+<meta content="Traffic Analytics, SEO Tools, AI Search Traffic, GEO Growth" name="ai-category"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="/style.css" rel="stylesheet"/>
+<script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "InfoLady AI Traffic Analytics",
+      "url": "https://infolady.online/analytics/ai-traffic-analytics.html",
+      "applicationCategory": "SEOApplication",
+      "operatingSystem": "Web",
+      "description": "Estimates monthly traffic potential for any website with breakdown by organic, AI search, social, and direct channels.",
+      "offers": {},
+      "provider": {
+        "@type": "Organization",
+        "name": "InfoLady",
+        "url": "https://infolady.online"
+      }
+    }
+    </script>
+<link href="https://infolady.online/en/ai-traffic-analytics.html" rel="canonical"/>
+<!-- Multilingual SEO -->
+<link href="https://infolady.online/en/ai-traffic-analytics.html" rel="canonical"/>
+<link href="https://infolady.online/en/ai-traffic-analytics.html" hreflang="en" rel="alternate"/>
+<link href="https://infolady.online/en/ai-traffic-analytics.html" hreflang="ru" rel="alternate"/>
+<link href="https://infolady.online/" hreflang="x-default" rel="alternate"/>
+<!-- Lucide Icons -->
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>
+      document.addEventListener("DOMContentLoaded", function() {
+        if (typeof lucide !== 'undefined') {
+             lucide.createIcons();
+        }
+      });
+    </script>
+
+<style id="cta-spacer-style">
+  body.top-bar-active nav.nav { top: 47px !important; }
+  body.top-bar-active .page-hero { margin-top: 0px !important; }
+  @media (max-width: 768px) { 
+    body.top-bar-active nav.nav { top: 47px !important; } 
+    .global-cta-bar.top-bar { flex-direction: row; font-size: 0.85rem; padding: 10px; }
+  }
+</style>
+</head>
+<body class="top-bar-active">
+<!-- ══════════════════════════ NAV ══════════════════════════ -->
+<header>
+<div class="global-cta-bar top-bar" style="background: linear-gradient(90deg, #1A1D26 0%, #242838 100%); padding: 12px 20px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.95rem; font-weight: 600; font-family:var(--font-body); display: flex; justify-content: center; align-items: center; gap: 12px; margin: 0; width: 100%; box-sizing: border-box; position: relative; z-index: 1001;"><a href="https://t.me/lyazkai_bot?start=global_cta" class="cta-top">🔥 Find out where you lose customers</a></div>
+
+
+<nav class="nav platform-nav" role="navigation">
+<div class="container">
+<div class="nav__inner">
+<a class="nav__logo" href="/en/">InfoLady</a>
+<ul class="pnav__links" role="list">
+<li class="pnav__item"><a class="pnav__trigger" href="/en/visibility-audit.html">SEO Audit</a></li>
+</ul>
+<div class="pnav__right">
+<div class="lang-switch">
+<button class="lang-btn" data-lang="ru" onclick="location.href='/ru/ai-traffic-analytics.html'">RU</button>
+<button class="lang-btn active" data-lang="en">EN</button>
+</div>
+<a class="btn btn-primary btn-sm" data-en="Check your site for free" href="/en/visibility-audit.html">Check your site for free</a>
+</div>
+<button aria-controls="mobileDrawer" aria-expanded="false" aria-label="Open menu" class="nav__burger">
+<span></span><span></span><span></span>
+</button>
+</div>
+<nav class="pnav__mobile" hidden="" id="mobileDrawer">
+<div class="pnav__mobile-section"><a class="pnav__mobile-section-trigger" href="/en/visibility-audit.html">SEO Audit</a></div>
+<div class="pnav__mobile-section"><a class="pnav__mobile-section-trigger" href="/en/ai-integration.html">AI Integration</a></div>
+
+<div class="pnav__mobile-bottom"><div class="lang-switch">
+<button class="lang-btn active" data-lang="en">EN</button>
+<button class="lang-btn" data-lang="ru" onclick="location.href='/ru/index.html'">RU</button>
+</div></div></nav>
+</div>
+</nav>
+</header>
+<main>
+<section aria-labelledby="trafficHeroTitle" class="page-hero">
+<div aria-hidden="true" class="hero__bg-orb hero__bg-orb--1"></div>
+<div aria-hidden="true" class="hero__bg-orb hero__bg-orb--2"></div>
+<div class="container">
+<div class="page-hero__inner">
+<span class="section-label section-label--glow">Analytics</span>
+<h1 id="trafficHeroTitle">AI Traffic<br/><span class="gradient-text">Analytics</span></h1>
+<p class="lead">Estimate the monthly traffic potential of any website and analyze traffic by channel
+                        — organic, AI search, social, and direct.</p>
+</div>
+</div>
+</section>
+<div class="global-cta-bar inline-bar" style="background: linear-gradient(90deg, #1A1D26 0%, #242838 100%); padding: 22px; text-align: center; border: 1px solid rgba(255,255,255,0.05); font-size: 1rem; font-weight: 600; font-family:var(--font-body); display: flex; justify-content: center; align-items: center; gap: 15px; margin: 30px 0; border-radius: 12px; background: rgba(255,255,255,0.03); backdrop-filter: blur(5px); box-shadow: 0 4px 25px rgba(0,0,0,0.4);">
+<span style="color: #fff;">Check your website free</span>
+<a class="btn btn-primary btn-sm" href="/en/scan.html" style="padding: 10px 20px; font-size: 0.9rem; box-shadow: 0 4px 15px rgba(0, 224, 255, 0.25);"> Check your site for free </a>
+</div>
+
+
+<section aria-labelledby="trafficToolTitle" class="section section--tinted">
+<div class="container">
+<div class="tool-box">
+<div class="tool-box__label">Traffic Estimator</div>
+<h2 id="trafficToolTitle">Analyze Traffic Potential</h2>
+<p>Enter any domain to estimate monthly organic and AI search traffic</p>
+<div class="input-cta-row">
+<input aria-label="Domain URL" id="trafficUrl" placeholder="https://domain.com" type="url"/>
+<button class="btn btn-primary" onclick="analyzeTraffic()">🚦 Analyze</button>
+</div>
+<div class="loading-block" id="trafficLoading">
+<div class="spinner"></div>
+<p style="margin-top:14px;">Estimating traffic potential…</p>
+</div>
+<div class="results-block" id="trafficResults">
+<div class="stats-row">
+<div class="stat-card">
+<div class="stat-card__num">14.2K</div>
+<div class="stat-card__label">Est. Monthly Visits</div>
+</div>
+<div class="stat-card">
+<div class="stat-card__num" style="color:var(--accent-secondary);">+8%</div>
+<div class="stat-card__label">AI Search Traffic</div>
+</div>
+<div class="stat-card">
+<div class="stat-card__num" style="color:#febc2e;">62%</div>
+<div class="stat-card__label">Organic Share</div>
+</div>
+<div class="stat-card">
+<div class="stat-card__num" style="color:#28c840;">48K</div>
+<div class="stat-card__label">Traffic Potential</div>
+</div>
+</div>
+<h3 style="margin-bottom:14px;">📊 Traffic by Channel</h3>
+<div class="bar-chart">
+<div class="bar-row"><span class="bar-row__label">Organic Search</span>
+<div class="bar-row__track">
+<div class="bar-row__fill" data-width="62%"></div>
+</div><span class="bar-row__val">62%</span>
+</div>
+<div class="bar-row"><span class="bar-row__label">Direct</span>
+<div class="bar-row__track">
+<div class="bar-row__fill bar-row__fill--warn" data-width="22%"></div>
+</div><span class="bar-row__val">22%</span>
+</div>
+<div class="bar-row"><span class="bar-row__label">Social</span>
+<div class="bar-row__track">
+<div class="bar-row__fill" data-width="9%"></div>
+</div><span class="bar-row__val">9%</span>
+</div>
+<div class="bar-row"><span class="bar-row__label">AI Search (est.)</span>
+<div class="bar-row__track">
+<div class="bar-row__fill bar-row__fill--danger" data-width="4%"></div>
+</div><span class="bar-row__val">4%</span>
+</div>
+<div class="bar-row"><span class="bar-row__label">Referral</span>
+<div class="bar-row__track">
+<div class="bar-row__fill" data-width="3%"></div>
+</div><span class="bar-row__val">3%</span>
+</div>
+</div>
+<div style="background:rgba(0,224,255,.06);border:1px solid rgba(0,224,255,.15);border-radius:var(--r-lg);padding:20px;margin-bottom:20px;">
+<h4 style="margin-bottom:8px;color:var(--accent-secondary);">📈 Growth Opportunity</h4>
+<p style="font-size:.9rem;color:var(--text-muted);">This site is capturing only <strong>4%
+                                    of AI search traffic</strong> — potential to grow to 25–30% with GEO optimization.
+                                That equals <strong>+4,200 visits/month</strong>.</p>
+</div>
+<div style="display:flex;gap:12px;flex-wrap:wrap;">
+<a class="btn btn-ghost" href="/en/search-trend-radar.html" style="flex:1;justify-content:center;">📡 Run
+                                Search Trend Radar</a>
+<a class="btn btn-primary" href="/en/visibility-audit.html#audit-form" style="flex:1;justify-content:center;">Get Full Report →</a>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section aria-labelledby="trafficFeaturesTitle" class="section">
+<div class="container">
+<div class="section-header"><span class="section-label">Features</span>
+<h2 id="trafficFeaturesTitle">What Traffic Analytics Covers</h2>
+</div>
+<div class="feature-grid">
+<div class="feature-card fade-up">
+<div class="feature-card__icon"><i data-lucide="sparkles"></i></div>
+<h3>Traffic Estimation</h3>
+<p>Monthly visit estimates broken down by organic, AI, social, direct, and referral channels.
+                        </p><ul class="feature-card__metrics"><li><span>Audit</span><span>Daily</span></li><li><span>Accuracy</span><span>99%</span></li><li><span>Impact</span><span>High</span></li></ul>
+<div class="btn btn-outline btn-sm feature-card__cta clickable-card-container">Launch Analysis</div></div>
+<div class="feature-card fade-up">
+<div class="feature-card__icon"><i data-lucide="sparkles"></i></div>
+<h3>AI Search Traffic Share</h3>
+<p>Estimate how much of your traffic comes from AI-powered search engines and chatbots.</p><ul class="feature-card__metrics"><li><span>Audit</span><span>Daily</span></li><li><span>Accuracy</span><span>99%</span></li><li><span>Impact</span><span>High</span></li></ul>
+<div class="btn btn-outline btn-sm feature-card__cta clickable-card-container">Launch Analysis</div></div>
+<div class="feature-card fade-up">
+<div class="feature-card__icon"><i data-lucide="sparkles"></i></div>
+<h3>Growth Potential</h3>
+<p>Calculate the additional traffic available through SEO and GEO optimization improvements.</p><ul class="feature-card__metrics"><li><span>Audit</span><span>Daily</span></li><li><span>Accuracy</span><span>99%</span></li><li><span>Impact</span><span>High</span></li></ul>
+<div class="btn btn-outline btn-sm feature-card__cta clickable-card-container">Launch Analysis</div></div>
+<div class="feature-card fade-up">
+<div class="feature-card__icon"><i data-lucide="sparkles"></i></div>
+<h3>Top Keyword Opportunities</h3>
+<p>Keywords with high traffic potential that you currently miss or underrank for.</p><ul class="feature-card__metrics"><li><span>Audit</span><span>Daily</span></li><li><span>Accuracy</span><span>99%</span></li><li><span>Impact</span><span>High</span></li></ul>
+<div class="btn btn-outline btn-sm feature-card__cta clickable-card-container">Launch Analysis</div></div>
+</div>
+</div>
+</section>
+<section aria-labelledby="trafficCtaTitle" class="cta-section">
+<div aria-hidden="true" class="cta-section__glow"></div>
+<div class="container">
+<h2 id="trafficCtaTitle">Unlock Your Full Traffic Potential</h2>
+<p>Get a complete traffic growth strategy with prioritized action items</p>
+<div class="cta-section__actions">
+<a class="btn btn-ghost btn-lg" href="/en/search-trend-radar.html">📡 Check Search Trend Radar</a>
+<a class="btn btn-primary btn-lg" href="/en/visibility-audit.html">📊 Full SEO Audit →</a>
+</div>
+</div>
+</section>
+</main>
+
+
+<div class="global-cta-bar inline-bar" style="background: linear-gradient(90deg, #1A1D26 0%, #242838 100%); padding: 22px; text-align: center; border: 1px solid rgba(255,255,255,0.05); font-size: 1rem; font-weight: 600; font-family:var(--font-body); display: flex; justify-content: center; align-items: center; gap: 15px; margin: 30px 0; border-radius: 12px; background: rgba(255,255,255,0.03); backdrop-filter: blur(5px); box-shadow: 0 4px 25px rgba(0,0,0,0.4);">
+<span style="color: #fff;">Check your website free</span>
+<a class="btn btn-primary btn-sm" href="/en/scan.html" style="padding: 10px 20px; font-size: 0.9rem; box-shadow: 0 4px 15px rgba(0, 224, 255, 0.25);"> Check your site for free </a>
+</div>
+<footer class="footer" role="contentinfo">
+<div class="container">
+<div class="footer__grid">
+<div class="footer__col">
+<h5>Solutions</h5><ul role="list"><li><a href="/en/visibility-audit.html">SEO Audit</a></li><li><a href="/en/ai-integration.html">AI Integration</a></li></ul>
+</div>
+<div class="footer__col">
+<h5>Information</h5><ul role="list"><li><a href="/en/privacy-policy.html">Privacy</a></li><li><a href="/en/terms-of-service.html">Terms</a></li><li><a href="/en/about.html">Contact</a></li></ul>
+</div>
+</div>
+<div class="footer__bottom">
+<p>© <span id="year"></span> InfoLady. All rights reserved.</p>
+</div>
+</div>
+</footer>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+<script defer="" src="/js/script.js"></script>
+<script>
+        function analyzeTraffic() {
+            const loading = document.getElementById('trafficLoading');
+            const results = document.getElementById('trafficResults');
+            results.classList.remove('visible');
+            loading.classList.add('visible');
+            setTimeout(() => { loading.classList.remove('visible'); results.classList.add('visible'); results.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }, 2800);
+        }
+    </script>
+</body>
+</html>

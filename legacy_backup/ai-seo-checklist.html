@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="shortcut icon" href="/favicon.png">
+    <link rel="apple-touch-icon" href="/favicon.png">
+    <meta charset="UTF-8">
+    <meta name="robots" content="index, follow">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Complete AI SEO Checklist | InfoLady</title>
+    <meta name="description" content="A step-by-step checklist to optimize for ChatGPT and Perplexity.">
+    <meta name="keywords"
+        content="free SEO checker, SEO score checker, website SEO analyzer, AI SEO check, free website analysis, AI visibility checker">
+    <meta name="author" content="InfoLady">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://infolady.online/scan/free-seo-checker.html">
+    <meta property="og:title" content="Free AI SEO Checker | InfoLady">
+    <meta property="og:description"
+        content="Instant free SEO analysis — check your website's SEO score, technical health, AI visibility, and content quality.">
+    <meta property="og:image" content="https://infolady.online/og-image.jpg">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="InfoLady">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Free AI SEO Checker | InfoLady">
+    <meta name="twitter:description"
+        content="Check your SEO score, AI visibility, and technical health — free, instant, no login needed.">
+    <meta name="twitter:image" content="https://infolady.online/og-image.jpg">
+    <meta name="ai-content" content="Free instant AI SEO checker tool for website analysis">
+    <meta name="ai-summary"
+        content="InfoLady Free SEO Checker — a free website SEO analysis tool that checks SEO Score, Technical Health, AI Visibility (GEO score), and Content Quality in under 3 seconds. No account or credit card required. Users can then get a full AI SEO Audit PDF for $79.">
+    <meta name="ai-category" content="Free SEO Tool, Website Analysis, AI Visibility Checker">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="/style.css">
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"SoftwareApplication","name":"InfoLady Free SEO Checker","url":"https://infolady.online/scan/free-seo-checker.html","applicationCategory":"SEOApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Free instant AI SEO analysis: SEO score, technical health, AI visibility, content quality.","provider":{"@type":"Organization","name":"InfoLady","url":"https://infolady.online"}}
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {"@type":"Question","name":"Is the free SEO checker really free?","acceptedAnswer":{"@type":"Answer","text":"Yes — completely free. No signup, no credit card, no hidden fees. Enter any website URL and get instant SEO results."}},
+        {"@type":"Question","name":"What does the free SEO checker analyze?","acceptedAnswer":{"@type":"Answer","text":"The checker analyzes four key metrics: SEO Score (50+ on-page signals), Technical Health (page speed, CWV, mobile, HTTPS), AI Visibility — our GEO score showing how likely your site is to be cited by ChatGPT and Google AI Overviews — and Content Quality (readability, keyword density, E-E-A-T signals)."}},
+        {"@type":"Question","name":"What is AI Visibility (GEO score)?","acceptedAnswer":{"@type":"Answer","text":"AI Visibility, also called GEO — Generative Engine Optimization score — measures how likely your website is to be cited or recommended by AI search engines like ChatGPT, Google AI Overviews, and Perplexity. It is based on structured data quality, content clarity, and entity recognition."}},
+        {"@type":"Question","name":"How is the free checker different from a full AI SEO audit?","acceptedAnswer":{"@type":"Answer","text":"The free checker gives a quick overview with 4 scores and your top detected issues. The $79 full AI SEO audit is a 5-section PDF report with exact fix instructions, 3-competitor benchmarking, content optimization recommendations, and a prioritized action plan ordered by impact."}},
+        {"@type":"Question","name":"How accurate are the SEO scores?","acceptedAnswer":{"@type":"Answer","text":"Scores are generated by AI analysis of publicly available website signals and provide directionally accurate benchmarks. For the most precise and actionable analysis, the full professional audit is recommended."}}
+      ]
+    }
+    </script>
+    <style>
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin: 24px 0;
+        }
+
+        .metric-card {
+            background: rgba(255, 255, 255, .03);
+            border: 1px solid var(--border);
+            border-radius: var(--r-lg);
+            padding: 18px;
+            text-align: center;
+        }
+
+        .metric-value {
+            font-size: 2.2rem;
+            font-weight: 800;
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+
+        .metric-label {
+            font-size: .8rem;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .metric-bar {
+            height: 5px;
+            background: var(--border);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .metric-bar-fill {
+            height: 100%;
+            border-radius: 3px;
+            transition: width 1s ease-out;
+            width: 0;
+        }
+
+        .checker-input {
+            width: 100%;
+            background: rgba(255, 255, 255, .05);
+            border: 1px solid var(--border);
+            border-radius: var(--r-full);
+            padding: 14px 22px;
+            color: var(--text-main);
+            font-family: var(--font-body);
+            font-size: 1rem;
+            outline: none;
+            box-sizing: border-box;
+            transition: border-color .2s;
+        }
+
+        .checker-input:focus {
+            border-color: var(--accent-secondary);
+        }
+
+        @media(max-width:540px) {
+            .metrics-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+<link rel="canonical" href="https://infolady.online/en/ai-seo-checklist.html">
+    <!-- Multilingual SEO -->
+    <link rel="alternate" hreflang="en" href="https://infolady.online/ai-seo-checklist.html" />
+    <link rel="alternate" hreflang="ru" href="https://infolady.online/ru/ai-seo-checklist.html" />
+    <link rel="alternate" hreflang="x-default" href="https://infolady.online/ai-seo-checklist.html" />
+</head>
+
+<body>
+    <!-- ══════════════════════════ NAV ══════════════════════════ -->
+    <header>
+        <nav class="nav platform-nav" role="navigation">
+            <div class="container">
+                <div class="nav__inner">
+                    <a href="/index.html" class="nav__logo">InfoLady</a>
+                    <ul class="pnav__links" role="list">
+<li class="pnav__item"><a class="pnav__trigger" href="/en/digital-tools.html">Digital Tools</a></li>
+<li class="pnav__item"><a class="pnav__trigger" href="/en/visibility-audit.html">Audit</a></li>
+<li class="pnav__item has-dropdown">
+<button class="pnav__trigger" data-i18n="nav_platform">Platform</button>
+<div class="pnav__dropdown">
+<a href="/en/platform.html">Platform Overview</a>
+<a href="/en/visibility-rating.html">Visibility Rating</a>
+<a href="/en/visibility-audit.html">Search Visibility Audit</a>
+<a href="/en/search-trend-radar.html">Search Trend Radar</a>
+<a href="/en/visibility-badge.html">Visibility Badge</a>
+<a href="/en/white-label.html">White Label</a>
+<a href="/en/how-it-works.html">How it Works</a>
+<a href="/en/methodology.html">Methodology</a>
+</div>
+</li>
+<li class="pnav__item"><a class="pnav__trigger" href="/en/ai-seo-learning.html">Learning</a></li>
+</ul>
+                    <div class="pnav__right">
+                        <div class="lang-switch">
+                            <button class="lang-btn active" data-lang="ru">RU</button>
+                            <button class="lang-btn" data-lang="en">EN</button>
+                        </div>
+                        <a href="/en/free-seo-checker.html" class="btn btn-primary btn-sm" data-i18n="btn_free_scan">Бесплатный анализ</a>
+                    </div>
+                    <button class="nav__burger" aria-label="Open menu" aria-expanded="false"
+                        aria-controls="mobileDrawer">
+                        <span></span><span></span><span></span>
+                    </button>
+                </div>
+                <nav id="mobileDrawer" class="pnav__mobile" hidden>
+                    <div class="pnav__mobile-section">
+                        <a href="/en/free-seo-checker.html" class="pnav__mobile-section-trigger" data-i18n="nav_scanner">Сканер</a>
+                    </div>
+                    <div class="pnav__mobile-section">
+                        <a href="/tools/digital-tools.html" class="pnav__mobile-section-trigger"
+                            data-i18n="nav_tools">AI Инструменты</a>
+                    </div>
+                    <div class="pnav__mobile-section">
+                        <a href="/analytics/search-trend-radar.html" class="pnav__mobile-section-trigger" data-i18n="nav_radar">AI Радар</a>
+                    </div>
+                    <div class="pnav__mobile-section">
+                        <a href="/audit/visibility-audit.html" class="pnav__mobile-section-trigger" data-i18n="nav_audit">AI Аудит</a>
+                    </div>
+                    <div class="pnav__mobile-section">
+                        <a href="/audit/visibility-audit.html#pricing" class="pnav__mobile-section-trigger"
+                            data-i18n="nav_pricing">Цены</a>
+                    </div>
+                    <div class="pnav__mobile-section">
+                        <a href="/tools/ai-seo-marketplace.html" class="pnav__mobile-section-trigger"
+                            data-i18n="nav_marketplace"
+                            style="display:block; width:100%; text-align:left;">Маркетплейс</a>
+                    </div>
+                    <div class="pnav__mobile-section">
+                        <button class="pnav__mobile-section-trigger" data-i18n="nav_learning">Обучение</button>
+                        <div class="pnav__mobile-section-links">
+                            <a href="/platform/ai-seo-learning.html" data-en="Courses" data-ru="Курсы">Курсы</a>
+                            <a href="/platform/ai-seo-guide.html" data-en="AI SEO Guide" data-ru="AI SEO Гайд">AI SEO
+                                Гайд</a>
+                        </div>
+                    </div>
+                    <div class="pnav__mobile-section">
+                        <button class="pnav__mobile-section-trigger" data-i18n="nav_platform">Платформа</button>
+                        <div class="pnav__mobile-section-links">
+                            <a href="/analytics/visibility-badge.html" data-en="Visibility Rating" data-ru="AI Оценка">AI
+                                Оценка</a>
+                            <a href="/platform/white-label.html">White Label</a>
+                        </div>
+                    </div>
+                    <div class="pnav__mobile-section">
+                        <a href="/ru/about.html" class="pnav__mobile-section-trigger" data-i18n="nav_about" style="display:block; width:100%; text-align:left;">О проекте</a>
+                    </div>
+                    <div class="pnav__mobile-bottom">
+                        <div class="lang-switch">
+                            <button class="lang-btn active" data-lang="ru">RU</button>
+                            <button class="lang-btn" data-lang="en">EN</button>
+                        </div>
+                        <a href="/en/free-seo-checker.html" class="btn btn-primary btn-sm" data-i18n="btn_free_scan">Бесплатный анализ</a>
+                    </div>
+                </nav>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+<section style="padding: 100px 0 0;">
+    <div class="container" style="max-width:900px;">
+        <a href="/ai-seo-guide.html" style="color:var(--accent-p);text-decoration:none;font-weight:600;">&larr; Back to Ultimate AI SEO Guide</a>
+    </div>
+</section>
+<section class="hero" style="padding: 40px 0 40px;">
+    <div class="hero__bg-orb hero__bg-orb--1" aria-hidden="true"></div>
+    <div class="container" style="max-width:900px;">
+        <h1>The Complete AI SEO Checklist</h1>
+        <p class="lead" style="margin:20px 0;">A step-by-step checklist to optimize for ChatGPT and Perplexity.</p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container" style="max-width:900px;">
+        <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r-xl);padding:40px;margin-bottom:60px;">
+            <h2 style='font-size:1.8rem;margin-bottom:15px;'>10 Steps to Visibility</h2><ul style='color:var(--text-muted);line-height:1.7;margin-left:20px;'><li style='margin-bottom:10px;'>Implement FAQ Schema.</li><li style='margin-bottom:10px;'>Develop clear entity definitions.</li><li style='margin-bottom:10px;'>Increase external directory citations.</li></ul>
+        </div>
+    </div>
+</section>
+
+<section class="cta-section" style="padding:80px 0;background:var(--bg-card);border-top:1px solid var(--border);">
+    <div class="container" style="text-align:center;">
+        <h2>Analyze Your Site Progress</h2>
+        <div class="cta-section__actions" style="margin-top:30px;">
+            <a href="/en/free-seo-checker.html" class="btn btn-primary btn-lg" style="margin-bottom:10px;padding:14px 32px;border-radius:30px;margin-right:15px;">Start Free Scan</a>
+            <a href="/ai-seo-guide.html" class="btn btn-ghost btn-lg" style="margin-bottom:10px;padding:14px 32px;border-radius:30px;border:1px solid rgba(255,255,255,0.2);">Explore Ultimate AI SEO Guide</a>
+        </div>
+    </div>
+</section>
+</main>
+
+    <footer class="footer" role="contentinfo">
+        <div class="container">
+            <div class="footer__grid">
+                <div class="footer__brand"><a href="/index.html" class="nav__logo">InfoLady</a>
+                    <p data-en="AI SEO Platform — analyze, optimize, and grow in AI search."
+                        data-ru="AI SEO Платформа — анализируйте и растите в AI поиске.">AI SEO Платформа — анализируйте
+                        и растите в AI поиске.</p>
+                </div>
+                <div class="footer__col">
+                    <h5 data-en="Tools" data-ru="Инструменты">Инструменты</h5>
+                    <ul role="list">
+                        <li><a href="/tools/ai-tools-directory.html" data-en="All Digital Tools"
+                                data-ru="Все AI инструменты">Все AI инструменты</a></li>
+                        <li><a href="/en/free-seo-checker.html" data-en="Free Checker"
+                                data-ru="Бесплатный сканер">Бесплатный сканер</a></li>
+                        <li><a href="/audit/visibility-audit.html" data-en="Full Audit" data-ru="Полный аудит">Полный
+                                аудит</a></li>
+                    </ul>
+                </div>
+                <div class="footer__col">
+                    <h5 data-en="Information" data-ru="Информация">Информация</h5>
+                    <ul role="list">
+                        <li><a href="/ru/about.html" data-i18n="nav_about">О проекте</a></li>
+                        <li><a href="/ru/privacy-policy.html" data-en="Privacy Policy"
+                                data-ru="Политика конфиденциальности">Политика конфиденциальности</a></li>
+                        <li><a href="/ru/terms-of-service.html" data-en="Terms of Service"
+                                data-ru="Условия использования">Условия использования</a></li>
+                        <li><a href="/ru/cookie-policy.html" data-en="Cookie Policy" data-ru="Cookie файлы">Cookie
+                                файлы</a></li>
+                    <li><a href="/ru/ai-seo-learning.html">SEO Learning</a></li>
+<li><a href="/ru/report.html">Report Preview</a></li>
+<li><a href="/ru/ai-seo-tools.html">Digital Tools</a></li>
+</ul>
+                </div>
+            </div>
+            <div class="footer__bottom">
+                <p>© <span id="year"></span> InfoLady. <span data-en="All rights reserved."
+                        data-ru="Все права защищены.">Все права защищены.</span></p>
+            </div>
+        </div>
+    </footer>
+    <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+    <script src="/lead-capture.js" defer></script>
+    <script src="/script.js" defer></script>
+    <script>
+        document.getElementById('checkerUrl').addEventListener('keydown', function (e) { if (e.key === 'Enter') runChecker(); });
+
+        // Auto-run if URL parameter is present
+        window.addEventListener('DOMContentLoaded', function () {
+            var params = new URLSearchParams(window.location.search);
+            var urlParam = params.get('url');
+            if (urlParam) {
+                document.getElementById('checkerUrl').value = urlParam;
+                runChecker();
+            }
+
+            document.getElementById('btnGenerateReport').addEventListener('click', function () {
+                var url = document.getElementById('checkerUrl').value.trim();
+                if (!url) { document.getElementById('checkerUrl').focus(); return; }
+
+                // Extract domain
+                var domain = url.replace(/^https?:\/\//i, '').split('/')[0];
+                window.location.href = '/report.html?domain=' + encodeURIComponent(domain);
+            });
+        });
+
+        async function runChecker() {
+            var urlInput = document.getElementById('checkerUrl');
+            var url = urlInput.value.trim();
+            if (!url) { urlInput.focus(); return; }
+
+            // Basic URL normalization
+            if (!/^https?:\/\//i.test(url)) {
+                url = 'https://' + url;
+                urlInput.value = url;
+            }
+
+            var loading = document.getElementById('checkerLoading');
+            var results = document.getElementById('checkerResults');
+            var btn = document.getElementById('checkerBtn');
+            var issuesList = document.querySelector('#moreIssues').parentElement.querySelector('div:nth-child(2)');
+            var errorMsg = document.getElementById('checkerError');
+
+            if (!errorMsg) {
+                errorMsg = document.createElement('div');
+                errorMsg.id = 'checkerError';
+                errorMsg.style.cssText = 'color:var(--accent-tertiary); background:rgba(255,100,100,0.1); padding:15px; border-radius:10px; margin-top:20px; display:none; text-align:center; font-size:0.9rem;';
+                results.parentElement.appendChild(errorMsg);
+            }
+
+            results.style.display = 'none';
+            errorMsg.style.display = 'none';
+            loading.classList.add('visible');
+            btn.disabled = true;
+
+            const isRu = document.documentElement.lang === 'ru';
+            btn.textContent = isRu ? 'Анализируем...' : 'Analyzing...';
+
+            try {
+                // Call the REAL local Node.js SEO Backend
+                const apiUrl = `https://seo-backend-rrke.onrender.com/api/scan?url=${encodeURIComponent(url)}`;
+                const response = await fetch(apiUrl);
+                
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.error || 'Server Analysis Failed');
+                }
+                
+                const data = await response.json();
+
+                const seo = data.seoScore;
+                const performance = data.performanceScore;
+                const bestPractices = data.aiScore;
+                const accessibility = data.contentScore;
+                const failedAudits = data.issues;
+
+                // Update UI scores
+                document.getElementById('mSeo').textContent = seo;
+                document.getElementById('mTech').textContent = performance;
+                document.getElementById('mAi').textContent = bestPractices;
+                document.getElementById('mContent').textContent = accessibility;
+
+                // Animate bars
+                setTimeout(function () {
+                    document.getElementById('mSeoBar').style.width = seo + '%';
+                    document.getElementById('mTechBar').style.width = performance + '%';
+                    document.getElementById('mAiBar').style.width = bestPractices + '%';
+                    document.getElementById('mContentBar').style.width = accessibility + '%';
+                }, 100);
+
+                // Map real issues into the list
+                if (failedAudits && failedAudits.length > 0) {
+                    issuesList.innerHTML = failedAudits.map(a => `<div>• ${isRu ? a.title : a.enTitle}</div>`).join('');
+                } else {
+                    issuesList.innerHTML = `<div>• ${isRu ? 'Критических проблем не обнаружено' : 'No critical issues detected'}</div>`;
+                }
+
+                loading.classList.remove('visible');
+                results.style.display = '';
+                results.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+                // Save to dashboard local database if session exists
+                var sessionRaw = localStorage.getItem('infolady_session');
+                if (sessionRaw) {
+                    var session = JSON.parse(sessionRaw);
+                    var scans = JSON.parse(localStorage.getItem('il_scans') || '[]');
+
+                    scans.push({
+                        email: session.email,
+                        domain: url.replace(/^https?:\/\//i, '').split('/')[0],
+                        seoScore: seo,
+                        techScore: performance,
+                        aiScore: bestPractices,
+                        contentScore: accessibility,
+                        date: new Date().toISOString()
+                    });
+
+                    localStorage.setItem('il_scans', JSON.stringify(scans));
+                }
+
+                btn.disabled = false;
+                btn.innerHTML = isRu ? '✅ Проверить SEO' : '✅ Check SEO';
+
+            } catch (err) {
+                console.error("Analysis Error:", err);
+                loading.classList.remove('visible');
+                errorMsg.textContent = isRu
+                    ? 'Ошибка при анализе сайта: сервер недоступен или отклонил запрос.'
+                    : `Error analyzing website: ${err.message}`;
+                errorMsg.style.display = 'block';
+                btn.disabled = false;
+                btn.innerHTML = isRu ? '✅ Проверить SEO' : '✅ Check SEO';
+            }
+}
+    </script>
+</body>
+
+</html>

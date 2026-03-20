@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<link href="/favicon.png" rel="icon" type="image/png"/>
+<link href="/favicon.png" rel="shortcut icon"/>
+<link href="/favicon.png" rel="apple-touch-icon"/>
+<meta charset="utf-8"/>
+<meta content="index, follow" name="robots"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Login — InfoLady AI SEO Platform</title>
+<meta content="Log in to your InfoLady account to access your AI SEO audit reports and dashboard." name="description"/>
+<meta content="index, follow" name="robots"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="/style.css" rel="stylesheet"/>
+<style>
+        .auth-page {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            background: var(--bg-base);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .auth-card {
+            width: 100%;
+            max-width: 440px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--r-xl);
+            padding: 48px 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .auth-logo {
+            display: block;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--text-main);
+            text-decoration: none;
+            margin-bottom: 32px;
+        }
+
+        .auth-logo span {
+            background: var(--grad-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .auth-title {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .auth-sub {
+            color: var(--text-muted);
+            font-size: .9rem;
+            margin-bottom: 28px;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: .85rem;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 6px;
+        }
+
+        .form-group input {
+            width: 100%;
+            background: rgba(255, 255, 255, .04);
+            border: 1px solid var(--border);
+            border-radius: var(--r-full);
+            padding: 13px 18px;
+            color: var(--text-main);
+            font-family: var(--font-body);
+            font-size: .95rem;
+            outline: none;
+            box-sizing: border-box;
+            transition: border-color .2s;
+        }
+
+        .form-group input:focus {
+            border-color: var(--accent-secondary);
+        }
+
+        .auth-btn {
+            width: 100%;
+            margin-top: 8px;
+        }
+
+        .auth-links {
+            margin-top: 20px;
+            text-align: center;
+            font-size: .88rem;
+            color: var(--text-muted);
+        }
+
+        .auth-links a {
+            color: var(--accent-secondary);
+            text-decoration: none;
+        }
+
+        .auth-error {
+            display: none;
+            background: rgba(255, 90, 31, .12);
+            border: 1px solid rgba(255, 90, 31, .3);
+            border-radius: var(--r-md);
+            padding: 10px 14px;
+            font-size: .88rem;
+            color: var(--accent-tertiary);
+            margin-bottom: 16px;
+        }
+
+        .auth-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: .12;
+            pointer-events: none;
+        }
+
+        .auth-orb-1 {
+            width: 300px;
+            height: 300px;
+            background: var(--accent-secondary);
+            top: -80px;
+            right: -80px;
+        }
+
+        .auth-orb-2 {
+            width: 250px;
+            height: 250px;
+            background: var(--accent-primary);
+            bottom: -60px;
+            left: -60px;
+        }
+    </style>
+<link href="https://infolady.online/en/login.html" rel="canonical"/>
+<!-- Multilingual SEO -->
+<link href="https://infolady.online/en/login.html" rel="canonical"/>
+<link href="https://infolady.online/en/login.html" hreflang="en" rel="alternate"/>
+<link href="https://infolady.online/en/login.html" hreflang="ru" rel="alternate"/>
+<link href="https://infolady.online/" hreflang="x-default" rel="alternate"/>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        if (typeof lucide !== 'undefined') {
+             lucide.createIcons();
+        }
+      });
+    </script>
+
+<meta name="keywords" content="website audit Kazakhstan Almaty"/>
+</head>
+<body>
+<div class="auth-page">
+<div class="auth-orb auth-orb-1"></div>
+<div class="auth-orb auth-orb-2"></div>
+<div class="auth-card">
+<div style="display: flex; justify-content: space-between; align-items: start;">
+<a class="auth-logo" href="/en/">Info<span>Lady</span></a>
+<ul class="pnav__links" role="list">
+<li class="pnav__item"><a class="pnav__trigger" href="/en/visibility-audit.html">SEO Audit</a></li>
+</ul>
+<div class="lang-switch" style="display:flex; gap: 4px;">
+<button class="lang-btn active" data-lang="en" style="font-size: 0.75rem; padding: 4px 8px; border-radius: 4px; border: 1px solid var(--border); background: var(--bg-card); color: var(--text-muted); cursor: pointer;">RU</button>
+<button class="lang-btn" data-lang="en" style="font-size: 0.75rem; padding: 4px 8px; border-radius: 4px; border: 1px solid transparent; background: transparent; color: var(--text-muted); cursor: pointer;">EN</button>
+</div>
+</div>
+<h1 class="auth-title" data-i18n="login_title">Welcome back</h1>
+<p class="auth-sub" data-i18n="login_sub">Log in to access your AI SEO reports and dashboard</p>
+<div class="auth-error" data-i18n="login_error" id="loginError">❌ Invalid email or password. Please try
+                again.</div>
+<form id="loginForm" onsubmit="handleLogin(event)">
+<div class="form-group">
+<label data-i18n="lbl_email" for="loginEmail">Email</label>
+<input autocomplete="email" id="loginEmail" placeholder="your@email.com" required="" type="email"/>
+</div>
+<div class="form-group">
+<div style="display:flex; justify-content: space-between;">
+<label data-i18n="lbl_password" for="loginPassword">Password</label>
+<a data-i18n="login_forgot" href="https://t.me/lyazkai_bot?start=help" style="font-size: 0.8rem; color: var(--accent-secondary); text-decoration: none;">Forgot password?</a>
+</div>
+<input autocomplete="current-password" id="loginPassword" placeholder="••••••••" required="" type="password"/>
+</div>
+<button class="btn btn-primary btn-lg auth-btn" data-i18n="login_btn" id="loginBtn" type="submit">Login
+                    →</button>
+<!-- Placeholder for Google OAuth -->
+<button class="btn btn-secondary btn-lg auth-btn" onclick="alert('Google OAuth mapping setup required.')" style="margin-top: 12px;display:flex;justify-content:center;gap:8px;" type="button">
+<svg height="20" viewbox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg">
+<g transform="matrix(1, 0, 0, 1, 27.009001, -39.238998)">
+<path d="M -3.264 51.509 C -3.264 50.719 -3.334 49.969 -3.454 49.239 L -14.754 49.239 L -14.754 53.749 L -8.284 53.749 C -8.574 55.229 -9.424 56.479 -10.684 57.329 L -10.684 60.329 L -6.824 60.329 C -4.564 58.239 -3.264 55.159 -3.264 51.509 Z" fill="#4285F4"></path>
+<path d="M -14.754 63.239 C -11.514 63.239 -8.804 62.159 -6.824 60.329 L -10.684 57.329 C -11.764 58.049 -13.134 58.489 -14.754 58.489 C -17.884 58.489 -20.534 56.379 -21.484 53.529 L -25.464 53.529 L -25.464 56.619 C -23.494 60.539 -19.444 63.239 -14.754 63.239 Z" fill="#34A853"></path>
+<path d="M -21.484 53.529 C -21.734 52.809 -21.864 52.039 -21.864 51.239 C -21.864 50.439 -21.724 49.669 -21.484 48.949 L -21.484 45.859 L -25.464 45.859 C -26.284 47.479 -26.754 49.299 -26.754 51.239 C -26.754 53.179 -26.284 54.999 -25.464 56.619 L -21.484 53.529 Z" fill="#FBBC05"></path>
+<path d="M -14.754 43.989 C -12.984 43.989 -11.404 44.599 -10.154 45.789 L -6.734 42.369 C -8.804 40.429 -11.514 39.239 -14.754 39.239 C -19.444 39.239 -23.494 41.939 -25.464 45.859 L -21.484 48.949 C -20.534 46.099 -17.884 43.989 -14.754 43.989 Z" fill="#EA4335"></path>
+</g>
+</svg>
+<span data-i18n="login_google">Continue with Google</span>
+</button>
+</form>
+<div class="auth-links">
+<span data-i18n="login_create_prompt">Don't have an account?</span> <a data-i18n="login_create_link" href="/en/register.html">Create one free →</a><br/>
+<a data-i18n="login_back" href="/en/" style="color:var(--text-dim);margin-top:8px;display:inline-block;">← Back to
+                    InfoLady</a>
+</div>
+</div>
+</div>
+<script>
+        /* Redirect if already logged in */
+        if (localStorage.getItem('infolady_session')) {
+            window.location.href = 'dashboard.html';
+        }
+
+        // --- Translation Setup ---
+        const authT = {
+            en: {
+                login_title: "Welcome back",
+                login_sub: "Log in to access your AI SEO reports and dashboard",
+                lbl_email: "Email",
+                lbl_password: "Password",
+                login_forgot: "Forgot password?",
+                login_btn: "Login →",
+                login_google: "Continue with Google",
+                login_error: "❌ Invalid email or password. Please try again.",
+                login_create_prompt: "Don't have an account?",
+                login_create_link: "Create one free →",
+                login_back: "← Back to InfoLady",
+                register_title: "Create Account",
+                register_sub: "Start analyzing and tracking your websites for free",
+                register_btn: "Create Account →",
+                register_login_prompt: "Already have an account?",
+                register_login_link: "Login here →",
+                btn_logging_in: "Logging in...",
+            },
+            ru: {
+                login_title: "Добро пожаловать",
+                login_sub: "Войдите, чтобы получить доступ к SEO-отчётам и панели",
+                lbl_email: "Email",
+                lbl_password: "Пароль",
+                login_forgot: "Забыли пароль?",
+                login_btn: "Войти →",
+                login_google: "Продолжить с Google",
+                login_error: "❌ Неверный email или пароль. Попробуйте снова.",
+                login_create_prompt: "Нет аккаунта?",
+                login_create_link: "Создать бесплатно →",
+                login_back: "← На главную InfoLady",
+                register_title: "Регистрация",
+                register_sub: "Анализируйте и отслеживайте свои сайты бесплатно",
+                register_btn: "Создать аккаунт →",
+                register_login_prompt: "Уже есть аккаунт?",
+                register_login_link: "Войти здесь →",
+                btn_logging_in: "Входим...",
+            }
+        };
+
+        // --- Multi-lang logic ---
+        let currentLang = localStorage.getItem('il_lang') || 'ru';
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('il_lang', lang);
+            document.documentElement.lang = lang;
+
+            // Toggle active button styles
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                if (btn.dataset.lang === lang) {
+                    btn.classList.add('active');
+                    btn.style.borderColor = 'var(--border)';
+                    btn.style.background = 'var(--bg-card)';
+                } else {
+                    btn.classList.remove('active');
+                    btn.style.borderColor = 'transparent';
+                    btn.style.background = 'transparent';
+                }
+            });
+
+            // Replace strings
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (authT[lang] && authT[lang][key]) {
+                    el.textContent = authT[lang][key];
+                }
+            });
+        }
+
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => setLanguage(e.target.dataset.lang));
+        });
+
+        // Initial setup
+        setLanguage(currentLang);
+
+        function handleLogin(e) {
+            e.preventDefault();
+            var email = document.getElementById('loginEmail').value.trim().toLowerCase();
+            var password = document.getElementById('loginPassword').value;
+            var btn = document.getElementById('loginBtn');
+            var errEl = document.getElementById('loginError');
+
+            btn.textContent = authT[currentLang]['btn_logging_in'];
+            btn.disabled = true;
+            errEl.style.display = 'none';
+
+            setTimeout(function () {
+                var users = JSON.parse(localStorage.getItem('il_users') || '[]');
+                var user = users.find(function (u) { return u.email === email && u.password === btoa(password); });
+
+                if (user) {
+                    localStorage.setItem('infolady_session', JSON.stringify({ name: user.name, email: user.email, since: user.since }));
+                    window.location.href = 'dashboard.html';
+                } else {
+                    errEl.style.display = 'block';
+                    btn.textContent = authT[currentLang]['login_btn'];
+                    btn.disabled = false;
+                }
+            }, 700);
+        }
+    </script>
+<script defer="" src="/js/lead-capture.js"></script>
+<script defer="" src="/js/leads-app.js"></script>
+</body>
+</html>

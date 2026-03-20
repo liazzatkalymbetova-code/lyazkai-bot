@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta content="noindex, nofollow" name="robots"/>
+<link href="/favicon.png" rel="icon" type="image/png"/>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Lead Management Dashboard | InfoLady</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="/style.css" rel="stylesheet"/>
+<style>
+        :root {
+            --bg-dark: #0a0a0c;
+            --card-bg: #141417;
+            --accent: #7c5cff;
+            --text-main: #ffffff;
+            --text-dim: #94949e;
+            --border: rgba(255, 255, 255, 0.08);
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .dashboard-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        h1 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.5rem;
+            margin: 0;
+            background: linear-gradient(135deg, #fff 0%, #a5a5a5 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .stat-card__value {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--accent);
+            display: block;
+        }
+
+        .stat-card__label {
+            font-size: 0.8rem;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .leads-table-wrap {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        th {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 15px 20px;
+            font-size: 0.8rem;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-bottom: 1px solid var(--border);
+        }
+
+        td {
+            padding: 15px 20px;
+            font-size: 0.9rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        .badge {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .badge--score {
+            background: rgba(124, 92, 255, 0.15);
+            color: var(--accent);
+        }
+
+        .badge--lang {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+
+        .loading-overlay {
+            position: fixed;
+            inset: 0;
+            background: var(--bg-dark);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            transition: opacity 0.3s;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(124, 92, 255, 0.2);
+            border-top-color: var(--accent);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .login-prompt {
+            position: fixed;
+            inset: 0;
+            background: var(--bg-dark);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            padding: 20px;
+        }
+
+        .login-card {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        input {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            padding: 12px 16px;
+            border-radius: 8px;
+            color: #fff;
+            margin-bottom: 20px;
+            outline: none;
+            box-sizing: border-box;
+        }
+
+        button.btn-primary {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: 700;
+        }
+    </style>
+<link href="https://infolady.online/en/admin-leads.html" rel="canonical"/>
+<meta content="InfoLady SEO Solutions - Advanced AI monitoring and diagnostic tools for digital transition and topical authority." name="description"/></head>
+<body>
+<div class="login-prompt" id="loginOverlay">
+<div class="login-card">
+<h2 style="margin-bottom: 10px;">Admin Access</h2>
+<p style="color: var(--text-dim); margin-bottom: 24px; font-size: 0.9rem;">Enter your administrator token to
+                view leads.</p>
+<input id="adminToken" placeholder="Admin Token" type="password"/>
+<button class="btn btn-primary" onclick="attemptLogin()">Access Dashboard</button>
+<p id="loginError" style="color: #ff5f57; font-size: 0.8rem; margin-top: 12px; display: none;">Invalid
+                token. Please try again.</p>
+</div>
+
+<div class="footer__cols">
+<div class="footer__col">
+<h5 data-en="Solutions">Solutions</h5>
+<ul role="list">
+<li><a href="/en/seo-industries.html">Industry Guides</a></li>
+<li><a href="/en/ai-seo-guide.html">Action Plan</a></li>
+<li><a href="/en/ai-seo-marketplace.html">Services</a></li>
+</ul>
+</div>
+<div class="footer__col">
+<h5 data-en="Platform">Platform</h5>
+<ul role="list">
+<li><a href="/en/platform.html">Platform Overview</a></li>
+<li><a href="/en/visibility-rating.html">Visibility Rating</a></li>
+<li><a href="/en/visibility-audit.html">Visibility Audit</a></li>
+<li><a href="/en/how-it-works.html">How it Works</a></li>
+<li><a href="/en/methodology.html">Methodology</a></li>
+</ul>
+</div>
+<div class="footer__col">
+<h5 data-en="Information">Information</h5>
+<ul role="list">
+<li><a href="/en/about.html">About</a></li>
+<li><a href="/en/privacy-policy.html">Privacy</a></li>
+<li><a href="/en/terms-of-service.html">Terms</a></li>
+</ul>
+</div>
+</div>
+
+</div>
+<div class="loading-overlay" id="loadingOverlay" style="display: none;">
+<div class="spinner"></div>
+</div>
+<div class="dashboard-container">
+<header>
+<h1>InfoLady Lead Management</h1>
+<div>
+<button class="btn btn-ghost btn-sm" onclick="logout()">Logout</button>
+</div>
+</header>
+<div class="stats">
+<div class="stat-card">
+<span class="stat-card__value" id="totalLeads">0</span>
+<span class="stat-card__label">Total Leads</span>
+</div>
+<div class="stat-card">
+<span class="stat-card__value" id="leadsToday">0</span>
+<span class="stat-card__label">Leads Today</span>
+</div>
+<div class="stat-card">
+<span class="stat-card__value" id="avgScore">0</span>
+<span class="stat-card__label">Avg SEO Score</span>
+</div>
+</div>
+<div class="leads-table-wrap">
+<table id="leadsTable">
+<thead>
+<tr>
+<th>Date</th>
+<th>Email</th>
+<th>Domain</th>
+<th>Score</th>
+<th>Source</th>
+<th>Lang</th>
+<th>Name/Budget</th>
+</tr>
+</thead>
+<tbody id="leadsBody">
+<!-- Leads injected here -->
+</tbody>
+</table>
+</div>
+</div>
+<script>
+        const API_URL = '/api/leads-admin';
+
+        window.onload = () => {
+            const savedToken = localStorage.getItem('il_admin_token');
+            if (savedToken) {
+                document.getElementById('loginOverlay').style.display = 'none';
+                loadLeads(savedToken);
+            }
+        };
+
+        async function attemptLogin() {
+            const token = document.getElementById('adminToken').value;
+            if (!token) return;
+
+            document.getElementById('loadingOverlay').style.display = 'flex';
+            const success = await loadLeads(token);
+            document.getElementById('loadingOverlay').style.display = 'none';
+
+            if (success) {
+                localStorage.setItem('il_admin_token', token);
+                document.getElementById('loginOverlay').style.display = 'none';
+            } else {
+                document.getElementById('loginError').style.display = 'block';
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem('il_admin_token');
+            window.location.reload();
+        }
+
+        async function loadLeads(token) {
+            try {
+                const response = await fetch(API_URL, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                if (!response.ok) throw new Error('Unauthorized');
+
+                const leads = await response.json();
+                renderLeads(leads);
+                return true;
+            } catch (err) {
+                console.error('Fetch error:', err);
+                return false;
+            }
+        }
+
+        function renderLeads(leads) {
+            const body = document.getElementById('leadsBody');
+            body.innerHTML = '';
+
+            if (leads.length === 0) {
+                body.innerHTML = '<tr><td colspan="7" style="text-align:center; padding: 40px; color: var(--text-dim);">No leads found yet.</td></tr>';
+                return;
+            }
+
+            // Sort by timestamp desc
+            leads.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+
+            let totalScore = 0;
+            let scoredLeads = 0;
+            let todayCount = 0;
+            const today = new Date().toISOString().split('T')[0];
+
+            leads.forEach(lead => {
+                const date = new Date(lead.timestamp).toLocaleString();
+                if (lead.timestamp.startsWith(today)) todayCount++;
+
+                if (lead.seo_score) {
+                    totalScore += parseInt(lead.seo_score);
+                    scoredLeads++;
+                }
+
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${date}</td>
+                    <td style="font-weight:600;">${lead.email}</td>
+                    <td style="color: var(--text-dim);">${lead.scanned_domain || '-'}</td>
+                    <td><span class="badge badge--score">${lead.seo_score || '-'}</span></td>
+                    <td>${lead.source_page || '-'}</td>
+                    <td><span class="badge badge--lang">${lead.language.toUpperCase()}</span></td>
+                    <td>
+                        <div style="font-size:0.8rem;">${lead.name || '-'}</div>
+                        <div style="font-size:0.75rem; color: var(--accent);">${lead.budget || ''}</div>
+                    </td>
+                `;
+                body.appendChild(row);
+            });
+
+            document.getElementById('totalLeads').textContent = leads.length;
+            document.getElementById('leadsToday').textContent = todayCount;
+            document.getElementById('avgScore').textContent = scoredLeads > 0 ? Math.round(totalScore / scoredLeads) : '-';
+        }
+    </script>
+</body>
+</html>

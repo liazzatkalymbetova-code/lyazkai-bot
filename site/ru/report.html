@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+
+<html lang="ru">
+<head>
+    <meta name="geo.region" content="KZ">
+  <meta name="geo.placename" content="Almaty">
+  <meta name="geo.position" content="43.238949;76.889709">
+  <meta name="ICBM" content="43.238949, 76.889709">
+  <meta name="language" content="ru">
+  <meta name="target-country" content="KZ">
+
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Панель управления | Отчет InfoLady</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="/style.css" rel="stylesheet"/>
+<style>
+        .dashboard-layout {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            min-height: 100vh;
+            background: #0a0a0c;
+        }
+        .dash-sidebar {
+            background: #0f1014;
+            border-right: 1px solid var(--border);
+            padding: 32px 24px;
+            display: flex;
+            flex-direction: column;
+        }
+        .dash-main {
+            padding: 40px;
+            overflow-y: auto;
+        }
+        .dash-nav {
+            margin-top: 40px;
+            flex: 1;
+        }
+        .dash-nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            border-radius: 12px;
+            color: var(--text-muted);
+            text-decoration: none;
+            margin-bottom: 4px;
+            transition: all 0.2s;
+        }
+        .dash-nav-item.active {
+            background: rgba(0, 224, 255, 0.08);
+            color: var(--accent-primary);
+        }
+        .dash-nav-item:hover:not(.active) {
+            background: rgba(255, 255, 255, 0.03);
+            color: #fff;
+        }
+        .report-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+        }
+        .domain-pill {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            padding: 6px 16px;
+            border-radius: 100px;
+            font-size: 0.9rem;
+            color: var(--text-dim);
+        }
+        .metrics-row {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr;
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+        .dash-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 24px;
+            position: relative;
+        }
+        .dash-card__title {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-dim);
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .action-list {
+            display: grid;
+            gap: 12px;
+        }
+        .action-item {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            border: 1px solid transparent;
+            transition: border-color 0.2s;
+        }
+        .action-item:hover { border-color: var(--border); }
+        .action-tag {
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        .tag-high { background: rgba(255, 59, 48, 0.1); color: #ff3b30; }
+        .tag-med { background: rgba(255, 159, 10, 0.1); color: #ff9f0a; }
+
+        @media(max-width: 1100px) {
+            .metrics-row { grid-template-columns: 1fr; }
+            .dashboard-layout { grid-template-columns: 1fr; }
+            .dash-sidebar { display: none; }
+        }
+    
+        .pricing {
+            margin-top: 40px;
+            padding: 30px;
+            background: rgba(255,255,255,0.02);
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+        .pricing h2 { margin-bottom: 12px; color: #fff; }
+        .plans {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 24px;
+            margin-top: 30px;
+        }
+        .plan {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 16px;
+            padding: 24px;
+            text-align: center;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+        .plan:hover { transform: translateY(-5px); border-color: rgba(0, 224, 255, 0.3); }
+        .plan h3 { margin-bottom: 8px; font-size: 1.2rem; color: #fff; }
+        .plan .price { font-size: 1.5rem; font-weight: 800; color: #00e0ff; margin-bottom: 16px; }
+        .plan ul { text-align: left; padding-left: 18px; margin-bottom: 24px; font-size: 0.88rem; color: var(--text-dim); }
+        .plan ul li { margin-bottom: 8px; }
+        .plan a {
+            display: block;
+            background: linear-gradient(135deg, #00e0ff 0%, #7c5cff 100%);
+            color: #000;
+            padding: 12px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: opacity 0.2s;
+        }
+        .plan a:hover { opacity: 0.9; }
+
+    
+        /* HIGH CONVERTING UPSELL STYLES */
+        .upsell-box {
+            background: #111 !important;
+            border-radius: 16px;
+            padding: 24px;
+            margin: 24px 0;
+            border: 1px solid rgba(0, 224, 255, 0.1);
+            text-align: left;
+        }
+        .btn-upgrade {
+            background: linear-gradient(90deg, #4facfe, #00f2fe);
+            padding: 16px;
+            border-radius: 10px;
+            display: block;
+            text-align: center;
+            font-weight: bold;
+            color: #000;
+            text-decoration: none;
+            margin-top: 16px;
+        }
+        .upsell-box h2 { font-size: 1.3rem; margin-bottom: 12px; color: #fff; }
+        .upsell-box p { font-size: 0.95rem; color: rgba(255,255,255,0.7); margin-bottom: 16px; }
+        .upsell-box ul { list-style: none; padding-left: 0; margin-bottom: 20px; }
+        .upsell-box ul li { margin-bottom: 10px; font-size: 0.92rem; color: rgba(255,255,255,0.8); }
+        .trust { font-size: 0.85rem; color: #00f2fe; margin-top: 12px; text-align: center; font-weight: 500; }
+
+        .locked-overlay-box { background: rgba(0,0,0,0.6); padding: 20px; border-radius: 12px; text-align: center; margin: 10px 0; color: #fff; font-weight: 700; }
+</style>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        if (typeof lucide !== 'undefined') {
+             lucide.createIcons();
+        }
+      });
+    </script>
+
+
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Organization",
+ "name": "InfoLady",
+ "url": "https://infolady.online",
+ "logo": "https://infolady.online/favicon.png",
+ "areaServed": ["KZ","RU","Global"],
+ "sameAs": [
+   "https://t.me/lyazkai_bot?start=audit_root_report"
+ ]
+}
+</script>
+<meta name="description" content="Панель управления | Отчет InfoLady - Professional website audit in Kazakhstan (Almaty)."/>
+<meta name="keywords" content="website audit Kazakhstan Almaty"/>
+</head>
+<body class="platform-body">
+<div class="dashboard-layout">
+<aside class="dash-sidebar">
+<a class="nav__logo" href="/ru/" style="margin-bottom: 0;">InfoLady</a>
+<div style="font-size: 0.75rem; color: var(--accent-primary); letter-spacing: 0.1em; margin-top: 4px;">ПЛАТФОРМА v2.4</div>
+<nav class="dash-nav">
+<a class="dash-nav-item active" href="https://t.me/lyazkai_bot?start=help"><i data-lucide="bar-chart-2"></i> Обзор</a>
+<a class="dash-nav-item" href="/ru/visibility-rating.html"><i data-lucide="target"></i> Рейтинг видимости</a>
+<a class="dash-nav-item" href="/ru/visibility-audit.html"><i data-lucide="search"></i> Технический аудит</a>
+<a class="dash-nav-item" href="/ru/search-trend-radar.html"><i data-lucide="radar"></i> Радар трендов</a>
+<a class="dash-nav-item" href="/ru/digital-tools.html"><i data-lucide="wrench"></i> Инструменты</a>
+</nav>
+<div style="margin-top: auto; padding-top: 20px; border-top: 1px solid var(--border);">
+<a class="dash-nav-item" href="/ru/about.html"><i data-lucide="book-open"></i> Документация</a>
+<a class="dash-nav-item" href="/ru/" style="color: var(--accent-tertiary);"><i data-lucide="log-out"></i> Выйти</a>
+</div>
+</aside>
+<main class="dash-main">
+<div class="report-header">
+<div>
+<p style="color: var(--accent-primary); font-size: 0.9rem; font-weight: 600; margin-bottom: 8px;">🤖 Это автоматический AI-аудит сайта</p>
+<h1 style="margin-bottom: 4px;">Маркетинг аудит сайта</h1>
+<div class="domain-pill" id="domainDisplay">анализ домена...</div>
+</div>
+<div style="display: flex; gap: 12px;">
+<button class="btn btn-ghost btn-sm" onclick="window.print()">📥 Экспорт PDF</button>
+<button class="btn btn-primary btn-sm" onclick="location.href='/ru/visibility-audit.html#pricing'">🚀 Повысить тариф</button>
+</div>
+</div>
+<div class="metrics-row">
+<div class="dash-card" data-plan="basic">
+<div class="dash-card__title">Рейтинг видимости <span>Оценка платформы</span></div>
+<div class="gauge-wrap" style="gap: 40px;">
+<div class="gauge gauge--primary" data-value="78" id="vRatingGauge">
+<svg viewbox="0 0 100 100">
+<lineargradient id="gaugeGradPrimary" x1="0%" x2="100%" y1="0%" y2="0%">
+<stop offset="0%" stop-color="#00e0ff"></stop>
+<stop offset="100%" stop-color="#7c5cff"></stop>
+</lineargradient>
+<circle class="gauge__bg" cx="50" cy="50" r="40"></circle>
+<circle class="gauge__fill" cx="50" cy="50" r="40"></circle>
+</svg>
+<div class="gauge__label">
+<div class="gauge__val" id="seoScoreGaugeText">78</div>
+<div class="gauge__unit">/100</div>
+</div>
+</div>
+<div style="flex: 1;">
+<h3 style="margin-bottom: 8px;">Оценка видимости</h3>
+<p id="scoreSubText" style="font-size: 0.9rem; color: var(--text-dim); line-height: 1.5;">Анализ основных метрик видимости и мета-тегов для оценки SEO.</p>
+</div>
+</div>
+</div>
+<div class="dash-card" data-plan="basic">
+<div class="dash-card__title">Технический индекс <span>В реальном времени</span></div>
+<div id="techScoreText" style="font-size: 2.5rem; font-weight: 800; margin-bottom: 8px; color: #28c840;">--</div>
+<p id="techSubText" style="font-size: 0.85rem; color: var(--text-dim);">Загрузка анализа контента...</p>
+</div>
+<div class="dash-card" data-plan="standard">
+<div class="locked-overlay-box">🔒 Доступно в полном Маркетинг аудите</div>
+<div class="dash-card__title">ИИ-видимость <span>Сигналы</span></div>
+<div id="aiScoreText" style="font-size: 2.5rem; font-weight: 800; margin-bottom: 8px; color: #febc2e;">--</div>
+<p id="aiSubText" style="font-size: 0.85rem; color: var(--text-dim);">Загрузка статуса данных...</p>
+</div>
+</div>
+
+        <div class="upsell-box" data-plan="basic">
+            <h2>⚠️ Вы видите только 30% анализа</h2>
+            <p>Этот отчёт показывает базовые ошибки. Но основные точки роста и увеличения заявок скрыты.</p>
+            <ul>
+                <li>🔒 Где вы теряете клиентов прямо сейчас</li>
+                <li>🔒 Какие страницы не приносят заявки</li>
+                <li>🔒 Как увеличить конверсию на 20–50%</li>
+                <li>🔒 Полный план роста сайта</li>
+            </ul>
+            <p style="font-weight:600; color:#fff; text-align:center; margin-bottom:10px;">📈 Эти данные доступны в полном маркетинг аудите</p>
+            <a href="/ru/payment.html?plan=standard" class="btn-upgrade">Открыть полный анализ — 12000 ₸</a>
+            <p class="trust">🔥 После внедрения рекомендаций сайты обычно увеличивают заявки в течение 2–4 недель</p>
+        </div>
+
+<div style="display: grid; grid-template-columns: 2fr 1fr; gap: 24px;">
+<div class="dash-card" data-plan="standard">
+<div class="locked-overlay-box">🔒 Доступно в полном Маркетинг аудите</div>
+<div class="dash-card__title">Дорожная карта оптимизации <span>Приоритетные действия</span></div>
+<div class="action-list" id="actionList">
+<!-- Динамический список -->
+</div>
+</div>
+<div class="dash-card" style="background: linear-gradient(135deg, #12141d 0%, #0a0a0c 100%); overflow: hidden;">
+<div aria-hidden="true" class="hero__card-glow"></div>
+<div style="position: relative; z-index: 2;">
+<h3 style="margin-bottom: 12px;">Полный ИИ SEO аудит</h3>
+<p style="font-size: 0.9rem; color: var(--text-dim); margin-bottom: 24px;">Получите подробный 40-страничный аудит технического состояния и ИИ-восприятия с анализом AI алгоритмов.</p>
+<ul style="font-size: 0.85rem; color: var(--text-dim); margin-bottom: 24px; padding-left: 18px;">
+<li style="margin-bottom: 8px;">Бенчмаркинг конкурентов (3 домена)</li>
+<li style="margin-bottom: 8px;">Анализ пробелов в графе знаний</li>
+<li style="margin-bottom: 8px;">Семантическая оптимизация контента</li>
+</ul>
+<button class="btn btn-primary btn-block" onclick="location.href='/ru/pricing.html'">Открыть полный маркетинг аудит</button>
+<p style="font-size:0.8rem; color: var(--text-dim); text-align:center; margin-top:6px;">Доступ сразу после оплаты</p>
+</div>
+</div>
+</div>
+
+        <div class="upsell-box" data-plan="basic">
+            <h2>⚠️ Вы видите только 30% анализа</h2>
+            <p>Этот отчёт показывает базовые ошибки. Но основные точки роста и увеличения заявок скрыты.</p>
+            <ul>
+                <li>🔒 Где вы теряете клиентов прямо сейчас</li>
+                <li>🔒 Какие страницы не приносят заявки</li>
+                <li>🔒 Как увеличить конверсию на 20–50%</li>
+                <li>🔒 Полный план роста сайта</li>
+            </ul>
+            <p style="font-weight:600; color:#fff; text-align:center; margin-bottom:10px;">📈 Эти данные доступны в полном маркетинг аудите</p>
+            <a href="/ru/payment.html?plan=standard" class="btn-upgrade">Открыть полный анализ — 12000 ₸</a>
+            <p class="trust">🔥 После внедрения рекомендаций сайты обычно увеличивают заявки в течение 2–4 недель</p>
+        </div>
+
+<!-- ══════════════════════ PRO SECTION ══════════════════════ -->
+<section class="pro-section" id="proSection" data-plan="pro" style="margin-top: 40px; position: relative;">
+    <div class="dash-card">
+        <div class="dash-card__title">Дополнительные возможности <span>AI-инструменты</span></div>
+        <div style="margin-bottom: 24px;">
+            <p style="color: var(--text-dim); font-size: 1rem;">Увеличьте результат с помощью AI-инструментов</p>
+        </div>
+
+        <!-- pro-overlay -->
+        <div class="pro-overlay" id="proOverlay" style="position: absolute; inset: 0; background: rgba(10, 11, 14, 0.85); backdrop-filter: blur(8px); display: none; align-items: center; justify-content: center; z-index: 10; flex-direction: column; border-radius: 16px;">
+            <div class="pro-lock-badge" style="background: #febc2e; color: #000; padding: 4px 10px; border-radius: 20px; font-weight: 700; font-size: 0.8rem; margin-bottom: 12px; display: flex; align-items: center; gap: 4px;"><i data-lucide="crown" style="width: 14px; height: 14px;"></i> PRO</div>
+            <h3 style="font-size: 1.8rem; font-weight: 800; margin-bottom: 10px;">PRO включает полный аудит + доступ ко всем инструментам</h3>
+            <p style="color: var(--text-dim); margin-bottom: 20px; max-width: 400px; text-align: center;">Получите максимум для автоматизации роста бизнеса.</p>
+            <a href="/ru/visibility-audit.html" class="btn btn-primary btn-lg" style="box-shadow: 0 4px 20px rgba(254, 188, 46, 0.25); background: #febc2e; color: #000; border-color: #febc2e;" id="proUnlockBtn">Перейти на PRO — 25 000 ₸</a>
+        </div>
+
+        <div class="pro-grid" id="proGrid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; filter: blur(4px); transition: filter 0.3s; pointer-events: none;">
+            <!-- Card 1 -->
+            <div class="dash-card" style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); text-align: left; padding: 24px;">
+                <h4 style="margin-bottom: 8px; color: #fff;">Поиск клиентов</h4>
+                <p style="font-size: 0.9rem; color: var(--text-dim); margin-bottom: 20px;">Найдите потенциальных клиентов по вашей нише</p>
+                <a href="/ru/ai-lead-finder.html" class="btn btn-ghost btn-sm btn-block pro-link">Открыть инструмент</a>
+            </div>
+            <!-- Card 2 -->
+            <div class="dash-card" style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); text-align: left; padding: 24px;">
+                <h4 style="margin-bottom: 8px; color: #fff;">Авто outreach</h4>
+                <p style="font-size: 0.9rem; color: var(--text-dim); margin-bottom: 20px;">Автоматическая рассылка и привлечение клиентов</p>
+                <a href="/ru/ai-outreach.html" class="btn btn-ghost btn-sm btn-block pro-link">Открыть инструмент</a>
+            </div>
+            <!-- Card 3 -->
+            <div class="dash-card" style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); text-align: left; padding: 24px;">
+                <h4 style="margin-bottom: 8px; color: #fff;">Анализ конкурентов</h4>
+                <p style="font-size: 0.9rem; color: var(--text-dim); margin-bottom: 20px;">Узнайте стратегии ваших конкурентов</p>
+                <a href="/ru/ai-competitor-intelligence.html" class="btn btn-ghost btn-sm btn-block pro-link">Открыть инструмент</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+<section class="upsell-section" style="background: rgba(0, 224, 255, 0.03); border: 1px solid rgba(0, 224, 255, 0.1); border-radius: 20px; padding: 30px; margin: 40px auto; max-width: 630px; text-align: center; backdrop-filter: blur(10px);">
+    <h3 style="color: #fff; margin-bottom: 15px;">🔒 Вы видите только часть данных</h3>
+    <p style="color: var(--text-dim); font-size: 0.95rem; margin-bottom: 20px;">Полный аудит включает подробный план роста, точки увеличения продаж и стратегию конверсий.</p>
+    <div style="font-size: 1.6rem; font-weight: 800; color: #00e0ff; margin-bottom: 20px;">12 000 ₸</div>
+    <a href="https://infolady.online/ru/payment.html?plan=standard" class="btn btn-primary" style="padding: 14px 32px; border-radius: 30px; background: linear-gradient(135deg, #00e0ff 0%, #7c5aff 100%); color: #000; text-decoration: none; font-weight: 700; display: inline-block;">Открыть полный анализ</a>
+</section>
+<div style="text-align: center; margin: 40px 0 20px; font-size: 1.1rem; color: #fff; font-weight: 600;">
+    Вы можете получить автоматический анализ или заказать полный аудит
+</div>
+
+<section class="pricing">
+<h2>Выберите уровень анализа</h2>
+<p style="color: var(--text-dim); font-size: 0.95rem; margin-bottom: 20px;">Автоматизированные тарифы для быстрого старта</p>
+
+<div class="plans">
+<div class="plan">
+<h3>Базовый</h3>
+<div class="price">$9 / 4500 тг</div>
+<ul>
+<li>Базовый анализ видимости</li>
+<li>Основные ошибки</li>
+<li>Рекомендации по мета-тегам</li>
+</ul>
+<a href="https://t.me/lyazkai_bot?start=basic">Выбрать</a>
+</div>
+
+<div class="plan">
+<h3>Стандарт</h3>
+<div class="price">$25 / 12000 тг</div>
+<ul>
+<li>Расширенный технический аудит</li>
+<li>Анализ 2 конкурентов</li>
+<li>План действий на 30 дней</li>
+</ul>
+<a href="https://t.me/lyazkai_bot?start=standard">Выбрать</a>
+</div>
+
+<div class="plan">
+<h3>Премиум</h3>
+<div class="price">$49 / 25000 тг</div>
+<ul>
+<li>Полный аудит ИИ-восприятия</li>
+<li>Глубокий анализ конкурентов</li>
+<li>Дорожная карта роста + Консультация</li>
+</ul>
+<a href="https://t.me/lyazkai_bot?start=premium">Выбрать</a>
+</div>
+</div>
+</section>
+
+
+<section class="ai-offer">
+<h2>🔥 Аудит и рекомендации по ИИ за 7 дней</h2>
+
+<p>Ваш сайт уже теряет клиентов. Мы покажем где — и дадим рекомендации по улучшению, которые начнут приводить заявки.</p>
+
+<ul>
+<li>✔ AI-чатбот 24/7</li>
+<li>✔ Автоматический сбор заявок</li>
+<li>✔ Генерация контента</li>
+<li>✔ Рост конверсии</li>
+<li>✔ Исправление ошибок с сайта</li>
+</ul>
+
+<p><b>Вы уже теряете клиентов каждый день.</b></p>
+<p>Чем дольше вы ждёте — тем больше заявок уходит к конкурентам.</p>
+
+<a href="https://t.me/lyazkai_bot?start=report_cta" class="cta-button">
+👉 Показать, где вы теряете клиентов
+</a>
+
+<a href="https://t.me/lyazkai_bot?start=report_fast" class="cta-secondary">
+👉 Написать сейчас
+</a>
+
+<p style="opacity:0.7;">
+Обычно отвечаем в течение 15 минут. Сейчас онлайн.
+</p>
+</section>
+
+
+<section class="ai-block">
+<h2>Как мы помогаем бизнесу</h2>
+<p>Мы внедряем ИИ в бизнесы в Казахстане, СНГ и по всему миру.</p>
+<p>Помогаем автоматизировать заявки, увеличить конверсию и привлекать клиентов через современные AI-системы.</p>
+<p>Наши услуги включают внедрение ИИ в Казахстане, AI автоматизацию бизнеса в Алматы и по всему СНГ, а также оптимизацию того, как получать заявки из сайта в Казахстане.</p>
+</section>
+
+<section class="faq">
+<h2>Частые вопросы</h2>
+
+<h3>Как ИИ увеличивает заявки?</h3>
+<p>ИИ автоматизирует обработку клиентов и повышает конверсию сайта.</p>
+
+<h3>Сколько стоит внедрение?</h3>
+<p>Зависит от бизнеса, начинается с аудита.</p>
+
+<h3>Подходит ли для малого бизнеса?</h3>
+<p>Да, особенно если нет заявок.</p>
+</section>
+</main>
+</div>
+<script src="/js/script.js"></script>
+<script src="/js/report-dynamic.js"></script>
+
+<div class="mobile-cta">
+<a href="https://t.me/lyazkai_bot?start=mobile_cta">
+Получить клиентов
+</a>
+</div>
+
+    <!-- Plan Based Filtering -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Read plan from localStorage or fallback
+        const plan = localStorage.getItem("selected_plan") || "basic";
+        
+        // Failsafe: if no selected plan, trigger redirect eventually (we can skip during dev or keep standard fallback)
+        /* if (!localStorage.getItem("selected_plan")) { window.location.href = '/ru/index.html'; return; } */
+
+        const isRu = window.location.pathname.includes('/ru/');
+        const labelText = isRu ? "Ваш тариф" : "Your plan";
+
+        // 1. Label at top
+        const header = document.querySelector('.report-header');
+        if (header && header.querySelector('div')) {
+            const container = header.querySelector('div');
+            const badge = document.createElement('div');
+            badge.style.cssText = 'background: rgba(0, 224, 255, 0.1); color: #00e0ff; padding: 5px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; width: fit-content; border: 1px solid rgba(0, 224, 255, 0.2); margin-top: 8px;';
+            badge.innerHTML = `${labelText}: <span style="text-transform: uppercase; color: #fff;">${plan}</span>`;
+            container.appendChild(badge);
+        }
+
+        const tiers = { basic: 1, standard: 2, pro: 3 };
+        const currentTier = tiers[plan] || 1;
+
+        // 2. Filter elements
+        document.querySelectorAll('[data-plan]').forEach(el => {
+            const itemPlan = el.dataset.plan;
+            const itemTier = tiers[itemPlan] || 1;
+
+            if (itemTier > currentTier) {
+                // Apply overlay
+                el.style.position = 'relative';
+                
+                // If it is a pricing node itself, skip locking it
+                if (el.classList.contains('plan') || el.classList.contains('pricing')) return;
+
+                const overlay = document.createElement('div');
+                overlay.className = 'locked-overlay';
+                overlay.style.cssText = 'position: absolute; inset: 0; background: rgba(10, 11, 14, 0.9); backdrop-filter: blur(8px); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 10; border-radius: inherit;';
+                
+                overlay.innerHTML = `
+                    <div style="font-size: 1.6rem; margin-bottom: 8px;">🔒</div>
+                    <div style="font-weight: 700; margin-bottom: 12px; font-size: 0.95rem; text-align: center; color: #fff; padding: 0 10px;">
+                        ${isRu ? "Полный отчет доступен после оплаты" : "Full report available after payment"}
+                    </div>
+                    <button class="btn btn-primary btn-sm upgrade-btn" style="background: #febc2e; color: #000; border: none; font-weight: 800; box-shadow: 0 4px 15px rgba(254, 188, 46, 0.25);" onclick="handleUpgrade()">
+                        ${isRu ? "Открыть полный анализ" : "Unlock full analysis"}
+                    </button>
+                `;
+                el.appendChild(overlay);
+            }
+        });
+
+        window.handleUpgrade = function() {
+            if (isRu) {
+                window.location.href = '/ru/payment.html?plan=pro';
+            } else {
+                window.location.href = '#'; // Or PayPal trigger direct
+                alert(isRu ? "Перенаправление на оплату PayPal" : "Redirecting to PayPal Checkout");
+            }
+        };
+    });
+    </script>
+
+</body>
+</html>

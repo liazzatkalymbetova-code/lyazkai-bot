@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="shortcut icon" href="/favicon.png">
+    <link rel="apple-touch-icon" href="/favicon.png">
+    <meta charset="UTF-8">
+    <meta name="robots" content="index, follow">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI SEO Tools for Website Analysis | InfoLady</title>
+    <meta name="description"
+        content="Discover the best AI SEO tools for website analysis: Free SEO Checker, AI SEO Audit, Traffic Analytics, Lead Finder, and Search Trend Radar. All tools in one place — InfoLady.">
+    <meta name="keywords"
+        content="AI SEO tools, website analysis tools, free SEO checker, AI SEO audit, traffic analytics, lead finder, AI radar, GEO optimization">
+    <meta name="author" content="InfoLady">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://infolady.online/tools/ai-seo-tools.html">
+    <meta property="og:title" content="AI SEO Tools for Website Analysis | InfoLady">
+    <meta property="og:description"
+        content="All AI SEO tools in one place: Free SEO Checker, Search Visibility Audit, Traffic Analytics, Lead Finder, Search Trend Radar.">
+    <meta property="og:image" content="https://infolady.online/og-image.jpg">
+    <meta property="og:site_name" content="InfoLady">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="AI SEO Tools for Website Analysis | InfoLady">
+    <meta name="twitter:description"
+        content="5 AI-powered SEO tools to analyze, audit, and grow your website traffic — all free or affordable.">
+    <meta name="twitter:image" content="https://infolady.online/og-image.jpg">
+    <!-- AI Discovery / GEO -->
+    <meta name="ai-content" content="Central hub for AI SEO tools: checker, audit, analytics, lead finder, radar">
+    <meta name="ai-summary"
+        content="InfoLady AI SEO Tools Hub — a directory of 5 AI-powered SEO tools for website analysis, technical audits, traffic insights, lead generation, and AI visibility radar. Free and paid tools available.">
+    <meta name="ai-category" content="AI SEO Tools, Website Analysis, GEO Optimization, Digital Marketing">
+    <!-- JSON-LD -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      "name": "AI SEO Tools for Website Analysis",
+      "description": "A curated list of AI-powered SEO tools for website analysis, audits, traffic insights, lead generation, and AI visibility.",
+      "url": "https://infolady.online/tools/ai-seo-tools.html",
+      "numberOfItems": 5,
+      "provider": {"@type": "Organization", "name": "InfoLady", "url": "https://infolady.online"},
+      "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Free SEO Checker", "url": "https://infolady.online/scan/free-seo-checker.html"},
+        {"@type": "ListItem", "position": 2, "name": "AI SEO Audit", "url": "https://infolady.online/audit/visibility-audit.html"},
+        {"@type": "ListItem", "position": 3, "name": "AI Traffic Analytics", "url": "https://infolady.online/analytics/ai-traffic-analytics.html"},
+        {"@type": "ListItem", "position": 4, "name": "AI Lead Finder", "url": "https://infolady.online/tools/ai-lead-finder.html"},
+        {"@type": "ListItem", "position": 5, "name": "Search Trend Radar", "url": "https://infolady.online/analytics/search-trend-radar.html"}
+      ]
+    }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        .tool-hub-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--r-xl);
+            padding: 32px;
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: 20px;
+            align-items: center;
+            transition: border-color .2s, transform .2s, box-shadow .25s;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .tool-hub-card:hover {
+            border-color: var(--accent-secondary);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(0, 224, 255, .08);
+        }
+
+        .tool-hub-card__icon {
+            width: 60px;
+            height: 60px;
+            border-radius: var(--r-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.7rem;
+            background: rgba(0, 224, 255, .07);
+            border: 1px solid rgba(0, 224, 255, .15);
+            flex-shrink: 0;
+        }
+
+        .tool-hub-card__body h3 {
+            margin: 0 0 6px;
+            font-size: 1.1rem;
+        }
+
+        .tool-hub-card__body p {
+            color: var(--text-muted);
+            font-size: .88rem;
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        .tool-hub-card__badge {
+            font-size: .72rem;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 20px;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .badge--free {
+            background: rgba(40, 200, 64, .12);
+            color: #28c840;
+            border: 1px solid rgba(40, 200, 64, .2);
+        }
+
+        .badge--paid {
+            background: rgba(0, 224, 255, .1);
+            color: var(--accent-secondary);
+            border: 1px solid rgba(0, 224, 255, .2);
+        }
+
+        .how-step {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--r-xl);
+            padding: 28px 24px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .how-step__num {
+            position: absolute;
+            top: 16px;
+            right: 20px;
+            font-size: 3rem;
+            font-weight: 900;
+            color: rgba(0, 224, 255, .06);
+            line-height: 1;
+        }
+
+        @media (max-width: 640px) {
+            .tool-hub-card {
+                grid-template-columns: auto 1fr;
+            }
+
+            .tool-hub-card__badge {
+                display: none;
+            }
+        }
+    </style>
+<link rel="canonical" href="https://infolady.online/tools/ai-seo-tools.html">
+    <!-- Multilingual SEO -->
+    <link rel="alternate" hreflang="en" href="https://infolady.online/ai-seo-tools.html" />
+    <link rel="alternate" hreflang="ru" href="https://infolady.online/ru/ai-seo-tools.html" />
+    <link rel="alternate" hreflang="x-default" href="https://infolady.online/ai-seo-tools.html" />
+</head>
+
+<body>
+    <header>
+        <nav class="nav platform-nav scrolled" role="navigation">
+            <div class="container">
+                <div class="nav__inner">
+                    <a href="/index.html" class="nav__logo">InfoLady</a>
+                    <ul class="pnav__links" role="list">
+<li class="pnav__item"><a class="pnav__trigger" href="/en/digital-tools.html">Digital Tools</a></li>
+<li class="pnav__item"><a class="pnav__trigger" href="/en/visibility-audit.html">Audit</a></li>
+<li class="pnav__item has-dropdown">
+<button class="pnav__trigger" data-i18n="nav_platform">Platform</button>
+<div class="pnav__dropdown">
+<a href="/en/platform.html">Platform Overview</a>
+<a href="/en/visibility-rating.html">Visibility Rating</a>
+<a href="/en/visibility-audit.html">Search Visibility Audit</a>
+<a href="/en/search-trend-radar.html">Search Trend Radar</a>
+<a href="/en/visibility-badge.html">Visibility Badge</a>
+<a href="/en/white-label.html">White Label</a>
+<a href="/en/how-it-works.html">How it Works</a>
+<a href="/en/methodology.html">Methodology</a>
+</div>
+</li>
+<li class="pnav__item"><a class="pnav__trigger" href="/en/ai-seo-learning.html">Learning</a></li>
+</ul>
+                    <div class="pnav__right">
+                        <div class="lang-switch">
+                            <button class="lang-btn active" data-lang="ru">RU</button>
+                            <button class="lang-btn" data-lang="en">EN</button>
+                        </div>
+                        <a href="/en/free-seo-checker.html" class="btn btn-primary btn-sm" data-en="Free Scan"
+                            data-ru="Бесплатный анализ">Бесплатный анализ</a>
+                    </div>
+                    <button class="nav__burger" aria-label="Open menu" aria-expanded="false"
+                        aria-controls="mobileDrawer">
+                        <span></span><span></span><span></span>
+                    </button>
+                </div>
+                <nav id="mobileDrawer" class="pnav__mobile" hidden>
+                    <div class="pnav__mobile-section">
+                        <button class="pnav__mobile-section-trigger" data-en="Tools"
+                            data-ru="Инструменты">Инструменты</button>
+                        <div class="pnav__mobile-section-links">
+                            <a href="/tools/ai-seo-tools.html" data-en="SEO Hub" data-ru="SEO Хаб">SEO Хаб</a>
+                            <a href="/en/free-seo-checker.html" data-en="Free Scanner" data-ru="Сканер">Сканер</a>
+                            <a href="/audit/visibility-audit.html" data-en="AI SEO Audit" data-ru="Аудит">Аудит</a>
+                        </div>
+                    </div>
+                    <div class="pnav__mobile-section">
+                        <button class="pnav__mobile-section-trigger" data-en="Analytics"
+                            data-ru="Аналитика">Аналитика</button>
+                        <div class="pnav__mobile-section-links">
+                            <a href="/analytics/ai-traffic-analytics.html" data-en="Traffic Analytics"
+                                data-ru="Аналитика трафика">Аналитика трафика</a>
+                            <a href="/analytics/search-trend-radar.html" data-en="Search Trend Radar" data-ru="AI Радар">AI Радар</a>
+                        </div>
+                    </div>
+                    <div class="pnav__mobile-section">
+                        <button class="pnav__mobile-section-trigger" data-en="Leads" data-ru="Лиды">Лиды</button>
+                        <div class="pnav__mobile-section-links">
+                            <a href="/tools/ai-lead-finder.html" data-en="Lead Finder" data-ru="Поиск лидов">Поиск лидов</a>
+                            <a href="/tools/ai-outreach.html" data-en="Outreach Generator"
+                                data-ru="Генератор рассылок">Генератор
+                                рассылок</a>
+                        </div>
+                    </div>
+                    <div class="pnav__mobile-section">
+                        <a href="/tools/ai-seo-marketplace.html" class="pnav__mobile-section-trigger" data-en="Marketplace"
+                            data-ru="Маркетплейс" style="display:block; width:100%; text-align:left;">Маркетплейс</a>
+                    </div>
+                    <div class="pnav__mobile-section">
+                        <button class="pnav__mobile-section-trigger" data-en="Learning" data-ru="Обучение">Обучение</button>
+                        <div class="pnav__mobile-section-links">
+                            <a href="/platform/ai-seo-learning.html" data-en="Courses" data-ru="Курсы">Курсы</a>
+                            <a href="/platform/ai-seo-guide.html" data-en="AI SEO Guide" data-ru="AI SEO Гайд">AI SEO Гайд</a>
+                        </div>
+                    </div>
+                    <div class="pnav__mobile-section">
+                        <button class="pnav__mobile-section-trigger" data-en="Platform"
+                            data-ru="Платформа">Платформа</button>
+                        <div class="pnav__mobile-section-links">
+                            <a href="/analytics/visibility-badge.html" data-en="Visibility Rating" data-ru="AI Оценка">AI Оценка</a>
+                            <a href="/platform/white-label.html">White Label</a>
+                        </div>
+                    </div>
+                    <div class="pnav__mobile-section">
+                        <a href="/ru/about.html" class="pnav__mobile-section-trigger" data-en="About" data-ru="О проекте"
+                            style="display:block; width:100%; text-align:left;">О проекте</a>
+                    </div>
+                    <div class="pnav__mobile-bottom">
+                        <div class="lang-switch">
+                            <button class="lang-btn active" data-lang="ru">RU</button>
+                            <button class="lang-btn" data-lang="en">EN</button>
+                        </div>
+                        <a href="/en/free-seo-checker.html" class="btn btn-primary btn-sm" data-en="Free Scan"
+                            data-ru="Бесплатный анализ">Бесплатный анализ</a>
+                    </div>
+                </nav>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero -->
+        <section style="padding:90px 0 60px;text-align:center;position:relative;overflow:hidden;">
+            <div class="hero__bg-orb hero__bg-orb--1" aria-hidden="true"></div>
+            <div class="hero__bg-orb hero__bg-orb--2" aria-hidden="true"></div>
+            <div class="container">
+                <span class="section-label section-label--glow" data-en="Digital Tools Hub" data-ru="Хаб AI-инструментов">AI
+                    Tools Hub</span>
+                <h1 style="margin:16px 0 12px;" data-en="AI SEO Tools for Website Analysis"
+                    data-ru="AI SEO-инструменты для анализа сайта">AI SEO Tools for<br><span
+                        class="gradient-text">Website Analysis</span></h1>
+                <p class="lead" style="max-width:580px;margin:0 auto 32px;"
+                    data-en="5 AI-powered tools to analyze your SEO, audit your site, track traffic, find leads, and monitor AI visibility — all in one platform."
+                    data-ru="5 AI-инструментов для анализа SEO, аудита сайта, отслеживания трафика, поиска лидов и мониторинга AI-видимости.">
+                    5 AI-powered tools to analyze your SEO, audit your site, track traffic, find leads, and monitor AI
+                    visibility — all in one platform.
+                </p>
+                <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+                    <a href="/en/free-seo-checker.html" class="btn btn-primary btn-lg" data-en="🔍 Run Free SEO Analysis"
+                        data-ru="🔍 Запустить бесплатный анализ">🔍 Run Free SEO Analysis</a>
+                    <a href="/audit/visibility-audit.html" class="btn btn-ghost btn-lg" data-en="📊 Full Search Visibility Audit — $79"
+                        data-ru="📊 Полный аудит — $79">📊 Full Search Visibility Audit — $79</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tool Cards -->
+        <section class="section">
+            <div class="container" style="max-width:820px;">
+                <div class="section-header">
+                    <span class="section-label" data-en="All Tools" data-ru="Все инструменты">All Tools</span>
+                    <h2 data-en="5 AI SEO Tools — Free &amp; Paid" data-ru="5 AI SEO-инструментов — бесплатно и платно">
+                        5 AI SEO Tools — Free &amp; Paid</h2>
+                    <p data-en="Each tool is built to solve a specific problem in your SEO and digital marketing workflow."
+                        data-ru="Каждый инструмент создан для решения конкретной задачи в SEO и маркетинге.">Each tool
+                        is built to solve a specific problem in your SEO and digital marketing workflow.</p>
+                </div>
+
+                <div style="display:grid;gap:16px;">
+
+                    <!-- 1. Free SEO Checker -->
+                    <a href="/en/free-seo-checker.html" class="tool-hub-card fade-up">
+                        <div class="tool-hub-card__icon">🔍</div>
+                        <div class="tool-hub-card__body">
+                            <h3 data-en="Free SEO Checker" data-ru="Бесплатная SEO-проверка">Free SEO Checker</h3>
+                            <p data-en="Instantly check any website's SEO score, technical health, AI visibility (GEO score), and content quality — in under 3 seconds. No signup needed."
+                                data-ru="Мгновенно проверьте SEO-скор, техническое здоровье, AI-видимость и качество контента любого сайта. Без регистрации.">
+                                Instantly check any website's SEO score, technical health, AI visibility (GEO score),
+                                and content quality — in under 3 seconds. No signup needed.</p>
+                        </div>
+                        <span class="tool-hub-card__badge badge--free">FREE</span>
+                    </a>
+
+                    <!-- 2. AI SEO Audit -->
+                    <a href="/audit/visibility-audit.html" class="tool-hub-card fade-up">
+                        <div class="tool-hub-card__icon">📊</div>
+                        <div class="tool-hub-card__body">
+                            <h3 data-en="AI SEO Audit" data-ru="AI SEO-аудит">AI SEO Audit</h3>
+                            <p data-en="Professional 5-section AI SEO and GEO audit delivered as a PDF report. Covers technical SEO, AI visibility, content recommendations, competitor benchmarking, and a prioritized action plan."
+                                data-ru="Профессиональный 5-секционный AI SEO и GEO аудит в формате PDF. Технический SEO, AI-видимость, контент, конкуренты, план действий.">
+                                Professional 5-section AI SEO and GEO audit delivered as a PDF. Covers technical SEO, AI
+                                visibility, content, competitor benchmarking, and a prioritized action plan.</p>
+                        </div>
+                        <span class="tool-hub-card__badge badge--paid">$79 USD</span>
+                    </a>
+
+                    <!-- 3. AI Traffic Analytics -->
+                    <a href="/analytics/ai-traffic-analytics.html" class="tool-hub-card fade-up">
+                        <div class="tool-hub-card__icon">📈</div>
+                        <div class="tool-hub-card__body">
+                            <h3 data-en="AI Traffic Analytics" data-ru="AI Аналитика трафика">AI Traffic Analytics</h3>
+                            <p data-en="Analyze your website's traffic trends, channel breakdown, and organic vs. AI-driven visitor sources. Understand where your visitors come from and which channels drive the most qualified traffic."
+                                data-ru="Анализируйте тренды трафика, структуру каналов и соотношение органических и AI-источников.">
+                                Analyze your website's traffic trends, channel breakdown, and organic vs. AI-driven
+                                visitor sources. Understand which channels drive the most qualified traffic.</p>
+                        </div>
+                        <span class="tool-hub-card__badge badge--free">FREE</span>
+                    </a>
+
+                    <!-- 4. AI Lead Finder -->
+                    <a href="/tools/ai-lead-finder.html" class="tool-hub-card fade-up">
+                        <div class="tool-hub-card__icon">🎯</div>
+                        <div class="tool-hub-card__body">
+                            <h3 data-en="AI Lead Finder" data-ru="AI Поиск лидов">AI Lead Finder</h3>
+                            <p data-en="Find potential clients in your niche who have weak SEO and poor AI visibility. Generate outreach emails automatically and export your prospect list."
+                                data-ru="Находите потенциальных клиентов в вашей нише со слабым SEO и низкой AI-видимостью. Автоматически создавайте письма для рассылки.">
+                                Find potential clients in your niche who have weak SEO and poor AI visibility. Generate
+                                outreach emails automatically and export your prospect list.</p>
+                        </div>
+                        <span class="tool-hub-card__badge badge--free">FREE</span>
+                    </a>
+
+                    <!-- 5. Search Trend Radar -->
+                    <a href="/analytics/search-trend-radar.html" class="tool-hub-card fade-up">
+                        <div class="tool-hub-card__icon">📡</div>
+                        <div class="tool-hub-card__body">
+                            <h3 data-en="Search Trend Radar" data-ru="AI Радар">Search Trend Radar</h3>
+                            <p data-en="Monitor how often your brand or website is mentioned, cited, or recommended by AI language models like ChatGPT, Perplexity, and Google AI Overviews. Track your GEO visibility over time."
+                                data-ru="Следите за тем, насколько часто ваш бренд упоминается в ChatGPT, Perplexity и Google AI Overviews. Мониторинг GEO-видимости.">
+                                Monitor how often your brand or website is mentioned, cited, or recommended by AI
+                                language models. Track your GEO visibility over time.</p>
+                        </div>
+                        <span class="tool-hub-card__badge badge--free">FREE</span>
+                    </a>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- How AI SEO Tools Work -->
+        <section class="section section--tinted">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-label" data-en="How It Works" data-ru="Как это работает">How It Works</span>
+                    <h2 data-en="How AI SEO Tools Work" data-ru="Как работают AI SEO-инструменты">How AI SEO Tools Work
+                    </h2>
+                    <p data-en="Traditional SEO tools analyze code. AI SEO tools understand meaning — and that changes everything."
+                        data-ru="Традиционные SEO-инструменты анализируют код. AI SEO-инструменты понимают смысл — и это меняет всё.">
+                        Traditional SEO tools analyze code. AI SEO tools understand meaning — and that changes
+                        everything.</p>
+                </div>
+                <div class="feature-grid">
+                    <div class="how-step fade-up">
+                        <div class="how-step__num">01</div>
+                        <div class="feature-card__icon">🌐</div>
+                        <h3 data-en="Crawl &amp; Fetch" data-ru="Сканирование и загрузка">Crawl &amp; Fetch</h3>
+                        <p data-en="The AI engine fetches your page's HTML, headers, meta tags, structured data, and public performance signals from multiple data sources simultaneously."
+                            data-ru="AI-движок загружает HTML, заголовки, метатеги, структурированные данные и сигналы производительности сразу из нескольких источников.">
+                            The AI engine fetches your page's HTML, headers, meta tags, structured data, and public
+                            performance signals from multiple sources simultaneously.</p>
+                    </div>
+                    <div class="how-step fade-up">
+                        <div class="how-step__num">02</div>
+                        <div class="feature-card__icon">🧠</div>
+                        <h3 data-en="AI Semantic Analysis" data-ru="AI-семантический анализ">AI Semantic Analysis</h3>
+                        <p data-en="Unlike rule-based checkers, our AI models evaluate your content semantically — detecting entity clarity, topical authority, and how well-structured your information is for machine comprehension."
+                            data-ru="В отличие от правильных чекеров, наши AI-модели анализируют контент семантически: чёткость сущностей, тематический авторитет и структуру информации.">
+                            Unlike rule-based checkers, our AI models evaluate content semantically — detecting entity
+                            clarity, topical authority, and how well your information is structured for machine
+                            comprehension.</p>
+                    </div>
+                    <div class="how-step fade-up">
+                        <div class="how-step__num">03</div>
+                        <div class="feature-card__icon">📡</div>
+                        <h3 data-en="GEO Visibility Scoring" data-ru="GEO-скоринг видимости">GEO Visibility Scoring</h3>
+                        <p data-en="We calculate your AI Visibility (GEO) score — how likely ChatGPT, Google AI Overviews, and Perplexity are to cite your site in their responses. This is the future of SEO."
+                            data-ru="Мы рассчитываем GEO-скор — насколько вероятно, что ChatGPT, Google AI Overviews и Perplexity процитируют ваш сайт.">
+                            We calculate your AI Visibility (GEO) score — how likely ChatGPT, Google AI Overviews, and
+                            Perplexity are to cite your site in their responses.</p>
+                    </div>
+                    <div class="how-step fade-up">
+                        <div class="how-step__num">04</div>
+                        <div class="feature-card__icon">📋</div>
+                        <h3 data-en="Actionable Recommendations" data-ru="Конкретные рекомендации">Actionable
+                            Recommendations</h3>
+                        <p data-en="Every analysis produces a prioritized list of improvements — ordered by impact, not alphabetically. You always know the single most important thing to fix next."
+                            data-ru="Каждый анализ даёт приоритизированный список улучшений — упорядоченных по влиянию. Вы всегда знаете, что исправить в первую очередь.">
+                            Every analysis produces a prioritized list of improvements — ordered by impact, not
+                            alphabetically. You always know the single most important thing to fix next.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="cta-section">
+            <div class="cta-section__glow"></div>
+            <div class="container">
+                <h2 data-en="Ready to Analyze Your Website?" data-ru="Готовы проанализировать ваш сайт?">Ready to
+                    Analyze Your Website?</h2>
+                <p data-en="Start with the free SEO checker — instant results, no account needed. Then upgrade to a full AI audit for expert recommendations."
+                    data-ru="Начните с бесплатного SEO-чекера — мгновенные результаты без регистрации. Затем перейдите к полному AI-аудиту.">
+                    Start with the free SEO checker — instant results, no account needed. Then upgrade to a full AI
+                    audit for expert recommendations.</p>
+                <div class="cta-section__actions">
+                    <a href="/en/free-seo-checker.html" class="btn btn-primary btn-lg" data-en="🔍 Run Free SEO Analysis"
+                        data-ru="🔍 Бесплатный анализ">🔍 Run Free SEO Analysis</a>
+                    <a href="/audit/visibility-audit.html" class="btn btn-ghost btn-lg" data-en="📊 Full Audit — $79"
+                        data-ru="📊 Полный аудит — $79">📊 Full Audit — $79</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__grid">
+                <div class="footer__brand">
+                    <a href="/index.html" class="nav__logo">InfoLady</a>
+                    <p data-en="AI SEO tools platform for website analysis and optimization."
+                        data-ru="AI SEO-платформа для анализа и оптимизации сайтов.">AI SEO tools platform for website
+                        analysis and optimization.</p>
+                </div>
+                <div class="footer__col">
+                    <h5 data-en="Digital Tools" data-ru="AI Инструменты">Digital Tools</h5>
+                    <ul>
+                        <li><a href="/en/free-seo-checker.html" data-en="Free SEO Checker" data-ru="Бесплатный чекер">Free
+                                SEO Checker</a></li>
+                        <li><a href="/audit/visibility-audit.html" data-en="AI SEO Audit" data-ru="AI SEO-аудит">AI SEO Audit</a>
+                        </li>
+                        <li><a href="/analytics/ai-traffic-analytics.html" data-en="Traffic Analytics"
+                                data-ru="Аналитика трафика">Traffic Analytics</a></li>
+                        <li><a href="/tools/ai-lead-finder.html" data-en="Lead Finder" data-ru="Поиск лидов">Lead Finder</a>
+                        </li>
+                        <li><a href="/analytics/search-trend-radar.html" data-en="Search Trend Radar" data-ru="AI Радар">Search Trend Radar</a></li>
+                    </ul>
+                </div>
+                <div class="footer__col">
+                    <h5 data-en="Company" data-ru="Компания">Company</h5>
+                    <ul>
+                        <li><a href="/ru/about.html" data-en="About" data-ru="О нас">About</a></li>
+                        <li><a href="/ru/privacy-policy.html" data-en="Privacy Policy" data-ru="Конфиденциальность">Privacy
+                                Policy</a></li>
+                        <li><a href="/ru/terms-of-service.html" data-en="Terms" data-ru="Условия">Terms</a></li>
+                        <li><a href="/ru/cookie-policy.html" data-en="Cookies" data-ru="Куки">Cookies</a></li>
+                    </ul>
+                </div>
+                <div class="footer__col">
+                    <h5 data-en="SEO Guides" data-ru="SEO-гиды">SEO Guides</h5>
+                    <ul>
+                        <li><a href="/en/visibility-audit.html#dentists.html">SEO for Dentists</a></li>
+                        <li><a href="/en/visibility-audit.html#lawyers.html">SEO for Lawyers</a></li>
+                        <li><a href="/en/visibility-audit.html#restaurants.html">SEO for Restaurants</a></li>
+                        <li><a href="/en/visibility-audit.html#ecommerce.html">SEO for E-Commerce</a></li>
+                        <li><a href="/en/visibility-audit.html#real-estate.html">SEO for Real Estate</a></li>
+                    <li><a href="/ru/ai-seo-learning.html">SEO Learning</a></li>
+<li><a href="/ru/report.html">Report Preview</a></li>
+<li><a href="/ru/ai-seo-tools.html">Digital Tools</a></li>
+</ul>
+                </div>
+            </div>
+            <div class="footer__bottom">
+                <p>© <span id="year"></span> InfoLady. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+    <script src="/script.js" defer></script>
+</body>
+
+</html>
