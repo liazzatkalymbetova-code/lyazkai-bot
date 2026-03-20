@@ -23,7 +23,7 @@ module.exports = function(app) {
     }
 
     // 2. Webhook Route
-    app.post(`/bot${token}`, (req, res) => {
+    app.post('/webhook', (req, res) => {
         bot.processUpdate(req.body);
         res.sendStatus(200);
     });
@@ -45,6 +45,11 @@ bot.onText(/\/start(?:\s+(.+))?/, (msg, match) => {
 
         console.log(`[/start] User ${chatId} from source: ${source}`);
 
+        
+    // 1.1 TEST MESSAGE
+    bot.onText(/\/test_webhook/, (msg) => {
+        bot.sendMessage(msg.chat.id, "Привет! Я работаю");
+    });
         const greetText = 
 `Привет! 👋  
 Проверю ваш сайт и покажу ошибки, из-за которых вы теряете клиентов.
@@ -69,6 +74,10 @@ bot.on('message', (msg) => {
         if (text.startsWith('/')) return; // Ignore commands
 
         const source = userSources[chatId] || 'telegram';
+        if (text.toLowerCase().includes('привет') || text.toLowerCase() === 'тест') {
+            return bot.sendMessage(chatId, "Привет! Я работаю");
+        }
+
 
     // Treat as website URL
     bot.sendMessage(chatId, "Анализирую сайт... ⏳");
