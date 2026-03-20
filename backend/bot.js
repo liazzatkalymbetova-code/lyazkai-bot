@@ -15,6 +15,7 @@ if (!token) {
 
 // In-memory state to track sources
 const userSources = {};
+const userStates = {};
 
 module.exports = function(app) {
     if (!bot) {
@@ -81,6 +82,18 @@ bot.on('message', (msg) => {
         }
 
         // 1. КОНТЕНТ / ПОСТ
+        // 4. ДА (Воронка продаж)
+        if (lowerText === 'да' || lowerText === 'да!') {
+            const currentState = userStates[chatId];
+            if (!currentState) {
+                userStates[chatId] = 'asked_details';
+                return bot.sendMessage(chatId, "Я помогаю женщинам запустить доход через AI и Telegram. Хочешь подробности?");
+            } else if (currentState === 'asked_details') {
+                userStates[chatId] = 'finished';
+                return bot.sendMessage(chatId, "Напиши мне в личку или перейди сюда: https://t.me/your_username");
+            }
+        }
+
         if (lowerText === 'контент' || lowerText === 'пост') {
             const post = `🌸 **Твой пост готов!**\n\n` +
 `**Тема: Искусство маленьких шагов в саморазвитии**\n\n` +
