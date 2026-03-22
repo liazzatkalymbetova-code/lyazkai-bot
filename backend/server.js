@@ -213,7 +213,6 @@ app.get('/api/scan', async (req, res) => {
 
 // --- LEAD CAPTURE ENDPOINT ---
 const fs = require('fs');
-const path = require('path');
 const LEADS_FILE = path.join(__dirname, 'leads.json');
 
 app.use(express.json()); // Essential for parsing POST bodies
