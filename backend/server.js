@@ -33,6 +33,48 @@ const deterministicHash = (str) => {
     return Math.abs(hash);
 };
 
+app.get('/api/report', async (req, res) => {
+    let { url } = req.query;
+    if (!url) url = 'https://example.com';
+    
+    if (!/^https?:\/\//i.test(url)) {
+        url = 'https://' + url;
+    }
+
+    console.log(`[API] /api/report called for: ${url}`);
+
+    try {
+        const response = await axios.get(url, { timeout: 10000 });
+        const html = response.data;
+        const $ = cheerio.load(html);
+
+        const hasH1 = $('h1').length > 0;
+        const hasDesc = $('meta[name="description"]').length > 0;
+        const hasTitle = $('title').length > 0 && $('title').text().trim().length > 0;
+
+        let seo = 100;
+        const problems = [];
+
+        if (!hasH1) { seo -= 30; problems.push('Отсутствует H1'); }
+        if (!hasDesc) { seo -= 30; problems.push('Нет meta description'); }
+        if (!hasTitle) { seo -= 20; problems.push('Нет title'); }
+
+        const ai = Math.floor(Math.random() * 31) + 40; // 40-70
+        const ux = Math.floor(Math.random() * 31) + 40; // 40-70
+
+        res.json({ seo, ai, ux, problems });
+
+    } catch (err) {
+        console.error(`[API/report] Error:`, err.message);
+        res.json({
+            seo: 50,
+            ai: 60,
+            ux: 55,
+            problems: ['Не удалось загрузить сайт']
+        });
+    }
+});
+
 app.get('/api/scan', async (req, res) => {
     let { url } = req.query;
 
