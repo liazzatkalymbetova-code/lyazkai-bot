@@ -1,0 +1,23 @@
+name: Sync Live Deployment Branch
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  sync-branch:
+    name: Sync site/ to live branch
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Deploy site/ contents to live branch
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: site
+          branch: live
+          token: ${{ secrets.GITHUB_TOKEN }}
+          clean: true # Removes files in the target branch that aren't in the source folder
