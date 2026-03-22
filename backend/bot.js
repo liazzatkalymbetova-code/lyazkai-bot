@@ -314,11 +314,8 @@ bot.on('message', async (msg) => {
                 };
                 await bot.sendMessage(chatId, sellBlock, opts);
 
-                setTimeout(async () => {
-                     const reviewMsg = `Я посмотрел 👀\n\nУ вас:\n❌ нет захвата\n❌ слабый оффер\n❌ нет доверия\n\nЭто можно быстро исправить 📈`;
-                     await bot.sendMessage(chatId, reviewMsg);
-                     userStates[chatId] = { status: 'warm', updated_at: new Date().toISOString(), timestamp: Date.now() };
-                }, 5000);
+                // Update state to warm after audit
+                userStates[chatId] = { status: 'warm', updated_at: new Date().toISOString(), timestamp: Date.now() };
 
             } catch (auditErr) {
                 console.error('[Audit] API error:', auditErr.message);
