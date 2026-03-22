@@ -7,7 +7,7 @@ const dotenv = require('dotenv');
 const envPath = path.join(__dirname, '.env');
 dotenv.config({ path: envPath });
 console.log("Loading .env from:", envPath);
-console.log("OPENAI_API_KEY:", process.env.OPENAI_API_KEY ? "EXISTS" : "MISSING (Check file)");
+console.log("OPENAI_API_KEY:", process.env.OPENAI_API_KEY ? (process.env.OPENAI_API_KEY.substring(0, 6) + "...") : "undefined");
 
 
 const app = express();
@@ -66,7 +66,7 @@ app.get('/api/scan', async (req, res) => {
         const canonical = $('link[rel="canonical"]').attr('href') || '';
         const robots = $('meta[name="robots"]').attr('content') || '';
         const hasSchema = $('script[type="application/ld+json"]').length > 0;
-        
+
         // Extended Signals
         const contentLength = $('body').text().trim().length;
         const internalLinks = $('a[href^="/"], a[href^="' + url.split('/')[0] + '//' + url.split('/')[2] + '"]').length;
@@ -189,7 +189,7 @@ app.get('/api/scan', async (req, res) => {
             geoIssues.push({
                 title: 'Отсутствует привязка к картам / Контакты не структурированы (портит GEO выдачу)',
                 enTitle: 'Missing maps mapping / Contacts not structured (hurts GEO visibility)'
-             });
+            });
         }
 
         if (!hasLocalBusiness && !hasGeoKeywords) {
@@ -221,7 +221,7 @@ app.get('/api/scan', async (req, res) => {
         const mappedIssues = finalIssues.map(i => ({
             title: lang === 'en' ? (i.enTitle || i.title) : (i.title || i.enTitle)
         }));
-        
+
         const mappedPainBlock = {
             title: lang === 'en' ? (painBlock.enTitle || painBlock.title) : (painBlock.title || painBlock.enTitle)
         };
@@ -444,7 +444,7 @@ function triggerEmailDrip() {
             if (!logs.includes(lostKey) && ageMs > 90000000) { // 25 hours
                 logMsg += `[${new Date().toISOString()}] Email to ${email} (25h): "Дам скидку -20% сегодня, если напишите 👇" | lost_drip\n`;
                 logs += lostKey + ',';
-                lead.status = 'lost'; 
+                lead.status = 'lost';
                 updated = true;
                 telegram.sendWarmMessage(lead, 'lost').catch(console.error);
             }
@@ -462,7 +462,7 @@ function triggerEmailDrip() {
 
         fs.writeFileSync(LOG_FILE, logs);
 
-    } catch (e) { 
+    } catch (e) {
         console.error('[DRIP] Error running campaign:', e.message);
     }
 }
@@ -475,7 +475,7 @@ triggerEmailDrip(); // Run once on startup
 app.get('/api/my-scans', (req, res) => {
     const { email } = req.query;
     if (!email) {
-         return res.status(400).json({ error: 'Email parameter is required' });
+        return res.status(400).json({ error: 'Email parameter is required' });
     }
 
     if (fs.existsSync(LEADS_FILE)) {
