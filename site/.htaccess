@@ -18,6 +18,10 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^(en|ru)/scan$ /$1/scan.html [L]
 RewriteRule ^(en|ru)/report$ /$1/report.html [L]
 
+# Telegram bot link: /report?user=123 → /ru/report.html
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^report$ /ru/report.html [QSA,L]
+
 # Redirect old free-seo-checker to new scan
 RewriteRule ^(en|ru)/free-seo-checker\.html$ /$1/scan.html [R=301,L]
 RewriteRule ^free-seo-checker\.html$ /en/scan.html [R=301,L]
