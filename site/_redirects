@@ -1,0 +1,5 @@
+# Render Static Site redirect/rewrite rules
+# Format: source  destination  status_code
+
+# Telegram bot report link: /report?user=123 → serves /ru/report.html (200 = rewrite, URL stays same)
+/report   /ru/report.html   200
