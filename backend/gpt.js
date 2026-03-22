@@ -1,8 +1,11 @@
+require('dotenv').config();
 const { OpenAI } = require('openai');
 
 const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY || 'sk-dummy-prevent-crash'
 });
+
+console.log("GPT KEY:", process.env.OPENAI_API_KEY ? "OK" : "MISSING");
 
 // In-memory chat histories (Item 5: Memory dialog)
 const chatHistories = {};
