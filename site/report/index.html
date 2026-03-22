@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="refresh" content="0; url=/ru/report.html">
+    <title>Перенаправление...</title>
+    <script>
+        // Preserve query params (?user=123) when redirecting
+        const params = window.location.search;
+        window.location.replace('/ru/report.html' + params);
+    </script>
+</head>
+<body>
+    <p>Открываем твой отчёт... <a href="/ru/report.html">Нажми здесь, если не перешло автоматически.</a></p>
+</body>
+</html>
