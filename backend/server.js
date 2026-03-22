@@ -9,7 +9,14 @@ require('dotenv').config();
 const app = express();
 app.use(cors());
 
-// Serve static site files (CSS, JS, images, etc.)
+// --- /report ROUTE (must be ABOVE express.static) ---
+// Handles: /report  AND  /report?user=123  (query params ignored by Express route matching)
+app.get('/report', (req, res) => {
+    console.log('Report route hit:', req.query);
+    res.sendFile(path.join(__dirname, '../site/ru/report.html'));
+});
+
+// Serve static site files AFTER explicit routes
 app.use(express.static(path.join(__dirname, '../site')));
 
 // A simple deterministic hasher strictly for Lighthouse simulated metrics, just in case
@@ -294,14 +301,6 @@ app.get('/api/leads-admin', (req, res) => {
     } else {
         res.json([]);
     }
-});
-
-
-// --- /report ROUTE (Telegram bot report link) ---
-// Serves the Russian report page for bot users arriving via
-// https://infolady.online/report?user={chatId}
-app.get('/report', (req, res) => {
-    res.sendFile(path.join(__dirname, '../site/ru/report.html'));
 });
 
 // --- TELEGRAM BOT WEBHOOK ---
