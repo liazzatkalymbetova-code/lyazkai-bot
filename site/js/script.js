@@ -12,6 +12,13 @@
     if (src) localStorage.setItem("source", src);
     if (ref) localStorage.setItem("referral", ref);
 
+    // --- SaaS Data Persistence ---
+    const urlParam = params.get("url") || params.get("domain");
+    if (urlParam) localStorage.setItem("domain", urlParam); // Standardize on 'domain' or 'url'
+    const emailParam = params.get("email");
+    if (emailParam) localStorage.setItem("email", emailParam);
+
+
     /* ── Helpers ─────────────────────────────────────────────── */
     const $ = (sel, ctx = document) => ctx.querySelector(sel);
     const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
@@ -863,47 +870,33 @@
 
         function applyLang(lang) {
             currentLang = lang;
-            localStorage.setItem('site_language', lang);
+            localStorage.setItem('lang', lang); // SaaS Standard
+            localStorage.setItem('site_language', lang); // Backwards compatibility
 
             /* --- Update active button state --- */
             btns.forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
-
-            /* --- html lang attr --- */
             document.documentElement.lang = lang;
         }
 
         btns.forEach(btn => {
             btn.addEventListener('click', (e) => {
                 e.preventDefault();
-                const text = btn.textContent.trim().toUpperCase();
-                let targetLang = btn.dataset.lang;
-                if (!targetLang) {
-                    targetLang = text === 'EN' ? 'en' : 'ru';
-                }
+                let targetLang = btn.dataset.lang || (btn.textContent.trim().toUpperCase() === 'EN' ? 'en' : 'ru');
 
                 if (targetLang === currentLang) return;
 
-                let currentUrl = window.location.href;
-                let newUrl;
+                // Carry all URL parameters (saves domain, email, etc.)
+                const currentUrl = window.location.href;
+                let newUrl = currentUrl;
 
-                // Route between valid directories
                 if (path.startsWith('/en/') || path.startsWith('/ru/')) {
                     newUrl = currentUrl.replace(`/${currentLang}/`, `/${targetLang}/`);
-                } else if (path.startsWith('/platform/') && path.includes('.html')) {
-                    // Legal pages explicit routing
-                    if (targetLang === 'ru' && !path.endsWith('-ru.html')) {
-                        newUrl = currentUrl.replace('.html', '-ru.html');
-                    } else if (targetLang === 'en' && path.endsWith('-ru.html')) {
-                        newUrl = currentUrl.replace('-ru.html', '.html');
-                    } else {
-                        newUrl = currentUrl;
-                    }
                 } else {
-                    // Fallback routing for any remaining legacy pages
                     let newPath = (path === '/' || path === '/index.html') ? '' : path.split('/').pop();
-                    newUrl = window.location.origin + `/${targetLang}/${newPath}`;
+                    newUrl = window.location.origin + `/${targetLang}/${newPath}` + window.location.search;
                 }
 
+                applyLang(targetLang);
                 window.location.href = newUrl;
             });
         });
@@ -978,7 +971,7 @@
         /* Bilingual quick-reply sets */
         const QR = {
             ru: {
-                main: ['🔍 Сканировать сайт', '📊 Запросить аудит', '❓ Что такое GEO?', '💰 Цены'],
+                main: ['🚀 Перейти в Telegram', '🔍 Сканировать сайт', '📊 Запросить аудит', '❓ Что такое GEO?', '💰 Цены'],
                 postScan: ['💰 Цены', '🔍 Сканировать другой сайт'],
                 postAudit: ['🔍 Сначала сканировать', '💰 Цены'],
                 postGeo: ['🔍 Сканировать сайт', '📚 Подробнее о GEO'],
@@ -988,7 +981,7 @@
                 report: ['📄 Получить полный отчёт', '🔍 Сканировать другой сайт'],
             },
             en: {
-                main: ['🔍 Scan my website', '📊 Request audit', '❓ What is GEO?', '💰 See pricing'],
+                main: ['🚀 Switch to Telegram', '🔍 Scan my website', '📊 Request audit', '❓ What is GEO?', '💰 See pricing'],
                 postScan: ['💰 See pricing', '🔍 Scan another site'],
                 postAudit: ['🔍 Scan my website first', '💰 See pricing'],
                 postGeo: ['🔍 Scan my website', '📚 Learn more about GEO'],
@@ -999,85 +992,79 @@
             }
         };
 
+        // --- Smart GPT Integration (Item 2, 3, 8, 9) ---
+        function addMsg(text, role = 'bot') {
+            const msg = document.createElement('div');
+            msg.className = `chatbot__msg chatbot__msg--${role}`;
+            msg.innerHTML = `<div class="chatbot__bubble">${text}</div>`;
+            messagesEl.appendChild(msg);
+            messagesEl.scrollTop = messagesEl.scrollHeight;
+            return msg;
+        }
+
         function startChat() {
             setTimeout(() => {
                 const ru = getLang() === 'ru';
-                addMsg(ru
-                    ? '👋 Привет! Я ваш AI SEO-ассистент. Могу просканировать ваш сайт, порекомендовать аудит или рассказать про AI-поиск.'
-                    : '👋 Hi! I\'m your AI SEO assistant. I can scan your website, recommend an audit, or help you understand AI search visibility.');
-                setQR(QR[getLang()].main);
-            }, 400);
+                const text = ru 
+                    ? 'Я посмотрел ваш сайт 👇<br>Могу быстро показать, где вы теряете клиентов.'
+                    : 'I checked your website 👇<br>I can show you where you\'re losing clients.';
+                addMsg(text, 'bot');
+                
+                setQR(ru ? ['🔍 Показать', '💰 Сколько стоит'] : ['🔍 Show me', '💰 Pricing']);
+            }, 5000); // 5 seconds (Item 3)
+        }
+
+        async function fetchReply(text) {
+            const ru = getLang() === 'ru';
+            const typingBubble = addMsg(
+                `<div class="typing-indicator" style="display:flex;gap:4px"><span>.</span><span>.</span><span>.</span></div>`, 
+                'bot'
+            );
+            
+            try {
+                const res = await fetch('/api/gpt-chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        message: text,
+                        context: {
+                            lang: getLang(),
+                            page: window.location.pathname,
+                            domain: window.location.hostname
+                        }
+                    })
+                });
+
+                const data = await res.json();
+                
+                // Typing Delay (Item 8)
+                setTimeout(() => {
+                    typingBubble.innerHTML = `<div class="chatbot__bubble">${data.reply}</div>`;
+                    
+                    if (data.showTelegram) {
+                        const payload = `src_site_lang_${getLang()}_step_chat`;
+                        const link = `https://t.me/lyazkai_bot?start=${payload}`;
+                        qrEl.innerHTML = `<button class="chatbot__qr" style="background:#229ED9;color:#fff;border:none" onclick="window.open('${link}', '_blank')">🚀 ` + 
+                            (ru ? 'Хочу полный разбор в Telegram' : 'Get analysis in Telegram') + `</button>`;
+                    }
+                }, 1000);
+
+            } catch (err) {
+                typingBubble.innerHTML = `<div class="chatbot__bubble">${ru ? 'Задумался. Напишите еще раз!' : 'Thinking. Try again!'}</div>`;
+            }
         }
 
         function handleReply(text) {
             addMsg(text, 'user');
             qrEl.innerHTML = '';
-            chatState = text;
-            const ru = getLang() === 'ru';
-            const q = QR[getLang()];
-
-            setTimeout(() => {
-                const t = text.toLowerCase();
-                if (t.includes('скан') || t.includes('scan')) {
-                    addMsg(ru
-                        ? 'Отлично! Введите URL вашего сайта и я выполню быструю проверку AI-видимости:'
-                        : 'Great! Enter your website URL and I\'ll run a quick AI visibility check:');
-                    chatState = 'awaiting_url';
-                } else if (t.includes('аудит') || t.includes('audit')) {
-                    addMsg(ru
-                        ? 'Отведу вас на форму запроса аудита. Отчёт будет готов через 48–72 часа. 👉 <a href="ai-seo-audit.html#audit-form" style="color:var(--accent-secondary)">Запросить аудит →</a>'
-                        : 'I\'ll take you to our audit request form. You\'ll get your report in 48–72 hours. 👉 <a href="ai-seo-audit.html#audit-form" style="color:var(--accent-secondary)">Request Full Audit →</a>');
-                    setQR(q.postAudit);
-                } else if (t.includes('geo')) {
-                    addMsg(ru
-                        ? '📍 <strong>GEO (Generative Engine Optimization)</strong> — оптимизация сайта для того, чтобы AI-системы (ChatGPT, Perplexity, Google AI Overviews) <em>цитировали</em> и <em>рекомендовали</em> ваш контент. Это будущее SEO!'
-                        : '📍 <strong>GEO (Generative Engine Optimization)</strong> is the practice of optimizing your website so AI models like ChatGPT, Perplexity, and Google AI Overviews <em>cite</em> and <em>recommend</em> your content. It\'s the future of SEO!');
-                    setQR(q.postGeo);
-                } else if (t.includes('подробнее') || t.includes('learn more')) {
-                    addMsg(ru
-                        ? 'Загляните в наш центр обучения! 👉 <a href="ai-seo-learning.html" style="color:var(--accent-secondary)">Центр обучения AI SEO →</a>'
-                        : 'Check out our learning hub! 👉 <a href="ai-seo-learning.html" style="color:var(--accent-secondary)">AI SEO Learning Hub →</a>');
-                    setQR(q.postGeoL);
-                } else if (t.includes('цен') || t.includes('pricing')) {
-                    addMsg(ru
-                        ? 'У нас 3 пакета аудита:<br>• <strong>Basic</strong> $49 — технический SEO<br>• <strong>Полный AI SEO & GEO</strong> $99 — AI-видимость + конкуренты<br>• <strong>Premium</strong> $199 — полный маркетинговый + стратегический звонок'
-                        : 'We have 3 audit packages:<br>• <strong>Basic</strong> $49 — technical SEO<br>• <strong>Full AI SEO & GEO</strong> $99 — AI visibility + competitors<br>• <strong>Premium</strong> $199 — full marketing + strategy call');
-                    setQR(q.postPrice);
-                } else {
-                    addMsg(ru
-                        ? 'Я помогу со сканированием сайта, SEO-аудитами и анализом AI-видимости. Что вас интересует?'
-                        : 'I can help with website scanning, SEO audits, and AI visibility analysis. What would you like to do?');
-                    setQR(q.fallback);
-                }
-            }, 600);
+            fetchReply(text);
         }
 
         function handleUserInput(val) {
             if (!val.trim()) return;
-            const ru = getLang() === 'ru';
-            if (chatState === 'awaiting_url') {
-                capturedUrl = val.trim();
-                addMsg(val, 'user');
-                input.value = '';
-                setTimeout(() => {
-                    addMsg(ru
-                        ? `✅ Получено! Запускаю AI-сканирование <strong>${capturedUrl}</strong>…`
-                        : `✅ Got it! Running AI visibility scan on <strong>${capturedUrl}</strong>…`);
-                    setTimeout(() => {
-                        addMsg(ru
-                            ? `📊 <strong>Результаты для ${capturedUrl}</strong><br>SEO Скор: <span style="color:#febc2e">58/100</span><br>AI Видимость: <span style="color:var(--accent-secondary)">22/100</span><br><br>Хотите полный отчёт из 7 разделов?`
-                            : `📊 <strong>Quick Results for ${capturedUrl}</strong><br>SEO Score: <span style="color:#febc2e">58/100</span><br>AI Visibility: <span style="color:var(--accent-secondary)">22/100</span><br><br>Want the full 7-section audit report?`);
-                        setQR(QR[getLang()].report);
-                        chatState = 'post_scan';
-                    }, 2000);
-                }, 500);
-            } else if (chatState === 'post_scan' || chatState === 'awaiting_email') {
-                handleReply(val);
-            } else {
-                addMsg(val, 'user');
-                input.value = '';
-                setTimeout(() => handleReply(val.includes('http') ? (getLang() === 'ru' ? '🔍 Сканировать сайт' : '🔍 Scan my website') : val), 400);
-            }
+            addMsg(val, 'user');
+            input.value = '';
+            fetchReply(val);
         }
 
         sendBtn.addEventListener('click', () => handleUserInput(input.value));
@@ -1215,30 +1202,8 @@
             }
         }
 
-        /* Hook into lang switcher buttons */
-        document.querySelectorAll('.lang-btn').forEach(function (btn) {
-            btn.removeAttribute('onclick'); // Clear hardcoded generic onclick overrides
-            btn.addEventListener('click', function () {
-                const targetLang = btn.dataset.lang;
-                applyPrices(targetLang);
-                localStorage.setItem('il_lang', targetLang);
-
-                const currentPath = window.location.pathname;
-                let newPath = currentPath;
-                if (targetLang === 'en' && currentPath.includes('/ru/')) {
-                    newPath = currentPath.replace('/ru/', '/en/');
-                } else if (targetLang === 'ru' && currentPath.includes('/en/')) {
-                    newPath = currentPath.replace('/en/', '/ru/');
-                }
-                
-                if (newPath !== currentPath) {
-                    window.location.href = newPath;
-                }
-            });
-        });
-
         /* Apply on load using stored preference */
-        applyPrices(localStorage.getItem('il_lang') || 'ru');
+        applyPrices(localStorage.getItem('lang') || 'ru');
     }
 
 })();

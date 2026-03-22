@@ -1,0 +1,10 @@
+[2026-03-22T10:38:30.188Z] Email Sent to test_saas@example.com: "Ваш отчет готов" | immediate
+[2026-03-22T10:43:30.182Z] Email Sent to test_saas@example.com: "Ваш отчет готов" | immediate
+[2026-03-22T10:45:08.656Z] Email Sent to test_saas@example.com: "Ваш отчет готов" | immediate
+[2026-03-22T10:50:08.589Z] Email Sent to test_saas@example.com: "Ваш отчет готов" | immediate
+[2026-03-22T10:50:08.590Z] Email Sent to new_buyer@example.com: "Ваш отчет готов" | immediate
+[2026-03-22T10:55:08.578Z] Email Sent to test_saas@example.com: "Ваш отчет готов" | immediate
+[2026-03-22T10:55:08.578Z] Email Sent to new_buyer@example.com: "Ваш отчет готов" | immediate
+[2026-03-22T10:58:20.591Z] Email Sent to test_saas@example.com: "Ваш отчет готов" | immediate
+[2026-03-22T10:58:20.593Z] Email Sent to new_buyer@example.com: "Ваш отчет готов" | immediate
+lost_client@example.com_immediate,lost_client@example.com_5m,lost_client@example.com_30m,lost_client@example.com_2h,

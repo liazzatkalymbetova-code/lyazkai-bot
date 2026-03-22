@@ -118,12 +118,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (aiScoreText) aiScoreText.textContent = 'loading...';
 
     // API Endpoint config
-    const API_BASE = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+    const API_BASE = typeof API_URL !== 'undefined' ? API_URL : (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
         ? 'http://localhost:3000'
-        : ''; // Proxy or absolute on production
+        : '');
 
     try {
-        const response = await fetch(`${API_BASE}/api/scan?url=${encodeURIComponent(url)}`);
+        const response = await fetch(`${API_BASE}/api/scan?url=${encodeURIComponent(url)}&lang=${isRu ? 'ru' : 'en'}`);
+
         if (!response.ok) throw new Error('API Error');
         
         const data = await response.json();
@@ -210,26 +211,25 @@ document.addEventListener('DOMContentLoaded', async () => {
 
                     html += `
                         <div class="paywall-overlay" style="background: linear-gradient(to bottom, rgba(15,16,20,0), #161822 40%); padding: 60px 24px 40px; text-align: center; margin-top: -80px; position: relative; z-index: 10; border-radius: 0 0 20px 20px; border-top: 1px solid rgba(255,255,255,0.05);">
-                            <h2 style="margin-bottom: 12px; font-size: 1.8rem; font-weight: 800; color: #fff;">${isRu ? "Вы уже видите проблему" : "You’ve already found the problem"}</h2>
-                            <p style="color: var(--text-dim); margin-bottom: 24px; max-width: 480px; margin: 0 auto 24px; font-size: 0.95rem;">
-                                ${isRu ? "Ваш сайт теряет трафик и клиентов из-за скрытых ошибок. Бесплатная версия показывает только часть анализа." : "Your website is losing traffic and customers due to hidden issues. The free version shows only part of the analysis."}
+                            <h2 style="margin-bottom: 12px; font-size: 1.8rem; font-weight: 800; color: #fff;">
+                                ${isRu ? "🔒 Вы видите только 30% анализа" : "🔒 You are seeing only 30% of the analysis"}
+                            </h2>
+                            <p style="color: var(--text-dim); margin-bottom: 18px; max-width: 480px; margin: 0 auto 12px; font-size: 0.95rem;">
+                                ${isRu ? "Разблокируйте полный отчет:" : "Unlock full report:"}
                             </p>
 
-                            <!-- Bullets -->
-                            <div style="text-align: left; max-width: 380px; margin: 0 auto 24px; font-size: 0.9rem; color: var(--text-main);">
-                                <div style="display: flex; gap: 8px; margin-bottom: 10px;"><i data-lucide="check-circle-2" style="color: #28c840; width: 16px; height: 16px; flex-shrink:0; margin-top:2px;"></i> <span>${isRu ? "Основные проблемы найдены" : "Key issues detected"}</span></div>
-                                <div style="display: flex; gap: 8px; margin-bottom: 10px;"><i data-lucide="check-circle-2" style="color: #28c840; width: 16px; height: 16px; flex-shrink:0; margin-top:2px;"></i> <span>${isRu ? "Но решения скрыты" : "Solutions are hidden"}</span></div>
-                                <div style="display: flex; gap: 8px;"><i data-lucide="check-circle-2" style="color: #28c840; width: 16px; height: 16px; flex-shrink:0; margin-top:2px;"></i> <span>${isRu ? "Пошаговый план недоступен" : "Step-by-step plan is locked"}</span></div>
+                            <!-- Bullets to match SPEC -->
+                            <div style="text-align: left; max-width: 380px; margin: 0 auto 24px; font-size: 0.95rem; color: var(--text-main); display: flex; flex-direction: column; gap: 8px;">
+                                <div style="display: flex; gap: 8px;"><i data-lucide="check-circle-2" style="color: #28c840; width: 16px; height: 16px; flex-shrink:0; margin-top:2px;"></i> <span>${isRu ? "Все ошибки" : "Full audit"}</span></div>
+                                <div style="display: flex; gap: 8px;"><i data-lucide="check-circle-2" style="color: #28c840; width: 16px; height: 16px; flex-shrink:0; margin-top:2px;"></i> <span>${isRu ? "План роста" : "Growth plan"}</span></div>
+                                <div style="display: flex; gap: 8px;"><i data-lucide="check-circle-2" style="color: #28c840; width: 16px; height: 16px; flex-shrink:0; margin-top:2px;"></i> <span>${isRu ? "GEO и ИИ оптимизация" : "GEO + AI optimization"}</span></div>
+                                <div style="display: flex; gap: 8px;"><i data-lucide="check-circle-2" style="color: #28c840; width: 16px; height: 16px; flex-shrink:0; margin-top:2px;"></i> <span>${isRu ? "Как увеличить заявки" : "Conversion improvements"}</span></div>
                             </div>
 
-                            <!-- Highlight -->
-                            <div style="background: rgba(255, 159, 10, 0.08); border: 1px solid rgba(255, 159, 10, 0.2); border-radius: 12px; padding: 12px; margin: 0 auto 24px; max-width: 440px; text-align: center; color: #ff9f0a; font-weight: 600; font-size: 0.9rem;">
-                                ${isRu ? "Без полного отчета вы не сможете исправить ошибки" : "Without the full report, you cannot fix these issues"}
-                            </div>
-
-                            <button class="btn btn-primary btn-block btn-lg" style="max-width:320px; margin:0 auto 8px; font-size: 1.05rem; box-shadow: 0 4px 20px rgba(0, 224, 255, 0.25);" onclick="location.href='/${isRu ? 'ru' : 'en'}/pricing.html'">
-                                ${isRu ? "Открыть полный отчет" : "Unlock full report"}
+                            <button class="btn btn-primary btn-block btn-lg" style="max-width:340px; margin:0 auto 12px; font-size: 1.05rem; box-shadow: 0 4px 20px rgba(0, 224, 255, 0.25); font-weight: 700;" onclick="location.href='/${isRu ? 'ru' : 'en'}/index.html#pricing'">
+                                ${isRu ? "Открыть полный аудит — 50 000 ₸" : "Unlock full audit — $100"}
                             </button>
+
                             
                             <p style="font-size: 0.8rem; color: var(--text-dim); margin-bottom: 0;">
                                 ${isRu ? "Доступ сразу после оплаты" : "Instant access after payment"}
@@ -441,7 +441,13 @@ document.addEventListener('DOMContentLoaded', async () => {
                 window.location.href = `${baseHref}${baseHref.includes('?') ? '&' : '?'}src=${encodeURIComponent(src)}&ref=${encodeURIComponent(ref)}`;
             }
         });
+        // --- AUTO PRINT FOR PDF GENERATION ---
+        if (window.location.search.includes('print=true')) {
+            setTimeout(() => { window.print(); }, 2000); // Let scores animate to 100% first
+        }
+
     } catch (err) {
+
         console.error('Fetch error:', err);
         if (seoScoreGaugeText) seoScoreGaugeText.textContent = '65'; // Failsafe score fallback
         if (aiScoreGaugeText) aiScoreGaugeText.textContent = '40';

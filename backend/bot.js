@@ -1,8 +1,10 @@
 const TelegramBot = require('node-telegram-bot-api');
 const axios = require('axios');
 const dotenv = require('dotenv');
+const { askGPT } = require('./gpt');
+const path = require('path');
 
-dotenv.config();
+dotenv.config({ path: path.join(__dirname, '.env') });
 
 const token = process.env.TELEGRAM_BOT_TOKEN;
 
@@ -17,6 +19,46 @@ if (!token) {
 // In-memory state to track sources
 const userSources = {};
 const userStates = {};
+const followUpTimers = {};
+
+const strings = {
+    ru: {
+        greet: `Привет! 👋\n\nЯ просканирую твой сайт и покажу, где скрываются ошибки, мешающие продажам.\n\n👇 **Отправь ссылку (например, mysite.com) прямо сейчас!**`,
+        analyzing: 'Анализирую... ⏳',
+        success: 'Готово 👇 Вот твой анализ',
+        upsell: `Хочешь узнать, как исправить ошибки и привлечь больше клиентов?\n\n✔ Ключевые ошибки\n✔ Слабые места\n✔ Первые рекомендации\n\n👇 Получить полный отчёт`,
+        upsellBtn: '📄 Получить полный отчёт',
+        auditResults: '🔍 *Результаты аудита:*',
+        seoScore: 'SEO-рейтинг',
+        aiScore: 'AI-видимость',
+        bestPractices: 'Лучшие практики',
+        mainIssues: 'Главные проблемы',
+        noIssues: '• Данные недоступны',
+        verdict: '⚠️ *Вывод:* Клиенты могут уходить к конкурентам прямо сейчас.',
+        error: '⚠️ Не удалось проанализировать сайт. Проверь ссылку и попробуй ещё раз.',
+        link: 'Откройте полный анализ',
+        followUp: `Ваш отчёт готов.\nНо там скрыты ключевые точки роста.\n\n👇 Открыть полный анализ`,
+        followUpBtn: 'Открыть полный анализ'
+    },
+    en: {
+        greet: `Hello! 👋\n\nI will scan your website and show you where issues are hiding that block sales.\n\n👇 **Send your link (e.g., mysite.com) right now!**`,
+        analyzing: 'Analyzing... ⏳',
+        success: 'Done 👇 Here is your analysis',
+        upsell: `Want to find out how to fix issues and solve customer dropoffs?\n\n✔ Key issues\n✔ Hidden leaks\n✔ First tips\n\n👇 Get Full Report`,
+        upsellBtn: '📄 Get Full Report',
+        auditResults: '🔍 *Audit Results:*',
+        seoScore: 'SEO Rating',
+        aiScore: 'AI Visibility',
+        bestPractices: 'Best Practices',
+        mainIssues: 'Main Issues',
+        noIssues: '• Data not available',
+        verdict: '⚠️ *Verdict:* Customers may be leaving to competitors right now.',
+        error: '⚠️ Failed to analyze website. Check link and try again.',
+        link: 'Unlock full analysis',
+        followUp: `Your report is ready.\nBut key growth points are hidden there.\n\n👇 Unlock full analysis`,
+        followUpBtn: 'Unlock full analysis'
+    }
+};
 
 // ── URL helpers ──────────────────────────────────────────────────────────────
 
@@ -52,10 +94,11 @@ function normalizeUrl(text) {
 /**
  * Builds a short Telegram-friendly audit summary from the /api/scan response.
  */
-function buildSummary(data) {
+function buildSummary(data, lang = 'ru') {
     const seo = data.seoScore || 0;
     const geo = data.geoScore || 0;
     const ai  = data.aiScore  || 0;
+    const s   = strings[lang];
 
     const scoreBar = (score) => {
         if (score >= 80) return '🟢';
@@ -68,16 +111,16 @@ function buildSummary(data) {
         .join('\n');
 
     return (
-`🔍 *Результаты аудита:*
+`🔍 *${s.auditResults}*
 
-${scoreBar(seo)} SEO-рейтинг: *${seo}/100*
-${scoreBar(geo)} AI-видимость: *${geo}/100*
-${scoreBar(ai)} Лучшие практики: *${ai}/100*
+${scoreBar(seo)} ${s.seoScore}: *${seo}/100*
+${scoreBar(geo)} ${s.aiScore}: *${geo}/100*
+${scoreBar(ai)} ${s.bestPractices}: *${ai}/100*
 
-*Главные проблемы:*
-${topIssues || '• Данные недоступны'}
+*${s.mainIssues}:*
+${topIssues || s.noIssues}
 
-⚠️ *Вывод:* Клиенты могут уходить к конкурентам прямо сейчас.`
+⚠️ *${s.verdict}*`
     );
 }
 
@@ -88,6 +131,21 @@ module.exports = function(app) {
     }
 
     // 2. Webhook Route
+    app.post('/api/payment-success', async (req, res) => {
+        const { chatId } = req.body;
+        if (userStates[chatId]) {
+            userStates[chatId].status = 'paid';
+            if (typeof stopFollowUps === 'function') {
+                stopFollowUps(chatId);
+            }
+            console.log(`[Payment] ${chatId} status set to paid.`);
+            try {
+                await bot.sendMessage(chatId, `🎉 Спасибо за оплату! Начинаю глубокий разбор вашего сайта.`);
+            } catch (e) {}
+        }
+        res.json({ success: true, status: 'paid' });
+    });
+
     app.post('/webhook', (req, res) => {
         bot.processUpdate(req.body);
         res.sendStatus(200);
@@ -99,32 +157,107 @@ module.exports = function(app) {
 
 
 // 1. START MESSAGE
-bot.onText(/\/start(?:\s+(.+))?/, (msg, match) => {
+bot.onText(/\/start(?:\s+(.+))?/, async (msg, match) => {
     try {
         const chatId = msg.chat.id;
-        const startParam = match[1] || 'telegram';
-        let source = startParam.replace('scan_', '');
+        const startParam = match[1] || '';
+
+        console.log("START PAYLOAD:", startParam);
+
+        const data = parseStart(startParam);
+
+        // Map backwards compatibility for gpt context queries
+        userSources[chatId] = { 
+            source: data.source, 
+            lang: data.lang, 
+            tariff: 'standard',
+            step: data.step,
+            segment: data.segment,
+            domain: data.domain
+        };
         
-        // Save source tracking
-        userSources[chatId] = source;
+        saveUser(chatId, data);
 
-        console.log(`[/start] User ${chatId} from source: ${source}`);
+        sendWelcome(chatId, data);
 
-        
-    // 1.1 TEST MESSAGE
-    bot.onText(/\/test_webhook/, (msg) => {
-        bot.sendMessage(msg.chat.id, "Привет! Я работаю");
-    });
-        const greetText = 
-`Привет! 👋
+        scheduleFollowUps(chatId, data.segment);
 
-Я просканирую твой сайт и покажу, где скрываются ошибки, мешающие продажам.
-
-👇 **Отправь ссылку (например, mysite.com) прямо сейчас!**`;
-
-        bot.sendMessage(chatId, greetText);
     } catch (err) {
-        console.error("Error in /start handler:", err.message);
+        console.error('Error in /start handler:', err.message);
+    }
+});
+
+function parseStart(start) {
+    const parts = decodeURIComponent(start || '').split('_');
+    const map = {};
+    for (let i = 0; i < parts.length; i += 2) {
+        if (parts[i] && parts[i+1]) {
+            map[parts[i]] = parts[i+1];
+        }
+    }
+    return {
+        source: map['src'] || 'site',
+        lang: map['lang'] || 'ru',
+        step: map['step'] || 'chat',
+        segment: map['interest'] || 'warm',
+        domain: map['domain'] || ''
+    };
+}
+
+async function sendWelcome(chatId, data) {
+    const s = strings[data.lang || 'ru'] || strings['ru'];
+    if (data.source === 'site') {
+        await bot.sendMessage(chatId, `Я посмотрел ваш сайт 👇\nЕсть ошибки, из-за которых вы теряете клиентов.`);
+        setTimeout(async () => {
+            await bot.sendMessage(chatId, `У вас есть трафик 📈\nно заявок меньше, чем может быть.`);
+        }, 2000);
+    } else {
+        await bot.sendMessage(chatId, s.greet || "Привет! 👋 Отправь ссылку на свой сайт.");
+    }
+}
+
+
+bot.on('callback_query', async (query) => {
+    const chatId = query.message.chat.id;
+    if (userStates[chatId]) {
+        userStates[chatId].clicked = true;
+    }
+
+    const data = query.data;
+
+    bot.answerCallbackQuery(query.id);
+    if (data === 'get_audit') {
+        const state = userStates[chatId];
+        if (state && state.lastUrl) {
+            await bot.sendMessage(chatId, `Запускаю повторный разбор для ${state.lastUrl}...`);
+            // Trigger can be simulated or ask to type again if desired, but best is to run norm audit
+            await bot.sendMessage(chatId, `Отправьте ссылку заново, чтобы обновить анализ 📈`);
+        } else {
+            await bot.sendMessage(chatId, `👇 **Отправь ссылку (например, mysite.com) прямо сейчас!**`);
+        }
+    }
+
+
+    if (data === 'view_price') {
+        const text = `💰 **Наши Тарифы:**\n\n` +
+                     `— **Базовый (25 000 ₸ / 50$):** Краткий аудит ошибок\n` +
+                     `— **Стандарт (50 000 ₸ / 100$):** Пошаговый план роста\n` +
+                     `— **Премиум (150 000 ₸ / 300$):** Индивидуальный разбор\n\n` +
+                     `👉 **Ссылка на оплату:** https://infolady.online/payment.html?user=${chatId}`;
+        await bot.sendMessage(chatId, text, { parse_mode: 'Markdown' });
+        
+        if (userStates[chatId]) userStates[chatId].status = 'interested';
+    }
+
+    if (data === 'view_case') {
+        const text = `📈 **Кейс: Рост заявок на 40% за 1 неделю**\n\n` +
+                     `**Проблема:** Страница услуг теряла клиентов из-за сложной формы.\n` +
+                     `**Решение:** Упростили форму до 1 поля, добавили блок доверия.\n` +
+                     `**Результат:** Заявки выросли в 1.4 раза 🚀\n\n` +
+                     `Хотите также? Напишите "хочу"!`;
+        await bot.sendMessage(chatId, text, { parse_mode: 'Markdown' });
+        
+        if (userStates[chatId]) userStates[chatId].status = 'warm';
     }
 });
 
@@ -139,166 +272,256 @@ bot.on('message', async (msg) => {
 
         if (text.startsWith('/')) return; // Ignore commands
 
-        const source = userSources[chatId] || 'telegram';
+        const userCtx = userSources[chatId] || { source: 'telegram', lang: 'ru' };
+        const source = userCtx.source;
+        const lang = userCtx.lang || 'ru';
+        const s = strings[lang];
         const lowerText = text.toLowerCase().trim();
 
-        const currentState = userStates[chatId];
-
-        // --- Lead Capture Answer Interceptor ---
-        if (currentState && currentState.step === 'awaiting_lead_info') {
-            userStates[chatId] = { step: 'finished', answers: text };
-            console.log(`[Lead] User ${chatId} answers: ${text}`);
-            
-            bot.sendMessage(chatId, "Супер, тебе это идеально подходит.\nЯ сейчас объясню, как можно начать уже сегодня");
-            
-            setTimeout(() => {
-                const plan = `📝 **Твой пошаговый план:**\n\n` +
-                `1️⃣ **Упаковка:** Оформи профиль так, чтобы он продавал за тебя.\n` +
-                `2️⃣ **Контент с ИИ:** Генерируй сценарии Reels и посты за 15 минут в день.\n` +
-                `3️⃣ **Трафик:** Настрой автоматическую воронку в Telegram.\n\n` +
-                `👉 **Напиши мне в личку "ХОЧУ СТАРТ", чтобы забрать готовые шаблоны:** https://t.me/your_username`;
-                bot.sendMessage(chatId, plan, { parse_mode: 'Markdown' });
-            }, 1500);
-            return;
-        }
-
-        if (lowerText.includes('привет') || lowerText === 'тест') {
-            return bot.sendMessage(chatId, "Привет! Я работаю");
-        }
-
-        // 1. КОНТЕНТ / ПОСТ
-        // 4. ДА (Воронка продаж)
-        if (lowerText === 'да' || lowerText === 'да!') {
-            // Read updated currentState references
-            const cur = userStates[chatId];
-            if (!cur) {
-                userStates[chatId] = { step: 'awaiting_lead_info' };
-                const promptQs = `Напиши, пожалуйста:
-1. Есть ли у тебя Instagram?
-2. Хочешь для себя или на продажу?`;
-                return bot.sendMessage(chatId, promptQs);
-            } else if (cur.step === 'asked_details') {
-                userStates[chatId] = { step: 'finished', answers: cur.answers };
-                return bot.sendMessage(chatId, "Напиши мне в личку или перейди сюда: https://t.me/your_username");
-            }
-        }
-
-        if (lowerText === 'контент' || lowerText === 'пост') {
-            const post = `🌸 **Твой пост готов!**\n\n` +
-`**Тема: Искусство маленьких шагов в саморазвитии**\n\n` +
-`Часто мы думаем, что перемены — это что-то глобальное. Начать бегать по 10 км, выучить язык за месяц... В итоге мы выгораем и бросаем.\n\n` +
-`💡 **Секрет в микро-шагах:**\n` +
-`- 5 страниц книги перед сном — это 150 страниц в месяц.\n` +
-`- 10 минут зарядки — это бодрость на весь день, а не боль в мышцах.\n` +
-`- Один стакан воды утром — это минус отечность и плюс сияние кожи.\n\n` +
-`Перестань ждать понедельника. Начни прямо сейчас, с одной маленькой вещи, которая сделает тебя счастливее сегодня. Пиши в комментариях: какой твой шаг будет сегодня? 👇
-
-👀 **Хочешь такие же сочные посты каждый день без выгорания? Напиши мне "да"**`;
-            return bot.sendMessage(chatId, post, { parse_mode: 'Markdown' });
-        }
-
-        // 2. ИДЕЯ
-        if (lowerText === 'идея') {
-            const ideas = `💡 **5 взрывных идей для твоего Instagram:**\n\n` +
-`1️⃣ **До/После:** Покажи свою точку А (например, год назад) и точку Б. Искренность всегда собирает охваты.\n` +
-`2️⃣ **Секретный плагин/приложение:** Расскажи про 1 сервис, который экономит тебе 2 часа в день (например, Canva или Notion шаблоны).\n` +
-`3️⃣ **Разрушение мифа:** «Все думают, что [твоя ниша] — это легко, но на самом деле...».\n` +
-`4️⃣ **Один день со мной:** В ускоренном формате (Reels) покажи свою утреннюю рутину или рабочие будни. Эстетика + польза.\n` +
-`5️⃣ **Отказ от привычки:** Расскажи, от чего ты отказалась (кофе, токсичные люди, лень) и как это изменило твою жизнь.
-
-👀 **Хочешь готовый контент-план на месяц за 5 минут? Напиши мне "да"**`;
-            return bot.sendMessage(chatId, ideas, { parse_mode: 'Markdown' });
-        }
-
-        // 3. ЗАРАБОТОК
-        if (lowerText === 'заработок' || lowerText.includes('деньги')) {
-            const advice = `💰 **Как выйти на доход онлайн сегодня?**\n\n` +
-`Самый быстрый путь сейчас — это **создание востребованного контента** + автоматизация через **ИИ (AI)**.\n\n` +
-`Вы можете вести блог, быть менеджером аккаунтов или создавать AI-аватаров для брендов.\n\n` +
-`**Хочешь, я покажу как зарабатывать через AI и контент?**
-
-🔥 **Могу показать пошагово, как запустить такой же бот и начать зарабатывать 100–300$ в день.** Заманчиво? Напиши "да"**`;
-            return bot.sendMessage(chatId, advice);
-        }
+        stopFollowUps(chatId); // Reset timers on active response
+        if (!userStates[chatId]) userStates[chatId] = {};
+        userStates[chatId].messagesCount = (userStates[chatId].messagesCount || 0) + 1;
 
 
-    // ── URL / Instagram audit flow ──────────────────────────────────────────
-    if (!isUrl(lowerText)) return; // non-URL messages fall through silently
+        console.log("USER:", text);
 
-    const targetUrl = normalizeUrl(text);
-    await bot.sendMessage(chatId, 'Анализирую... ⏳');
+        // 1. Ссылка -> Аудит (если содержит http или является URL)
+        if (text.includes('http') || isUrl(text)) {
+            const targetUrl = normalizeUrl(text);
+            await bot.sendMessage(chatId, s.analyzing);
 
-    try {
-        const port = process.env.PORT || 3000;
-        const apiRes = await axios.get(
-            `http://localhost:${port}/api/scan?url=${encodeURIComponent(targetUrl)}`,
-            { timeout: 15000 }
-        );
-        const data = apiRes.data;
+            try {
+                const port = process.env.PORT || 3000;
+                const apiRes = await axios.get(
+                    `http://localhost:${port}/api/scan?url=${encodeURIComponent(targetUrl)}&lang=${lang}`,
+                    { timeout: 15000 }
+                );
+                const data = apiRes.data;
 
-        // 1. Short real-data summary
-        const summary = buildSummary(data);
-        await bot.sendMessage(chatId, summary, { parse_mode: 'Markdown' });
+                const summary = buildSummary(data, lang);
+                await bot.sendMessage(chatId, summary, { parse_mode: 'Markdown' });
 
-        // 2. Report link — required message
-        const reportLink = `https://infolady.online/ru/report.html?user=${chatId}`;
-        await bot.sendMessage(
-            chatId,
-            `Готово 👇 Вот твой анализ\n${reportLink}`
-        );
+                const reportLink = `https://infolady.online/${lang}/report.html?user=${chatId}`;
+                await bot.sendMessage(chatId, `${s.success}\n${reportLink}`);
 
-        // 3. Upsell button
-        const sellBlock =
-`Хочешь узнать, как исправить ошибки и привлечь больше клиентов?
-
-✔ Ключевые ошибки
-✔ Слабые места
-✔ Первые рекомендации
-
-👇 Получить полный отчёт`;
-
-        const opts = {
-            reply_markup: {
-                inline_keyboard: [
-                    [
-                        { text: '📄 Получить полный отчёт', url: `https://infolady.online/ru/payment.html?plan=basic&source=${source}` }
-                    ]
-                ]
-            }
-        };
-        await bot.sendMessage(chatId, sellBlock, opts);
-
-        // 4. Follow-up after 20 minutes
-        setTimeout(async () => {
-            const followUp =
-`Ваш отчёт готов.
-Но там скрыты ключевые точки роста.
-
-👇 Открыть полный анализ`;
-
-            const upsellOpts = {
-                reply_markup: {
-                    inline_keyboard: [
-                        [
-                            { text: 'Открыть полный анализ', url: `https://infolady.online/ru/payment.html?plan=standard&source=${source}` }
+                const sellBlock = s.upsell;
+                const opts = {
+                    reply_markup: {
+                        inline_keyboard: [
+                            [{ text: s.upsellBtn, url: `https://infolady.online/${lang}/payment.html?plan=basic&source=${source}&user=${chatId}` }]
                         ]
-                    ]
-                }
-            };
-            await bot.sendMessage(chatId, followUp, upsellOpts);
-        }, 1200000); // 20 minutes
+                    }
+                };
+                await bot.sendMessage(chatId, sellBlock, opts);
 
-    } catch (auditErr) {
-        console.error('[Audit] API error:', auditErr.message);
-        await bot.sendMessage(
-            chatId,
-            '⚠️ Не удалось проанализировать сайт. Проверь ссылку и попробуй ещё раз.'
-        );
-    }
+                setTimeout(async () => {
+                     const reviewMsg = `Я посмотрел 👀\n\nУ вас:\n❌ нет захвата\n❌ слабый оффер\n❌ нет доверия\n\nЭто можно быстро исправить 📈`;
+                     await bot.sendMessage(chatId, reviewMsg);
+                     userStates[chatId] = { status: 'warm', updated_at: new Date().toISOString(), timestamp: Date.now() };
+                }, 5000);
+
+            } catch (auditErr) {
+                console.error('[Audit] API error:', auditErr.message);
+                await bot.sendMessage(chatId, s.error);
+            }
+            return; // EXIT after audit
+        }
+
+        // 2. Иначе -> GPT
+        try {
+            console.log("GPT CALLED");
+            const context = {
+                lang: lang || 'ru',
+                source: userCtx.source || 'site',
+                tariff: userCtx.tariff || 'отсутствует'
+            };
+
+            const reply = await askGPT(chatId, text, context);
+
+            if (reply) {
+                console.log("GPT REPLY:", reply);
+                await bot.sendMessage(chatId, reply); 
+            const segment = detectSegment(text, { 
+                messagesCount: userStates[chatId].messagesCount || 1, 
+                clicked: userStates[chatId].clicked || false 
+            });
+            userStates[chatId].segment = segment;
+            console.log("SEGMENT:", segment);
+            scheduleFollowUps(chatId, segment); // Start segmented follow-up chain
+            } else {
+                await bot.sendMessage(chatId, `Я могу показать, где вы теряете клиентов 👇`);
+            }
+        } catch (gptErr) {
+            console.error("[GPT] Error in bot handler:", gptErr.message);
+            await bot.sendMessage(chatId, `Я могу показать, где вы теряете клиентов 👇`);
+        }
 
     } catch (err) {
         console.error('Error in message handler:', err.message);
     }
 });
 
+    
+    // --- AUTO FOLLOW-UP SYSTEM ---
+function detectSegment(text, meta = {}) {
+    const lowerText = text ? text.toLowerCase() : "";
+    if (
+        lowerText.includes('цена') ||
+        lowerText.includes('стоимость') ||
+        lowerText.includes('аудит') ||
+        meta.clicked === true
+    ) {
+        return 'hot';
+    }
+
+    if (meta.messagesCount >= 2) {
+        return 'warm';
+    }
+
+    return 'cold';
+}
+
+function saveUser(chatId, meta = {}) {
+    if (!userStates[chatId]) userStates[chatId] = {};
+    const state = userStates[chatId];
+    state.source = meta.source || state.source || 'telegram';
+    state.interest = meta.interest || state.interest || 'discussion';
+    state.timestamp = Date.now();
+    console.log(`[saveUser] ${chatId} saved with meta:`, meta);
+}
+
+function scheduleFollowUps(chatId, segment = 'cold') {
+    stopFollowUps(chatId); // Clear old timers to avoid duplicates!
+    
+    console.log(`[Follow-up] Scheduling chain for ${chatId} (${segment})`);
+    followUpTimers[chatId] = [];
+
+    const sendWithDelay = (sendFn, delayMs) => {
+        const t = setTimeout(() => sendFn(chatId, segment), delayMs);
+        followUpTimers[chatId].push(t);
+    };
+
+    // 10 Min, 3 Hours, 24 Hours, 48 Hours, 72 Hours
+    sendWithDelay(send1, 10 * 60 * 1000);
+    sendWithDelay(send2, 3 * 3600 * 1000);
+    sendWithDelay(send3, 24 * 3600 * 1000);
+    sendWithDelay(send4, 48 * 3600 * 1000);
+    sendWithDelay(send5, 72 * 3600 * 1000);
+}
+
+function stopFollowUps(chatId) {
+    if (followUpTimers[chatId]) {
+        console.log(`[Follow-up] Stopping chain for ${chatId}`);
+        followUpTimers[chatId].forEach(clearTimeout);
+        delete followUpTimers[chatId];
+    }
+}
+
+const followUpOpts = {
+    reply_markup: {
+        inline_keyboard: [
+            [{ text: "📊 Получить разбор", callback_data: "get_audit" }]
+        ]
+    }
 };
+
+async function send1(chatId, segment) {
+    if (userStates[chatId]?.status === 'purchased') return;
+    
+    const texts = {
+        hot: "Ты уже близко 👇\n\nЯ могу сразу показать,\nгде именно ты теряешь деньги\n\nГотов разобрать?",
+        warm: "Я вижу ты уже смотришь 👇\n\nУ тебя типичная ситуация:\nсайт есть — заявок нет\n\nХочешь объясню почему?",
+        cold: "Быстро глянул твой сайт 👇\n\nЕсть пара моментов,\nкоторые режут конверсию\n\nПоказать?"
+    };
+
+    const text = texts[segment] || texts.cold;
+    console.log(`FOLLOW-UP 1 SENT [${segment}]`);
+    await bot.sendMessage(chatId, text, followUpOpts);
+}
+
+async function send2(chatId, segment) {
+    if (userStates[chatId]?.status === 'purchased') return;
+
+    const texts = {
+        hot: "Смотри, без разбора ты продолжаешь терять заявки\n\nЭто не теория — это видно по твоему сайту\n\nДавай покажу",
+        warm: "Проблема не в трафике\n\nПроблема в том,\nкак сайт продаёт\n\nРазобрать?",
+        cold: "Часто проблема не очевидна\n\nНо именно из-за неё нет клиентов\n\nМогу показать на примере"
+    };
+
+    const text = texts[segment] || texts.cold;
+    console.log(`FOLLOW-UP 2 SENT [${segment}]`);
+    await bot.sendMessage(chatId, text, followUpOpts);
+}
+
+async function send3(chatId, segment) {
+    if (userStates[chatId]?.status === 'purchased') return;
+    console.log("FOLLOW-UP 3 SENT");
+    await bot.sendMessage(chatId, "Пока ты думаешь — клиенты уходят\n\nКонкуренты просто сделали сайт понятнее\n\nИ забирают твой трафик\n\nХочешь покажу где именно?", followUpOpts);
+}
+
+async function send4(chatId, segment) {
+    if (userStates[chatId]?.status === 'purchased') return;
+    console.log("FOLLOW-UP 4 SENT");
+    await bot.sendMessage(chatId, "Недавно был похожий сайт\n\nПосле правок:\n+ заявки выросли в 2 раза\n\nПричина — те же ошибки\n\nРазобрать твой?", followUpOpts);
+}
+
+async function send5(chatId, segment) {
+    if (userStates[chatId]?.status === 'purchased') return;
+    console.log("FOLLOW-UP 5 SENT");
+    await bot.sendMessage(chatId, `Сделаем просто:
+
+Покажу:
+— где теряешь клиентов
+— что исправить
+— как увеличить заявки
+
+Без воды
+
+Готов?`, followUpOpts);
+}
+
+function triggerBotDrip() {
+        const now = Date.now();
+        for (const chatId in userStates) {
+            const state = userStates[chatId];
+            if (!state.status) continue;
+
+            const ageMs = now - (state.timestamp || now);
+
+            // AUTO-ДОЖИМ: 12 Hours (status === 'warm')
+            if (state.status === 'warm' && !state.drip_12h && ageMs > 43200000) {
+                bot.sendMessage(chatId, `Вы так и не ответили 🤝\n\nСкорее всего у вас сейчас уже уходят клиенты.`);
+                state.drip_12h = true;
+            }
+
+            // AUTO-ДОЖИМ: 24 Hours (status === 'warm')
+            if (state.status === 'warm' && !state.drip_24h && ageMs > 86400000) {
+                bot.sendMessage(chatId, `Могу дать быстрый старт\nи показать результат за 1 день 🚀`);
+                state.drip_24h = true;
+                state.status = 'lost'; 
+            }
+
+            // --- ABANDONED PAYMENT DROPS (Item 6) ---
+            if (state.status === 'payment_pending') {
+                const elapsedPay = now - (state.payment_timestamp || now);
+
+                // 30 Minutes (1 800 000 ms)
+                if (!state.pay_30m && elapsedPay > 1800000) {
+                    bot.sendMessage(chatId, `Вы начали оплату 💳\nно не завершили.\n\nНужна помощь?`);
+                    state.pay_30m = true;
+                }
+
+                // 2 Hours (7 200 000 ms)
+                if (!state.pay_2h && elapsedPay > 7200000) {
+                    bot.sendMessage(chatId, `Могу зафиксировать цену сегодня 🎁`);
+                    state.pay_2h = true;
+                    // Leave status as payment_pending or mark lost to avoid re-loops
+                }
+            }
+        }
+    }
+    setInterval(triggerBotDrip, 300000); // Check every 5 minutes
+
+};
+
+module.exports.userStates = userStates;

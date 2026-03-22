@@ -3,7 +3,10 @@
  * Connects frontend forms to the Render backend API.
  */
 window.InfoLadyLeads = {
-    apiUrl: '/api/lead',
+    get apiUrl() {
+        const baseUrl = typeof API_URL !== 'undefined' ? API_URL : window.location.origin;
+        return `${baseUrl}/api/lead`;
+    },
 
     async submitLead(data) {
         console.log('[InfoLady] Submitting lead...', data);

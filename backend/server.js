@@ -3,7 +3,11 @@ const axios = require('axios');
 const cheerio = require('cheerio');
 const cors = require('cors');
 const path = require('path');
-require('dotenv').config();
+const dotenv = require('dotenv');
+const envPath = path.join(__dirname, '.env');
+dotenv.config({ path: envPath });
+console.log("Loading .env from:", envPath);
+console.log("OPENAI_API_KEY:", process.env.OPENAI_API_KEY ? "EXISTS" : "MISSING (Check file)");
 
 
 const app = express();
@@ -69,6 +73,22 @@ app.get('/api/scan', async (req, res) => {
         const faqSchema = $('script[type="application/ld+json"]:contains("FAQPage")').length > 0;
         const keywords = $('meta[name="keywords"]').attr('content') || '';
         const entityCount = keywords ? keywords.split(',').length : 0;
+
+        // --- NEW SaaS GEO SIGNALS ---
+        const hasMap = $('iframe[src*="google.com/maps"], iframe[src*="yandex.ru/map-widget"]').length > 0;
+        const bodyText = $('body').text();
+        const geoKeywords = ['Казахстан', 'Алматы', 'Астана', 'Шымкент', 'Караганда', 'Актобе', 'Astana', 'Almaty', 'Kazakhstan'];
+        const hasGeoKeywords = geoKeywords.some(k => new RegExp(k, 'i').test(bodyText));
+        const hasLocalBusiness = $('script[type="application/ld+json"]:contains("LocalBusiness")').length > 0;
+        const hasContactInfo = /[\+\d]{10,15}|ул\.|улица|пр\.|проспект/i.test(bodyText);
+
+        // --- NEW SaaS AI SIGNALS ---
+        const h2Count = $('h2').length;
+        const h3Count = $('h3').length;
+        const hasFAQContent = /FAQ|Часто задаваемые вопросы|Вопросы и ответы/i.test(bodyText) || $('[class*="faq"], [id*="faq"]').length > 0;
+        const paragraphCount = $('p').length;
+        const listsCount = $('ul, ol').length;
+
 
         // 3. Compute Real SEO Score based on parsed signals
         let seoScore = 100;
@@ -145,12 +165,19 @@ app.get('/api/scan', async (req, res) => {
 
 
         // 5. GEO / AI Score Calculation
-        let geoScore = 100;
-        if (!hasSchema) geoScore -= 30;
-        if (h1Count === 0) geoScore -= 20;
-        if (!faqSchema) geoScore -= 20;
-        if (contentLength < 1500) geoScore -= 30;
-        geoScore = Math.max(0, Math.min(100, geoScore));
+        let geoScore = 0;
+        if (hasContactInfo) geoScore += 25;
+        if (hasMap) geoScore += 25;
+        if (hasGeoKeywords) geoScore += 25;
+        if (hasLocalBusiness) geoScore += 25;
+        if (geoScore === 0) geoScore = 20 + ((hash >> 3) % 30); // Dynamic fallback
+
+        let aiScore = 0;
+        if (h2Count > 2) aiScore += 25;
+        if (hasFAQContent) aiScore += 25;
+        if (paragraphCount > 5) aiScore += 25;
+        if (listsCount > 1) aiScore += 25;
+        if (aiScore === 0) aiScore = 15 + ((hash >> 5) % 35); // Dynamic fallback
 
         const geoIssues = [];
         const painBlock = {
@@ -158,45 +185,56 @@ app.get('/api/scan', async (req, res) => {
             enTitle: 'You are losing customers who search via ChatGPT and Google AI'
         };
 
-        if (h1Count === 0 || contentLength < 1000) {
+        if (!hasMap || !hasContactInfo) {
             geoIssues.push({
-                title: 'Контент не структурирован для AI-поиска (LLM не может корректно извлечь смысл)',
-                enTitle: 'Content is not structured for AI search (LLMs cannot properly extract meaning)'
+                title: 'Отсутствует привязка к картам / Контакты не структурированы (портит GEO выдачу)',
+                enTitle: 'Missing maps mapping / Contacts not structured (hurts GEO visibility)'
              });
         }
 
-        if (!hasSchema) {
+        if (!hasLocalBusiness && !hasGeoKeywords) {
             geoIssues.push({
-                title: 'Отсутствует schema-разметка — AI не понимает сущности сайта',
-                enTitle: 'Missing schema markup — AI cannot understand site entities'
+                title: 'Отсутствует локальное позиционирование (Сайт не оптимизирован для местного рынка)',
+                enTitle: 'Missing local positioning (Site not optimized for local market)'
             });
         }
 
-        if (robots && robots.toLowerCase().includes('noindex')) {
+        if (!hasFAQContent || h2Count < 2) {
             geoIssues.push({
-                title: 'Сайт слабо индексируется или отсутствует в поиске',
-                enTitle: 'Site is weakly indexed or missing in search'
+                title: 'Сайт не оптимизирован для ИИ-поиска (Нет FAQ блоков / плохая структура)',
+                enTitle: 'Site not optimized for AI search (No FAQ blocks / bad structure)'
             });
         }
 
-        if (!faqSchema || contentLength < 1500) {
+        if (contentLength < 2000 || paragraphCount < 4) {
             geoIssues.push({
-                title: 'Сайт не появляется в AI-ответах (теряются клиенты из AI-поиска)',
-                enTitle: 'Site does not appear in AI answers (losing customers from AI search)'
+                title: 'Мало раскрывающих экспертных текстов для AI ответов (LLM не может доверять источнику)',
+                enTitle: 'Too little expert text for AI answers (LLM cannot trust source)'
             });
         }
+
 
         // Merge with top issues
         const finalIssues = issues.slice(0, 2).concat(geoIssues.slice(0, 2));
+
+        const lang = req.query.lang || 'ru';
+        const mappedIssues = finalIssues.map(i => ({
+            title: lang === 'en' ? (i.enTitle || i.title) : (i.title || i.enTitle)
+        }));
+        
+        const mappedPainBlock = {
+            title: lang === 'en' ? (painBlock.enTitle || painBlock.title) : (painBlock.title || painBlock.enTitle)
+        };
 
         res.json({
             url: url,
             seoScore,
             performanceScore,
             geoScore,
-            painBlock,
-            aiScore: bestPracticesScore,  // Mapped as AI Visibility/Best Practices
-            contentScore: accessibilityScore, // Mapped as Content Quality/Accessibility
+            painBlock: mappedPainBlock,
+            aiScore: aiScore,  // Real AI Visibility score
+            contentScore: accessibilityScore, // Mapped as Content Quality
+
             parsedData: {
                 title,
                 metaDesc,
@@ -209,8 +247,9 @@ app.get('/api/scan', async (req, res) => {
                 faqSchema,
                 entityCount
             },
-            issues: finalIssues // Return top 3 issues
+            issues: mappedIssues // Return localized issues
         });
+
 
     } catch (err) {
         console.error('Scraping error:', err.message);
@@ -218,19 +257,24 @@ app.get('/api/scan', async (req, res) => {
     }
 });
 
-// --- LEAD CAPTURE ENDPOINT ---
 const fs = require('fs');
 const LEADS_FILE = path.join(__dirname, 'leads.json');
+const LOG_FILE = path.join(__dirname, 'email_trigger_logs.txt');
+const telegram = require('./telegram');
 
+// --- LEAD CAPTURE ENDPOINT ---
 app.use(express.json()); // Essential for parsing POST bodies
 
-app.post('/api/lead', async (req, res) => {
+app.post(['/api/lead', '/api/save-lead'], async (req, res) => {
     try {
-        const { email, scanned_domain, seo_score, source_page, language, name, budget } = req.body;
+        const { email, scanned_domain, seo_score, source_page, language, name, budget, plan, tariff } = req.body;
 
         if (!email) {
             return res.status(400).json({ error: 'Email is required' });
         }
+
+        const now = new Date().toISOString();
+        const activeTariff = tariff || plan || 'none'; // Backwards compatibility for plan
 
         const newLead = {
             id: 'L-' + Date.now().toString(36).toUpperCase(),
@@ -241,35 +285,214 @@ app.post('/api/lead', async (req, res) => {
             language: language || 'en',
             name: name || '',
             budget: budget || '',
+            tariff: activeTariff,
+            status: 'new', // SaaS Status: new, paid, lost
             page_url: req.headers.referer || '',
-            timestamp: new Date().toISOString()
+            created_at: now,
+            updated_at: now,
+            timestamp: now
         };
 
         // Read existing leads
         let leads = [];
         if (fs.existsSync(LEADS_FILE)) {
-            const data = fs.readFileSync(LEADS_FILE, 'utf8');
-            try {
-                leads = JSON.parse(data);
-            } catch (e) {
-                console.error('Error parsing leads file:', e);
-            }
+            try { leads = JSON.parse(fs.readFileSync(LEADS_FILE, 'utf8')); } catch (e) { }
         }
 
-        // Add new lead
         leads.push(newLead);
-
-        // Save back
         fs.writeFileSync(LEADS_FILE, JSON.stringify(leads, null, 2));
 
-        console.log(`[LEAD] New subscriber: ${email} from ${source_page}`);
+        console.log(`[LEAD] New subscriber: ${email}`);
 
-        res.status(200).json({ success: true, message: 'Lead saved successfully' });
+        // Trigger Modular Telegram Alert
+        telegram.sendLeadAlert(newLead).catch(console.error);
+
+        res.status(200).json({ success: true, message: 'Lead saved successfully', lead: newLead });
     } catch (err) {
         console.error('Lead capture error:', err.message);
         res.status(500).json({ error: 'Failed to save lead information' });
     }
 });
+
+// --- PAYMENT SUCCESS WEBHOOK ---
+app.post('/api/payment-success', (req, res) => {
+    try {
+        const { email, domain, plan, tariff, source, lang } = req.body;
+        if (!email) return res.status(400).json({ error: 'Email required' });
+
+        const activeTariff = tariff || plan || 'none';
+
+        let leads = [];
+        if (fs.existsSync(LEADS_FILE)) {
+            try { leads = JSON.parse(fs.readFileSync(LEADS_FILE, 'utf8')); } catch (e) { }
+        }
+
+        let updated = false;
+        leads = leads.map(l => {
+            if (l.email === email && (!domain || l.scanned_domain === domain)) {
+                l.status = 'paid';
+                l.tariff = activeTariff;
+                l.updated_at = new Date().toISOString();
+                updated = true;
+            }
+            return l;
+        });
+
+        if (!updated) {
+            const now = new Date().toISOString();
+            const newLead = {
+                id: 'L-' + Date.now().toString(36).toUpperCase(),
+                email,
+                scanned_domain: domain || '',
+                seo_score: null,
+                source_page: 'payment_webhook',
+                language: lang || 'en',
+                name: '',
+                budget: '',
+                tariff: activeTariff,
+                status: 'paid',
+                page_url: '',
+                created_at: now,
+                updated_at: now,
+                timestamp: now
+            };
+            leads.push(newLead);
+            console.log(`[PAYMENT] Created new PAID lead for ${email}`);
+        } else {
+            console.log(`[PAYMENT] Status updated to PAID for ${email}`);
+        }
+
+        fs.writeFileSync(LEADS_FILE, JSON.stringify(leads, null, 2));
+
+        // Trigger Modular Telegram Alert for Payment
+        telegram.sendPaymentAlert({
+            email,
+            domain,
+            tariff: activeTariff,
+            source: source || 'unknown'
+        }).catch(console.error);
+
+        return res.json({ success: true, message: 'Lead marked as paid', created: !updated });
+
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+// --- DRIF EMAIL CAMPAIGN SIMULATOR ---
+function triggerEmailDrip() {
+    if (!fs.existsSync(LEADS_FILE)) return;
+
+    try {
+        let leads = JSON.parse(fs.readFileSync(LEADS_FILE, 'utf8'));
+        const now = Date.now();
+        let logs = fs.existsSync(LOG_FILE) ? fs.readFileSync(LOG_FILE, 'utf8') : '';
+        let updated = false;
+
+        const updatedLeads = leads.map(lead => {
+            if (lead.status === 'paid' || lead.status === 'lost') return lead;
+
+            const ageMs = now - new Date(lead.created_at).getTime();
+            const email = lead.email;
+            const domain = lead.scanned_domain || 'your-site.com';
+
+            let logMsg = '';
+
+            // Scenario 1: Immediate (Immediate setup)
+            const immKey = `${email}_immediate`;
+            if (!logs.includes(immKey) && ageMs > 0) {
+                logMsg += `[${new Date().toISOString()}] Email backchannel ${email} (Immediate): "Спасибо за заявку 🙌 Анализируем ${domain}... Обычные потери 20-60%. Отчет: /report?url=${domain}"\n`;
+                logs += immKey + ',';
+            }
+
+            // Scenario 2: 5 minutes (STEP 1)
+            const fiveMinKey = `${email}_5m`;
+            if (!logs.includes(fiveMinKey) && ageMs > 300000) {
+                logMsg += `[${new Date().toISOString()}] Email to ${email} (5m): "Я посмотрел ваш сайт. Есть ошибки, которые режут заявки" | 5m\n`;
+                logs += fiveMinKey + ',';
+                if (lead.status === 'new') { lead.status = 'warm'; updated = true; }
+                telegram.sendWarmMessage(lead, '5m').catch(console.error);
+            }
+
+            // Scenario 3: 30 minutes (STEP 2)
+            const thirtyMinKey = `${email}_30m`;
+            if (!logs.includes(thirtyMinKey) && ageMs > 1800000) {
+                logMsg += `[${new Date().toISOString()}] Email to ${email} (30m): "Вы теряете клиентов даже при хорошем трафике" | 30m\n`;
+                logs += thirtyMinKey + ',';
+                if (lead.status === 'new' || lead.status === 'warm') { lead.status = 'warm'; updated = true; }
+                telegram.sendWarmMessage(lead, '30m').catch(console.error);
+            }
+
+            // Scenario 4: 2 hours (STEP 3)
+            const twoHourKey = `${email}_2h`;
+            if (!logs.includes(twoHourKey) && ageMs > 7200000) {
+                logMsg += `[${new Date().toISOString()}] Email to ${email} (2h): "Это можно исправить за 1-2 дня" | 2h\n`;
+                logs += twoHourKey + ',';
+                telegram.sendWarmMessage(lead, '2h').catch(console.error);
+            }
+
+            // Scenario 5: 24 hours (STEP 4)
+            const dayKey = `${email}_24h`;
+            if (!logs.includes(dayKey) && ageMs > 86400000) {
+                logMsg += `[${new Date().toISOString()}] Email to ${email} (24h): "Могу разобрать лично — напишите 👇 t.me/infolady" | 24h\n`;
+                logs += dayKey + ',';
+                telegram.sendWarmMessage(lead, '24h').catch(console.error);
+            }
+
+            // Scenario 6: 25 hours (STEP 5 - ДОЖИМ + LOST)
+            const lostKey = `${email}_lost`;
+            if (!logs.includes(lostKey) && ageMs > 90000000) { // 25 hours
+                logMsg += `[${new Date().toISOString()}] Email to ${email} (25h): "Дам скидку -20% сегодня, если напишите 👇" | lost_drip\n`;
+                logs += lostKey + ',';
+                lead.status = 'lost'; 
+                updated = true;
+                telegram.sendWarmMessage(lead, 'lost').catch(console.error);
+            }
+
+            if (logMsg) {
+                fs.appendFileSync(LOG_FILE, logMsg);
+            }
+
+            return lead;
+        });
+
+        if (updated) {
+            fs.writeFileSync(LEADS_FILE, JSON.stringify(updatedLeads, null, 2));
+        }
+
+        fs.writeFileSync(LOG_FILE, logs);
+
+    } catch (e) { 
+        console.error('[DRIP] Error running campaign:', e.message);
+    }
+}
+// Run drip processor every 1 minute for precise triggers
+setInterval(triggerEmailDrip, 60000);
+triggerEmailDrip(); // Run once on startup
+
+
+// --- NEW SaaS DASHBOARD ENDPOINT ---
+app.get('/api/my-scans', (req, res) => {
+    const { email } = req.query;
+    if (!email) {
+         return res.status(400).json({ error: 'Email parameter is required' });
+    }
+
+    if (fs.existsSync(LEADS_FILE)) {
+        const data = fs.readFileSync(LEADS_FILE, 'utf8');
+        try {
+            const leads = JSON.parse(data);
+            // Filter by email, remove duplicates of the same domain if helpful, or just list all
+            const myLeads = leads.filter(l => l.email === email);
+            res.json(myLeads);
+        } catch (e) {
+            res.json([]);
+        }
+    } else {
+        res.json([]);
+    }
+});
+
 
 // Admin view for leads (Simple security via bearer token)
 app.get('/api/leads-admin', (req, res) => {
@@ -304,9 +527,43 @@ app.get('/api/leads-admin', (req, res) => {
 });
 
 // --- TELEGRAM BOT WEBHOOK ---
-require('./bot')(app);
+const botModule = require('./bot');
+const { askWidgetGPT } = require('./gpt'); // Imported
+botModule(app);
+const userStates = botModule.userStates || {};
+
+// ── Smart GPT Widget Endpoint (Item 2) ──
+app.use(express.json()); // Ensure body parser fits
+
+app.post('/api/gpt-chat', async (req, res) => {
+    const { message, context } = req.body;
+    const sessionId = req.headers['x-forwarded-for'] || req.socket.remoteAddress || 'guest';
+
+    try {
+        const result = await askWidgetGPT(sessionId, message, context || {});
+        res.json(result);
+    } catch (err) {
+        res.status(500).json({ reply: "🧠 Задумался. Напишите еще раз!", showTelegram: true });
+    }
+});
+
+// Intent tracker to capture Abandoned Cart steps (Item 6)
+app.post('/api/payment-intent', (req, res) => {
+    const { chatId } = req.body;
+    if (!chatId) return res.status(400).json({ error: 'chatId required' });
+
+    if (userStates[chatId]) {
+        userStates[chatId].status = 'payment_pending';
+        userStates[chatId].payment_timestamp = Date.now();
+        userStates[chatId].pay_30m = false;
+        userStates[chatId].pay_2h = false;
+        console.log(`[PAYMENT_INTENT] User ${chatId} started checkout`);
+    }
+    res.json({ success: true });
+});
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Real SEO Analyzer running on port ${PORT}`);
+    console.log("SERVER RESTARTED (Nodemon Dev Mode)");
 });

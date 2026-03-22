@@ -176,14 +176,14 @@
 
         
         <div class="value-box">
-          <h2>Что вы получите</h2>
+          <h2>Вы получите:</h2>
           <ul>
-            <li>✔ Анализ всех ошибок сайта</li>
-            <li>✔ Где вы теряете клиентов</li>
-            <li>✔ Как увеличить заявки</li>
+            <li>✔ Полный аудит сайта</li>
+            <li>✔ Список критических ошибок</li>
             <li>✔ Пошаговый план роста</li>
+            <li>✔ Рекомендации под ваш бизнес</li>
           </ul>
-          <p class="result">📈 После внедрения: рост заявок на 20–50%</p>
+          <p class="result">⏱ Срок выполнения: 24 часа</p>
           <p class="urgency">🔥 Доступ по акционной цене сегодня</p>
         </div>
 
@@ -201,6 +201,7 @@
                 <span class="detail-value price" id="plan-price">...</span>
             </div>
         </div>
+        </div>
 
         <div class="instruction" id="plan-instruction">
             ⚠️ Ожидание параметров...
@@ -211,7 +212,11 @@
             <label for="userEmail" style="display:block; font-size: 0.85rem; color: var(--text-dim); margin-bottom: 8px;">Введите email для получения отчёта</label>
             <input type="email" id="userEmail" placeholder="your@email.com" style="width:100%; padding:14px; border-radius:12px; background: rgba(255,255,255,0.04); border: 1px solid var(--border); color:#fff; font-family:inherit; font-size:0.95rem; outline:none; box-sizing:border-box;" required>
         </div>
+        <p style="text-align:center; font-weight:bold; color:#00e0ff; margin: 15px 0 10px 0;">🚀 После оплаты сразу запускаем и вы увидите результат</p>
 <a href="https://pay.kaspi.kz/pay/fpquqhbx" class="cta-btn" target="_blank" onclick="handlePayment()">Оплатить через Kaspi</a>
+<script src="/js/config.js"></script>
+<button class="cta-btn" style="background: #10b981; margin-top: 10px;" onclick="handleConfirmPayment()">✅ Я оплатил</button>
+<div id="status-message" style="margin-top:10px; font-weight:bold;"></div>
 
         <div class="trust-info">
             <p>⚡ Мгновенный отчёт после оплаты</p>
@@ -225,15 +230,23 @@
 
     <script>
         (function() {
-            // ── Currency guard: path is the ONLY source of truth ──
             const isEN = window.location.pathname.includes('/en/');
             if (isEN) {
-                // Wrong file loaded for EN user — redirect to correct version
                 window.location.replace('/en/payment.html' + window.location.search);
                 return;
             }
 
             const params = new URLSearchParams(window.location.search);
+            const user = params.get('user');
+            if (user) {
+                const baseUrl = typeof API_URL !== 'undefined' ? API_URL : (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' ? 'http://localhost:3000' : '');
+                fetch(`${baseUrl}/api/payment-intent`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ chatId: user })
+                }).catch(console.error);
+            }
+
             const plan = params.get('plan');
 
             if (!plan) {
@@ -241,10 +254,11 @@
                 return;
             }
 
-            // RU prices → KZT only
             const config = {
-                basic:    { title: 'GEO аудит',           price: '4500 ₸' },
-                standard: { title: 'Маркетинг аудит',   price: '12000 ₸' }
+                basic:    { title: 'Базовый',           price: '25 000 ₸' },
+                standard: { title: 'Стандарт',          price: '50 000 ₸' },
+                pro:      { title: 'Премиум',           price: '150 000 ₸' },
+                premium:  { title: 'Премиум',           price: '150 000 ₸' } // Alias
             };
 
             if (!config[plan]) {
@@ -259,7 +273,6 @@
             document.getElementById('plan-instruction').innerHTML =
                 `⚠️ Введите сумму вручную: <span style="font-size:1.1rem;font-weight:800;color:#fff">${config[plan].price}</span>`;
 
-            // Update hardcoded promo price in trust block to match plan
             const promoEl = document.getElementById('promo-price');
             if (promoEl) promoEl.textContent = config[plan].price;
         })();
@@ -269,13 +282,62 @@
             const email = emailInput ? emailInput.value.trim() : '';
             if (!email || !email.includes('@')) {
                 alert('Пожалуйста, введите корректный email для получения отчёта.');
-                event.preventDefault(); // Stop Kaspi tab open
+                event.preventDefault();
                 if(emailInput) emailInput.focus();
                 return false;
             }
             localStorage.setItem('user_email', email);
-            console.log("Kaspi clicked, email saved:", email);
             return true;
+        }
+
+        async function handleConfirmPayment() {
+            const emailInput = document.getElementById('userEmail');
+            const email = emailInput ? emailInput.value.trim() : '';
+            if (!email || !email.includes('@')) {
+                alert('Пожалуйста, введите корректный email.');
+                if(emailInput) emailInput.focus();
+                return;
+            }
+
+            const params = new URLSearchParams(window.location.search);
+            const plan = params.get('plan') || localStorage.getItem('selected_plan');
+            const domain = localStorage.getItem('scanned_domain') || '';
+
+            const statusMsg = document.getElementById('status-message');
+            statusMsg.style.color = '#facc15';
+            statusMsg.textContent = 'Проверяем оплату...';
+
+            try {
+                // Ensure API_URL is used from config.js if accessible
+                const baseUrl = typeof API_URL !== 'undefined' ? API_URL : window.location.origin;
+
+                const response = await fetch(`${baseUrl}/api/payment-success`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        email: email,
+                        domain: domain,
+                        tariff: plan,
+                        source: 'kaspi',
+                        lang: 'ru'
+                    })
+                });
+
+                const result = await response.json();
+                if (result.success) {
+                    statusMsg.style.color = '#4ade80';
+                    statusMsg.textContent = 'Оплата подтверждена! Доступ открыт.';
+                    setTimeout(() => {
+                        window.location.href = `/ru/dashboard.html?email=${encodeURIComponent(email)}`;
+                    }, 1500);
+                } else {
+                    statusMsg.style.color = '#ef4444';
+                    statusMsg.textContent = 'Ошибка подтверждения. Попробуйте ещё раз.';
+                }
+            } catch (err) {
+                statusMsg.style.color = '#ef4444';
+                statusMsg.textContent = 'Ошибка сети: ' + err.message;
+            }
         }
     </script>
 </body>

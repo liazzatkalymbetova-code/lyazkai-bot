@@ -175,14 +175,14 @@
 
         
         <div class="value-box">
-          <h2>What you will get</h2>
+          <h2>You will get:</h2>
           <ul>
-            <li>✔ Full website error analysis</li>
-            <li>✔ Where you lose customers</li>
-            <li>✔ How to increase conversions</li>
+            <li>✔ Full website audit</li>
+            <li>✔ List of critical errors</li>
             <li>✔ Step-by-step growth plan</li>
+            <li>✔ Business-tailored recommendations</li>
           </ul>
-          <p class="result">📈 After implementation: +20–50% more leads</p>
+          <p class="result">⏱ Delivery time: 24 hours</p>
           <p class="urgency">🔥 Limited-time price available today</p>
         </div>
 
@@ -210,7 +210,13 @@
             <label for="userEmail" style="display:block; font-size: 0.85rem; color: var(--text-dim); margin-bottom: 8px;">Enter email to receive the report</label>
             <input type="email" id="userEmail" placeholder="your@email.com" style="width:100%; padding:14px; border-radius:12px; background: rgba(255,255,255,0.04); border: 1px solid var(--border); color:#fff; font-family:inherit; font-size:0.95rem; outline:none; box-sizing:border-box;" required>
         </div>
-<a href="https://pay.kaspi.kz/pay/fpquqhbx" class="cta-btn" target="_blank" onclick="handlePayment()">Pay via PayPal / Card</a>
+        <p style="text-align:center; font-weight:bold; color:#00e0ff; margin: 15px 0 10px 0;">🚀 After payment, we will launch it immediately and you will see the result</p>
+<!-- PayPal SDK -->
+<script data-sdk-integration-source="button-factory" src="https://www.paypal.com/sdk/js?currency=USD&amp;client-id=ASqiemk9c7mWcBRpPQLiz1yXK5dWJSRc6kyfWH3AVuVVnjThsdiValcNRNBo5nKCbRQU0bwX69CDHmf8&amp;intent=capture"></script>
+<script src="/js/config.js"></script>
+
+<div id="paypal-button-container" style="margin-top:20px;"></div>
+<div id="status-message" style="margin-top:10px; font-weight:bold;"></div>
 
         <div class="trust-info">
             <p>⚡ Instant report after payment</p>
@@ -224,15 +230,23 @@
 
     <script>
         (function() {
-            // ── Currency guard: path is the ONLY source of truth ──
             const isRU = window.location.pathname.includes('/ru/');
             if (isRU) {
-                // Wrong file loaded for RU user — redirect to correct version
                 window.location.replace('/ru/payment.html' + window.location.search);
                 return;
             }
 
             const params = new URLSearchParams(window.location.search);
+            const user = params.get('user');
+            if (user) {
+                const baseUrl = typeof API_URL !== 'undefined' ? API_URL : (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' ? 'http://localhost:3000' : '');
+                fetch(`${baseUrl}/api/payment-intent`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ chatId: user })
+                }).catch(console.error);
+            }
+
             const plan = params.get('plan');
 
             if (!plan) {
@@ -240,10 +254,11 @@
                 return;
             }
 
-            // EN prices → USD only
             const config = {
-                basic:    { title: 'GEO Audit',        price: '$9' },
-                standard: { title: 'Marketing Audit',  price: '$25' }
+                basic:    { title: 'Basic',            price: '$50', value: '50.00' },
+                standard: { title: 'Standard',         price: '$100', value: '100.00' },
+                pro:      { title: 'Premium',          price: '$300', value: '300.00' },
+                premium:  { title: 'Premium',          price: '$300', value: '300.00' }
             };
 
             if (!config[plan]) {
@@ -256,20 +271,87 @@
             document.getElementById('plan-title').textContent       = config[plan].title;
             document.getElementById('plan-price').textContent       = config[plan].price;
             document.getElementById('plan-instruction').innerHTML   =
-                `⚠️ Enter amount manually: <span style="font-size:1.1rem;font-weight:800;color:#fff">${config[plan].price}</span>`;
+                `⚠️ Total amount: <span style="font-size:1.1rem;font-weight:800;color:#fff">${config[plan].price}</span>`;
+            
+            window.currentPlanValue = config[plan].value; // Keep for PayPal
         })();
+
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof paypal !== 'undefined') {
+                paypal.Buttons({
+                    createOrder: function(data, actions) {
+                        const val = window.currentPlanValue || '50.00';
+                        return actions.order.create({
+                            purchase_units: [{
+                                amount: {
+                                    value: val
+                                }
+                            }]
+                        });
+                    },
+                    onApprove: async function(data, actions) {
+                        const statusMsg = document.getElementById('status-message');
+                        statusMsg.style.color = '#facc15';
+                        statusMsg.textContent = 'Verifying payment...';
+
+                        try {
+                            const details = await actions.order.capture();
+                            const emailInput = document.getElementById('userEmail');
+                            const email = emailInput ? emailInput.value.trim() : details.payer.email_address;
+                            if (emailInput && !emailInput.value.trim()) {
+                                localStorage.setItem('user_email', email);
+                            } else {
+                                localStorage.setItem('user_email', email);
+                            }
+
+                            const params = new URLSearchParams(window.location.search);
+                            const plan = params.get('plan') || localStorage.getItem('selected_plan');
+                            const domain = localStorage.getItem('scanned_domain') || '';
+
+                            const baseUrl = typeof API_URL !== 'undefined' ? API_URL : window.location.origin;
+
+                            const response = await fetch(`${baseUrl}/api/payment-success`, {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({
+                                    email: email,
+                                    domain: domain,
+                                    tariff: plan,
+                                    source: 'paypal',
+                                    lang: 'en'
+                                })
+                            });
+
+                            const result = await response.json();
+                            if (result.success) {
+                                statusMsg.style.color = '#4ade80';
+                                statusMsg.textContent = 'Payment approved! Access unlocked.';
+                                setTimeout(() => {
+                                    window.location.href = `/en/dashboard.html?email=${encodeURIComponent(email)}`;
+                                }, 1500);
+                            } else {
+                                statusMsg.style.color = '#ef4444';
+                                statusMsg.textContent = 'Verification Error. Please try again.';
+                            }
+
+                        } catch (err) {
+                            statusMsg.style.color = '#ef4444';
+                            statusMsg.textContent = 'Network Error: ' + err.message;
+                        }
+                    }
+                }).render('#paypal-button-container');
+            }
+        });
 
         function handlePayment() {
             const emailInput = document.getElementById('userEmail');
             const email = emailInput ? emailInput.value.trim() : '';
             if (!email || !email.includes('@')) {
                 alert('Please enter a valid email to receive the report.');
-                event.preventDefault(); // Stop Kaspi tab open
                 if(emailInput) emailInput.focus();
                 return false;
             }
             localStorage.setItem('user_email', email);
-            console.log("Kaspi clicked, email saved:", email);
             return true;
         }
     </script>
