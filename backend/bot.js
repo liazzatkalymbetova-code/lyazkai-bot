@@ -241,7 +241,7 @@ bot.on('message', async (msg) => {
         await bot.sendMessage(chatId, summary, { parse_mode: 'Markdown' });
 
         // 2. Report link — required message
-        const reportLink = `https://infolady.online/report?user=${chatId}`;
+        const reportLink = `https://infolady.online/ru/report.html?user=${chatId}`;
         await bot.sendMessage(
             chatId,
             `Готово 👇 Вот твой анализ\n${reportLink}`
