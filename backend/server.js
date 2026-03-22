@@ -2,11 +2,15 @@ const express = require('express');
 const axios = require('axios');
 const cheerio = require('cheerio');
 const cors = require('cors');
+const path = require('path');
 require('dotenv').config();
 
 
 const app = express();
 app.use(cors());
+
+// Serve static site files (CSS, JS, images, etc.)
+app.use(express.static(path.join(__dirname, '../site')));
 
 // A simple deterministic hasher strictly for Lighthouse simulated metrics, just in case
 // the actual API is rate-limited.
@@ -293,6 +297,13 @@ app.get('/api/leads-admin', (req, res) => {
     }
 });
 
+
+// --- /report ROUTE (Telegram bot report link) ---
+// Serves the Russian report page for bot users arriving via
+// https://infolady.online/report?user={chatId}
+app.get('/report', (req, res) => {
+    res.sendFile(path.join(__dirname, '../site/ru/report.html'));
+});
 
 // --- TELEGRAM BOT WEBHOOK ---
 require('./bot')(app);

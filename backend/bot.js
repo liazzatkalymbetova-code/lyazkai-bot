@@ -1,4 +1,5 @@
 const TelegramBot = require('node-telegram-bot-api');
+const axios = require('axios');
 const dotenv = require('dotenv');
 
 dotenv.config();
@@ -16,6 +17,69 @@ if (!token) {
 // In-memory state to track sources
 const userSources = {};
 const userStates = {};
+
+// ── URL helpers ──────────────────────────────────────────────────────────────
+
+/**
+ * Returns true if the text looks like a website URL or Instagram handle/link.
+ */
+function isUrl(text) {
+    const t = text.trim().toLowerCase();
+    // full URLs
+    if (/^https?:\/\//i.test(t)) return true;
+    // www. prefix
+    if (/^www\./i.test(t)) return true;
+    // instagram.com handle or link
+    if (t.includes('instagram.com/') || /^@?[a-z0-9._]+$/.test(t) === false) {
+        // only catch instagram.com mentions here; bare handles are ambiguous
+        if (t.includes('instagram.com')) return true;
+    }
+    // bare domain pattern: something.tld  (at least one dot, no spaces)
+    if (/^[a-z0-9-]+\.[a-z]{2,}(\/.*)?$/.test(t)) return true;
+    return false;
+}
+
+/**
+ * Normalises the raw text into a full URL the API can fetch.
+ * Instagram profile URLs are kept as-is so the API attempts to fetch them.
+ */
+function normalizeUrl(text) {
+    const t = text.trim();
+    if (/^https?:\/\//i.test(t)) return t;
+    return 'https://' + t;
+}
+
+/**
+ * Builds a short Telegram-friendly audit summary from the /api/scan response.
+ */
+function buildSummary(data) {
+    const seo = data.seoScore || 0;
+    const geo = data.geoScore || 0;
+    const ai  = data.aiScore  || 0;
+
+    const scoreBar = (score) => {
+        if (score >= 80) return '🟢';
+        if (score >= 50) return '🟡';
+        return '🔴';
+    };
+
+    const topIssues = (data.issues || []).slice(0, 3)
+        .map(i => `• ${i.title}`)
+        .join('\n');
+
+    return (
+`🔍 *Результаты аудита:*
+
+${scoreBar(seo)} SEO-рейтинг: *${seo}/100*
+${scoreBar(geo)} AI-видимость: *${geo}/100*
+${scoreBar(ai)} Лучшие практики: *${ai}/100*
+
+*Главные проблемы:*
+${topIssues || '• Данные недоступны'}
+
+⚠️ *Вывод:* Клиенты могут уходить к конкурентам прямо сейчас.`
+    );
+}
 
 module.exports = function(app) {
     if (!bot) {
@@ -65,7 +129,7 @@ bot.onText(/\/start(?:\s+(.+))?/, (msg, match) => {
 });
 
 // 2. HANDLE USER INPUT (URL)
-bot.on('message', (msg) => {
+bot.on('message', async (msg) => {
     try {
         const chatId = msg.chat.id;
         const text = msg.text;
@@ -158,77 +222,82 @@ bot.on('message', (msg) => {
         }
 
 
-    // Treat as website URL
-    bot.sendMessage(chatId, "Анализирую сайт... ⏳");
+    // ── URL / Instagram audit flow ──────────────────────────────────────────
+    if (!isUrl(lowerText)) return; // non-URL messages fall through silently
 
-    // Wait 2–3 seconds (simulate analysis)
-    setTimeout(() => {
-        
-        // 3. SEND ANALYSIS RESULT
-        const analysisResult = 
-`🔍 **Результаты анализа:**
+    const targetUrl = normalizeUrl(text);
+    await bot.sendMessage(chatId, 'Анализирую... ⏳');
 
-❌ Теряете заявки
-❌ Слабая конверсия
-❌ Сайт невидим в поиске
-❌ Нет AI-оптимизации
+    try {
+        const port = process.env.PORT || 3000;
+        const apiRes = await axios.get(
+            `http://localhost:${port}/api/scan?url=${encodeURIComponent(targetUrl)}`,
+            { timeout: 15000 }
+        );
+        const data = apiRes.data;
 
-⚠️ **Вывод:** Клиенты уходят к конкурентам прямо сейчас.`;
+        // 1. Short real-data summary
+        const summary = buildSummary(data);
+        await bot.sendMessage(chatId, summary, { parse_mode: 'Markdown' });
 
-        bot.sendMessage(chatId, analysisResult);
+        // 2. Report link — required message
+        const reportLink = `https://infolady.online/report?user=${chatId}`;
+        await bot.sendMessage(
+            chatId,
+            `Готово 👇 Вот твой анализ\n${reportLink}`
+        );
 
-        // 4. SELL BLOCK
-        // Wait slightly before pitching
-        setTimeout(() => {
-            const sellBlock = 
-`Я сделал базовый аудит вашего сайта.
+        // 3. Upsell button
+        const sellBlock =
+`Хочешь узнать, как исправить ошибки и привлечь больше клиентов?
 
-Вы увидите:
-✔ ключевые ошибки  
-✔ слабые места  
-✔ первые рекомендации  
+✔ Ключевые ошибки
+✔ Слабые места
+✔ Первые рекомендации
 
-👇 Получить базовый отчёт`;
+👇 Получить полный отчёт`;
 
-            const opts = {
-                reply_markup: {
-                    inline_keyboard: [
-                        [
-                            { text: "Получить базовый отчёт", url: "https://infolady.online/ru/payment.html?plan=basic&source=" + source + "" }
-                        ]
+        const opts = {
+            reply_markup: {
+                inline_keyboard: [
+                    [
+                        { text: '📄 Получить полный отчёт', url: `https://infolady.online/ru/payment.html?plan=basic&source=${source}` }
                     ]
-                }
-            };
+                ]
+            }
+        };
+        await bot.sendMessage(chatId, sellBlock, opts);
 
-            bot.sendMessage(chatId, sellBlock, opts);
-
-                        // 6. FOLLOW-UP MESSAGE (DELAY 20 Minutes)
-            setTimeout(() => {
-                const followUp = 
-`Ваш отчёт готов.  
+        // 4. Follow-up after 20 minutes
+        setTimeout(async () => {
+            const followUp =
+`Ваш отчёт готов.
 Но там скрыты ключевые точки роста.
 
 👇 Открыть полный анализ`;
 
-                // Update opts URL to standard for Upsell inside follow-up
-                const upsellOpts = {
-                    reply_markup: {
-                        inline_keyboard: [
-                            [
-                                { text: "Открыть полный анализ", url: `https://infolady.online/ru/payment.html?plan=standard&source=${source}` }
-                            ]
+            const upsellOpts = {
+                reply_markup: {
+                    inline_keyboard: [
+                        [
+                            { text: 'Открыть полный анализ', url: `https://infolady.online/ru/payment.html?plan=standard&source=${source}` }
                         ]
-                    }
-                };
+                    ]
+                }
+            };
+            await bot.sendMessage(chatId, followUp, upsellOpts);
+        }, 1200000); // 20 minutes
 
-                bot.sendMessage(chatId, followUp, upsellOpts);
-            }, 1200000); // 20 минут (20 * 60 * 1000)
+    } catch (auditErr) {
+        console.error('[Audit] API error:', auditErr.message);
+        await bot.sendMessage(
+            chatId,
+            '⚠️ Не удалось проанализировать сайт. Проверь ссылку и попробуй ещё раз.'
+        );
+    }
 
-        }, 1500);
-
-    }, 2500);
     } catch (err) {
-        console.error("Error in message handler:", err.message);
+        console.error('Error in message handler:', err.message);
     }
 });
 
