@@ -169,7 +169,7 @@
 <body>
 
     <div class="payment-card">
-        <a href="/ru/" class="logo">InfoLady</a>
+        <a href="/en/" class="logo">InfoLady</a>
         <h1>Marketing Audit Payment</h1>
         <p class="subtitle">You are getting access to automated AI audit</p>
 
@@ -213,10 +213,10 @@
 <a href="https://pay.kaspi.kz/pay/fpquqhbx" class="cta-btn" target="_blank" onclick="handlePayment()">Pay via PayPal / Card</a>
 
         <div class="trust-info">
-            <p>⚡ Мгновенный отчёт после оплаты</p>
-            <p>🔒 Единоразовый платёж, без подписок</p>
-            <p>📄 PDF версия входит в стоимость</p>
-            <p style="color: #00e0ff; font-weight: 700; margin-top: 10px;">🔥 Акционная цена: 4500 ₸</p>
+            <p>⚡ Instant report after payment</p>
+            <p>🔒 One-time payment, no subscriptions</p>
+            <p>📄 PDF version included</p>
+            <p style="color: #00e0ff; font-weight: 700; margin-top: 10px;">🔥 Limited-time price today</p>
         </div>
 
         <a href="/en/#pricing" class="back-link">← Back to pricing</a>
@@ -224,17 +224,26 @@
 
     <script>
         (function() {
+            // ── Currency guard: path is the ONLY source of truth ──
+            const isRU = window.location.pathname.includes('/ru/');
+            if (isRU) {
+                // Wrong file loaded for RU user — redirect to correct version
+                window.location.replace('/ru/payment.html' + window.location.search);
+                return;
+            }
+
             const params = new URLSearchParams(window.location.search);
             const plan = params.get('plan');
-            
+
             if (!plan) {
                 window.location.href = '/en/index.html';
                 return;
             }
 
+            // EN prices → USD only
             const config = {
-                basic: { title: 'GEO Audit', price: '$9' },
-                standard: { title: 'Marketing Audit', price: '$25' }
+                basic:    { title: 'GEO Audit',        price: '$9' },
+                standard: { title: 'Marketing Audit',  price: '$25' }
             };
 
             if (!config[plan]) {
@@ -242,13 +251,12 @@
                 return;
             }
 
-            // Save choice
             localStorage.setItem('selected_plan', plan);
 
-            // Update UI
-            document.getElementById('plan-title').textContent = config[plan].title;
-            document.getElementById('plan-price').textContent = config[plan].price;
-            document.getElementById('plan-instruction').innerHTML = `⚠️ Введите сумму вручную: <span style="font-size:1.1rem; font-weight:800; color:#fff;">${config[plan].price}</span>`;
+            document.getElementById('plan-title').textContent       = config[plan].title;
+            document.getElementById('plan-price').textContent       = config[plan].price;
+            document.getElementById('plan-instruction').innerHTML   =
+                `⚠️ Enter amount manually: <span style="font-size:1.1rem;font-weight:800;color:#fff">${config[plan].price}</span>`;
         })();
 
         function handlePayment() {

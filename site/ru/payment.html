@@ -217,7 +217,7 @@
             <p>⚡ Мгновенный отчёт после оплаты</p>
             <p>🔒 Единоразовый платёж, без подписок</p>
             <p>📄 PDF версия входит в стоимость</p>
-            <p style="color: #00e0ff; font-weight: 700; margin-top: 10px;">🔥 Акционная цена: 4500 ₸</p>
+            <p style="color: #00e0ff; font-weight: 700; margin-top: 10px;">🔥 Акционная цена: <span id="promo-price">4500 ₸</span></p>
         </div>
 
         <a href="/ru/#pricing" class="back-link">← Вернуться к ценам</a>
@@ -225,17 +225,26 @@
 
     <script>
         (function() {
+            // ── Currency guard: path is the ONLY source of truth ──
+            const isEN = window.location.pathname.includes('/en/');
+            if (isEN) {
+                // Wrong file loaded for EN user — redirect to correct version
+                window.location.replace('/en/payment.html' + window.location.search);
+                return;
+            }
+
             const params = new URLSearchParams(window.location.search);
             const plan = params.get('plan');
-            
+
             if (!plan) {
                 window.location.href = '/ru/index.html';
                 return;
             }
 
+            // RU prices → KZT only
             const config = {
-                basic: { title: 'GEO аудит', price: '4500 ₸' },
-                standard: { title: 'Маркетинг аудит', price: '12000 ₸' }
+                basic:    { title: 'GEO аудит',           price: '4500 ₸' },
+                standard: { title: 'Маркетинг аудит',   price: '12000 ₸' }
             };
 
             if (!config[plan]) {
@@ -243,13 +252,16 @@
                 return;
             }
 
-            // Save choice
             localStorage.setItem('selected_plan', plan);
 
-            // Update UI
-            document.getElementById('plan-title').textContent = config[plan].title;
-            document.getElementById('plan-price').textContent = config[plan].price;
-            document.getElementById('plan-instruction').innerHTML = `⚠️ Введите сумму вручную: <span style="font-size:1.1rem; font-weight:800; color:#fff;">${config[plan].price}</span>`;
+            document.getElementById('plan-title').textContent     = config[plan].title;
+            document.getElementById('plan-price').textContent     = config[plan].price;
+            document.getElementById('plan-instruction').innerHTML =
+                `⚠️ Введите сумму вручную: <span style="font-size:1.1rem;font-weight:800;color:#fff">${config[plan].price}</span>`;
+
+            // Update hardcoded promo price in trust block to match plan
+            const promoEl = document.getElementById('promo-price');
+            if (promoEl) promoEl.textContent = config[plan].price;
         })();
 
         function handlePayment() {
