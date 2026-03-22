@@ -1,0 +1,51 @@
+name: Deploy to Timeweb via FTP
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  ftp-deploy:
+    name: FTP Deploy → Timeweb
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # ─── 1. Primary Deploy Action ───
+      - name: Deploy via FTP Action
+        id: ftp_action
+        continue-on-error: true
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./site/
+          server-dir: /public_html/
+          dangerous-clean-slate: false
+
+      # ─── 2. Fallback using lftp (If first step fails) ───
+      - name: Install lftp (Fallback)
+        if: steps.ftp_action.outcome == 'failure'
+        run: sudo apt-get update && sudo apt-get install -y lftp
+
+      - name: Deploy via lftp
+        if: steps.ftp_action.outcome == 'failure'
+        env:
+          FTP_HOST: ${{ secrets.FTP_HOST }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+        run: |
+          echo "Primary action failed. Attempting fallback via lftp..."
+          lftp -c "
+            set ftp:passive-mode true;
+            set ftp:ssl-allow false;
+            set net:timeout 15;
+            set net:max-retries 3;
+            open -u $FTP_USERNAME,$FTP_PASSWORD $FTP_HOST;
+            mirror -R --verbose ./site/ /public_html/
+          "
+          echo "lftp deployment finished."
