@@ -1,0 +1,41 @@
+name: Deploy to Timeweb via FTP
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  ftp-deploy:
+    name: FTP Deploy → Timeweb
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          # Fetch full history so changed-files detection works
+          fetch-depth: 2
+
+      - name: Deploy site/ to Timeweb public_html
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: vh382.timeweb.ru
+          username: cc97091
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./site/
+          server-dir: /public_html/
+          # Sync only — never delete files on server that aren't in local
+          dangerous-clean-slate: false
+          # Exclude junk files from upload
+          exclude: |
+            **/.DS_Store
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+            **/*.log
+            **/.htpasswd
+          # Log every uploaded file
+          log-level: verbose
+          # Retry on network flakiness
+          timeout: 30000
