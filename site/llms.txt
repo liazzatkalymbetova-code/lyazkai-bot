@@ -1,0 +1,31 @@
+# InfoLady
+
+> InfoLady is an AI-powered SEO and GEO (Generative Engine Optimization) platform that helps businesses improve their visibility in both traditional search engines and AI-driven search tools such as ChatGPT, Perplexity, and Google Gemini. Founded in 2025 by Lyazzat Kalymbetova, serving markets in Kazakhstan, Russia, and globally.
+
+## Platform Overview
+- [About InfoLady](https://infolady.online/en/about.html): Company mission, service categories, and contact information
+- [AI Tools Directory](https://infolady.online/en/ai-tools-directory.html): Curated directory of AI tools for marketing and SEO
+- [Free SEO Scanner](https://infolady.online/en/ai-seo-tools.html): Instant AI readiness scan — no signup required
+- [How It Works](https://infolady.online/en/how-it-works.html): Step-by-step explanation of the audit process
+
+## Core Services
+- [AI SEO Audit](https://infolady.online/en/visibility-audit.html): Comprehensive GEO and SEO audit — 5-section PDF report covering technical, search visibility, content, competitor, and action plan analysis
+- [AI Integration](https://infolady.online/en/ai-integration.html): Personal assistance selecting and integrating AI tools for marketing automation
+- [Free Website Scanner](https://infolady.online/en/ai-seo-tools.html): Instant AI readiness scan with no signup required
+- [Methodology](https://infolady.online/en/methodology.html): How the InfoLady scoring algorithm works
+
+## Pricing
+- Basic Audit: $50 / 25,000₸ — Basic Visibility Audit with key funnel issues identified
+- Standard Audit: $100 / 50,000₸ — Full tech & SEO audit with competitor insights and 30-day roadmap
+- Premium Audit: $300 / 150,000₸ — Full audit, growth strategy, AI tools implementation, and direct consultant support
+
+## Legal & Trust
+- [Privacy Policy](https://infolady.online/en/privacy-policy.html)
+- [Terms of Service](https://infolady.online/en/terms-of-service.html)
+- [Cookie Policy](https://infolady.online/en/cookie-policy.html)
+- Contact: liazzat.kalymbetova@gmail.com
+- Telegram: https://t.me/infolady_online
+- Instagram: https://instagram.com/infolady.online
+
+## Optional
+- [Russian Version](https://infolady.online/ru/): Full platform content in Russian for Kazakhstan and Russia markets

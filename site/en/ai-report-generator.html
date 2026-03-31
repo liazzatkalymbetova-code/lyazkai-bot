@@ -29,13 +29,13 @@
 <meta content="https://infolady.online/tools/ai-report-generator.html" property="og:url"/>
 <meta content="AI Report Generator | InfoLady" property="og:title"/>
 <meta content="Generate professional PDF SEO and AI visibility reports automatically." property="og:description"/>
-<meta content="https://infolady.online/og-image.jpg" property="og:image"/>
+<meta content="https://infolady.online/audit-report-preview.png" property="og:image"/>
 <meta content="en_US" property="og:locale"/>
 <meta content="InfoLady" property="og:site_name"/>
 <meta content="summary_large_image" name="twitter:card"/>
 <meta content="AI Report Generator | InfoLady" name="twitter:title"/>
 <meta content="Automated PDF SEO &amp; AI visibility reports for any website." name="twitter:description"/>
-<meta content="https://infolady.online/og-image.jpg" name="twitter:image"/>
+<meta content="https://infolady.online/audit-report-preview.png" name="twitter:image"/>
 <meta content="Automated AI SEO PDF report generator tool" name="ai-content"/>
 <meta content="InfoLady AI Report Generator creates structured 5-section PDF reports covering Technical SEO, AI Visibility, Content recommendations, Competitor Insights, and Action Plan." name="ai-summary"/>
 <meta content="SEO Reports, AI Visibility, Website Audit Tools" name="ai-category"/>
@@ -107,7 +107,7 @@
 <!-- Multilingual SEO -->
 <link href="https://infolady.online/en/ai-report-generator.html" rel="canonical"/>
 <link href="https://infolady.online/en/ai-report-generator.html" hreflang="en" rel="alternate"/>
-<link href="https://infolady.online/en/ai-report-generator.html" hreflang="ru" rel="alternate"/>
+<link href="https://infolady.online/ru/ai-report-generator.html" hreflang="ru" rel="alternate"/>
 <link href="https://infolady.online/" hreflang="x-default" rel="alternate"/>
 <!-- Lucide Icons -->
 <script src="https://unpkg.com/lucide@latest"></script>
@@ -131,7 +131,7 @@
 <body class="top-bar-active">
 <!-- ══════════════════════════ NAV ══════════════════════════ -->
 <header>
-<div class="global-cta-bar top-bar" style="background: linear-gradient(90deg, #1A1D26 0%, #242838 100%); padding: 12px 20px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.95rem; font-weight: 600; font-family:var(--font-body); display: flex; justify-content: center; align-items: center; gap: 12px; margin: 0; width: 100%; box-sizing: border-box; position: relative; z-index: 1001;"><a href="https://t.me/lyazkai_bot?start=global_cta" class="cta-top">🔥 Find out where you lose customers</a></div>
+<div class="global-cta-bar top-bar" style="background: linear-gradient(90deg, #1A1D26 0%, #242838 100%); padding: 12px 20px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.95rem; font-weight: 600; font-family:var(--font-body); display: flex; justify-content: center; align-items: center; gap: 12px; margin: 0; width: 100%; box-sizing: border-box; position: relative; z-index: 1001;"><a href="https://t.me/lyazkai_bot?start=global_cta" class="cta-top"><i data-lucide="flame" class="icon"></i> Find out where you lose customers</a></div>
 
 
 <nav class="nav platform-nav" role="navigation">
@@ -249,8 +249,8 @@
                             </li>
 <li>⚠ Core Web Vitals: LCP above 2.5s threshold — impacts both ranking and user experience
                             </li>
-<li>✅ SSL certificate valid and HTTPS enforced</li>
-<li>✅ Sitemap.xml accessible and properly formatted</li>
+<li><i data-lucide="check-circle" class="icon"></i> SSL certificate valid and HTTPS enforced</li>
+<li><i data-lucide="check-circle" class="icon"></i> Sitemap.xml accessible and properly formatted</li>
 </ul>
 </div>
 <!-- Section 2: AI Visibility -->
@@ -398,8 +398,8 @@
 <!-- Actions -->
 <div id="reportActions" style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-bottom:48px;">
 <button class="btn btn-primary btn-lg" onclick="downloadPDF()">⬇ Download PDF Report</button>
-<a class="btn btn-ghost btn-lg" href="/en/dashboard.html">📊 Go to Dashboard</a>
-<a class="btn btn-ghost" href="/en/visibility-audit.html">🔍 Get Professional Audit</a>
+<a class="btn btn-ghost btn-lg" href="/en/dashboard.html"><i data-lucide="bar-chart" class="icon"></i> Go to Dashboard</a>
+<a class="btn btn-ghost" href="/en/visibility-audit.html"><i data-lucide="search" class="icon"></i> Get Professional Audit</a>
 </div>
 </div>
 </section>
@@ -443,8 +443,8 @@
 <div class="container">
 <h2>Need a Full Professional Audit?</h2>
 <p>Human expert + AI analysis with 48h delivery and strategy call</p>
-<div class="cta-section__actions"><a class="btn btn-primary btn-lg" href="/en/visibility-audit.html">📊
-                        Order Audit →</a><a class="btn btn-ghost btn-lg" href="/en/dashboard.html">📊
+<div class="cta-section__actions"><a class="btn btn-primary btn-lg" href="/en/visibility-audit.html"><i data-lucide="bar-chart" class="icon"></i>
+                        Order Audit →</a><a class="btn btn-ghost btn-lg" href="/en/dashboard.html"><i data-lucide="bar-chart" class="icon"></i>
                         Dashboard</a></div>
 </div>
 </section>
@@ -471,19 +471,105 @@
 <a class="btn btn-primary btn-sm" href="/en/scan.html" style="padding: 10px 20px; font-size: 0.9rem; box-shadow: 0 4px 15px rgba(0, 224, 255, 0.25);"> Check your site for free </a>
 </div>
 <footer class="footer" role="contentinfo">
-<div class="container">
-<div class="footer__grid">
-<div class="footer__col">
-<h5>Solutions</h5><ul role="list"><li><a href="/en/visibility-audit.html">SEO Audit</a></li><li><a href="/en/ai-integration.html">AI Integration</a></li></ul>
+<style>
+.footer-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  padding: 40px 24px;
+}
+
+@media (max-width: 768px) {
+  .footer-wrapper {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    text-align: left;
+  }
+}
+
+.footer-col h5 {
+  font-size: 16px;
+  margin-bottom: 16px;
+  color: #fff;
+  font-weight: 600;
+}
+
+.footer-col ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-col ul li {
+  margin-bottom: 12px;
+}
+
+.footer-col ul li a {
+  color: rgba(255,255,255,0.6);
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.2s ease;
+}
+
+.footer-col ul li a:hover {
+  color: #fff;
+}
+
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.05);
+  margin-top: 40px;
+  padding-top: 20px;
+  text-align: center;
+  font-size: 13px;
+  color: rgba(255,255,255,0.4);
+}
+</style>
+
+<div class="footer-wrapper" id="dynamic-footer-wrapper"></div>
+<div class="footer-bottom">
+  <p>© <span id="footer-year"></span> InfoLady. <span id="footer-rights"></span></p>
 </div>
-<div class="footer__col">
-<h5>Information</h5><ul role="list"><li><a href="/en/privacy-policy.html">Privacy</a></li><li><a href="/en/terms-of-service.html">Terms</a></li><li><a href="/en/about.html">Contact</a></li></ul>
-</div>
-</div>
-<div class="footer__bottom">
-<p>© <span id="year"></span> InfoLady. All rights reserved.</p>
-</div>
-</div>
+
+<script>
+(function() {
+  document.getElementById('footer-year').textContent = new Date().getFullYear();
+  const isEN = window.location.pathname.includes('/en/');
+  const base = isEN ? '/en/' : '/ru/';
+
+  const titles = isEN 
+    ? { left: "Solutions", right: "Information", rights: "All rights reserved." }
+    : { left: "Решения", right: "Информация", rights: "Все права защищены." };
+
+  document.getElementById('footer-rights').textContent = titles.rights;
+
+  const leftLinks = isEN 
+    ? [ { text: "SEO audit", link: "visibility-audit.html" }, { text: "AI integration", link: "ai-integration.html" } ]
+    : [ { text: "SEO аудит", link: "visibility-audit.html" }, { text: "ИИ-интеграция", link: "ai-integration.html" } ];
+
+  const rightLinks = isEN 
+    ? [ { text: "Privacy", link: "privacy-policy.html" }, { text: "Terms", link: "terms-of-service.html" }, { text: "Contacts", link: "about.html" } ]
+    : [ { text: "Конфиденциальность", link: "privacy-policy.html" }, { text: "Условия", link: "terms-of-service.html" }, { text: "Контакты", link: "about.html" } ];
+
+  let html = `
+    <div class="footer-col">
+      <h5>${titles.left}</h5>
+      <ul>
+        ${leftLinks.map(l => `<li><a href="${base}${l.link}">${l.text}</a></li>`).join('')}
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>${titles.right}</h5>
+      <ul>
+        ${rightLinks.map(l => `<li><a href="${base}${l.link}">${l.text}</a></li>`).join('')}
+      </ul>
+    </div>
+  `;
+
+  document.getElementById('dynamic-footer-wrapper').innerHTML = html;
+})();
+</script>
 </footer>
 <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 <script defer="" src="/js/lead-capture.js"></script>
@@ -508,7 +594,7 @@
             if (paid) {
                 var badge = document.getElementById('heroBadge');
                 var subtitle = document.getElementById('heroSubtitle');
-                if (badge) badge.textContent = '✅ Payment Received — Thank you!';
+                if (badge) badge.textContent = '<i data-lucide="check-circle" class="icon"></i> Payment Received — Thank you!';
                 if (subtitle) subtitle.textContent = 'Generating your full AI SEO Audit Report…';
                 document.getElementById('generatorSection').style.display = 'none';
                 setTimeout(function () { genReport(siteUrl, true); }, 800);

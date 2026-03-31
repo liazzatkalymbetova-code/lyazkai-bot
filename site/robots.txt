@@ -19,4 +19,33 @@ Allow: /
 User-agent: ChatGPT-User
 Allow: /
 
+User-agent: Bingbot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: FacebookBot
+Allow: /
+
+User-agent: Anthropic-AI
+Allow: /
+
+User-agent: Cohere-ai
+Allow: /
+
+LLMs: https://infolady.online/llms.txt
+
 Sitemap: https://infolady.online/sitemap.xml

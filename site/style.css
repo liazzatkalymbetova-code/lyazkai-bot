@@ -96,9 +96,15 @@ button {
     --font-display: 'Plus Jakarta Sans', 'Inter', sans-serif;
 
     /* Spacing */
-    --section-py: clamp(80px, 10vw, 140px);
-    --container: 1440px;
-    --gap: 32px;
+    --space-2xs: 8px;
+    --space-xs: 16px;
+    --space-sm: 24px;
+    --space-md: 40px;
+    --space-lg: 80px;
+    
+    --section-py: var(--space-lg);
+    --container: 1200px;
+    --gap: var(--space-sm);
 
     /* Motion */
     --ease: cubic-bezier(.4, 0, .2, 1);
@@ -118,14 +124,15 @@ h6 {
     font-weight: 700;
     line-height: 1.2;
     color: var(--text-main);
+    letter-spacing: -0.02em;
 }
 
 h1 {
-    font-size: clamp(2.2rem, 5.5vw, 3.75rem)
+    font-size: clamp(36px, 4vw, 44px);
 }
 
 h2 {
-    font-size: clamp(1.7rem, 3.5vw, 2.6rem)
+    font-size: clamp(24px, 3vw, 28px);
 }
 
 h3 {
@@ -152,12 +159,13 @@ p {
 .container {
     width: 100%;
     max-width: var(--container);
-    margin-inline: auto;
-    padding-inline: clamp(16px, 4vw, 48px);
+    margin: 0 auto;
+    padding: 0 20px;
 }
 
 .section {
-    padding-block: var(--section-py)
+    padding-block: var(--section-py);
+    scroll-margin-top: 100px; /* Offset for sticky header */
 }
 
 .section--tinted {
@@ -214,6 +222,33 @@ p {
     border-color: rgba(124, 92, 255, .3);
     box-shadow: 0 0 12px rgba(124, 92, 255, .2);
 }
+.btn-telegram {
+    display: inline-block;
+    padding: 14px 18px;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.2);
+    color: #ccc !important;
+    text-decoration: none;
+    transition: 0.2s ease;
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.btn-telegram:hover {
+    background: rgba(255,255,255,0.05);
+    color: #fff !important;
+}
+
+/* Lucide Icon System */
+.icon {
+    width: 20px;
+    height: 20px;
+    stroke-width: 1.8;
+    color: currentColor;
+    display: inline-block;
+    vertical-align: middle;
+}
 
 .section-header {
     text-align: center;
@@ -240,83 +275,158 @@ p {
 }
 
 /* 4. Buttons */
+
+/* SaaS Redesign Styles */
+.primary-btn {
+    background: linear-gradient(135deg, #6C63FF, #00D4FF);
+    border-radius: 12px;
+    padding: 14px 24px;
+    font-weight: 600;
+    border: none;
+    color: #fff !important;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.primary-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(108, 99, 255, 0.4);
+}
+
+.secondary-btn {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+    padding: 14px 24px;
+    font-weight: 600;
+    color: #fff !important;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.secondary-btn:hover {
+    background: rgba(255,255,255,0.08);
+    border-color: rgba(255,255,255,0.2);
+    transform: translateY(-2px);
+}
+
+.card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 16px;
+    padding: 24px;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    transition: all 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+}
+
 .btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
-    padding: 14px 30px;
-    border-radius: var(--r-full);
+    padding: 12px 24px;
+    border-radius: 12px;
     font-family: var(--font-display);
-    font-weight: 600;
-    font-size: 1rem;
-    transition: transform var(--dur-mid) var(--ease),
-        box-shadow var(--dur-mid) var(--ease),
-        background var(--dur-mid) var(--ease),
-        border-color var(--dur-mid) var(--ease);
+    font-weight: 700;
+    font-size: 0.95rem;
+    transition: all var(--dur-mid) var(--ease);
     white-space: nowrap;
     cursor: pointer;
+    border: none;
+    outline: none;
 }
 
 .btn:hover {
-    transform: translateY(-2px)
+    transform: translateY(-2px);
 }
 
 .btn:active {
-    transform: translateY(0)
+    transform: translateY(0);
 }
 
 .btn-primary {
     background: var(--grad-primary);
-    color: #fff;
-    box-shadow: 0 4px 20px rgba(124, 92, 255, .4);
+    color: #fff !important;
+    box-shadow: 0 4px 15px rgba(124, 92, 255, .3);
 }
 
 .btn-primary:hover {
-    box-shadow: 0 8px 36px rgba(124, 92, 255, .6), var(--glow-cyan)
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 8px 30px rgba(124, 92, 255, .5), var(--glow-cyan);
 }
 
 .btn-secondary {
-    background: var(--bg-card);
-    color: var(--text-main);
-    border: 1px solid var(--border);
+    background: transparent;
+    color: #00e0ff !important;
+    border: 1px solid rgba(0, 224, 255, 0.4);
 }
 
 .btn-secondary:hover {
-    border-color: var(--border-hover);
-    box-shadow: var(--glow-sm)
+    background: rgba(0, 224, 255, 0.05);
+    border-color: #00e0ff;
+    box-shadow: 0 0 15px rgba(0, 224, 255, 0.2);
 }
 
 .btn-ghost {
-    background: rgba(255, 255, 255, .06);
+    background: rgba(255, 255, 255, .05);
     color: var(--text-main);
-    border: 1px solid rgba(255, 255, 255, .15);
+    border: 1px solid rgba(255, 255, 255, .1);
     backdrop-filter: blur(8px);
 }
 
 .btn-ghost:hover {
-    background: rgba(255, 255, 255, .12);
-    border-color: rgba(255, 255, 255, .3)
+    background: rgba(255, 255, 255, .1);
+    border-color: rgba(255, 255, 255, .25);
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.05);
+}
+
+/* Premium actions classes */
+.btn-export {
+    background: transparent;
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.btn-export:hover {
+    transform: translateY(-2px) scale(1.03);
+    border-color: rgba(255, 255, 255, 0.4);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
 }
 
 .btn-outline-light {
     background: transparent;
     color: #fff;
-    border: 1px solid rgba(255, 255, 255, .3);
+    border: 1px solid rgba(255, 255, 255, .2);
 }
 
 .btn-outline-light:hover {
-    background: rgba(255, 255, 255, .08)
+    background: rgba(255, 255, 255, .05);
+    border-color: rgba(255, 255, 255, .4);
 }
 
 .btn-lg {
-    padding: 17px 40px;
-    font-size: 1.1rem
+    padding: 15px 36px;
+    font-size: 1.05rem;
 }
 
 .btn-sm {
-    padding: 10px 22px;
-    font-size: .9rem
+    padding: 8px 18px;
+    font-size: .88rem;
 }
 
 .btn-block {
@@ -502,9 +612,9 @@ p {
 
 .hero__inner {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1.1fr 0.9fr;
     align-items: center;
-    gap: clamp(40px, 6vw, 80px);
+    gap: 48px;
     position: relative;
 }
 
@@ -757,12 +867,12 @@ p {
 
 .hero__float--tl {
     top: 12%;
-    left: -8%
+    left: 16px; /* Moved inside the column */
 }
 
 .hero__float--br {
     bottom: 12%;
-    right: -8%
+    right: 16px; /* Moved inside the column */
 }
 
 /* 7. Steps */
@@ -4274,6 +4384,10 @@ p {
         --section-py: clamp(32px, 5vw, 48px);
     }
 
+    .hero__inner {
+        grid-template-columns: 1fr;
+    }
+
     .hero {
         min-height: auto;
         padding-top: 60px;
@@ -4381,4 +4495,60 @@ p {
   body {
     padding-bottom: 80px;
   }
+}
+
+/* --- Real Conversion Overhaul Offsets --- */
+section {
+  margin-top: 80px !important;
+}
+
+.faq {
+  margin-top: 60px !important;
+}
+
+p {
+  line-height: 1.6 !important;
+}
+
+/* === GLOBAL UI POLISH === */
+
+/* 1. Mobile-first button improvements */
+@media (max-width: 768px) {
+  .btn { min-height: 52px; font-size: 1rem; padding: 14px 24px; }
+  .btn-lg { min-height: 56px; font-size: 1.05rem; }
+}
+
+/* 2. Typography improvements */
+body { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+p, li { line-height: 1.75; }
+
+/* 3. Section consistency */
+@media (max-width: 768px) {
+  .section { padding: 60px 0; }
+  .container { padding: 0 20px; }
+  h1 { font-size: 2rem !important; line-height: 1.2; }
+  h2 { font-size: 1.6rem !important; }
+}
+
+/* 4. Card hover effects — subtle lift */
+.tool-card, .module-card { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+.tool-card:hover, .module-card:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(0,0,0,0.3); }
+
+/* 5. CTA button glow pulse — only on primary CTAs */
+@keyframes ctaPulse { 0%, 100% { box-shadow: 0 4px 20px rgba(0,224,255,0.25); } 50% { box-shadow: 0 4px 30px rgba(0,224,255,0.5); } }
+.btn-primary { animation: ctaPulse 3s ease-in-out infinite; }
+.btn-primary:hover { animation: none; transform: translateY(-2px); }
+
+/* 6. Mobile nav fix */
+@media (max-width: 768px) {
+  nav.nav .pnav__links { display: none; }
+  .nav__inner { padding: 0 16px; }
+  h1 { word-break: break-word; }
+  .global-cta-bar.top-bar { flex-wrap: wrap; font-size: 0.8rem; padding: 8px 12px; gap: 8px; }
+}
+
+/* 7. Payment card mobile */
+@media (max-width: 480px) {
+  .payment-card { padding: 28px 20px; border-radius: 16px; }
+  .cta-btn { padding: 14px 20px; font-size: 0.95rem; }
 }

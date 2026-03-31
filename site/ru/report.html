@@ -10,6 +10,7 @@
   <meta name="target-country" content="KZ">
 
 <meta charset="utf-8"/>
+    <meta name="robots" content="noindex, nofollow"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Панель управления | Отчет InfoLady</title>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
@@ -195,7 +196,7 @@
 </style>
 
     <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://unpkg.com/lucide@latest" defer></script>
     <script>
       document.addEventListener("DOMContentLoaded", function() {
         if (typeof lucide !== 'undefined') {
@@ -228,7 +229,7 @@
 <div style="font-size: 0.75rem; color: var(--accent-primary); letter-spacing: 0.1em; margin-top: 4px;">ПЛАТФОРМА v2.4</div>
 <nav class="dash-nav">
 <a class="dash-nav-item active" href="https://t.me/lyazkai_bot?start=help"><i data-lucide="bar-chart-2"></i> Обзор</a>
-<a class="dash-nav-item" href="/ru/visibility-rating.html"><i data-lucide="target"></i> Рейтинг видимости</a>
+<a class="dash-nav-item" href="/ru/visibility-audit.html"><i data-lucide="target"></i> Рейтинг видимости</a>
 <a class="dash-nav-item" href="/ru/visibility-audit.html"><i data-lucide="search"></i> Технический аудит</a>
 <a class="dash-nav-item" href="/ru/search-trend-radar.html"><i data-lucide="radar"></i> Радар трендов</a>
 <a class="dash-nav-item" href="/ru/digital-tools.html"><i data-lucide="wrench"></i> Инструменты</a>
@@ -241,15 +242,12 @@
 <main class="dash-main">
 <div class="report-header">
 <div>
-<p style="color: #ff4d4d; font-size: 0.9rem; font-weight: 800; margin-bottom: 8px;">🚨 ВНИМАНИЕ: Ваш сайт может терять до 60% клиентов</p>
+<p style="color: #ff4d4d; font-size: 0.9rem; font-weight: 800; margin-bottom: 8px;"><i data-lucide="alert-triangle" class="icon"></i> ВНИМАНИЕ: Ваш сайт может терять до 60% клиентов</p>
 <h1 style="margin-bottom: 4px;">Маркетинг аудит сайта</h1>
 
 <div class="domain-pill" id="domainDisplay">анализ домена...</div>
 </div>
-<div style="display: flex; gap: 12px;">
-<button class="btn btn-ghost btn-sm" onclick="window.print()">📥 Экспорт PDF</button>
-<button class="btn btn-primary btn-sm" onclick="location.href='/ru/visibility-audit.html#pricing'">🚀 Повысить тариф</button>
-</div>
+<!-- Actions removed to streamline attention into conversion lists row -->
 </div>
 <div class="metrics-row">
 <div class="dash-card" data-plan="basic">
@@ -289,7 +287,7 @@
 </div>
 
         <div class="upsell-box" data-plan="basic">
-            <h2>⚠️ Вы видите только 30% анализа</h2>
+            <h2><i data-lucide="alert-triangle" class="icon"></i> Вы видите только 30% анализа</h2>
             <p>Этот отчёт показывает базовые ошибки. Но основные точки роста и увеличения заявок скрыты.</p>
             <ul>
                 <li>🔒 Где вы теряете клиентов прямо сейчас</li>
@@ -300,7 +298,7 @@
             <p style="font-weight:600; color:#fff; text-align:center; margin-bottom:10px;">📈 Эти данные доступны в полном маркетинг аудите</p>
             <a href="/ru/payment.html?plan=standard" class="btn-upgrade">Открыть полный анализ — 25000 ₸</a>
 
-            <p class="trust">🔥 После внедрения рекомендаций сайты обычно увеличивают заявки в течение 2–4 недель</p>
+            <p class="trust"><i data-lucide="flame" class="icon"></i> После внедрения рекомендаций сайты обычно увеличивают заявки в течение 2–4 недель</p>
         </div>
 
 <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 24px;">
@@ -315,7 +313,7 @@
 <div aria-hidden="true" class="hero__card-glow"></div>
 <div style="position: relative; z-index: 2;">
 <h3 style="margin-bottom: 12px;">Полный ИИ SEO аудит</h3>
-<p style="font-size: 0.9rem; color: var(--text-dim); margin-bottom: 24px;">Получите подробный 40-страничный аудит технического состояния и ИИ-восприятия с анализом AI алгоритмов.</p>
+<p style="font-size: 0.9rem; color: var(--text-dim); margin-bottom: 24px;">Получите подробный 40-страничный аудит технического состояния и ИИ-восприятия с анализом ИИ алгоритмов.</p>
 <ul style="font-size: 0.85rem; color: var(--text-dim); margin-bottom: 24px; padding-left: 18px;">
 <li style="margin-bottom: 8px;">Бенчмаркинг конкурентов (3 домена)</li>
 <li style="margin-bottom: 8px;">Анализ пробелов в графе знаний</li>
@@ -328,27 +326,14 @@
 </div>
 </div>
 
-        <div class="upsell-box" data-plan="basic">
-            <h2>⚠️ Вы видите только 30% анализа</h2>
-            <p>Этот отчёт показывает базовые ошибки. Но основные точки роста и увеличения заявок скрыты.</p>
-            <ul>
-                <li>🔒 Где вы теряете клиентов прямо сейчас</li>
-                <li>🔒 Какие страницы не приносят заявки</li>
-                <li>🔒 Как увеличить конверсию на 20–50%</li>
-                <li>🔒 Полный план роста сайта</li>
-            </ul>
-            <p style="font-weight:600; color:#fff; text-align:center; margin-bottom:10px;">📈 Эти данные доступны в полном маркетинг аудите</p>
-            <a href="/ru/payment.html?plan=standard" class="btn-upgrade">Открыть полный анализ — 25000 ₸</a>
 
-            <p class="trust">🔥 После внедрения рекомендаций сайты обычно увеличивают заявки в течение 2–4 недель</p>
-        </div>
 
 <!-- ══════════════════════ PRO SECTION ══════════════════════ -->
 <section class="pro-section" id="proSection" data-plan="pro" style="margin-top: 40px; position: relative;">
     <div class="dash-card">
-        <div class="dash-card__title">Дополнительные возможности <span>AI-инструменты</span></div>
+        <div class="dash-card__title">Дополнительные возможности <span>ИИ-инструменты</span></div>
         <div style="margin-bottom: 24px;">
-            <p style="color: var(--text-dim); font-size: 1rem;">Увеличьте результат с помощью AI-инструментов</p>
+            <p style="color: var(--text-dim); font-size: 1rem;">Увеличьте результат с помощью ИИ-инструментов</p>
         </div>
 
         <!-- pro-overlay -->
@@ -440,27 +425,27 @@
 
 
 <section class="ai-offer">
-<h2>🔥 Аудит и рекомендации по ИИ за 7 дней</h2>
+<h2><i data-lucide="flame" class="icon"></i> Аудит и рекомендации по ИИ за 7 дней</h2>
 
 <p>Ваш сайт уже теряет клиентов. Мы покажем где — и дадим рекомендации по улучшению, которые начнут приводить заявки.</p>
 
 <ul>
-<li>✔ AI-чатбот 24/7</li>
-<li>✔ Автоматический сбор заявок</li>
-<li>✔ Генерация контента</li>
-<li>✔ Рост конверсии</li>
-<li>✔ Исправление ошибок с сайта</li>
+<li><i data-lucide="check-circle" class="icon"></i> ИИ-чатбот 24/7</li>
+<li><i data-lucide="check-circle" class="icon"></i> Автоматический сбор заявок</li>
+<li><i data-lucide="check-circle" class="icon"></i> Генерация контента</li>
+<li><i data-lucide="check-circle" class="icon"></i> Рост конверсии</li>
+<li><i data-lucide="check-circle" class="icon"></i> Исправление ошибок с сайта</li>
 </ul>
 
 <p><b>Вы уже теряете клиентов каждый день.</b></p>
 <p>Чем дольше вы ждёте — тем больше заявок уходит к конкурентам.</p>
 
 <a href="https://t.me/lyazkai_bot?start=report_cta" class="cta-button">
-👉 Показать, где вы теряете клиентов
+<i data-lucide="arrow-right" class="icon"></i> Показать, где вы теряете клиентов
 </a>
 
 <a href="https://t.me/lyazkai_bot?start=report_fast" class="cta-secondary">
-👉 Написать сейчас
+<i data-lucide="arrow-right" class="icon"></i> Написать сейчас
 </a>
 
 <p style="opacity:0.7;">
@@ -469,12 +454,7 @@
 </section>
 
 
-<section class="ai-block">
-<h2>Как мы помогаем бизнесу</h2>
-<p>Мы внедряем ИИ в бизнесы в Казахстане, СНГ и по всему миру.</p>
-<p>Помогаем автоматизировать заявки, увеличить конверсию и привлекать клиентов через современные AI-системы.</p>
-<p>Наши услуги включают внедрение ИИ в Казахстане, AI автоматизацию бизнеса в Алматы и по всему СНГ, а также оптимизацию того, как получать заявки из сайта в Казахстане.</p>
-</section>
+
 
 <section class="faq">
 <h2>Частые вопросы</h2>

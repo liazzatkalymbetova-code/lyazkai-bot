@@ -1,114 +1,442 @@
 <!DOCTYPE html>
-
 <html lang="ru">
 <head>
-    <meta name="geo.region" content="KZ">
-  <meta name="geo.placename" content="Almaty">
-  <meta name="geo.position" content="43.238949;76.889709">
-  <meta name="ICBM" content="43.238949, 76.889709">
-  <meta name="language" content="ru">
-  <meta name="target-country" content="KZ">
-
+<meta name="geo.region" content="KZ"/>
+<meta name="geo.placename" content="Almaty"/>
+<meta name="geo.position" content="43.238949;76.889709"/>
+<meta name="ICBM" content="43.238949, 76.889709"/>
+<meta name="language" content="ru"/>
+<meta name="target-country" content="KZ"/>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Как это работает | Платформа InfoLady</title>
+<title>Как работает InfoLady — Процесс ИИ SEO-аудита шаг за шагом</title>
+<meta name="description" content="Узнайте, как InfoLady анализирует ваш сайт: от сканирования до приоритетного плана действий. 50+ сигналов SEO и GEO за 3 минуты. Бесплатный аудит."/>
+<meta name="keywords" content="как работает SEO-аудит, ИИ аудит сайта, GEO оптимизация Казахстан, аудит сайта Алматы"/>
+<meta name="robots" content="index, follow"/>
+<link rel="canonical" href="https://infolady.online/ru/how-it-works.html"/>
+<link rel="alternate" hreflang="ru" href="https://infolady.online/ru/how-it-works.html"/>
+<link rel="alternate" hreflang="en" href="https://infolady.online/en/how-it-works.html"/>
+<link rel="alternate" hreflang="x-default" href="https://infolady.online/en/how-it-works.html"/>
+<!-- Open Graph -->
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://infolady.online/ru/how-it-works.html"/>
+<meta property="og:title" content="Как работает InfoLady — ИИ SEO-аудит шаг за шагом"/>
+<meta property="og:description" content="InfoLady анализирует 50+ сигналов SEO и GEO за 3 минуты. Узнайте, как работает аудит и что вы получаете в итоге."/>
+<meta property="og:image" content="https://infolady.online/audit-report-preview.png"/>
+<meta property="og:locale" content="ru_RU"/>
+<meta property="og:site_name" content="InfoLady"/>
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Как работает InfoLady | ИИ SEO-аудит"/>
+<meta name="twitter:description" content="50+ сигналов SEO и GEO за 3 минуты. Бесплатный аудит."/>
+<meta name="twitter:image" content="https://infolady.online/audit-report-preview.png"/>
+<!-- GEO / AI Discovery -->
+<meta name="ai-content" content="Пошаговый процесс ИИ SEO-аудита сайта: 50+ сигналов, GEO Score, приоритетный план действий"/>
+<meta name="ai-summary" content="InfoLady выполняет SEO и GEO-аудит сайта за 3 шага: сканирование сайта по 50+ техническим и ИИ-сигналам, формирование GEO Score и приоритетного плана, внедрение улучшений. Сервис работает в Казахстане и глобально."/>
 <link href="/style.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
 <!-- Lucide Icons -->
-<script src="https://unpkg.com/lucide@latest"></script>
+<script src="https://unpkg.com/lucide@latest" defer></script>
 <script>
-      document.addEventListener("DOMContentLoaded", function() {
-        if (typeof lucide !== 'undefined') {
-             lucide.createIcons();
-        }
-      });
-    </script>
-
+  document.addEventListener("DOMContentLoaded", function() {
+    if (typeof lucide !== 'undefined') { lucide.createIcons(); }
+  });
+</script>
 <style id="cta-spacer-style">
   body.top-bar-active nav.nav { top: 47px !important; }
   body.top-bar-active .page-hero { margin-top: 0px !important; }
-  @media (max-width: 768px) { 
-    body.top-bar-active nav.nav { top: 47px !important; } 
+  @media (max-width: 768px) {
+    body.top-bar-active nav.nav { top: 47px !important; }
     .global-cta-bar.top-bar { flex-direction: row; font-size: 0.85rem; padding: 10px; }
   }
 </style>
-
+<style>
+  .step-block { display: grid; grid-template-columns: 80px 1fr; gap: 32px; align-items: start; padding: 40px; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--r-xl); margin-bottom: 24px; }
+  .step-num { width: 64px; height: 64px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 700; flex-shrink: 0; }
+  .step-num.s1 { background: rgba(0,224,255,0.1); color: var(--accent-primary); border: 2px solid rgba(0,224,255,0.3); }
+  .step-num.s2 { background: rgba(121,40,202,0.1); color: var(--accent-secondary); border: 2px solid rgba(121,40,202,0.3); }
+  .step-num.s3 { background: rgba(0,255,136,0.08); color: #00ff88; border: 2px solid rgba(0,255,136,0.2); }
+  .step-block h3 { font-size: 1.3rem; margin-bottom: 12px; }
+  .step-block p { color: var(--text-muted); line-height: 1.7; margin-bottom: 16px; }
+  .check-list { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 8px; }
+  .check-list li { font-size: 0.9rem; color: var(--text-muted); padding: 4px 0; }
+  .check-list li::before { content: "✓ "; color: var(--accent-primary); font-weight: 700; }
+  .signal-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; margin-top: 30px; }
+  .signal-tag { background: rgba(255,255,255,0.04); border: 1px solid var(--border); border-radius: 8px; padding: 12px 16px; font-size: 0.9rem; color: var(--text-muted); }
+  .signal-tag strong { display: block; color: var(--text-main); font-size: 0.85rem; margin-bottom: 4px; }
+  .compare-table { width: 100%; border-collapse: collapse; margin-top: 30px; }
+  .compare-table th { text-align: left; padding: 14px 16px; font-size: 0.9rem; color: var(--text-muted); border-bottom: 1px solid var(--border); }
+  .compare-table td { padding: 14px 16px; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.95rem; }
+  .compare-table td:first-child { color: var(--text-muted); }
+  .compare-table .yes { color: #00e0ff; font-weight: 600; }
+  .compare-table .no { color: rgba(255,255,255,0.3); }
+  .faq-item { border-bottom: 1px solid var(--border); padding: 24px 0; }
+  .faq-item h3 { font-size: 1.05rem; margin-bottom: 10px; }
+  .faq-item p { color: var(--text-muted); line-height: 1.7; margin: 0; }
+  .cta-bot-block { background: linear-gradient(135deg, rgba(0,224,255,0.08), rgba(121,40,202,0.08)); border: 1px solid rgba(0,224,255,0.2); border-radius: 20px; padding: 60px 40px; text-align: center; }
+  .cta-bot-block h2 { font-size: 2rem; margin-bottom: 16px; }
+  .cta-bot-block p { color: var(--text-muted); max-width: 560px; margin: 0 auto 32px; }
+  .cta-actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+  @media (max-width: 600px) {
+    .step-block { grid-template-columns: 1fr; }
+    .step-num { width: 52px; height: 52px; font-size: 1.2rem; }
+    .cta-bot-block { padding: 40px 24px; }
+  }
+</style>
 <script type="application/ld+json">
 {
- "@context": "https://schema.org",
- "@type": "Organization",
- "name": "InfoLady",
- "url": "https://infolady.online",
- "logo": "https://infolady.online/favicon.png",
- "areaServed": ["KZ","RU","Global"],
- "sameAs": [
-   "https://t.me/lyazkai_bot?start=audit_root_how-it-works"
- ]
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "Как InfoLady анализирует ваш сайт",
+  "description": "Пошаговый процесс аудита видимости сайта с помощью платформы InfoLady: от сканирования до реализации улучшений.",
+  "inLanguage": "ru",
+  "step": [
+    {
+      "@type": "HowToStep",
+      "name": "Сканирование и аудит",
+      "text": "Введите URL вашего сайта. Платформа InfoLady немедленно сканирует более 50 сигналов: технический SEO, доступность для ИИ-краулеров, качество структурированных данных, Core Web Vitals и цитируемость контента для ИИ.",
+      "position": 1
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Оценка и приоритизация",
+      "text": "Вы получаете GEO Score от 0 до 100, который показывает вашу текущую позицию относительно конкурентов. Каждая проблема классифицируется по серьёзности: критическая, высокая, средняя или низкая — с чётким объяснением её влияния на трафик.",
+      "position": 2
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Оптимизация",
+      "text": "Вы получаете пошаговый план действий по неделям. Каждое задание конкретно: 'Добавьте FAQPage-схему на эту страницу' или 'Исправьте тег hreflang в разделе head'. Никакого технического жаргона — только конкретные шаги.",
+      "position": 3
+    }
+  ]
 }
 </script>
-<meta name="description" content="Как это работает | Платформа InfoLady - Professional website audit in Kazakhstan (Almaty)."/>
-<meta name="keywords" content="website audit Kazakhstan Almaty"/>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Что такое GEO Score?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "GEO Score — комплексная оценка от 0 до 100, которая показывает, насколько хорошо ваш сайт оптимизирован для обнаружения и цитирования ИИ-системами (ChatGPT, Perplexity, Google AI Overviews, Gemini). Оценка рассчитывается по шести категориям: цитируемость для ИИ (25%), авторитет бренда (20%), E-E-A-T контента (20%), технический GEO (15%), структурированные данные (10%), оптимизация платформ (10%)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Что значат слова 'аудит для ИИ-поиска'?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "ИИ-системы, такие как ChatGPT и Perplexity, сканируют сайты иначе, чем Google. Они ищут чёткие ответы на вопросы, структурированные данные и цитируемые блоки текста. Аудит для ИИ-поиска проверяет эти специфические факторы — дополнительно к традиционным SEO-сигналам."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Как долго проводится аудит?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Базовое сканирование занимает около 3 минут для большинства сайтов. Полный детальный отчёт с анализом 50+ сигналов и персонализированным планом действий готовится в течение 24–48 часов."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Нужны ли технические знания для внедрения рекомендаций?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Нет. Каждая рекомендация написана простым языком с конкретными инструкциями. Например: 'Добавьте этот тег в раздел head вашей страницы' — а не абстрактные советы. Большинство клиентов из Казахстана и СНГ реализуют первый этап улучшений самостоятельно."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Работает ли сервис для бизнеса в Казахстане?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Да. InfoLady специально оптимизирован для рынков Казахстана, Алматы и всего СНГ. Платформа поддерживает русский и английский языки, учитывает региональные поисковые особенности и предлагает локальные рекомендации по GEO-оптимизации."
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "@id": "https://infolady.online/#organization",
+  "name": "InfoLady",
+  "url": "https://infolady.online",
+  "logo": "https://infolady.online/favicon.png",
+  "areaServed": ["KZ", "RU", "Global"],
+  "sameAs": ["https://t.me/lyazkai_bot?start=audit_root_how-it-works"]
+}
+</script>
 </head>
 <body class="page-how-it-works top-bar-active">
 <header>
-<div class="global-cta-bar top-bar" style="background: linear-gradient(90deg, #1A1D26 0%, #242838 100%); padding: 12px 20px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.95rem; font-weight: 600; font-family:var(--font-body); display: flex; justify-content: center; align-items: center; gap: 12px; margin: 0; width: 100%; box-sizing: border-box; position: relative; z-index: 1001;"><a href="https://t.me/lyazkai_bot?start=global_cta" class="cta-top">🔥 Узнать, где теряете клиентов</a></div>
-
-
+<div class="global-cta-bar top-bar" style="background: linear-gradient(90deg, #1A1D26 0%, #242838 100%); padding: 12px 20px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.95rem; font-weight: 600; font-family:var(--font-body); display: flex; justify-content: center; align-items: center; gap: 12px; margin: 0; width: 100%; box-sizing: border-box; position: relative; z-index: 1001;"><a href="https://t.me/lyazkai_bot?start=global_cta" class="cta-top"><i data-lucide="flame" class="icon"></i> Узнать, где теряете клиентов</a></div>
 <nav class="nav">
 <div class="container">
+<div class="nav__inner">
 <a class="nav__logo" href="/ru/">InfoLady</a>
 <ul class="pnav__links" role="list">
-<li class="pnav__item"><a class="pnav__trigger" href="/en/visibility-audit.html">SEO Audit</a></li>
+<li class="pnav__item"><a class="pnav__trigger" href="/ru/visibility-audit.html">SEO-аудит</a></li>
+<li class="pnav__item"><a class="pnav__trigger" href="/ru/platform.html">Платформа</a></li>
+<li class="pnav__item"><a class="pnav__trigger" href="/ru/visibility-audit.html#pricing">Цены</a></li>
 </ul>
+</div>
 </div>
 </nav>
 </header>
-<main class="container" style="padding: 100px 0;">
-<h1>Как это работает</h1>
-<p class="lead">От поиска ниши до доминирования на рынке. Наша пошаговая логика.</p>
-<div style="display:grid; gap:40px; margin-top:60px;">
-<div>
-<h3>1. Анализ и Аудит</h3>
-<p>Запустите <a href="/ru/visibility-audit.html">Аудит видимости в поиске</a>, чтобы определить ваше текущее положение в современных поисковых системах.</p>
-</div>
-<div>
-<h3>2. Анализ рынка</h3>
-<p>Мониторьте тренды с помощью нашего <a href="/ru/search-trend-radar.html">Радара поисковых трендов</a>, чтобы опережать конкурентов.</p>
-</div>
-<div>
-<h3>3. Оптимизация</h3>
-<p>Используйте наши <a href="/ru/digital-tools.html">Цифровые инструменты</a> для внедрения рекомендаций и улучшения вашего <a href="/ru/visibility-rating.html">Рейтинга видимости</a>.</p>
-</div>
-</div>
-<div style="margin-top:80px;">
-<a class="btn btn-primary" href="/ru/">Вернуться на главную</a>
-</div>
 
-<section class="ai-block">
-<h2>Как мы помогаем бизнесу</h2>
-<p>Мы внедряем ИИ в бизнесы в Казахстане, СНГ и по всему миру.</p>
-<p>Помогаем автоматизировать заявки, увеличить конверсию и привлекать клиентов через современные AI-системы.</p>
-<p>Наши услуги включают внедрение ИИ в Казахстане, AI автоматизацию бизнеса в Алматы и по всему СНГ, а также оптимизацию того, как получать заявки из сайта в Казахстане.</p>
+<main>
+
+<!-- Hero -->
+<section style="padding: 120px 0 70px; text-align: center; background: radial-gradient(circle at center, rgba(0, 224, 255, 0.07) 0%, transparent 65%);">
+<div class="container">
+  <span class="section-label section-label--glow">Как это работает</span>
+  <h1 style="font-size: 3rem; margin-bottom: 20px; max-width: 800px; margin-left: auto; margin-right: auto;">Как InfoLady анализирует ваш сайт: от сканирования до результата</h1>
+  <p class="lead" style="max-width: 660px; margin: 0 auto 36px; color: var(--text-muted);">
+    Большинство сайтов теряют трафик из-за незаметных технических ошибок и отсутствия оптимизации для ИИ-поиска. InfoLady находит их все — и показывает, что именно исправить в первую очередь.
+  </p>
+  <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;">
+    <a class="btn btn-primary btn-lg" href="/ru/scan.html">Бесплатное сканирование</a>
+    <a class="btn btn-ghost btn-lg" href="https://t.me/lyazkai_bot?start=global_cta">Спросить ИИ-советника →</a>
+  </div>
+
+  <div style="display: flex; gap: 40px; justify-content: center; flex-wrap: wrap; margin: 50px 0 0;">
+    <div style="text-align: center;"><div style="font-size: 2.5rem; font-weight: 700; color: var(--accent-primary);">50+</div><div style="font-size: 0.9rem; color: var(--text-muted); margin-top: 4px;">Сигналов анализируется</div></div>
+    <div style="text-align: center;"><div style="font-size: 2.5rem; font-weight: 700; color: var(--accent-primary);">3 мин</div><div style="font-size: 0.9rem; color: var(--text-muted); margin-top: 4px;">Базовое сканирование</div></div>
+    <div style="text-align: center;"><div style="font-size: 2.5rem; font-weight: 700; color: var(--accent-primary);">5</div><div style="font-size: 0.9rem; color: var(--text-muted); margin-top: 4px;">ИИ-систем проверяется</div></div>
+    <div style="text-align: center;"><div style="font-size: 2.5rem; font-weight: 700; color: var(--accent-primary);">0 ₸</div><div style="font-size: 0.9rem; color: var(--text-muted); margin-top: 4px;">Базовый аудит бесплатно</div></div>
+  </div>
+</div>
 </section>
 
-<section class="faq">
-<h2>Частые вопросы</h2>
-
-<h3>Как ИИ увеличивает заявки?</h3>
-<p>ИИ автоматизирует обработку клиентов и повышает конверсию сайта.</p>
-
-<h3>Сколько стоит внедрение?</h3>
-<p>Зависит от бизнеса, начинается с аудита.</p>
-
-<h3>Подходит ли для малого бизнеса?</h3>
-<p>Да, особенно если нет заявок.</p>
+<!-- Problem -->
+<section class="section section--tinted" style="padding: 80px 0;">
+<div class="container" style="max-width: 800px; margin: 0 auto;">
+  <span class="section-label">Почему это важно</span>
+  <h2 style="margin-bottom: 24px;">Старые SEO-инструменты не видят главных проблем</h2>
+  <p style="color: var(--text-muted); font-size: 1.05rem; line-height: 1.8; margin-bottom: 20px;">
+    Поиск изменился фундаментально. ChatGPT, Perplexity и Google AI Overviews теперь отвечают на вопросы напрямую — и большинство пользователей никогда не доходят до сайтов. Чтобы появляться в этих ответах, вашему контенту нужна <strong>GEO-оптимизация</strong> (Generative Engine Optimization).
+  </p>
+  <p style="color: var(--text-muted); font-size: 1.05rem; line-height: 1.8; margin-bottom: 20px;">
+    Традиционные инструменты — Semrush, Ahrefs, Moz — не проверяют цитируемость контента для ИИ, llms.txt, доступность для GPTBot, или качество схем для ИИ-парсинга. InfoLady закрывает этот пробел: мы анализируем и традиционное SEO, и все GEO-факторы в одном отчёте.
+  </p>
+  <p style="color: var(--text-muted); font-size: 1.05rem; line-height: 1.8;">
+    Исследование 2024 года (Georgia Tech / Princeton / IIT Delhi) показало: GEO-оптимизированный контент получает на <strong>30–115% больше цитирований</strong> в ИИ-ответах. Это уже не будущее — это настоящее.
+  </p>
+</div>
 </section>
+
+<!-- Steps -->
+<section class="section" style="padding: 90px 0;">
+<div class="container" style="max-width: 900px; margin: 0 auto;">
+  <div style="text-align: center; margin-bottom: 60px;">
+    <span class="section-label">Процесс аудита</span>
+    <h2>Три шага — от ввода URL до готового плана</h2>
+  </div>
+
+  <div class="step-block">
+    <div class="step-num s1">1</div>
+    <div>
+      <h3>Сканирование и аудит</h3>
+      <p>Введите URL вашего сайта. Платформа мгновенно сканирует более 50 сигналов: технический SEO, доступность для ИИ-краулеров, качество структурированных данных, Core Web Vitals и цитируемость контента для ИИ.</p>
+      <p>Мы проверяем, как ваш сайт видят GPTBot, ClaudeBot, PerplexityBot, Google-Extended и другие системы — не только Googlebot. Это критически важно, потому что многие сайты случайно блокируют ИИ-краулеры в robots.txt.</p>
+      <ul class="check-list">
+        <li>Технический SEO: мета-теги, заголовки</li>
+        <li>Canonical URL и hreflang</li>
+        <li>Структурированные данные Schema.org</li>
+        <li>Доступность для ИИ-краулеров</li>
+        <li>Наличие и качество llms.txt</li>
+        <li>Core Web Vitals (LCP, INP, CLS)</li>
+        <li>Блоки вопрос-ответ для ИИ</li>
+        <li>Open Graph и Twitter Card</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="step-block">
+    <div class="step-num s2">2</div>
+    <div>
+      <h3>Оценка и приоритизация</h3>
+      <p>Вы получаете <strong>GEO Score от 0 до 100</strong> — оценку того, насколько хорошо ваш сайт оптимизирован для обнаружения и цитирования ИИ-системами. Оценка рассчитывается по шести категориям.</p>
+      <p>Каждая проблема классифицируется по критичности: критическая (исправить сейчас), высокая (исправить за неделю), средняя (исправить за месяц), низкая (оптимизировать при возможности). Вы точно знаете, с чего начать.</p>
+      <ul class="check-list">
+        <li>GEO Score (0–100)</li>
+        <li>Оценка по 6 категориям</li>
+        <li>Классификация проблем по серьёзности</li>
+        <li>Сравнение с конкурентами</li>
+        <li>Объяснение влияния каждой ошибки</li>
+        <li>Потенциальный прирост трафика</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="step-block">
+    <div class="step-num s3">3</div>
+    <div>
+      <h3>Оптимизация</h3>
+      <p>Вы получаете <strong>пошаговый план действий по неделям</strong>. Каждое задание конкретно: "Добавьте FAQPage-схему на эту страницу" или "Исправьте тег hreflang в разделе head". Никакого технического жаргона.</p>
+      <p>Хотите ускорить процесс? Наш <a href="https://t.me/lyazkai_bot?start=global_cta" style="color: var(--accent-primary);">ИИ-советник в Telegram</a> проведёт вас через весь план, ответит на вопросы по конкретным исправлениям и поможет внедрить <a href="/ru/ai-integration.html" style="color: var(--accent-primary);">ИИ-автоматизацию</a> в ваши процессы.</p>
+      <ul class="check-list">
+        <li>План действий по 4 неделям</li>
+        <li>Конкретные инструкции для каждой задачи</li>
+        <li>Шаблоны schema-разметки</li>
+        <li>ИИ-советник в Telegram</li>
+        <li>Повторный аудит после внедрения</li>
+        <li>Отслеживание прогресса GEO Score</li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+</section>
+
+<!-- Signals Grid -->
+<section class="section section--tinted" style="padding: 80px 0;">
+<div class="container">
+  <div style="text-align: center; margin-bottom: 50px;">
+    <h2>50+ сигналов, которые мы анализируем</h2>
+    <p style="color: var(--text-muted); max-width: 600px; margin: 12px auto 0;">Полный список проверок — от базового технического SEO до сложных GEO-факторов.</p>
+  </div>
+  <div class="signal-grid">
+    <div class="signal-tag"><strong>Технический SEO</strong>Title, description, canonical</div>
+    <div class="signal-tag"><strong>hreflang</strong>Многоязычная разметка</div>
+    <div class="signal-tag"><strong>Robots.txt</strong>ИИ-краулеры и доступ</div>
+    <div class="signal-tag"><strong>llms.txt</strong>Наличие и качество</div>
+    <div class="signal-tag"><strong>GPTBot</strong>Доступность для ChatGPT</div>
+    <div class="signal-tag"><strong>ClaudeBot</strong>Доступность для Claude</div>
+    <div class="signal-tag"><strong>PerplexityBot</strong>Доступность для Perplexity</div>
+    <div class="signal-tag"><strong>Google-Extended</strong>Доступность для Gemini</div>
+    <div class="signal-tag"><strong>Organization</strong>Схема организации</div>
+    <div class="signal-tag"><strong>FAQPage</strong>Схема вопросов и ответов</div>
+    <div class="signal-tag"><strong>HowTo</strong>Пошаговые инструкции</div>
+    <div class="signal-tag"><strong>BreadcrumbList</strong>Навигационные цепочки</div>
+    <div class="signal-tag"><strong>Article</strong>Схема статьи/публикации</div>
+    <div class="signal-tag"><strong>LocalBusiness</strong>Местный бизнес и NAP</div>
+    <div class="signal-tag"><strong>Person</strong>Автор и E-E-A-T</div>
+    <div class="signal-tag"><strong>LCP</strong>Largest Contentful Paint</div>
+    <div class="signal-tag"><strong>INP</strong>Interaction to Next Paint</div>
+    <div class="signal-tag"><strong>CLS</strong>Cumulative Layout Shift</div>
+    <div class="signal-tag"><strong>Open Graph</strong>Превью в соцсетях</div>
+    <div class="signal-tag"><strong>Twitter Card</strong>Метаданные для Twitter</div>
+    <div class="signal-tag"><strong>Цитируемость</strong>Блоки вопрос-ответ для ИИ</div>
+    <div class="signal-tag"><strong>E-E-A-T</strong>Доверие и экспертиза</div>
+    <div class="signal-tag"><strong>Авторитет бренда</strong>Упоминания в интернете</div>
+    <div class="signal-tag"><strong>speakable</strong>Голосовой поиск</div>
+  </div>
+</div>
+</section>
+
+<!-- Comparison -->
+<section class="section" style="padding: 80px 0;">
+<div class="container" style="max-width: 860px; margin: 0 auto;">
+  <div style="text-align: center; margin-bottom: 50px;">
+    <h2>InfoLady vs. традиционные SEO-инструменты</h2>
+    <p style="color: var(--text-muted); margin-top: 12px;">Старые инструменты оптимизируют для Google 2015. InfoLady — для поиска 2026.</p>
+  </div>
+  <table class="compare-table">
+    <thead>
+      <tr><th>Что проверяется</th><th>InfoLady</th><th>Semrush / Ahrefs</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Традиционный SEO (позиции, ссылки)</td><td class="yes">Да</td><td class="yes">Да</td></tr>
+      <tr><td>GEO Score для ИИ-поиска</td><td class="yes">Да</td><td class="no">Нет</td></tr>
+      <tr><td>Доступность для GPTBot, ClaudeBot</td><td class="yes">Да</td><td class="no">Нет</td></tr>
+      <tr><td>Проверка и генерация llms.txt</td><td class="yes">Да</td><td class="no">Нет</td></tr>
+      <tr><td>Цитируемость контента для ИИ</td><td class="yes">Да</td><td class="no">Нет</td></tr>
+      <tr><td>FAQPage / HowTo схемы</td><td class="yes">Да</td><td class="no">Частично</td></tr>
+      <tr><td>Понятный план без технического жаргона</td><td class="yes">Да</td><td class="no">Нет</td></tr>
+      <tr><td>ИИ-советник в Telegram</td><td class="yes">Да</td><td class="no">Нет</td></tr>
+      <tr><td>Бесплатный тариф</td><td class="yes">Да</td><td class="no">Только платно</td></tr>
+    </tbody>
+  </table>
+</div>
+</section>
+
+<!-- FAQ -->
+<section class="section section--tinted" style="padding: 80px 0;">
+<div class="container" style="max-width: 760px; margin: 0 auto;">
+  <div style="text-align: center; margin-bottom: 50px;">
+    <h2>Частые вопросы</h2>
+  </div>
+  <div class="faq-item">
+    <h3>Что такое GEO Score?</h3>
+    <p>GEO Score — комплексная оценка от 0 до 100, которая показывает, насколько хорошо ваш сайт оптимизирован для обнаружения и цитирования ИИ-системами. Рассчитывается по шести категориям: цитируемость (25%), авторитет бренда (20%), E-E-A-T контента (20%), технический GEO (15%), структурированные данные (10%), оптимизация платформ (10%).</p>
+  </div>
+  <div class="faq-item">
+    <h3>Что значит "аудит для ИИ-поиска"?</h3>
+    <p>ИИ-системы, такие как ChatGPT и Perplexity, сканируют сайты иначе, чем Google. Они ищут чёткие ответы на вопросы, структурированные данные и цитируемые блоки текста. Аудит для ИИ-поиска проверяет эти специфические факторы — в дополнение к традиционным SEO-сигналам.</p>
+  </div>
+  <div class="faq-item">
+    <h3>Как долго проводится аудит?</h3>
+    <p>Базовое сканирование занимает около 3 минут. Полный детальный отчёт с анализом 50+ сигналов и персонализированным планом действий готовится в течение 24–48 часов.</p>
+  </div>
+  <div class="faq-item">
+    <h3>Нужны ли технические знания для внедрения рекомендаций?</h3>
+    <p>Нет. Каждая рекомендация написана простым языком с конкретными инструкциями — не абстрактными советами. Большинство клиентов из Алматы и других городов реализуют первый этап самостоятельно.</p>
+  </div>
+  <div class="faq-item">
+    <h3>Работает ли сервис для бизнеса в Казахстане?</h3>
+    <p>Да. InfoLady специально оптимизирован для рынков Казахстана, Алматы и всего СНГ. Платформа поддерживает русский и английский языки и учитывает региональные особенности поиска.</p>
+  </div>
+</div>
+</section>
+
+<!-- CTA -->
+<section class="section" style="padding: 80px 0;">
+<div class="container" style="max-width: 800px; margin: 0 auto;">
+<div class="cta-bot-block">
+  <span class="section-label section-label--glow">Начать</span>
+  <h2>Узнайте свой GEO Score прямо сейчас</h2>
+  <p>Бесплатное сканирование за 3 минуты. Ваш GEO Score, список критических проблем и первые шаги к исправлению — всё без регистрации. Или напишите нашему ИИ-советнику в Telegram.</p>
+  <div class="cta-actions">
+    <a class="btn btn-primary btn-lg" href="/ru/scan.html">Бесплатный аудит</a>
+    <a class="btn btn-ghost btn-lg" href="https://t.me/lyazkai_bot?start=global_cta">ИИ-советник в Telegram →</a>
+  </div>
+  <p style="margin-top: 20px; font-size: 0.85rem; color: var(--text-muted);">Также: <a href="/ru/platform.html" style="color: var(--accent-primary);">Обзор платформы</a> · <a href="/ru/visibility-audit.html#pricing" style="color: var(--accent-primary);">Цены</a> · <a href="/ru/ai-integration.html" style="color: var(--accent-primary);">ИИ-интеграция</a></p>
+</div>
+</div>
+</section>
+
 </main>
-
 
 <div class="global-cta-bar inline-bar" style="background: linear-gradient(90deg, #1A1D26 0%, #242838 100%); padding: 22px; text-align: center; border: 1px solid rgba(255,255,255,0.05); font-size: 1rem; font-weight: 600; font-family:var(--font-body); display: flex; justify-content: center; align-items: center; gap: 15px; margin: 30px 0; border-radius: 12px; background: rgba(255,255,255,0.03); backdrop-filter: blur(5px); box-shadow: 0 4px 25px rgba(0,0,0,0.4);">
 <span style="color: #fff;">Проверь свой сайт бесплатно</span>
 <a class="btn btn-primary btn-sm" href="/ru/scan.html" style="padding: 10px 20px; font-size: 0.9rem; box-shadow: 0 4px 15px rgba(0, 224, 255, 0.25);"> Попробовать сейчас </a>
 </div>
+
+<footer class="footer" role="contentinfo">
+<style>
+.footer-wrapper { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; padding: 40px 24px; }
+@media (max-width: 768px) { .footer-wrapper { grid-template-columns: 1fr; gap: 30px; text-align: left; } }
+.footer-col h5 { font-size: 16px; margin-bottom: 16px; color: #fff; font-weight: 600; }
+.footer-col ul { list-style: none; padding: 0; margin: 0; }
+.footer-col ul li { margin-bottom: 12px; }
+.footer-col ul li a { color: rgba(255,255,255,0.6); text-decoration: none; font-size: 14px; transition: color 0.2s ease; }
+.footer-col ul li a:hover { color: #fff; }
+.footer-bottom { border-top: 1px solid rgba(255,255,255,0.05); margin-top: 40px; padding-top: 20px; text-align: center; font-size: 13px; color: rgba(255,255,255,0.4); }
+</style>
+<div class="footer-wrapper" id="dynamic-footer-wrapper"></div>
+<div class="footer-bottom">
+  <p>&copy; <span id="footer-year"></span> InfoLady. <span id="footer-rights"></span></p>
+</div>
+<script>
+(function() {
+  document.getElementById('footer-year').textContent = new Date().getFullYear();
+  const isEN = window.location.pathname.includes('/en/');
+  const base = isEN ? '/en/' : '/ru/';
+  const titles = isEN ? { left: "Solutions", right: "Information", rights: "All rights reserved." } : { left: "Решения", right: "Информация", rights: "Все права защищены." };
+  document.getElementById('footer-rights').textContent = titles.rights;
+  const leftLinks = isEN ? [ { text: "SEO audit", link: "visibility-audit.html" }, { text: "AI integration", link: "ai-integration.html" } ] : [ { text: "SEO аудит", link: "visibility-audit.html" }, { text: "ИИ-интеграция", link: "ai-integration.html" } ];
+  const rightLinks = isEN ? [ { text: "Privacy", link: "privacy-policy.html" }, { text: "Terms", link: "terms-of-service.html" }, { text: "Contacts", link: "about.html" } ] : [ { text: "Конфиденциальность", link: "privacy-policy.html" }, { text: "Условия", link: "terms-of-service.html" }, { text: "Контакты", link: "about.html" } ];
+  document.getElementById('dynamic-footer-wrapper').innerHTML = `<div class="footer-col"><h5>${titles.left}</h5><ul>${leftLinks.map(l=>`<li><a href="${base}${l.link}">${l.text}</a></li>`).join('')}</ul></div><div class="footer-col"><h5>${titles.right}</h5><ul>${rightLinks.map(l=>`<li><a href="${base}${l.link}">${l.text}</a></li>`).join('')}</ul></div>`;
+})();
+</script>
+</footer>
 
 <div class="mobile-cta">
 <a href="https://t.me/lyazkai_bot?start=mobile_cta">

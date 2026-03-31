@@ -166,26 +166,36 @@
         .result { color: #4ade80; font-weight: bold; margin-bottom: 8px; font-size: 0.95rem; }
         .urgency { color: #facc15; font-weight: 600; font-size: 0.9rem; }
 </style>
+<script src="https://unpkg.com/lucide@latest" defer></script>
 </head>
 <body>
 
     <div class="payment-card">
         <a href="/ru/" class="logo">InfoLady</a>
-        <h1>Оплата маркетинг аудита</h1>
-        <p class="subtitle">Вы получаете доступ к автоматическому AI-аудиту</p>
+        <h1>Полный аудит вашего сайта</h1>
+        <p class="subtitle">Единоразовая оплата. PDF-отчёт в течение 48 часов.</p>
 
         
         <div class="value-box">
-          <h2>Вы получите:</h2>
-          <ul>
-            <li>✔ Полный аудит сайта</li>
-            <li>✔ Список критических ошибок</li>
-            <li>✔ Пошаговый план роста</li>
-            <li>✔ Рекомендации под ваш бизнес</li>
-          </ul>
-          <p class="result">⏱ Срок выполнения: 24 часа</p>
-          <p class="urgency">🔥 Доступ по акционной цене сегодня</p>
-        </div>
+  <h2 style="color:#ef4444; font-size:1.1rem; margin-bottom:14px;">⚠️ Вы теряете клиентов из-за этих ошибок:</h2>
+  <ul style="list-style:none; padding:0; margin-bottom:16px;">
+    <li style="margin-bottom:8px; font-size:0.95rem; color:rgba(255,255,255,0.9);">❌ Сайт не виден в Google и ChatGPT</li>
+    <li style="margin-bottom:8px; font-size:0.95rem; color:rgba(255,255,255,0.9);">❌ Пользователи уходят — вы не знаете почему</li>
+    <li style="margin-bottom:8px; font-size:0.95rem; color:rgba(255,255,255,0.9);">❌ Конкуренты обгоняют вас в поиске</li>
+  </ul>
+  <div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top:14px; margin-bottom:14px;">
+    <p style="font-size:0.9rem; color:rgba(255,255,255,0.7); margin-bottom:8px;">После аудита вы получите:</p>
+    <ul style="list-style:none; padding:0; margin:0;">
+      <li style="margin-bottom:6px; font-size:0.9rem; color:rgba(255,255,255,0.9);">✅ Полный список ошибок (по приоритету)</li>
+      <li style="margin-bottom:6px; font-size:0.9rem; color:rgba(255,255,255,0.9);">✅ Пошаговый план роста на 30 дней</li>
+      <li style="margin-bottom:6px; font-size:0.9rem; color:rgba(255,255,255,0.9);">✅ Анализ конкурентов и быстрые победы</li>
+      <li style="margin-bottom:6px; font-size:0.9rem; color:rgba(255,255,255,0.9);">✅ PDF-отчёт на email за 24–48 ч</li>
+    </ul>
+  </div>
+  <p class="result">✓ Готово за 24–48 часов</p>
+  <p style="color:#4ade80; font-size:0.85rem; font-weight:600; margin-top:8px;">🛡 Если не найдём ничего полезного — вернём деньги</p>
+  <p class="urgency">Ограниченное количество мест — цена вырастет после 10 заказов</p>
+</div>
 
         <div class="details-box">
             <div class="detail-row">
@@ -194,17 +204,16 @@
             </div>
             <div class="detail-row">
                 <span class="detail-label">Тип</span>
-                <span class="detail-value">AI Аудит</span>
+                <span class="detail-value">ИИ-аудит</span>
             </div>
             <div class="detail-row">
                 <span class="detail-label">К оплате</span>
                 <span class="detail-value price" id="plan-price">...</span>
             </div>
         </div>
-        </div>
 
         <div class="instruction" id="plan-instruction">
-            ⚠️ Ожидание параметров...
+            <i data-lucide="alert-triangle" class="icon"></i> Ожидание параметров...
         </div>
 
         
@@ -212,17 +221,31 @@
             <label for="userEmail" style="display:block; font-size: 0.85rem; color: var(--text-dim); margin-bottom: 8px;">Введите email для получения отчёта</label>
             <input type="email" id="userEmail" placeholder="your@email.com" style="width:100%; padding:14px; border-radius:12px; background: rgba(255,255,255,0.04); border: 1px solid var(--border); color:#fff; font-family:inherit; font-size:0.95rem; outline:none; box-sizing:border-box;" required>
         </div>
-        <p style="text-align:center; font-weight:bold; color:#00e0ff; margin: 15px 0 10px 0;">🚀 После оплаты сразу запускаем и вы увидите результат</p>
-<a href="https://pay.kaspi.kz/pay/fpquqhbx" class="cta-btn" target="_blank" onclick="handlePayment()">Оплатить через Kaspi</a>
+        <p style="text-align:center; color:rgba(255,255,255,0.5); font-size:0.82rem; margin: -8px 0 16px;">Отчёт придёт на этот email. Без спама.</p>
+<a href="https://pay.kaspi.kz/pay/fpquqhbx" class="cta-btn" target="_blank" onclick="handlePayment()">Получить полный аудит →</a>
+<p style="text-align:center; color:rgba(255,255,255,0.45); font-size:0.78rem; margin: -12px 0 8px;">🔒 Оплата занимает 1 минуту · Безопасно · Результат придёт в Telegram</p>
 <script src="/js/config.js"></script>
-<button class="cta-btn" style="background: #10b981; margin-top: 10px;" onclick="handleConfirmPayment()">✅ Я оплатил</button>
+<button class="cta-btn" style="background: #10b981; margin-top: 10px;" onclick="handleConfirmPayment()">✅ Я уже оплатил — запустить аудит</button>
 <div id="status-message" style="margin-top:10px; font-weight:bold;"></div>
+<div id="progress-block" style="display:none; margin-top:16px; background:rgba(0,224,255,0.06); border:1px solid rgba(0,224,255,0.2); border-radius:12px; padding:16px; text-align:left;">
+  <p id="progress-step-1" style="margin:0 0 8px; font-size:0.9rem; color:#fff; opacity:0; transition:opacity 0.5s;">⚡ Анализ уже начался...</p>
+  <p id="progress-step-2" style="margin:0 0 8px; font-size:0.9rem; color:rgba(255,255,255,0.8); opacity:0; transition:opacity 0.5s;">🔍 Проверяем сайт по 50+ параметрам...</p>
+  <p id="progress-step-3" style="margin:0; font-size:0.9rem; color:rgba(255,255,255,0.8); opacity:0; transition:opacity 0.5s;">📊 Готовим персональные рекомендации...</p>
+</div>
+
+        <!-- Return to Telegram after payment -->
+        <div id="tg-return-block" style="display:none; margin: 20px 0; padding: 16px; background: rgba(0,224,255,0.08); border: 1px solid rgba(0,224,255,0.3); border-radius: 12px; text-align: center;">
+            <p style="margin: 0 0 12px; font-weight: 600; color: #fff;">🎉 Оплата принята! Возвращайтесь в бот — там уже ждёт ваш аудит.</p>
+            <a id="tg-return-btn" href="https://t.me/lyazkai_bot" target="_blank" style="display: inline-block; background: linear-gradient(135deg, #00E0FF, #7C5AFF); color: #000; font-weight: 800; padding: 14px 28px; border-radius: 12px; text-decoration: none; font-size: 1rem;">
+                → Открыть Telegram-бот
+            </a>
+        </div>
 
         <div class="trust-info">
-            <p>⚡ Мгновенный отчёт после оплаты</p>
+            <p><i data-lucide="activity" class="icon"></i> Мгновенный отчёт после оплаты</p>
             <p>🔒 Единоразовый платёж, без подписок</p>
             <p>📄 PDF версия входит в стоимость</p>
-            <p style="color: #00e0ff; font-weight: 700; margin-top: 10px;">🔥 Акционная цена: <span id="promo-price">4500 ₸</span></p>
+            <p style="color: #00e0ff; font-weight: 700; margin-top: 10px;"><i data-lucide="flame" class="icon"></i> Акционная цена: <span id="promo-price">25 000 ₸</span></p>
         </div>
 
         <a href="/ru/#pricing" class="back-link">← Вернуться к ценам</a>
@@ -271,7 +294,7 @@
             document.getElementById('plan-title').textContent     = config[plan].title;
             document.getElementById('plan-price').textContent     = config[plan].price;
             document.getElementById('plan-instruction').innerHTML =
-                `⚠️ Введите сумму вручную: <span style="font-size:1.1rem;font-weight:800;color:#fff">${config[plan].price}</span>`;
+                `<i data-lucide="alert-triangle" class="icon"></i> Введите сумму вручную: <span style="font-size:1.1rem;font-weight:800;color:#fff">${config[plan].price}</span>`;
 
             const promoEl = document.getElementById('promo-price');
             if (promoEl) promoEl.textContent = config[plan].price;
@@ -290,6 +313,15 @@
             return true;
         }
 
+        function showProgressAnimation() {
+            const block = document.getElementById('progress-block');
+            if (!block) return;
+            block.style.display = 'block';
+            setTimeout(() => { const el = document.getElementById('progress-step-1'); if(el) el.style.opacity = '1'; }, 200);
+            setTimeout(() => { const el = document.getElementById('progress-step-2'); if(el) el.style.opacity = '1'; }, 1500);
+            setTimeout(() => { const el = document.getElementById('progress-step-3'); if(el) el.style.opacity = '1'; }, 3000);
+        }
+
         async function handleConfirmPayment() {
             const emailInput = document.getElementById('userEmail');
             const email = emailInput ? emailInput.value.trim() : '';
@@ -301,20 +333,22 @@
 
             const params = new URLSearchParams(window.location.search);
             const plan = params.get('plan') || localStorage.getItem('selected_plan');
-            const domain = localStorage.getItem('scanned_domain') || '';
+            const chatId = params.get('user') || '';
+            const domain = localStorage.getItem('scanned_domain') || params.get('domain') || '';
 
             const statusMsg = document.getElementById('status-message');
             statusMsg.style.color = '#facc15';
             statusMsg.textContent = 'Проверяем оплату...';
+            showProgressAnimation();
 
             try {
-                // Ensure API_URL is used from config.js if accessible
                 const baseUrl = typeof API_URL !== 'undefined' ? API_URL : window.location.origin;
 
                 const response = await fetch(`${baseUrl}/api/payment-success`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
+                        chatId: chatId,
                         email: email,
                         domain: domain,
                         tariff: plan,
@@ -327,9 +361,15 @@
                 if (result.success) {
                     statusMsg.style.color = '#4ade80';
                     statusMsg.textContent = 'Оплата подтверждена! Доступ открыт.';
+                    // Show return-to-telegram button
+                    const tgUrl = chatId
+                        ? `https://t.me/lyazkai_bot?start=paid_ru`
+                        : `https://t.me/lyazkai_bot`;
+                    document.getElementById('tg-return-block').style.display = 'block';
+                    document.getElementById('tg-return-btn').href = tgUrl;
                     setTimeout(() => {
                         window.location.href = `/ru/dashboard.html?email=${encodeURIComponent(email)}`;
-                    }, 1500);
+                    }, 4000);
                 } else {
                     statusMsg.style.color = '#ef4444';
                     statusMsg.textContent = 'Ошибка подтверждения. Попробуйте ещё раз.';
@@ -340,5 +380,10 @@
             }
         }
     </script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    if (typeof lucide !== "undefined") { lucide.createIcons(); }
+  });
+</script>
 </body>
 </html>

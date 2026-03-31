@@ -16,17 +16,17 @@
 <meta content="InfoLady — Lyazzat Kalymbetova" name="author"/>
 <!-- Open Graph -->
 <meta content="website" property="og:type"/>
-<meta content="https://infolady.online/audit/visibility-audit.html" property="og:url"/>
+<meta content="https://infolady.online/en/visibility-audit.html" property="og:url"/>
 <meta content="Search Visibility Audit | InfoLady" property="og:title"/>
 <meta content="Professional analysis of your website's SEO performance, search perception visibility, marketing structure and conversion potential." property="og:description"/>
-<meta content="https://infolady.online/og-image.jpg" property="og:image"/>
+<meta content="https://infolady.online/audit-report-preview.png" property="og:image"/>
 <meta content="en_US" property="og:locale"/>
 <meta content="InfoLady" property="og:site_name"/>
 <!-- Twitter Card -->
 <meta content="summary_large_image" name="twitter:card"/>
 <meta content="Search Visibility Audit | InfoLady" name="twitter:title"/>
 <meta content="Professional search visibility audit that analyzes how your website appears in modern search engines." name="twitter:description"/>
-<meta content="https://infolady.online/og-image.jpg" name="twitter:image"/>
+<meta content="https://infolady.online/audit-report-preview.png" name="twitter:image"/>
 <!-- Modern Search Discovery / GEO -->
 <meta content="Professional search visibility audit service for website visibility in modern search engines" name="ai-content"/>
 <meta content="InfoLady Search Visibility Audit is a professional service analyzing how websites appear in modern search engines like ChatGPT, Google AI Overviews, and Perplexity. The audit covers structured data, content quality, citation potential, technical SEO, marketing structure, and conversion potential." name="ai-summary"/>
@@ -43,11 +43,16 @@
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
       "name": "InfoLady Search Visibility Auditor",
-      "url": "https://infolady.online/audit/visibility-audit.html",
-      "applicationCategory": "SEOApplication",
+      "url": "https://infolady.online/en/visibility-audit.html",
+      "applicationCategory": "WebApplication",
       "operatingSystem": "Web",
       "description": "Professional search visibility audit tool for analyzing website visibility in modern search engines.",
-      "offers": {}
+      "offers": {
+        "@type": "Offer",
+        "price": "50",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock"
+      }
     }
     </script>
 <!-- Page-specific styles -->
@@ -267,6 +272,21 @@
             font-size: 1rem;
             color: #ff4df0;
             flex-shrink: 0;
+        }
+
+        .problem-item {
+          margin: 10px 0;
+        }
+
+        .problem {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          padding: 10px 12px;
+          border-radius: 10px;
+          background: rgba(255,255,255,0.03);
+          border: 1px solid rgba(255,255,255,0.08);
+          font-size: 14px;
         }
 
         /* ── Deliverables ── */
@@ -727,7 +747,7 @@
     "description": "Professional search visibility audit analyzing website performance in modern search engines including ChatGPT, Google AI Overviews, and Perplexity.",
     "url": "https://infolady.online/audit/visibility-audit.html",
     "offers": [
-      {"@type": "Offer", "name": "Basic Audit", "price": "9", "priceCurrency": "USD"},
+      {"@type": "Offer", "name": "Full Audit", "price": "50", "priceCurrency": "USD"},
       {"@type": "Offer", "name": "Full Visibility Audit", "price": "99", "priceCurrency": "USD"},
       {"@type": "Offer", "name": "Premium Marketing + Search Audit", "price": "199", "priceCurrency": "USD"}
     ]
@@ -736,10 +756,10 @@
 <!-- Multilingual SEO -->
 <link href="https://infolady.online/en/visibility-audit.html" rel="canonical"/>
 <link href="https://infolady.online/en/visibility-audit.html" hreflang="en" rel="alternate"/>
-<link href="https://infolady.online/en/visibility-audit.html" hreflang="ru" rel="alternate"/>
+<link href="https://infolady.online/ru/visibility-audit.html" hreflang="ru" rel="alternate"/>
 <link href="https://infolady.online/" hreflang="x-default" rel="alternate"/>
 <!-- Lucide Icons -->
-<script src="https://unpkg.com/lucide@latest"></script>
+<script src="https://unpkg.com/lucide@latest" defer></script>
 <script>
       document.addEventListener("DOMContentLoaded", function() {
         if (typeof lucide !== 'undefined') {
@@ -761,7 +781,7 @@
 <!-- ══════════════════════════ NAV ══════════════════════════ -->
 <!-- ══════════════════════════ NAV ══════════════════════════ -->
 <header>
-<div class="global-cta-bar top-bar" style="background: linear-gradient(90deg, #1A1D26 0%, #242838 100%); padding: 12px 20px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.95rem; font-weight: 600; font-family:var(--font-body); display: flex; justify-content: center; align-items: center; gap: 12px; margin: 0; width: 100%; box-sizing: border-box; position: relative; z-index: 1001;"><a href="https://t.me/lyazkai_bot?start=global_cta" class="cta-top">🔥 Find out where you lose customers</a></div>
+<div class="global-cta-bar top-bar" style="background: linear-gradient(90deg, #1A1D26 0%, #242838 100%); padding: 12px 20px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.95rem; font-weight: 600; font-family:var(--font-body); display: flex; justify-content: center; align-items: center; gap: 12px; margin: 0; width: 100%; box-sizing: border-box; position: relative; z-index: 1001;"><a href="https://t.me/lyazkai_bot?start=global_cta" class="cta-top"><i data-lucide="flame" class="icon"></i> Find out where you lose customers</a></div>
 
 
 <nav class="nav platform-nav" role="navigation">
@@ -795,32 +815,194 @@
 </header>
 <main>
 <!-- ══════════════════════════ HERO ══════════════════════════ -->
-<section aria-labelledby="auditHeroTitle" class="audit-hero">
-<div aria-hidden="true" class="hero__bg-orb hero__bg-orb--1"></div>
-<div aria-hidden="true" class="hero__bg-orb hero__bg-orb--2"></div>
-<div aria-hidden="true" class="hero__bg-orb hero__bg-orb--3"></div>
-<div aria-hidden="true" class="hero__grid-line"></div>
-<div class="container">
-<div class="audit-hero__inner">
-<span class="section-label section-label--glow">Search Visibility Audit</span>
-<h1 id="auditHeroTitle">
-                        Search Visibility<br/>
-<span class="gradient-text">Website Audit</span>
-</h1>
-<p class="lead">
-                        Understand how your website performs in modern search and perception engines.<br/>
-                        Professional analysis of SEO performance, visibility rating, marketing structure and
-                        conversion potential.
-                    </p>
-<div class="audit-hero__actions">
-<a class="btn btn-primary btn-lg" href="#scanner" id="heroScanBtn">
-<span aria-hidden="true">🔍</span> Check your site for free
-</a>
-<a class="btn btn-ghost btn-lg" href="#sample-report">View Sample Report</a>
+<style>
+.hero-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 80px 24px;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 64px;
+  align-items: center;
+}
+
+@media (max-width: 900px) {
+  .hero-container {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}
+
+.hero-left {
+  max-width: 520px;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  opacity: 0.7;
+  margin-bottom: 16px;
+}
+
+.hero-title {
+  font-size: 44px;
+  line-height: 1.2;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.hero-subtitle {
+  font-size: 16px;
+  opacity: 0.8;
+  line-height: 1.5;
+  margin-bottom: 28px;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.hero-benefits {
+  display: flex;
+  gap: 16px;
+  margin-top: 24px;
+  flex-wrap: wrap;
+}
+
+.benefit {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  opacity: 0.7;
+}
+
+.hero-right {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.hero-widget {
+  width: 100%;
+  max-width: 420px;
+  backdrop-filter: blur(14px);
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.02);
+  padding: 22px;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.45);
+}
+</style>
+
+<div class="hero-container">
+
+  <!-- LEFT -->
+  <div class="hero-left">
+
+    <div class="hero-badge">
+      <i data-lucide="sparkles" style="width:14px;height:14px;"></i>
+      <span id="badge-text"></span>
+    </div>
+
+    <div class="hero-title" id="title"></div>
+
+    <div class="hero-subtitle" id="subtitle"></div>
+
+    <div class="hero-actions">
+      <a class="btn btn-primary" id="main-btn" href="#scanner"></a>
+      <!-- ЗАМЕНИТЕ НА ВАШ ТЕЛЕГРАМ-НИКНЕЙМ (НЕ БОТА) -->
+      <a id="tg-link" target="_blank" class="btn btn-secondary" style="border: 1px solid rgba(255,255,255,0.2); color: #ccc;"></a>
+    </div>
+
+    <div class="hero-benefits">
+      <div class="benefit">
+        <i data-lucide="check-circle" style="width:14px;height:14px;color:#28c840;"></i>
+        <span id="b1"></span>
+      </div>
+      <div class="benefit">
+        <i data-lucide="check-circle" style="width:14px;height:14px;color:#28c840;"></i>
+        <span id="b2"></span>
+      </div>
+      <div class="benefit">
+        <i data-lucide="check-circle" style="width:14px;height:14px;color:#28c840;"></i>
+        <span id="b3"></span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- RIGHT -->
+  <div class="hero-right">
+    <div class="hero-widget">
+      <div id="widget-text" style="font-size:1.1rem;font-weight:600;text-align:center;"></div>
+    </div>
+  </div>
+
 </div>
-</div>
-</div>
-</section>
+
+<script>
+(function() {
+
+  const isEN = window.location.pathname.includes('/en/');
+
+  const content = {
+    ru: {
+      badge: "AI анализ сайта",
+      title: "Ваш сайт теряет клиентов каждый день",
+      subtitle: "Покажем, что мешает получать заявки и как это исправить",
+      mainBtn: "💰 Получить аудит — 25 000 ₸",
+      tgBtn: "💬 Обсудить в Telegram",
+      b1: "Найдём ошибки за 5 минут",
+      b2: "Без регистрации",
+      b3: "Конкретные рекомендации",
+      widget: "ИИ анализирует сайт..."
+    },
+    en: {
+      badge: "AI website analysis",
+      title: "Your website is losing customers every day",
+      subtitle: "We show what blocks your conversions and how to fix it",
+      mainBtn: "💰 Get Full Audit — $50",
+      tgBtn: "💬 Discuss in Telegram",
+      b1: "Find issues in 5 minutes",
+      b2: "No signup required",
+      b3: "Actionable insights",
+      widget: "AI is analyzing your website..."
+    }
+  };
+
+  const t = isEN ? content.en : content.ru;
+
+  document.getElementById("badge-text").innerText = t.badge;
+  document.getElementById("title").innerText = t.title;
+  document.getElementById("subtitle").innerText = t.subtitle;
+  document.getElementById("main-btn").innerText = t.mainBtn;
+  document.getElementById("tg-link").innerText = t.tgBtn;
+  document.getElementById("b1").innerText = t.b1;
+  document.getElementById("b2").innerText = t.b2;
+  document.getElementById("b3").innerText = t.b3;
+  document.getElementById("widget-text").innerText = t.widget;
+
+  // Telegram
+  const params = new URLSearchParams(window.location.search);
+  const domain = params.get('domain') || 'my website';
+
+  const msg = isEN
+    ? `I checked my website ${domain}. I want a full audit and fixes.`
+    : `Я прошёл аудит сайта ${domain}. Хочу полный разбор и решение.`;
+
+  // ЗАМЕНИТЕ НА ВАШ ТЕЛЕГРАМ-НИКНЕЙМ (НЕ БОТА)
+  const tgUrl = `https://t.me/YOUR_USERNAME?text=${encodeURIComponent(msg)}`;
+  document.getElementById("tg-link").href = tgUrl;
+
+  lucide.createIcons();
+
+})();
+</script>
 <div class="global-cta-bar inline-bar" style="background: linear-gradient(90deg, #1A1D26 0%, #242838 100%); padding: 22px; text-align: center; border: 1px solid rgba(255,255,255,0.05); font-size: 1rem; font-weight: 600; font-family:var(--font-body); display: flex; justify-content: center; align-items: center; gap: 15px; margin: 30px 0; border-radius: 12px; background: rgba(255,255,255,0.03); backdrop-filter: blur(5px); box-shadow: 0 4px 25px rgba(0,0,0,0.4);">
 <span style="color: #fff;">Check your website free</span>
 <a class="btn btn-primary btn-sm" href="/en/scan.html" style="padding: 10px 20px; font-size: 0.9rem; box-shadow: 0 4px 15px rgba(0, 224, 255, 0.25);"> Check your site for free </a>
@@ -835,9 +1017,9 @@
 <h2 id="scannerTitle">Free Search Visibility Check</h2>
 <p>Enter your website URL to instantly analyze SEO and visibility rating.</p>
 <div class="scanner__input-row">
-<input aria-label="Website URL to scan" autocomplete="url" id="scanUrl" placeholder="https://yourwebsite.com" type="url"/>
-<button class="btn btn-primary" id="scanBtn" onclick="runScan()">
-<span aria-hidden="true">🔍</span> Scan Website
+<input aria-label="Website URL to scan" autocomplete="url" id="domain-input" placeholder="https://yourwebsite.com" type="url"/>
+<button class="btn btn-primary" id="analyze-btn">
+<span aria-hidden="true"><i data-lucide="search" class="icon"></i></span> Scan Website
                         </button>
 </div>
 <!-- Loading state -->
@@ -864,23 +1046,139 @@
 </div>
 </div>
 </div>
-<div class="issues-title">⚠ Detected Issues</div>
-<div class="issues-list" role="list">
-<div class="issue-item" role="listitem">Missing structured data (JSON-LD)</div>
-<div class="issue-item" role="listitem">Weak internal linking structure</div>
-<div class="issue-item" role="listitem">Low perception rating — content not optimized
-                            for modern search extractors</div>
-<div class="issue-item" role="listitem">Poor content structure for modern search engines</div>
-</div>
+<div id="problems-list"></div>
 <!-- Lead Capture CTA -->
-<section class="section section--tinted lead-cta-section" style="margin-top: 40px; margin-bottom: 24px; border-radius: 16px; border: 1px solid var(--border); background: var(--bg-card); padding: 40px; text-align: center;">
-<h2 data-en="Need help fixing your SEO?" style="margin-bottom: 12px;">Need help fixing your SEO?</h2>
-<p data-en="Your website has issues that may affect your search visibility. Get a free SEO consultation from professionals." style="color: var(--text-muted); margin-bottom: 24px; max-width: 600px; margin-left: auto; margin-right: auto;">Your website has issues that may affect your search visibility. Get a free SEO consultation from professionals.</p>
-<button class="btn btn-primary lead-cta-trigger" data-en="Check your site for free" style="font-size: 1.1rem; padding: 14px 28px;">Check your site for free</button>
-</section>
-<a class="btn btn-primary btn-block" href="#paypal-checkout" onclick="showPayPalSection();return false;">
-                        Get full report
-                    </a>
+<style>
+.cta-block {
+  margin-top: 40px;
+  padding: 28px;
+  border-radius: 18px;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.08);
+  backdrop-filter: blur(12px);
+  text-align: center;
+}
+
+.cta-title {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.cta-subtitle {
+  font-size: 15px;
+  opacity: 0.7;
+  margin-bottom: 24px;
+}
+
+.cta-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.cta-block .btn-primary {
+  padding: 14px 22px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #6a5cff, #00c2ff);
+  color: #fff;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cta-block .btn-secondary {
+  padding: 14px 22px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.2);
+  color: #ccc;
+  background: transparent;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+</style>
+
+<div class="cta-block">
+
+  <div class="cta-title" id="cta-title"></div>
+  <div class="cta-subtitle" id="cta-subtitle"></div>
+
+  <div class="cta-actions">
+    <button class="btn-primary" id="pay-btn">
+      <i data-lucide="credit-card" style="width:18px;height:18px;"></i>
+      <span id="pay-text"></span>
+    </button>
+
+    <a id="tg-link-cta" target="_blank" class="btn-secondary">
+      <i data-lucide="message-circle" style="width:18px;height:18px;"></i>
+      <span id="tg-text"></span>
+    </a>
+  </div>
+
+</div>
+
+<script>
+(function() {
+
+  const isEN = window.location.pathname.includes('/en/');
+
+  const content = {
+    ru: {
+      title: "🔥 Ваш сайт уже теряет клиентов",
+      subtitle: "До 30–60% заявок уходят из-за ошибок",
+      pay: "Получить полный аудит — 25 000 ₸",
+      tg: "Обсудить сайт в Telegram"
+    },
+    en: {
+      title: "🔥 Your website is losing customers",
+      subtitle: "Up to 30–60% of leads are lost due to issues",
+      pay: "Get Full Audit — $50",
+      tg: "Discuss your website"
+    }
+  };
+
+  const t = isEN ? content.en : content.ru;
+
+  document.getElementById("cta-title").innerText = t.title;
+  document.getElementById("cta-subtitle").innerText = t.subtitle;
+  document.getElementById("pay-text").innerText = t.pay;
+  document.getElementById("tg-text").innerText = t.tg;
+
+  // Telegram message
+  const params = new URLSearchParams(window.location.search);
+  const domain = params.get('domain') || 'my website';
+
+  const message = isEN
+    ? `I checked my website ${domain}. I want a full audit and fixes.`
+    : `Я прошёл аудит сайта ${domain}. Хочу полный разбор и решение.`;
+
+  // ЗАМЕНИТЕ НА ВАШ ТЕЛЕГРАМ-НИКНЕЙМ (НЕ БОТА)
+  const tgUrl = `https://t.me/YOUR_USERNAME?text=${encodeURIComponent(message)}`;
+  const tgLink = document.getElementById("tg-link-cta");
+  if (tgLink) tgLink.href = tgUrl;
+
+  // Payment button binding to existing flow
+  const payBtn = document.getElementById("pay-btn");
+  if (payBtn) {
+    payBtn.onclick = () => {
+      if (typeof showPayPalSection === 'function') {
+         showPayPalSection();
+      } else {
+         window.location.hash = 'paypal-checkout';
+      }
+    };
+  }
+
+  lucide.createIcons();
+
+})();
+</script>
 </div>
 </div>
 </section>
@@ -900,15 +1198,15 @@
 </div>
 <div class="lang-price" data-lang-ru="" style="text-align:center;display:none;">
 <div style="font-size:2.5rem;font-weight:800;color:var(--accent-secondary);line-height:1;">
-                                4500 ₸</div>
+                                25 000 ₸</div>
 <div style="font-size:.85rem;color:var(--text-muted);margin-top:4px;">KZT · разово</div>
 </div>
 <ul style="list-style:none;padding:0;margin:0;text-align:left;font-size:.88rem;color:var(--text-muted);">
-<li>✅ <span data-en="Technical SEO analysis">Technical SEO analysis</span></li>
-<li>✅ <span data-en="Visibility Rating &amp; GEO Score">Visibility Rating &amp; GEO Score</span></li>
-<li>✅ <span data-en="Content recommendations">Content recommendations</span></li>
-<li>✅ <span data-en="Competitor insights">Competitor insights</span></li>
-<li>✅ <span data-en="PDF action plan">PDF action plan</span>
+<li><i data-lucide="check-circle" class="icon"></i> <span data-en="Technical SEO analysis">Technical SEO analysis</span></li>
+<li><i data-lucide="check-circle" class="icon"></i> <span data-en="Visibility Rating &amp; GEO Score">Visibility Rating &amp; GEO Score</span></li>
+<li><i data-lucide="check-circle" class="icon"></i> <span data-en="Content recommendations">Content recommendations</span></li>
+<li><i data-lucide="check-circle" class="icon"></i> <span data-en="Competitor insights">Competitor insights</span></li>
+<li><i data-lucide="check-circle" class="icon"></i> <span data-en="PDF action plan">PDF action plan</span>
 </li>
 </ul>
 </div>
@@ -951,7 +1249,7 @@
                             Overviews, Perplexity</div>
 </div>
 <div class="deliverable-item fade-up">
-<div class="deliverable-item__icon">📊</div>
+<div class="deliverable-item__icon"><i data-lucide="bar-chart" class="icon"></i></div>
 <div class="deliverable-item__text">Website marketing structure review — messaging, positioning,
                             funnels</div>
 </div>
@@ -1008,7 +1306,7 @@
                         </div>
 </div>
 <div class="fade-up" style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r-lg);padding:20px;">
-<div style="font-size:1.6rem;margin-bottom:8px;">🔍</div>
+<div style="font-size:1.6rem;margin-bottom:8px;"><i data-lucide="search" class="icon"></i></div>
 <div style="font-weight:700;color:var(--text-main);margin-bottom:4px;">Key Findings</div>
 <div style="font-size:.85rem;color:var(--text-muted);">Critical issues &amp; quick wins</div>
 </div>
@@ -1039,16 +1337,16 @@
                             strategy for growth.</p>
 <div class="audit-form__benefits">
 <div class="audit-form__benefit">
-<span aria-hidden="true">✅</span> Results delivered within 48–72 hours
+<span aria-hidden="true"><i data-lucide="check-circle" class="icon"></i></span> Results delivered within 48–72 hours
                             </div>
 <div class="audit-form__benefit">
-<span aria-hidden="true">✅</span> Professional PDF report included
+<span aria-hidden="true"><i data-lucide="check-circle" class="icon"></i></span> Professional PDF report included
                             </div>
 <div class="audit-form__benefit">
-<span aria-hidden="true">✅</span> Actionable, prioritized recommendations
+<span aria-hidden="true"><i data-lucide="check-circle" class="icon"></i></span> Actionable, prioritized recommendations
                             </div>
 <div class="audit-form__benefit">
-<span aria-hidden="true">✅</span> AI &amp; traditional search engines covered
+<span aria-hidden="true"><i data-lucide="check-circle" class="icon"></i></span> AI &amp; traditional search engines covered
                             </div>
 </div>
 </div>
@@ -1115,7 +1413,7 @@
 <p>Check your site for free or request a full professional audit today</p>
 <div class="cta-section__actions">
 <a class="btn btn-ghost btn-lg" href="#scanner">
-<span aria-hidden="true">🔍</span> Scan My Website — Free
+<span aria-hidden="true"><i data-lucide="search" class="icon"></i></span> Scan My Website — Free
                     </a>
 <a class="btn btn-primary btn-lg" data-i18n="btn_request_audit" href="#audit-form">Request Full
                         Audit</a>
@@ -1133,6 +1431,117 @@
 </div>
 </div>
 </section>
+<style>
+.faq {
+  max-width: 700px;
+  margin: 40px auto;
+}
+
+.faq-title {
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+.faq-item {
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  padding: 14px 0;
+  cursor: pointer;
+}
+
+.faq-question {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 600;
+}
+
+.faq-answer {
+  margin-top: 8px;
+  font-size: 14px;
+  opacity: 0.8;
+  display: none;
+}
+</style>
+
+<div class="faq">
+  <h2 class="faq-title" id="faq-title"></h2>
+
+  <div class="faq-item">
+    <div class="faq-question">
+      <span id="q1"></span>
+      <span>+</span>
+    </div>
+    <div class="faq-answer" id="a1"></div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question">
+      <span id="q2"></span>
+      <span>+</span>
+    </div>
+    <div class="faq-answer" id="a2"></div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question">
+      <span id="q3"></span>
+      <span>+</span>
+    </div>
+    <div class="faq-answer" id="a3"></div>
+  </div>
+
+  <!-- CTA -->
+  <div style="margin-top:20px;">
+    <button id="faq-cta" class="btn btn-primary"></button>
+  </div>
+</div>
+
+<script>
+(function() {
+  const isEN = window.location.pathname.includes('/en/');
+
+  const content = {
+    ru: {
+      title: "Частые вопросы",
+      q1: "Как это увеличит заявки?",
+      a1: "Мы находим ошибки, которые мешают клиентам оставить заявку.",
+      q2: "Сколько стоит?",
+      a2: "Полный аудит стоит 25 000 ₸ и включает конкретные решения.",
+      q3: "Подходит ли для малого бизнеса?",
+      a3: "Да. Особенно если сейчас мало заявок.",
+      cta: "💰 Получить полный аудит"
+    },
+    en: {
+      title: "FAQ",
+      q1: "How will this increase leads?",
+      a1: "We find issues that block users from converting.",
+      q2: "How much does it cost?",
+      a2: "Full audit is $50 with actionable fixes.",
+      q3: "Is it suitable for small business?",
+      a3: "Yes. Especially if you have low leads.",
+      cta: "💰 Get Full Audit"
+    }
+  };
+
+  const t = isEN ? content.en : content.ru;
+
+  document.getElementById("faq-title").innerText = t.title;
+  document.getElementById("q1").innerText = t.q1;
+  document.getElementById("a1").innerText = t.a1;
+  document.getElementById("q2").innerText = t.q2;
+  document.getElementById("a2").innerText = t.a2;
+  document.getElementById("q3").innerText = t.q3;
+  document.getElementById("a3").innerText = t.a3;
+  document.getElementById("faq-cta").innerText = t.cta;
+
+  // accordion
+  document.querySelectorAll(".faq-item").forEach(item => {
+    item.onclick = () => {
+      const answer = item.querySelector(".faq-answer");
+      answer.style.display = answer.style.display === "block" ? "none" : "block";
+    };
+  });
+})();
+</script>
 </main>
 <!-- ══════════════════════════ FOOTER ════════════════════════ -->
 
@@ -1142,19 +1551,105 @@
 <a class="btn btn-primary btn-sm" href="/en/scan.html" style="padding: 10px 20px; font-size: 0.9rem; box-shadow: 0 4px 15px rgba(0, 224, 255, 0.25);"> Check your site for free </a>
 </div>
 <footer class="footer" role="contentinfo">
-<div class="container">
-<div class="footer__grid">
-<div class="footer__col">
-<h5>Solutions</h5><ul role="list"><li><a href="/en/visibility-audit.html">SEO Audit</a></li><li><a href="/en/ai-integration.html">AI Integration</a></li></ul>
+<style>
+.footer-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  padding: 40px 24px;
+}
+
+@media (max-width: 768px) {
+  .footer-wrapper {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    text-align: left;
+  }
+}
+
+.footer-col h5 {
+  font-size: 16px;
+  margin-bottom: 16px;
+  color: #fff;
+  font-weight: 600;
+}
+
+.footer-col ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-col ul li {
+  margin-bottom: 12px;
+}
+
+.footer-col ul li a {
+  color: rgba(255,255,255,0.6);
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.2s ease;
+}
+
+.footer-col ul li a:hover {
+  color: #fff;
+}
+
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.05);
+  margin-top: 40px;
+  padding-top: 20px;
+  text-align: center;
+  font-size: 13px;
+  color: rgba(255,255,255,0.4);
+}
+</style>
+
+<div class="footer-wrapper" id="dynamic-footer-wrapper"></div>
+<div class="footer-bottom">
+  <p>© <span id="footer-year"></span> InfoLady. <span id="footer-rights"></span></p>
 </div>
-<div class="footer__col">
-<h5>Information</h5><ul role="list"><li><a href="/en/privacy-policy.html">Privacy</a></li><li><a href="/en/terms-of-service.html">Terms</a></li><li><a href="/en/about.html">Contact</a></li></ul>
-</div>
-</div>
-<div class="footer__bottom">
-<p>© <span id="year"></span> InfoLady. All rights reserved.</p>
-</div>
-</div>
+
+<script>
+(function() {
+  document.getElementById('footer-year').textContent = new Date().getFullYear();
+  const isEN = window.location.pathname.includes('/en/');
+  const base = isEN ? '/en/' : '/ru/';
+
+  const titles = isEN 
+    ? { left: "Solutions", right: "Information", rights: "All rights reserved." }
+    : { left: "Решения", right: "Информация", rights: "Все права защищены." };
+
+  document.getElementById('footer-rights').textContent = titles.rights;
+
+  const leftLinks = isEN 
+    ? [ { text: "SEO audit", link: "visibility-audit.html" }, { text: "AI integration", link: "ai-integration.html" } ]
+    : [ { text: "SEO аудит", link: "visibility-audit.html" }, { text: "ИИ-интеграция", link: "ai-integration.html" } ];
+
+  const rightLinks = isEN 
+    ? [ { text: "Privacy", link: "privacy-policy.html" }, { text: "Terms", link: "terms-of-service.html" }, { text: "Contacts", link: "about.html" } ]
+    : [ { text: "Конфиденциальность", link: "privacy-policy.html" }, { text: "Условия", link: "terms-of-service.html" }, { text: "Контакты", link: "about.html" } ];
+
+  let html = `
+    <div class="footer-col">
+      <h5>${titles.left}</h5>
+      <ul>
+        ${leftLinks.map(l => `<li><a href="${base}${l.link}">${l.text}</a></li>`).join('')}
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>${titles.right}</h5>
+      <ul>
+        ${rightLinks.map(l => `<li><a href="${base}${l.link}">${l.text}</a></li>`).join('')}
+      </ul>
+    </div>
+  `;
+
+  document.getElementById('dynamic-footer-wrapper').innerHTML = html;
+})();
+</script>
 </footer>
 <script>
 window.showPayPalSection = function() {
@@ -1213,5 +1708,85 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 <script src="/js/script.js?v=1"></script>
+<script>
+async function runAnalysis(domain) {
+  const container = document.getElementById('problems-list');
+
+  const isEN = window.location.pathname.includes('/en/');
+
+  // микро-анимация
+  const steps = isEN
+    ? ["Checking SEO...", "Scanning structure...", "Finding issues..."]
+    : ["Проверяем SEO...", "Сканируем структуру...", "Ищем ошибки..."];
+
+  let i = 0;
+  container.innerHTML = steps[0];
+
+  const interval = setInterval(() => {
+    i = (i + 1) % steps.length;
+    container.innerHTML = steps[i];
+  }, 800);
+
+  try {
+    const res = await fetch(`/api/report?domain=${domain}`);
+    const data = await res.json();
+
+    clearInterval(interval);
+
+    if (!data || !data.issues || data.issues.length === 0) {
+      container.innerHTML = isEN
+        ? "⚠ Unable to get data. Try another website"
+        : "⚠ Не удалось получить данные. Попробуйте другой сайт";
+      return;
+    }
+
+    container.innerHTML = `
+      <div style="margin-bottom:10px;font-weight:600;">
+        ${isEN ? `${data.issues.length} issues found` : `Найдено проблем: ${data.issues.length}`}
+      </div>
+    `;
+
+    data.issues.slice(0, 5).forEach(issue => {
+      const el = document.createElement("div");
+      el.className = "problem-item";
+
+      el.innerHTML = `
+        <div class="problem">
+          <i data-lucide="alert-triangle"></i>
+          <span>${issue}</span>
+        </div>
+      `;
+
+      container.appendChild(el);
+    });
+
+    // блок потерь (важно для продаж)
+    const lossText = isEN
+      ? "You may be losing up to 30–50% of leads"
+      : "Вы теряете до 30–50% заявок";
+
+    const lossBlock = document.createElement("div");
+    lossBlock.style.marginTop = "12px";
+    lossBlock.style.opacity = "0.8";
+    lossBlock.innerHTML = `📉 ${lossText}`;
+
+    container.appendChild(lossBlock);
+
+    lucide.createIcons();
+
+  } catch (e) {
+    clearInterval(interval);
+    container.innerHTML = isEN
+      ? "❌ Analysis error"
+      : "❌ Ошибка анализа";
+  }
+}
+
+// кнопка
+document.getElementById("analyze-btn").onclick = () => {
+  const domain = document.getElementById("domain-input").value;
+  runAnalysis(domain);
+};
+</script>
 </body>
 </html>

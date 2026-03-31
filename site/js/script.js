@@ -428,11 +428,123 @@
                 input.focus();
                 return;
             }
-            /* Redirect to scanner with the URL as a parameter */
+            
             const lang = document.documentElement.lang === 'ru' ? 'ru' : 'en';
-            const src = localStorage.getItem('source') || '';
-            const ref = localStorage.getItem('referral') || '';
-            window.location.href = `/${lang}/scan.html?url=${encodeURIComponent(url)}&src=${encodeURIComponent(src)}&ref=${encodeURIComponent(ref)}`;
+            const dashBody = $('#dashboardBody');
+            const dashTitle = $('#dashboardTitle');
+            const dashFooter = $('#dashboardFooter');
+
+            if (!dashBody) {
+                const src = localStorage.getItem('source') || '';
+                const ref = localStorage.getItem('referral') || '';
+                window.location.href = `/${lang}/scan.html?url=${encodeURIComponent(url)}&src=${encodeURIComponent(src)}&ref=${encodeURIComponent(ref)}`;
+                return;
+            }
+
+            // --- 1. Start Animate Loader ---
+            let step = 0;
+            const steps = lang === 'ru' 
+                ? ["🔍 Проверяем SEO...", "🔍 Анализируем структуру...", "🔍 Ищем ошибки..."]
+                : ["🔍 Checking SEO...", "🔍 Analyzing structure...", "🔍 Finding errors..."];
+                
+            dashBody.innerHTML = `
+                <style>@keyframes dash_spin { 100% { transform: rotate(360deg); } }</style>
+                <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 160px; gap: 12px;">
+                    <i data-lucide="search" class="icon" style="width: 24px; height: 24px; animation: dash_spin 2s linear infinite;"></i>
+                    <div id="scanStepText" style="font-size: 0.95rem; color: #fff; font-weight: 600;">${steps[0]}</div>
+                </div>
+            `;
+            if (window.lucide) lucide.createIcons();
+
+            const stepInterval = setInterval(() => {
+                step = (step + 1) % steps.length;
+                const el = $('#scanStepText');
+                if (el) el.textContent = steps[step];
+            }, 1200);
+
+            // --- 2. Fetch API ---
+            fetch(`/api/report?url=${encodeURIComponent(url)}`)
+                .then(res => res.json())
+                .then(data => {
+                    clearInterval(stepInterval);
+                    
+                    const insights = data.insights ? data.insights.slice(0, 3) : [];
+                    const lossVal = data.loss || '30–50%';
+                    
+                    dashTitle.innerHTML = `<i data-lucide="search" class="icon" style="width: 18px; height: 18px; color: #00e0ff; vertical-align: middle; margin-right: 6px;"></i> ${lang === 'ru' ? 'Анализ завершен' : 'Analysis complete'}`;
+                    
+                    let htmlList = `<div style="display:flex; flex-direction:column; gap: 12px; margin-bottom: 16px;">`;
+                    if (insights.length > 0) {
+                        insights.forEach(issue => {
+                            let icon = 'x-circle';
+                            let iconColor = '#ff5f57'; // Error Red
+                            if (issue.type === 'warning') {
+                                icon = 'alert-triangle';
+                                iconColor = '#febc2e'; // Warning Yellow
+                            } else if (issue.type === 'success') {
+                                icon = 'check-circle';
+                                iconColor = '#28c840'; // Success Green
+                            }
+                            
+                            let message = issue.message || '';
+                            if (lang === 'en') {
+                                if (message.includes('Нет H1')) message = 'Missing H1 - search engines cannot understand page';
+                                if (message.includes('H1 есть')) message = 'H1 found - page structure is clear';
+                                if (message.includes('Нет description')) message = 'Missing description - losing clicks';
+                                if (message.includes('Description есть')) message = 'Description found - improves CTR';
+                                if (message.includes('Нет title')) message = 'Missing title - site will not rank well';
+                                if (message.includes('Title есть')) message = 'Title found - basic SEO is present';
+                                if (message.includes('Сайт недоступен')) message = 'Site unavailable or analysis blocked';
+                            }
+                            
+                            htmlList += `
+                                <div style="display: flex; align-items: flex-start; gap: 10px;">
+                                    <i data-lucide="${icon}" class="icon" style="color: ${iconColor}; width: 18px; height: 18px; flex-shrink:0;"></i>
+                                    <span style="font-size: 0.9rem; color: #fff;">${message}</span>
+                                </div>
+                            `;
+                        });
+                    } else {
+                         htmlList += `
+                            <div style="display: flex; align-items: flex-start; gap: 10px;">
+                                <i data-lucide="x-circle" class="icon" style="color: #ff5f57; width: 18px; height: 18px; flex-shrink:0;"></i>
+                                <span style="font-size: 0.9rem; color: #fff;">${lang === 'ru' ? 'Нет описания страницы' : 'Missing description'}</span>
+                            </div>
+                         `;
+                    }
+                    htmlList += `</div>`;
+                    
+                    dashBody.innerHTML = `
+                        ${htmlList}
+                        <div style="background: rgba(255, 95, 87, 0.08); border: 1px solid rgba(255, 95, 87, 0.15); border-radius: 12px; padding: 12px; margin-bottom: 16px; display: flex; align-items: center; gap: 10px;">
+                            <i data-lucide="trending-down" class="icon" style="color: #ff5f57; width: 22px; height: 22px;"></i>
+                            <div style="font-size: 0.9rem; font-weight: 700; color: #ff5f57;">
+                                ${lang === 'ru' ? `Потери: до ${lossVal}` : `Loss: up to ${lossVal}`}
+                            </div>
+                        </div>
+                        <a href="/${lang}/report.html?domain=${encodeURIComponent(url)}" class="primary-btn" style="width: 100%; height: 44px; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; gap: 8px; transition: transform 0.2s ease;" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
+                            <i data-lucide="bar-chart" class="icon" style="width: 18px; height: 18px;"></i>
+                            <span>${lang === 'ru' ? 'Посмотреть полный разбор' : 'View full report'}</span>
+                        </a>
+                    `;
+                    
+                    if (dashFooter) {
+                        dashFooter.innerHTML = `<span class="hero__status-dot" style="background: #28c840;"></span> ${lang === 'ru' ? 'Анализ готов' : 'Analysis ready'}`;
+                    }
+                    if (window.lucide) lucide.createIcons();
+                })
+                .catch(err => {
+                    clearInterval(stepInterval);
+                    dashBody.innerHTML = `
+                        <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 160px; gap: 12px; text-align: center;">
+                            <i data-lucide="alert-triangle" class="icon" style="width: 24px; height: 24px; color: #ff5f57;"></i>
+                            <div style="font-size: 0.95rem; color: #ff5f57; font-weight: 600;">
+                                ${lang === 'ru' ? 'Не удалось получить данные' : 'Failed to fetch data'}
+                            </div>
+                        </div>
+                    `;
+                    if (window.lucide) lucide.createIcons();
+                });
         });
 
         input.addEventListener('keypress', (e) => {

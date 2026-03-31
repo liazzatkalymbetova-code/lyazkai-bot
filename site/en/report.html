@@ -3,6 +3,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
+    <meta name="robots" content="noindex, nofollow"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Platform Dashboard | InfoLady Report</title>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
@@ -188,7 +189,7 @@
 </style>
 
     <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://unpkg.com/lucide@latest" defer></script>
     <script>
       document.addEventListener("DOMContentLoaded", function() {
         if (typeof lucide !== 'undefined') {
@@ -207,7 +208,7 @@
 <div style="font-size: 0.75rem; color: var(--accent-primary); letter-spacing: 0.1em; margin-top: 4px;">PLATFORM v2.4</div>
 <nav class="dash-nav">
 <a class="dash-nav-item active" href="https://t.me/lyazkai_bot?start=help"><i data-lucide="bar-chart-2"></i> Overview</a>
-<a class="dash-nav-item" href="/en/visibility-rating.html"><i data-lucide="target"></i> Visibility Rating</a>
+<a class="dash-nav-item" href="/en/visibility-audit.html"><i data-lucide="target"></i> Visibility Rating</a>
 <a class="dash-nav-item" href="/en/visibility-audit.html"><i data-lucide="search"></i> Technical Audit</a>
 <a class="dash-nav-item" href="/en/search-trend-radar.html"><i data-lucide="radar"></i> Trend Radar</a>
 <a class="dash-nav-item" href="/en/digital-tools.html"><i data-lucide="wrench"></i> Toolset</a>
@@ -220,15 +221,12 @@
 <main class="dash-main">
 <div class="report-header">
 <div>
-<p style="color: #ff4d4d; font-size: 0.9rem; font-weight: 800; margin-bottom: 8px;">🚨 WARNING: Your website may be losing up to 60% of customers</p>
+<p style="color: #ff4d4d; font-size: 0.9rem; font-weight: 800; margin-bottom: 8px;"><i data-lucide="alert-triangle" class="icon"></i> WARNING: Your website may be losing up to 60% of customers</p>
 <h1 style="margin-bottom: 4px;">Website Marketing Audit</h1>
 
 <div class="domain-pill" id="domainDisplay">analyzing domain...</div>
 </div>
-<div style="display: flex; gap: 12px;">
-<button class="btn btn-ghost btn-sm" onclick="window.print()">📥 Export PDF</button>
-<button class="btn btn-primary btn-sm" onclick="location.href='/en/visibility-audit.html#pricing'">🚀 Upgrade Plan</button>
-</div>
+<!-- Actions removed to streamline attention into conversion lists row -->
 </div>
 <div class="metrics-row">
 <div class="dash-card" data-plan="basic">
@@ -267,7 +265,7 @@
 </div>
 
         <div class="upsell-box" data-plan="basic">
-            <h2>⚠️ You are seeing only 30% of analysis</h2>
+            <h2><i data-lucide="alert-triangle" class="icon"></i> You are seeing only 30% of analysis</h2>
             <p>This report shows basic errors. Main growth points and leads expansion triggers are hidden.</p>
             <ul>
                 <li>🔒 Where you are losing customers right now</li>
@@ -278,7 +276,7 @@
             <p style="font-weight:600; color:#fff; text-align:center; margin-bottom:10px;">📈 This data is available in Full Marketing Audit</p>
             <a href="/en/payment.html?plan=standard" class="btn-upgrade">Unlock Full Analysis — $50</a>
 
-            <p class="trust">🔥 After applying fixes websites usually increase inquiries within 2–4 weeks</p>
+            <p class="trust"><i data-lucide="flame" class="icon"></i> After applying fixes websites usually increase inquiries within 2–4 weeks</p>
         </div>
 
 <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 24px;">
@@ -305,20 +303,7 @@
 </div>
 </div>
 
-        <div class="upsell-box" data-plan="basic">
-            <h2>⚠️ You are seeing only 30% of analysis</h2>
-            <p>This report shows basic errors. Main growth points and leads expansion triggers are hidden.</p>
-            <ul>
-                <li>🔒 Where you are losing customers right now</li>
-                <li>🔒 Which pages are not bringing leads</li>
-                <li>🔒 How to increase conversion by 20–50%</li>
-                <li>🔒 Full website growth action plan</li>
-            </ul>
-            <p style="font-weight:600; color:#fff; text-align:center; margin-bottom:10px;">📈 This data is available in Full Marketing Audit</p>
-            <a href="/en/payment.html?plan=standard" class="btn-upgrade">Unlock Full Analysis — $50</a>
 
-            <p class="trust">🔥 After applying fixes websites usually increase inquiries within 2–4 weeks</p>
-        </div>
 
 <!-- ══════════════════════ PRO SECTION ══════════════════════ -->
 <section class="pro-section" id="proSection" data-plan="pro" style="margin-top: 40px; position: relative;">

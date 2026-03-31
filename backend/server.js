@@ -49,28 +49,36 @@ app.get('/api/report', async (req, res) => {
         const $ = cheerio.load(html);
 
         const hasH1 = $('h1').length > 0;
-        const hasDesc = $('meta[name="description"]').length > 0;
-        const hasTitle = $('title').length > 0 && $('title').text().trim().length > 0;
+        const hasTitle = $('title').text().trim().length > 0;
+        const hasDesc = $('meta[name="description"]').attr('content') ? true : false;
 
-        let seo = 100;
-        const problems = [];
+        const insights = [];
+        if (!hasH1) {
+            insights.push({ type: "error", message: "Нет H1 — поисковики не понимают страницу" });
+        } else {
+            insights.push({ type: "success", message: "H1 есть — структура страницы понятна" });
+        }
 
-        if (!hasH1) { seo -= 30; problems.push('Отсутствует H1'); }
-        if (!hasDesc) { seo -= 30; problems.push('Нет meta description'); }
-        if (!hasTitle) { seo -= 20; problems.push('Нет title'); }
+        if (!hasDesc) {
+            insights.push({ type: "warning", message: "Нет description — вы теряете клики" });
+        } else {
+            insights.push({ type: "success", message: "Description есть — улучшает CTR" });
+        }
 
-        const ai = Math.floor(Math.random() * 31) + 40; // 40-70
-        const ux = Math.floor(Math.random() * 31) + 40; // 40-70
+        if (!hasTitle) {
+            insights.push({ type: "error", message: "Нет title — сайт не будет нормально ранжироваться" });
+        } else {
+            insights.push({ type: "success", message: "Title есть — базовое SEO присутствует" });
+        }
 
-        res.json({ seo, ai, ux, problems });
+        res.json({ url: url, insights: insights });
 
     } catch (err) {
         console.error(`[API/report] Error:`, err.message);
         res.json({
-            seo: 50,
-            ai: 60,
-            ux: 55,
-            problems: ['Не удалось загрузить сайт']
+            insights: [
+                { type: "error", message: "Сайт недоступен или блокирует анализ" }
+            ]
         });
     }
 });
@@ -304,8 +312,28 @@ const LEADS_FILE = path.join(__dirname, 'leads.json');
 const LOG_FILE = path.join(__dirname, 'email_trigger_logs.txt');
 const telegram = require('./telegram');
 
-// --- LEAD CAPTURE ENDPOINT ---
+// --- PAYMENT INTENT TRACKING (called when user opens payment page) ---
 app.use(express.json()); // Essential for parsing POST bodies
+
+app.post('/api/payment-intent', (req, res) => {
+    try {
+        const { chatId } = req.body;
+        if (chatId) {
+            // Mark user as having opened the payment page in bot state
+            const { userStates } = require('./bot');
+            if (userStates && !userStates[chatId]) userStates[chatId] = {};
+            if (userStates && userStates[chatId]) {
+                userStates[chatId].status = 'payment_pending';
+                userStates[chatId].payment_timestamp = Date.now();
+            }
+        }
+        res.json({ success: true });
+    } catch (e) {
+        res.json({ success: true }); // Always 200 — non-critical
+    }
+});
+
+// --- LEAD CAPTURE ENDPOINT ---
 
 app.post(['/api/lead', '/api/save-lead'], async (req, res) => {
     try {
@@ -437,58 +465,44 @@ function triggerEmailDrip() {
             const ageMs = now - new Date(lead.created_at).getTime();
             const email = lead.email;
             const domain = lead.scanned_domain || 'your-site.com';
+            const isRu = lead.language === 'ru';
 
             let logMsg = '';
 
-            // Scenario 1: Immediate (Immediate setup)
+            // 1. Immediate
             const immKey = `${email}_immediate`;
             if (!logs.includes(immKey) && ageMs > 0) {
-                logMsg += `[${new Date().toISOString()}] Email backchannel ${email} (Immediate): "Спасибо за заявку 🙌 Анализируем ${domain}... Обычные потери 20-60%. Отчет: /report?url=${domain}"\n`;
+                const subject = isRu ? "Ваш анализ сайта готов" : "Your website audit is ready";
+                const text = isRu 
+                    ? `Мы нашли критические ошибки, из-за которых вы теряете клиентов.\n\nПосмотреть разбор:\nhttp://localhost:3000/${lead.language}/report.html?domain=${domain}`
+                    : `We found critical issues affecting your conversions.\n\nView report:\nhttp://localhost:3000/${lead.language}/report.html?domain=${domain}`;
+                logMsg += `[${new Date().toISOString()}] Email to ${email} (Immediate) "${subject}": "${text}"\n`;
                 logs += immKey + ',';
+                if (lead.status === 'new') { lead.status = 'emailed'; updated = true; }
             }
 
-            // Scenario 2: 5 minutes (STEP 1)
-            const fiveMinKey = `${email}_5m`;
-            if (!logs.includes(fiveMinKey) && ageMs > 300000) {
-                logMsg += `[${new Date().toISOString()}] Email to ${email} (5m): "Я посмотрел ваш сайт. Есть ошибки, которые режут заявки" | 5m\n`;
-                logs += fiveMinKey + ',';
-                if (lead.status === 'new') { lead.status = 'warm'; updated = true; }
-                telegram.sendWarmMessage(lead, '5m').catch(console.error);
-            }
-
-            // Scenario 3: 30 minutes (STEP 2)
+            // 2. 30 Minutes
             const thirtyMinKey = `${email}_30m`;
             if (!logs.includes(thirtyMinKey) && ageMs > 1800000) {
-                logMsg += `[${new Date().toISOString()}] Email to ${email} (30m): "Вы теряете клиентов даже при хорошем трафике" | 30m\n`;
+                const text = isRu 
+                    ? "Вы всё ещё теряете клиентов\nМы уже нашли ошибки на вашем сайте"
+                    : "You're still losing customers\nWe already found issues on your site";
+                logMsg += `[${new Date().toISOString()}] Email to ${email} (30m): "${text}"\n`;
                 logs += thirtyMinKey + ',';
-                if (lead.status === 'new' || lead.status === 'warm') { lead.status = 'warm'; updated = true; }
                 telegram.sendWarmMessage(lead, '30m').catch(console.error);
             }
 
-            // Scenario 4: 2 hours (STEP 3)
-            const twoHourKey = `${email}_2h`;
-            if (!logs.includes(twoHourKey) && ageMs > 7200000) {
-                logMsg += `[${new Date().toISOString()}] Email to ${email} (2h): "Это можно исправить за 1-2 дня" | 2h\n`;
-                logs += twoHourKey + ',';
-                telegram.sendWarmMessage(lead, '2h').catch(console.error);
-            }
-
-            // Scenario 5: 24 hours (STEP 4)
+            // 3. 24 Hours
             const dayKey = `${email}_24h`;
             if (!logs.includes(dayKey) && ageMs > 86400000) {
-                logMsg += `[${new Date().toISOString()}] Email to ${email} (24h): "Могу разобрать лично — напишите 👇 t.me/infolady" | 24h\n`;
+                const text = isRu 
+                    ? "Хотите увеличить заявки на 30–50%?"
+                    : "Want to increase conversions by 30–50%?";
+                logMsg += `[${new Date().toISOString()}] Email to ${email} (24h): "${text}"\n`;
                 logs += dayKey + ',';
                 telegram.sendWarmMessage(lead, '24h').catch(console.error);
-            }
-
-            // Scenario 6: 25 hours (STEP 5 - ДОЖИМ + LOST)
-            const lostKey = `${email}_lost`;
-            if (!logs.includes(lostKey) && ageMs > 90000000) { // 25 hours
-                logMsg += `[${new Date().toISOString()}] Email to ${email} (25h): "Дам скидку -20% сегодня, если напишите 👇" | lost_drip\n`;
-                logs += lostKey + ',';
-                lead.status = 'lost';
+                lead.status = 'lost'; 
                 updated = true;
-                telegram.sendWarmMessage(lead, 'lost').catch(console.error);
             }
 
             if (logMsg) {
@@ -537,7 +551,7 @@ app.get('/api/my-scans', (req, res) => {
 
 
 // Admin view for leads (Simple security via bearer token)
-app.get('/api/leads-admin', (req, res) => {
+app.get(['/api/leads', '/api/leads-admin'], (req, res) => {
     console.log('--- Incoming Request to /api/leads-admin ---');
     console.log('Method:', req.method);
     console.log('Headers:', JSON.stringify(req.headers, null, 2));

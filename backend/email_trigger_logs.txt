@@ -7,4 +7,4 @@
 [2026-03-22T10:55:08.578Z] Email Sent to new_buyer@example.com: "Ваш отчет готов" | immediate
 [2026-03-22T10:58:20.591Z] Email Sent to test_saas@example.com: "Ваш отчет готов" | immediate
 [2026-03-22T10:58:20.593Z] Email Sent to new_buyer@example.com: "Ваш отчет готов" | immediate
-lost_client@example.com_immediate,lost_client@example.com_5m,lost_client@example.com_30m,lost_client@example.com_2h,
+lost_client@example.com_immediate,lost_client@example.com_5m,lost_client@example.com_30m,lost_client@example.com_2h,lost_client@example.com_24h,

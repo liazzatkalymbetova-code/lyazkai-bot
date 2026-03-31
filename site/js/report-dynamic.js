@@ -25,39 +25,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const src = params.get('src');
     if (src) localStorage.setItem('source', src);
 
-    // ─── "Almost Done" Psychology Banner ───
-    if (!isUnlocked) {
-        document.addEventListener('DOMContentLoaded', () => {
-            const dashMain = document.querySelector('.dash-main');
-            if (dashMain) {
-                const progressDiv = document.createElement('div');
-                progressDiv.style.cssText = 'background: rgba(0, 224, 255, 0.04); border: 1px solid rgba(0, 224, 255, 0.15); border-radius: 12px; padding: 14px; margin-bottom: 20px; text-align: center; width: 100%; clear: both;';
-                progressDiv.innerHTML = `
-                    <div style="font-weight: 700; color: #fff; font-size: 0.95rem; margin-bottom: 8px;">
-                        ${isRu ? 'Вы уже на 70% к улучшению сайта 🎯' : "You are 70% closer to fixing your site 🎯"}
-                    </div>
-                    <div style="background: rgba(255,255,255,0.08); border-radius: 10px; height: 8px; width: 100%; max-width: 320px; margin: 0 auto;">
-                        <div style="background: #00e0ff; width: 70%; height: 100%; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 224, 255, 0.4);"></div>
-                    </div>
-                `;
-                dashMain.prepend(progressDiv);
-            }
-        });
-    }
-
-    // ─── Lead Capture Banner ───
-    if (!isUnlocked && !localStorage.getItem('lead_email')) {
-        const headBar = document.createElement('div');
-        headBar.style.cssText = 'background: rgba(124, 58, 237, 0.1); border-bottom: 1px solid rgba(124, 58, 237, 0.2); padding: 10px; text-align: center; font-size: 0.85rem; position: relative; z-index: 1000;';
-        headBar.className = 'lead-bar';
-        headBar.innerHTML = `
-            <span style="color:#fff; margin-right:10px;">${isRu ? 'Введите email, чтобы сохранить отчет:' : 'Enter email to save report:'}</span>
-            <input type="email" placeholder="Email" id="leadEmail" style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:4px; padding:4px 8px; color:#fff; font-size:0.8rem; width:180px; outline:none;">
-            <button class="btn btn-primary btn-sm" onclick="const e=document.getElementById('leadEmail').value; if(e.includes('@')){ localStorage.setItem('lead_email', e); this.closest('.lead-bar').remove(); alert('${isRu ? 'Сохранено. Мы вышлем отчет.' : 'Saved!'}'); } else { alert('${isRu ? 'Некорректный email' : 'Invalid email'}'); }" style="padding:4px 10px; font-size:0.8rem; margin-left:5px;">${isRu ? 'Сохранить' : 'Save'}</button>
-            <button style="background:none; border:none; color:rgba(255,255,255,0.4); margin-left:12px; cursor:pointer;" onclick="this.closest('.lead-bar').remove()">✕</button>
-        `;
-        document.body.prepend(headBar);
-    }
+    // Legacy Banners Removed (70% Progress and Top Lead Bar) to focus on inline Email Gate.
 
     // ─── Save Domain & Status ───
     if (domain && domain !== 'example.com') {
@@ -123,153 +91,241 @@ document.addEventListener('DOMContentLoaded', async () => {
         : '');
 
     try {
-        const response = await fetch(`${API_BASE}/api/scan?url=${encodeURIComponent(url)}&lang=${isRu ? 'ru' : 'en'}`);
+        const response = await fetch(`${API_BASE}/api/report?url=${encodeURIComponent(url)}&lang=${isRu ? 'ru' : 'en'}`);
 
         if (!response.ok) throw new Error('API Error');
         
         const data = await response.json();
-        const pData = data.parsedData || {};
 
-        // 1. Render Scores
-        if (seoScoreGaugeText) seoScoreGaugeText.textContent = data.seoScore;
-        if (techScoreText) techScoreText.textContent = data.performanceScore + '%';
-        if (aiScoreText) aiScoreText.textContent = data.aiScore >= 80 ? 'High' : data.aiScore >= 60 ? 'Good' : 'Moderate';
+        // 1. Hide unwanted score containers and locks
+        document.querySelectorAll('.metrics-row, .upsell-box, .pro-section, .upsell-section, .pricing, .ai-offer').forEach(el => {
+            el.style.display = 'none';
+        });
 
-        if (isRu) {
-            if (aiScoreText) {
-                const mapRu = { 'High': 'Высокий', 'Good': 'Хороший', 'Moderate': 'Средний' };
-                if (mapRu[aiScoreText.textContent]) aiScoreText.textContent = mapRu[aiScoreText.textContent];
+        if (actionList) {
+            const card = actionList.closest('.dash-card');
+            if (card) {
+                // 1. Bypass static html tier lock script (by downgrading require tier)
+                card.setAttribute('data-plan', 'basic');
+                // 2. Remove any existing dynamic overlay appended by inline scripts
+                const existingOverlay = card.querySelector('.locked-overlay');
+                if (existingOverlay) existingOverlay.remove();
+
+                const gridContainer = card.parentNode;
+                if (gridContainer) gridContainer.style.gridTemplateColumns = '1fr';
+                
+                const title = card.querySelector('.dash-card__title');
+                if (title) title.style.display = 'none';
+                const lock = card.querySelector('.locked-overlay-box');
+                if (lock) lock.style.display = 'none';
+
+                if (card.nextElementSibling) card.nextElementSibling.style.display = 'none';
             }
         }
 
-        // Animate Gauge
-        if (gaugeFill && data.seoScore !== undefined) {
-            const val = data.seoScore;
-            // Arc logic for gauge (radius 40, circumference ~251)
-            const offset = 251 - (251 * val / 100);
-            setTimeout(() => { gaugeFill.style.strokeDashoffset = offset; }, 300);
-        }
+        // 2. Render insights directly into actionList
+        if (actionList && data.insights) {
+            actionList.style.maxWidth = '600px';
+            actionList.style.margin = '0 auto';
 
-        // 2. Render Sub-text Updates
-        if (scoreSubText) {
-            scoreSubText.textContent = isRu 
-                ? `Скор на основе тегов, заголовков и структуры сайта.`
-                : `Score based on metadata tags, titles, and site volume.`;
-        }
-        if (techSubText) {
-            techSubText.textContent = isRu 
-                ? `Длина контента: ${pData.contentLength || 0} симв. Внутренних ссылок: ${pData.internalLinks || 0}.`
-                : `Content Length: ${pData.contentLength || 0} chars. Internal links: ${pData.internalLinks || 0}.`;
-        }
-        if (aiSubText) {
-            aiSubText.textContent = isRu 
-                ? `Микроразметка Schema: ${pData.hasSchema ? 'Да' : 'Нет'}. FAQ: ${pData.faqSchema ? 'Да' : 'Нет'}.`
-                : `Schema.org: ${pData.hasSchema ? 'Yes' : 'No'}. FAQ schema: ${pData.faqSchema ? 'Yes' : 'No'}.`;
-        }
+            const criticalCount = data.insights.filter(i => i.type === 'error').length;
+            const mediumCount = data.insights.filter(i => i.type === 'warning').length;
+            const fixedCount = data.insights.filter(i => i.type === 'success').length;
 
-        // 3. Render Roadmap Actions (Issues)
-        if (actionList && data.issues) {
-            if (data.issues.length === 0 || data.issues[0].title.includes('Критических') || data.issues[0].enTitle.includes('No critical')) {
-                actionList.innerHTML = `<div class="action-item" style="border-color:#28c840; background:rgba(40,200,64,0.05);">
-                    <div style="flex:1;">
-                        <div style="font-weight:600; color:#28c840;">${isRu ? '🎉 Сайт отлично оптимизирован!' : '🎉 Website is highly optimized!'}</div>
-                        <p style="font-size:0.85rem; color:var(--text-dim);">${isRu ? 'Все базовые критерии SEO пройдены.' : 'All basic SEO checklist criteria met.'}</p>
+            const isEn = window.location.pathname.includes('/en/');
+
+            const t = {
+                title1: isEn ? "🚨 You are losing clients right now" : "🚨 Вы теряете клиентов прямо сейчас",
+                sub1: isEn ? "Your site is already losing style up to 30–60% of leads due to critical errors" : "Ваш сайт уже теряет до 30–60% заявок из-за критических ошибок",
+                resTitle: isEn ? "Your Result:" : "Ваш результат:",
+                crit: isEn ? "critical errors" : "критические ошибки",
+                crit1: isEn ? "critical error" : "критическая ошибка",
+                critMany: isEn ? "critical errors" : "критических ошибок",
+                med: isEn ? "medium" : "средние",
+                fixed: isEn ? "fixed" : "исправлено",
+                conseqTitle: isEn ? "🔥 These errors are costing you clients" : "🔥 Эти ошибки стоят вам клиентов",
+                conseq1: isEn ? "• Up to 30–50% loss in leads" : "• До 30–50% потерь заявок",
+                conseq2: isEn ? "• Less trust" : "• Меньше доверия",
+                conseq3: isEn ? "• Leaving to competitors" : "• Уходят к конкурентам",
+                question: isEn ? "👉 Want to fix this in 1–2 days?" : "👉 Хотите исправить это за 1–2 дня?",
+                sub2: isEn ? "We will show what exactly to change and how it affects leads" : "Мы покажем, что конкретно изменить и как это влияет на заявки",
+                ctaPrimary: isEn ? "💰 Get Full Audit — $50" : "💰 Получить полный аудит — 25 000 ₸",
+                ctaSub1: isEn ? "✔ Action checklist" : "✔ Чек-лист исправлений",
+                ctaSub2: isEn ? "✔ Concrete fixes" : "✔ Конкретные правки",
+                ctaSub3: isEn ? "✔ Leads growth" : "✔ Рост заявок",
+                ctaSecondary: isEn ? "Write in Telegram" : "Написать в Telegram"
+            };
+
+            const critText = criticalCount === 1 ? t.crit1 : (criticalCount > 1 && criticalCount < 5 ? t.crit : t.critMany);
+
+            let html = `
+                <!-- БЛОК 1: УДАР -->
+                <div style="background: rgba(255, 59, 48, 0.08); border: 1px solid rgba(255, 59, 48, 0.2); padding: 25px; border-radius: 16px; margin-bottom: 25px; text-align:center;">
+                    <h2 style="color: #ff4d4d; font-size: 1.5rem; font-weight: 800; margin-bottom: 8px;">${t.title1}</h2>
+                    <p style="color: #fff; font-weight: 600; font-size: 1.05rem; margin: 0;">${t.sub1}</p>
+                </div>
+
+                <!-- БЛОК 2: ПРОГРЕСС -->
+                <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); padding: 20px; border-radius: 16px; margin-bottom: 25px; text-align: left;">
+                    <h4 style="color: #fff; font-size: 1.1rem; margin-bottom: 12px; font-weight: 700;">${t.resTitle}</h4>
+                    <div style="display: flex; gap: 15px; flex-wrap: wrap; margin-bottom: 5px;">
+                        <span style="background: rgba(255, 77, 77, 0.1); color: #ff4d4d; padding: 6px 12px; border-radius: 20px; font-size: 0.88rem; font-weight: 700;">❌ ${criticalCount} ${critText}</span>
+                        <span style="background: rgba(254, 188, 46, 0.1); color: #febc2e; padding: 6px 12px; border-radius: 20px; font-size: 0.88rem; font-weight: 700;">⚠️ ${mediumCount} ${t.med}</span>
+                        <span style="background: rgba(40, 200, 64, 0.1); color: #28c840; padding: 6px 12px; border-radius: 20px; font-size: 0.88rem; font-weight: 700;">✅ ${fixedCount} ${t.fixed}</span>
                     </div>
-                </div>`;
-            } else {
-                const MAX_FREE = isUnlocked ? 9999 : 3;
-                const visible = data.issues.slice(0, MAX_FREE);
-                const locked = data.issues.slice(MAX_FREE);
+                </div>
+            `;
 
-                let html = visible.map(issue => {
-                    const titleStr = isRu ? (issue.title || issue.enTitle) : (issue.enTitle || issue.title);
-                    return `
-                        <div class="action-item">
-                            <span class="action-tag tag-high">${isRu ? 'Исправить' : 'Fix'}</span>
-                            <div style="flex: 1;">
-                                <div style="font-weight: 600; margin-bottom: 4px;">${titleStr}</div>
-                                <p style="font-size: 0.85rem; color: var(--text-dim);">${isRu ? 'Требуется оптимизация для улучшения видимости.' : 'Critical for search visibility optimization.'}</p>
-                            </div>
-                            <button class="btn btn-ghost btn-sm">${isRu ? 'Исправить' : 'Fix'}</button>
+            // БЛОК 3: СПИСОК ОШИБОК
+            let insightsToRender = data.issues || data.insights || [];
+            const hasEmail = localStorage.getItem('lead_email') || isUnlocked;
+
+            if (!hasEmail) {
+                insightsToRender = data.insights.slice(0, 3);
+            }
+
+            html += insightsToRender.map(i => {
+                let icon = '💡';
+                let color = '#fff';
+                if (i.type === 'error') { icon = '❌'; color = '#ff4d4d'; }
+                else if (i.type === 'warning') { icon = '⚠️'; color = '#febc2e'; }
+                else if (i.type === 'success') { icon = '✅'; color = '#28c840'; }
+
+                const itemText = i.title || i.message || '';
+                const parts = itemText.split(' — ');
+                const title = parts[0];
+                const desc = parts[1] || '';
+
+                return `
+                    <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; padding: 18px; margin-bottom: 15px; text-align: left; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
+                        <div style="display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 1.1rem; color: ${color};">
+                            <span>${icon}</span> ${title}
                         </div>
-                    `;
-                }).join('');
+                        ${desc ? `<div style="margin-top: 8px; margin-left: 28px; color: var(--text-dim); font-size: 0.92rem; line-height: 1.5;">→ ${desc}</div>` : ''}
+                    </div>
+                `;
+            }).join('');
 
-                if (!isUnlocked) {
-                    html += `<div class="locked-section" style="position:relative;">`;
-                    html += (locked.length > 0 ? locked : [{}, {}]).map(() => `
-                        <div class="action-item locked-item">
-                            <span class="action-tag tag-high">${isRu ? 'Исправить' : 'Fix'}</span>
-                            <div style="flex: 1;">
-                                <div style="font-weight: 600; margin-bottom: 4px;">••••••••••••</div>
-                                <p style="font-size: 0.85rem; color: var(--text-dim);">${isRu ? 'Содержимое заблокировано' : 'Content hidden'}</p>
-                            </div>
-                            <button class="btn btn-ghost btn-sm">${isRu ? 'Исправить' : 'Fix'}</button>
+            if (!hasEmail) {
+                html += `
+                    <!-- EMAIL GATE -->
+                    <div style="background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 16px; padding: 24px; margin-top: 25px; text-align: center; backdrop-filter: blur(10px); box-shadow: 0 4px 20px rgba(0,0,0,0.4);">
+                        <div style="font-weight: 700; color: #fff; font-size: 1.2rem; margin-bottom: 8px;">
+                            ${isEn ? 'Enter your email to unlock full report' : 'Введите email, чтобы получить полный разбор'}
                         </div>
-                    `).join('');
-                    html += `</div>`;
-
-                    html += `
-                        <div class="paywall-overlay" style="background: linear-gradient(to bottom, rgba(15,16,20,0), #161822 40%); padding: 60px 24px 40px; text-align: center; margin-top: -80px; position: relative; z-index: 10; border-radius: 0 0 20px 20px; border-top: 1px solid rgba(255,255,255,0.05);">
-                            <h2 style="margin-bottom: 12px; font-size: 1.8rem; font-weight: 800; color: #fff;">
-                                ${isRu ? "🔒 Вы видите только 30% анализа" : "🔒 You are seeing only 30% of the analysis"}
-                            </h2>
-                            <p style="color: var(--text-dim); margin-bottom: 18px; max-width: 480px; margin: 0 auto 12px; font-size: 0.95rem;">
-                                ${isRu ? "Разблокируйте полный отчет:" : "Unlock full report:"}
-                            </p>
-
-                            <!-- Bullets to match SPEC -->
-                            <div style="text-align: left; max-width: 380px; margin: 0 auto 24px; font-size: 0.95rem; color: var(--text-main); display: flex; flex-direction: column; gap: 8px;">
-                                <div style="display: flex; gap: 8px;"><i data-lucide="check-circle-2" style="color: #28c840; width: 16px; height: 16px; flex-shrink:0; margin-top:2px;"></i> <span>${isRu ? "Все ошибки" : "Full audit"}</span></div>
-                                <div style="display: flex; gap: 8px;"><i data-lucide="check-circle-2" style="color: #28c840; width: 16px; height: 16px; flex-shrink:0; margin-top:2px;"></i> <span>${isRu ? "План роста" : "Growth plan"}</span></div>
-                                <div style="display: flex; gap: 8px;"><i data-lucide="check-circle-2" style="color: #28c840; width: 16px; height: 16px; flex-shrink:0; margin-top:2px;"></i> <span>${isRu ? "GEO и ИИ оптимизация" : "GEO + AI optimization"}</span></div>
-                                <div style="display: flex; gap: 8px;"><i data-lucide="check-circle-2" style="color: #28c840; width: 16px; height: 16px; flex-shrink:0; margin-top:2px;"></i> <span>${isRu ? "Как увеличить заявки" : "Conversion improvements"}</span></div>
-                            </div>
-
-                            <button class="btn btn-primary btn-block btn-lg" style="max-width:340px; margin:0 auto 12px; font-size: 1.05rem; box-shadow: 0 4px 20px rgba(0, 224, 255, 0.25); font-weight: 700;" onclick="location.href='/${isRu ? 'ru' : 'en'}/index.html#pricing'">
-                                ${isRu ? "Открыть полный аудит — 50 000 ₸" : "Unlock full audit — $100"}
+                        <p style="font-size: 0.88rem; color: var(--text-dim); margin-bottom: 20px;">
+                            ${isEn ? 'We found critical issues affecting your conversions.' : 'Мы нашли критические ошибки, которые скрыты'}
+                        </p>
+                        <div style="display: flex; gap: 12px; max-width: 440px; margin: 0 auto; flex-direction: column;">
+                            <input type="email" id="gateEmail" placeholder="example@mail.com" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 12px; color: #fff; width: 100%; outline: none;" />
+                            <button class="btn btn-primary btn-block btn-lg" onclick="const e=document.getElementById('gateEmail').value; if(e.includes('@')){ window.saveGateLead(e); } else { alert('${isEn ? 'Please enter a valid email' : 'Введите корректный email'}'); }" style="width: 100%; font-weight: 700; padding: 14px; font-size: 1.1rem;">
+                                ${isEn ? 'Unlock full report' : 'Получить полный разбор'}
                             </button>
-
-                            
-                            <p style="font-size: 0.8rem; color: var(--text-dim); margin-bottom: 0;">
-                                ${isRu ? "Доступ сразу после оплаты" : "Instant access after payment"}
-                            </p>
                         </div>
-                    `;
-                }
-                actionList.innerHTML = html;
+                    </div>
+                `;
 
-                // Dynamically load lucide icons for overlay if added
-                if (window.lucide) { lucide.createIcons(); }
-
-                // Timer Interval Logic
-                const timerElem = document.getElementById('paymentTimer');
-                if (timerElem) {
-                    let timeLeft = 15 * 60;
-                    const timerInterval = setInterval(() => {
-                        timeLeft--;
-                        const mins = Math.floor(timeLeft / 60);
-                        const secs = timeLeft % 60;
-                        timerElem.textContent = `${mins}:${secs < 10 ? '0' : ''}${secs}`;
-                        if (timeLeft <= 0) {
-                            clearInterval(timerInterval);
-                            timerElem.textContent = "Expired";
-                        }
-                    }, 1000);
-                }
-                
-                // Expose function for onclick
-                window.initiateUnlock = function() {
-                    const email = document.getElementById('paywallEmail').value;
-                    if (!email || !email.includes('@')) {
-                        alert(isRu ? 'Введите корректный Email' : 'Please enter a valid email');
-                        return;
-                    }
-                    // Place email template placeholder Stripe link
-                    window.location.href = 'https://buy.stripe.com/mock_placeholder?prefilled_email=' + encodeURIComponent(email);
+                window.saveGateLead = (email) => {
+                    fetch('/api/lead', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ 
+                            email: email, 
+                            scanned_domain: domain, 
+                            language: isEn ? 'en' : 'ru' 
+                        })
+                    })
+                    .then(res => res.json())
+                    .then(data => {
+                        localStorage.setItem('lead_email', email);
+                        localStorage.setItem('unlocked', 'true');
+                        window.location.reload();
+                    })
+                    .catch(err => {
+                        console.error('Lead Save Error:', err);
+                        // Fallback lock for local demo ease
+                        localStorage.setItem('lead_email', email);
+                        localStorage.setItem('unlocked', 'true');
+                        window.location.reload();
+                    });
                 };
             }
+
+            html += `
+                <!-- БЛОК 4: ПОСЛЕДСТВИЯ -->
+                <div style="margin-top: 30px; text-align: left; padding: 20px; background: rgba(255, 77, 77, 0.03); border: 1px solid rgba(255, 77, 77, 0.1); border-radius: 16px; margin-bottom: 30px;">
+                    <p style="color: #fff; font-weight: 800; font-size: 1.15rem; margin-bottom: 12px;">${t.conseqTitle}</p>
+                    <ul style="list-style: none; padding: 0; margin: 0; color: #fff; font-size: 0.95rem; line-height: 1.6;">
+                        <li style="margin-bottom: 8px;">${t.conseq1}</li>
+                        <li style="margin-bottom: 8px;">${t.conseq2}</li>
+                        <li style="margin-bottom: 0;">${t.conseq3}</li>
+                    </ul>
+                </div>
+
+                <!-- БЛОК 5: ПЕРЕЛОМ -->
+                <div style="text-align: center; margin-bottom: 25px;">
+                    <h3 style="color: #fff; font-size: 1.4rem; font-weight: 800; margin-bottom: 8px;">${t.question}</h3>
+                    <p style="color: var(--text-dim); font-size: 0.95rem; margin: 0;">${t.sub2}</p>
+                </div>
+
+                <!-- БЛОК 6: CTA -->
+                <div style="display: flex; flex-direction: column; gap: 15px; max-width: 440px; margin: 0 auto;">
+                    <button class="btn btn-primary btn-block btn-lg" onclick="window.showAuditPopup()" style="width:100%; padding: 16px; font-size: 1.15rem;">
+                        ${t.ctaPrimary}
+                    </button>
+                    <div style="display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; color: #28c840; font-size: 0.82rem; font-weight: 700; margin-top: -5px; margin-bottom: 10px;">
+                        <span>${t.ctaSub1}</span>
+                        <span>•</span>
+                        <span>${t.ctaSub2}</span>
+                        <span>•</span>
+                        <span>${t.ctaSub3}</span>
+                    </div>
+
+                    <a href="https://t.me/lyazkai_bot?start=${encodeURIComponent(`${isEn ? 'en' : 'ru'}|${domain || 'site'}`)}" target="_blank" class="btn-telegram">
+                        💬 <span class="tg-text">${isEn ? 'Write in Telegram' : 'Написать в Telegram'}</span>
+                    </a>
+                </div>
+            `;
+            actionList.innerHTML = html;
         }
+
+        // --- POPUP MODAL LOGIC ---
+        window.showAuditPopup = () => {
+            const modal = document.createElement('div');
+            modal.style.cssText = 'position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(5px); z-index: 9999; display: flex; align-items: center; justify-content: center;';
+            modal.innerHTML = `
+                <div style="background: #12141d; border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 32px; max-width: 400px; width: 92%; position: relative; text-align: left;">
+                    <button style="position: absolute; top: 16px; right: 16px; background: none; border: none; color: rgba(255,255,255,0.4); cursor: pointer; font-size: 1.2rem; outline:none;" onclick="this.closest('.modal-root').remove()">✕</button>
+                    <h3 style="color: #fff; margin-bottom: 16px; font-size: 1.3rem;">Полный аудит сайта</h3>
+                    
+                    <label style="display:block; font-size:0.85rem; color: var(--text-dim); margin-bottom: 5px;">Имя</label>
+                    <input type="text" id="auditName" placeholder="Ваше имя" style="width:100%; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:8px; padding:10px; color:#fff; margin-bottom: 12px; outline:none;">
+
+                    <label style="display:block; font-size:0.85rem; color: var(--text-dim); margin-bottom: 5px;">Email</label>
+                    <input type="email" id="auditEmail" placeholder="example@mail.com" style="width:100%; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:8px; padding:10px; color:#fff; margin-bottom: 12px; outline:none;">
+
+                    <label style="display:block; font-size:0.85rem; color: var(--text-dim); margin-bottom: 5px;">Ваш сайт</label>
+                    <input type="text" id="auditSite" value="${domain}" style="width:100%; background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.1); border-radius:8px; padding:10px; color:rgba(255,255,255,0.6); margin-bottom: 20px; outline:none;" readonly>
+
+                    <button class="btn btn-primary btn-block btn-lg" onclick="window.payForAudit()" style="background: linear-gradient(135deg, #00e0ff 0%, #7c5cff 100%); color: #000; font-weight: 800; width:100%;">${isRu ? 'Оплатить — 25 000 ₸' : 'Pay — $50'}</button>
+                    <p style="font-size:0.75rem; color: var(--text-dim); text-align:center; margin-top: 8px;">Доступ сразу после оплаты</p>
+                </div>
+            `;
+            modal.className = 'modal-root';
+            document.body.appendChild(modal);
+        };
+
+        window.payForAudit = () => {
+            const email = document.getElementById('auditEmail') ? document.getElementById('auditEmail').value : '';
+            if (email && email.includes('@')) {
+                window.location.href = `/ru/payment.html?plan=standard&email=${encodeURIComponent(email)}&domain=${encodeURIComponent(domain)}`;
+            } else {
+                alert(isRu ? 'Введите корректный Email' : 'Please enter a valid email');
+            }
+        };
+
+        // Re-run lucide icons loading just in case
+        if (window.lucide) { lucide.createIcons(); }
 
 
         // ─── PRO Block Logic ───
@@ -379,21 +435,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 }
             });
 
-        // ─── Telegram Widget ───
-        const dashMain = document.querySelector('.dash-main');
-        if (dashMain) {
-            const tgDiv = document.createElement('div');
-            tgDiv.className = 'tg-widget';
-            tgDiv.style.cssText = 'background: #0f172a; padding: 20px; border-radius: 12px; margin-top: 20px; text-align: center; clear: both; width: 100%; max-width: 500px; margin-left: auto; margin-right: auto;';
-            tgDiv.innerHTML = `
-                <h3 style="color: #fff; margin-bottom: 8px; font-size: 1.25rem;">${isRu ? 'Хотите понять, как исправить ошибки?' : 'Want to know how to fix it?'}</h3>
-                <p style="color: var(--text-dim); font-size: 0.9rem; margin-bottom: 15px;">${isRu ? 'Я покажу, что именно мешает вашему сайту получать клиентов' : 'I will show what blocks your website from getting clients'}</p>
-                <a href="https://t.me/lyazkai_bot?start=from_report" class="tg-btn" style="display: inline-block; padding: 12px 20px; background: #22c55e; color: #fff; border-radius: 8px; text-decoration: none; font-weight: 600;">
-                    ${isRu ? 'Получить разбор → Telegram' : 'Get tips → Telegram'}
-                </a>
-            `;
-            dashMain.appendChild(tgDiv);
-        }
+        // Legacy Telegram Widget removed to prevent duplicates.
         // ─── Implementation CTA Widget ───
         if (dashMain) {
             const implDiv = document.createElement('div');
@@ -420,9 +462,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                     ${isRu ? 'Поделитесь результатом' : 'Share your result'}
                 </div>
                 <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
-                    <a href="https://wa.me/?text=${shareText}%20${shareUrl}" target="_blank" class="btn btn-sm" style="background: #25D366; color: #fff; border:none; display:flex; align-items:center; gap:6px; padding: 8px 14px; font-size:0.85rem;"><i data-lucide="message-square" style="width:16px;height:16px;"></i> WhatsApp</a>
+
                     <a href="https://t.me/share/url?url=${shareUrl}&text=${shareText}" target="_blank" class="btn btn-sm" style="background: #0088cc; color: #fff; border:none; display:flex; align-items:center; gap:6px; padding: 8px 14px; font-size:0.85rem;"><i data-lucide="send" style="width:16px;height:16px;"></i> Telegram</a>
-                    <button class="btn btn-sm btn-secondary" onclick="navigator.clipboard.writeText(window.location.href); alert('${isRu ? 'Ссылка скопирована' : 'Link copied'}')" style="display:flex; align-items:center; gap:6px; padding: 8px 14px; font-size:0.85rem;"><i data-lucide="copy" style="width:16px;height:16px;"></i> ${isRu ? "Копировать" : "Copy Link"}</button>
                 </div>
             `;
             dashMain.appendChild(shareDiv);

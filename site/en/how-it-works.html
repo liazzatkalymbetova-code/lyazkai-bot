@@ -1,72 +1,446 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>How it Works | InfoLady SaaS Platform</title>
+<title>How InfoLady Works — AI SEO Audit Process Step by Step</title>
+<meta name="description" content="Learn how InfoLady's AI-powered SEO audit process works in 3 steps: website scan, visibility scoring, and a personalized action plan. Get results in under 5 minutes."/>
+<meta name="keywords" content="how AI SEO audit works, website visibility audit process, GEO optimization steps, AI search ranking, website audit Kazakhstan"/>
+<meta name="author" content="Lyazzat Kalymbetova, InfoLady"/>
+<link rel="canonical" href="https://infolady.online/en/how-it-works.html"/>
+<link rel="alternate" hreflang="en" href="https://infolady.online/en/how-it-works.html"/>
+<link rel="alternate" hreflang="ru" href="https://infolady.online/ru/how-it-works.html"/>
+<link rel="alternate" hreflang="x-default" href="https://infolady.online/"/>
+<!-- Open Graph -->
+<meta property="og:type" content="article"/>
+<meta property="og:url" content="https://infolady.online/en/how-it-works.html"/>
+<meta property="og:title" content="How InfoLady Works — AI SEO Audit Process"/>
+<meta property="og:description" content="3-step AI SEO audit: scan your website, get a visibility score, receive a personalized growth plan. Results in under 5 minutes."/>
+<meta property="og:image" content="https://infolady.online/audit-report-preview.png"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:site_name" content="InfoLady"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="How InfoLady AI SEO Audit Works"/>
+<meta name="twitter:description" content="3 steps to discover why your website is losing customers and how to fix it."/>
+<meta name="twitter:image" content="https://infolady.online/audit-report-preview.png"/>
+<meta name="ai-content" content="How AI SEO and GEO website audit process works"/>
+<meta name="ai-summary" content="InfoLady uses a 3-step process: automated website scan, AI visibility scoring across Google, ChatGPT, Perplexity and Gemini, and delivery of a personalized PDF action plan. The audit covers 50+ technical and content signals. Results are available in under 5 minutes for the free scan, and within 48 hours for the full professional PDF report."/>
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
 <link href="/style.css" rel="stylesheet"/>
+<link href="/favicon.png" rel="icon" type="image/png"/>
 <!-- Lucide Icons -->
-<script src="https://unpkg.com/lucide@latest"></script>
+<script src="https://unpkg.com/lucide@latest" defer></script>
 <script>
-      document.addEventListener("DOMContentLoaded", function() {
-        if (typeof lucide !== 'undefined') {
-             lucide.createIcons();
-        }
-      });
-    </script>
-
+  document.addEventListener("DOMContentLoaded", function() {
+    if (typeof lucide !== "undefined") { lucide.createIcons(); }
+  });
+</script>
 <style id="cta-spacer-style">
   body.top-bar-active nav.nav { top: 47px !important; }
   body.top-bar-active .page-hero { margin-top: 0px !important; }
-  @media (max-width: 768px) { 
-    body.top-bar-active nav.nav { top: 47px !important; } 
+  @media (max-width: 768px) {
+    body.top-bar-active nav.nav { top: 47px !important; }
     .global-cta-bar.top-bar { flex-direction: row; font-size: 0.85rem; padding: 10px; }
   }
+  .step-block { background: var(--bg-card); border: 1px solid var(--border); border-radius: 20px; padding: 40px; position: relative; }
+  .step-num { font-size: 3rem; font-weight: 800; background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1; margin-bottom: 16px; }
+  .step-block h2 { margin-bottom: 12px; }
+  .check-list { list-style: none; padding: 0; margin: 16px 0 0; }
+  .check-list li { padding: 6px 0 6px 28px; position: relative; color: var(--text-muted); font-size: 0.95rem; }
+  .check-list li::before { content: "✓"; position: absolute; left: 0; color: var(--accent-primary); font-weight: 700; }
+  .result-badge { display: inline-block; background: rgba(0,224,255,0.1); border: 1px solid rgba(0,224,255,0.3); color: var(--accent-primary); border-radius: 20px; padding: 4px 14px; font-size: 0.85rem; font-weight: 600; margin-top: 16px; }
+  .signal-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-top: 24px; }
+  .signal-card { background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
+  .signal-card h4 { font-size: 0.9rem; color: var(--accent-secondary); margin-bottom: 8px; }
+  .signal-card p { font-size: 0.85rem; color: var(--text-muted); margin: 0; }
+  .faq-item { border-bottom: 1px solid var(--border); padding: 24px 0; }
+  .faq-item h3 { font-size: 1.05rem; margin-bottom: 10px; color: var(--text-main); }
+  .faq-item p { color: var(--text-muted); margin: 0; line-height: 1.7; }
+  .compare-table { width: 100%; border-collapse: collapse; margin-top: 24px; }
+  .compare-table th { text-align: left; padding: 12px 16px; background: rgba(255,255,255,0.04); color: var(--text-muted); font-size: 0.85rem; font-weight: 600; }
+  .compare-table td { padding: 14px 16px; border-bottom: 1px solid var(--border); font-size: 0.95rem; }
+  .compare-table td:first-child { color: var(--text-muted); }
+  .compare-table td.yes { color: var(--accent-primary); font-weight: 600; }
+  .compare-table td.no { color: rgba(255,255,255,0.25); }
 </style>
-<meta name="description" content="How it Works | InfoLady SaaS Platform - Professional website audit in Kazakhstan (Almaty)."/>
-<meta name="keywords" content="website audit Kazakhstan Almaty"/>
+<!-- Schema: HowTo + FAQPage + Organization -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "@id": "https://infolady.online/en/how-it-works.html#howto",
+  "name": "How to Get Your AI SEO Audit with InfoLady",
+  "description": "A 3-step process to discover why your website is losing customers and get a personalized action plan.",
+  "totalTime": "PT5M",
+  "estimatedCost": { "@type": "MonetaryAmount", "currency": "USD", "value": "0" },
+  "step": [
+    {
+      "@type": "HowToStep",
+      "position": 1,
+      "name": "Submit Your Website URL",
+      "text": "Enter your website address into the InfoLady scanner. No signup required. The AI begins a 50-point technical and content analysis immediately.",
+      "url": "https://infolady.online/en/visibility-audit.html"
+    },
+    {
+      "@type": "HowToStep",
+      "position": 2,
+      "name": "Receive Your AI Visibility Score",
+      "text": "Within 30 seconds you receive a Visibility Score (0–100) showing how well your website performs in Google, ChatGPT, Perplexity, and Gemini search. The scan covers SEO health, technical errors, content quality, and AI citability.",
+      "url": "https://infolady.online/en/ai-seo-tools.html"
+    },
+    {
+      "@type": "HowToStep",
+      "position": 3,
+      "name": "Get Your Personalized Action Plan",
+      "text": "Review the prioritized list of issues sorted by revenue impact. Upgrade to the full PDF audit to get a 5-section professional report with step-by-step fix instructions, competitor benchmarking, and a 30-day growth roadmap.",
+      "url": "https://infolady.online/en/visibility-audit.html"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How long does the free website scan take?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The free AI scan takes under 30 seconds. You get an instant Visibility Score, top 3 critical issues, and a link to your free report. No signup required."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does InfoLady check during the audit?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "InfoLady checks 50+ signals across 5 categories: Technical SEO (page speed, mobile, HTTPS, indexability), Content Quality (E-E-A-T, originality, readability), AI Visibility (how ChatGPT, Perplexity, Gemini see your site), Competitor Benchmarking (how you compare to top 3 competitors), and Growth Opportunities (revenue-sorted priority list of fixes)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the difference between the free scan and the full PDF audit?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The free scan gives you an overall score and top 3 issues in 30 seconds. The full PDF audit (from $50) delivers a 5-section professional report within 48 hours, including detailed fix instructions, competitor benchmarking, AI visibility breakdown, and a 30-day action plan."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does InfoLady work for small businesses?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. InfoLady is specifically designed for SMBs and individual professionals who need expert-level SEO analysis without hiring a full agency. The platform is used by dentists, coaches, e-commerce stores, SaaS products, and local service businesses."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is GEO (Generative Engine Optimization) and why does it matter?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "GEO is the practice of optimizing your website so AI search engines — like ChatGPT, Perplexity, Google AI Overviews, and Gemini — can understand, cite, and recommend your content. Research from Georgia Tech and Princeton (2024) shows that sites optimized for GEO see 30–115% more visibility in AI-generated responses. InfoLady measures and improves both traditional SEO and GEO simultaneously."
+      }
+    }
+  ]
+}
+</script>
 </head>
 <body class="page-how-it-works top-bar-active">
 <header>
-<div class="global-cta-bar top-bar" style="background: linear-gradient(90deg, #1A1D26 0%, #242838 100%); padding: 12px 20px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.95rem; font-weight: 600; font-family:var(--font-body); display: flex; justify-content: center; align-items: center; gap: 12px; margin: 0; width: 100%; box-sizing: border-box; position: relative; z-index: 1001;"><a href="https://t.me/lyazkai_bot?start=global_cta" class="cta-top">🔥 Find out where you lose customers</a></div>
-
-
+<div class="global-cta-bar top-bar" style="background: linear-gradient(90deg, #1A1D26 0%, #242838 100%); padding: 12px 20px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.95rem; font-weight: 600; font-family:var(--font-body); display: flex; justify-content: center; align-items: center; gap: 12px; margin: 0; width: 100%; box-sizing: border-box; position: relative; z-index: 1001;">
+<a href="https://t.me/lyazkai_bot?start=global_cta" class="cta-top"><i data-lucide="zap" style="width:14px;height:14px;stroke-width:2;"></i> Find out where you lose customers</a>
+</div>
 <nav class="nav">
 <div class="container">
 <a class="nav__logo" href="/en/">InfoLady</a>
 <ul class="pnav__links" role="list">
 <li class="pnav__item"><a class="pnav__trigger" href="/en/visibility-audit.html">SEO Audit</a></li>
+<li class="pnav__item"><a class="pnav__trigger" href="/en/ai-integration.html">AI Integration</a></li>
+<li class="pnav__item"><a class="pnav__trigger" href="/en/ai-tools-directory.html">Tools</a></li>
 </ul>
+<div class="pnav__right">
+<div class="lang-switch">
+<button class="lang-btn active" data-lang="en">EN</button>
+<button class="lang-btn" data-lang="ru" onclick="location.href='/ru/how-it-works.html'">RU</button>
+</div>
+<a class="btn btn-primary btn-sm" href="/en/visibility-audit.html">Free Scan</a>
+</div>
 </div>
 </nav>
 </header>
-<main class="container" style="padding: 100px 0;">
-<h1>How it Works</h1>
-<p class="lead">From niche discovery to market dominance. Follow our 3-step platform logic.</p>
-<div style="display:grid; gap:40px; margin-top:60px;">
-<div>
-<h3>1. Discovery &amp; Audit</h3>
-<p>Run a <a href="/en/visibility-audit.html">Search Visibility Audit</a> to identify your current perception in modern search engines.</p>
+
+<main>
+
+<!-- ── HERO ── -->
+<section style="padding: 120px 0 60px; text-align: center; background: radial-gradient(circle at center, rgba(0,224,255,0.06) 0%, transparent 65%);">
+<div class="container">
+<span class="section-label section-label--glow">How It Works</span>
+<h1 style="font-size: clamp(2rem, 5vw, 3.5rem); margin: 16px 0 24px; max-width: 800px; margin-inline: auto;">How InfoLady Turns Your Website Into a Lead Machine</h1>
+<p class="lead" style="max-width: 680px; margin: 0 auto 40px; color: var(--text-muted);">
+Most websites lose 30–60% of potential customers silently — through slow load times, weak CTAs, and invisible AI search presence. InfoLady finds every leak and shows you exactly how to fix it.
+</p>
+<div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+<a class="btn btn-primary btn-lg" href="/en/visibility-audit.html">Scan My Website Free</a>
+<a class="btn btn-ghost btn-lg" href="https://t.me/lyazkai_bot?start=global_cta">Chat with AI Advisor</a>
 </div>
-<div>
-<h3>2. Market Intelligence</h3>
-<p>Monitor trends using our <a href="/en/search-trend-radar.html">Search Trend Radar</a> to stay ahead of the competition.</p>
-</div>
-<div>
-<h3>3. Optimization</h3>
-<p>Use our <a href="/en/digital-tools.html">Digital Tools</a> to implement recommended changes and improve your <a href="/en/visibility-rating.html">Visibility Rating</a>.</p>
+<div style="margin-top: 32px; display: flex; gap: 32px; justify-content: center; flex-wrap: wrap; color: var(--text-muted); font-size: 0.9rem;">
+<span>⚡ Results in 30 seconds</span>
+<span>🔒 No signup required</span>
+<span>📊 50+ checks</span>
+<span>🤖 AI-powered analysis</span>
 </div>
 </div>
-<div style="margin-top:80px;">
-<a class="btn btn-primary" href="/en/">Back to Home</a>
+</section>
+
+<!-- ── PROBLEM ── -->
+<section class="section section--tinted" style="padding: 60px 0;">
+<div class="container" style="max-width: 860px;">
+<h2 style="text-align:center; margin-bottom: 16px;">Why Most Websites Are Invisible to Customers</h2>
+<p style="color: var(--text-muted); text-align:center; margin-bottom: 40px;">The way people search for products and services has fundamentally changed. In 2024–2026, AI tools like ChatGPT, Perplexity, and Google AI Overviews now answer up to 40% of commercial queries directly — without sending users to websites at all. If your site is not optimized for AI search (GEO), your competitors are capturing those customers instead.</p>
+<div class="signal-grid">
+<div class="signal-card">
+<h4>Traditional SEO is not enough</h4>
+<p>Ranking on page 1 of Google no longer guarantees traffic. AI search engines pull answers directly from websites — but only from those they can understand and cite.</p>
 </div>
+<div class="signal-card">
+<h4>Slow sites lose customers instantly</h4>
+<p>53% of users abandon a website that takes more than 3 seconds to load on mobile. Every second of delay costs 7% in conversions on average.</p>
+</div>
+<div class="signal-card">
+<h4>Weak content = zero AI citations</h4>
+<p>AI engines like Perplexity and ChatGPT cite websites that have clear answer blocks, structured data, and E-E-A-T signals. Generic content is invisible to them.</p>
+</div>
+<div class="signal-card">
+<h4>No visibility score = guesswork</h4>
+<p>Without a measurable score, you cannot know if your SEO improvements are working. InfoLady quantifies every dimension of your visibility in a single dashboard.</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- ── 3 STEPS ── -->
+<section class="section" style="padding: 80px 0;">
+<div class="container">
+<div style="text-align:center; margin-bottom: 60px;">
+<h2>The 3-Step InfoLady Audit Process</h2>
+<p style="color: var(--text-muted); max-width: 600px; margin: 12px auto 0;">From URL to action plan in under 5 minutes for the free scan — or a full professional PDF report within 48 hours.</p>
+</div>
+<div style="display: grid; gap: 32px; max-width: 900px; margin: 0 auto;">
+
+<!-- Step 1 -->
+<div class="step-block">
+<div class="step-num">01</div>
+<h2>Submit Your Website URL</h2>
+<p style="color: var(--text-muted); margin-bottom: 16px;">Enter your website address — no account needed. InfoLady's crawler visits your homepage and key pages in real time, collecting raw technical and content data across 50+ signals.</p>
+<p style="color: var(--text-muted);">The scanner checks your site the same way search engines and AI crawlers see it — analyzing server responses, page structure, meta tags, schema markup, content depth, and link architecture simultaneously.</p>
+<ul class="check-list">
+<li>Works with any website — landing pages, e-commerce, SaaS, portfolios</li>
+<li>Supports English and Russian language sites</li>
+<li>Respects robots.txt and site security — no data stored without consent</li>
+<li>Instant results — no waiting, no queue</li>
+</ul>
+<span class="result-badge">Time: under 5 seconds to start</span>
+</div>
+
+<!-- Step 2 -->
+<div class="step-block">
+<div class="step-num">02</div>
+<h2>Receive Your AI Visibility Score</h2>
+<p style="color: var(--text-muted); margin-bottom: 16px;">Within 30 seconds, you receive a composite <strong>Visibility Score (0–100)</strong> broken down across five critical dimensions. Each score tells you exactly where you stand and what the gap costs you in real customer terms.</p>
+<div class="signal-grid" style="margin-top: 20px;">
+<div class="signal-card">
+<h4>🔧 Technical SEO</h4>
+<p>Page speed, mobile optimization, HTTPS, crawlability, canonical tags, structured data validity</p>
+</div>
+<div class="signal-card">
+<h4>🤖 AI Visibility (GEO)</h4>
+<p>How well ChatGPT, Perplexity, Gemini, and Google AI Overviews can understand and cite your content</p>
+</div>
+<div class="signal-card">
+<h4>📝 Content Quality</h4>
+<p>E-E-A-T signals, content depth, readability, originality, author authority, answer block quality</p>
+</div>
+<div class="signal-card">
+<h4>🔗 Authority & Trust</h4>
+<p>Schema markup, sameAs entity links, backlink signals, brand mentions, social presence</p>
+</div>
+</div>
+<p style="color: var(--text-muted); margin-top: 16px;">Every issue is ranked by <strong>revenue impact</strong> — not just technical severity. You see which fixes will bring the most customers, not just which violations to clean up.</p>
+<span class="result-badge">Time: 30 seconds to full score</span>
+</div>
+
+<!-- Step 3 -->
+<div class="step-block">
+<div class="step-num">03</div>
+<h2>Get Your Personalized Action Plan</h2>
+<p style="color: var(--text-muted); margin-bottom: 16px;">The free scan gives you your top 3 priority issues with brief explanations. The full professional audit delivers a <strong>5-section PDF report</strong> prepared within 48 hours — built specifically for your website, not a generic template.</p>
+<ul class="check-list">
+<li><strong>Section 1 — Technical Audit:</strong> 30+ technical checks with fix-by-fix instructions</li>
+<li><strong>Section 2 — AI Visibility:</strong> GEO score breakdown and how to improve each platform</li>
+<li><strong>Section 3 — Content Strategy:</strong> What to rewrite, what to add, and how to structure answers for AI citation</li>
+<li><strong>Section 4 — Competitor Analysis:</strong> Side-by-side comparison with your top 3 competitors</li>
+<li><strong>Section 5 — 30-Day Growth Roadmap:</strong> Week-by-week action plan sorted by revenue impact</li>
+</ul>
+<p style="color: var(--text-muted); margin-top: 16px;">After receiving your report, you can connect with our AI advisor in Telegram for real-time Q&amp;A on any section of the plan.</p>
+<span class="result-badge">Full PDF: delivered within 48 hours</span>
+</div>
+
+</div>
+</div>
+</section>
+
+<!-- ── WHAT WE CHECK ── -->
+<section class="section section--tinted" style="padding: 70px 0;">
+<div class="container">
+<h2 style="text-align:center; margin-bottom: 12px;">What InfoLady Analyzes (50+ Signals)</h2>
+<p style="color: var(--text-muted); text-align:center; max-width: 600px; margin: 0 auto 48px;">Our AI scanner was built specifically for the 2025–2026 search landscape — where traditional SEO metrics alone no longer predict visibility.</p>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px;">
+<div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 28px;">
+<h3 style="color: var(--accent-primary); margin-bottom: 16px; font-size: 1rem;">⚡ Core Web Vitals</h3>
+<p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.7;">LCP, INP, CLS — the three metrics Google uses to rank pages by user experience. Poor scores directly reduce your rankings and increase bounce rate.</p>
+</div>
+<div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 28px;">
+<h3 style="color: var(--accent-secondary); margin-bottom: 16px; font-size: 1rem;">🏷️ Schema.org Markup</h3>
+<p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.7;">Organization, Article, FAQPage, Product, BreadcrumbList, and speakable schemas. These are the primary signals AI search engines use to understand and cite your content.</p>
+</div>
+<div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 28px;">
+<h3 style="color: var(--accent-tertiary); margin-bottom: 16px; font-size: 1rem;">📱 Mobile-First Check</h3>
+<p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.7;">Over 70% of search queries now come from mobile devices. We verify responsive breakpoints, tap target sizes, font legibility, and viewport configuration.</p>
+</div>
+<div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 28px;">
+<h3 style="color: var(--accent-primary); margin-bottom: 16px; font-size: 1rem;">🔍 AI Crawler Access</h3>
+<p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.7;">We check if GPTBot, ClaudeBot, PerplexityBot, and Google-Extended can access your site — and verify your robots.txt, meta robots, and llms.txt configuration.</p>
+</div>
+<div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 28px;">
+<h3 style="color: var(--accent-secondary); margin-bottom: 16px; font-size: 1rem;">📖 Content Citability</h3>
+<p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.7;">We score each content block on 5 dimensions: answer quality, self-containment, statistical density, structural readability, and uniqueness — exactly how AI models evaluate sources.</p>
+</div>
+<div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 28px;">
+<h3 style="color: var(--accent-tertiary); margin-bottom: 16px; font-size: 1rem;">🏢 Entity Authority</h3>
+<p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.7;">We analyze your brand's presence across platforms that AI models use for entity verification: Wikipedia, LinkedIn, Crunchbase, industry directories, and social profiles.</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- ── COMPARE ── -->
+<section class="section" style="padding: 70px 0;">
+<div class="container" style="max-width: 800px;">
+<h2 style="text-align:center; margin-bottom: 40px;">InfoLady vs. Traditional SEO Tools</h2>
+<table class="compare-table">
+<thead>
+<tr>
+<th>Feature</th>
+<th style="text-align:center;">Traditional Tools</th>
+<th style="text-align:center; color: var(--accent-primary);">InfoLady</th>
+</tr>
+</thead>
+<tbody>
+<tr><td>AI visibility scoring (GEO)</td><td class="no" style="text-align:center;">✗</td><td class="yes" style="text-align:center;">✓</td></tr>
+<tr><td>ChatGPT / Perplexity / Gemini check</td><td class="no" style="text-align:center;">✗</td><td class="yes" style="text-align:center;">✓</td></tr>
+<tr><td>Revenue-sorted issue priority</td><td class="no" style="text-align:center;">✗</td><td class="yes" style="text-align:center;">✓</td></tr>
+<tr><td>Free instant scan</td><td class="no" style="text-align:center;">✗</td><td class="yes" style="text-align:center;">✓</td></tr>
+<tr><td>Schema.org validation</td><td style="text-align:center; color: var(--text-muted);">Partial</td><td class="yes" style="text-align:center;">✓</td></tr>
+<tr><td>Technical SEO audit</td><td class="yes" style="text-align:center;">✓</td><td class="yes" style="text-align:center;">✓</td></tr>
+<tr><td>Competitor benchmarking</td><td style="text-align:center; color: var(--text-muted);">Paid plans</td><td class="yes" style="text-align:center;">Included in audit</td></tr>
+<tr><td>PDF report with action plan</td><td style="text-align:center; color: var(--text-muted);">$100–500/mo</td><td class="yes" style="text-align:center;">From $50 one-time</td></tr>
+<tr><td>Telegram AI advisor follow-up</td><td class="no" style="text-align:center;">✗</td><td class="yes" style="text-align:center;">✓</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<!-- ── FAQ ── -->
+<section class="section section--tinted" style="padding: 70px 0;">
+<div class="container" style="max-width: 800px;">
+<h2 style="margin-bottom: 8px;">Frequently Asked Questions</h2>
+<p style="color: var(--text-muted); margin-bottom: 40px;">Everything you need to know before running your first audit.</p>
+
+<div class="faq-item">
+<h3>How long does the free website scan take?</h3>
+<p>The free AI scan completes in under 30 seconds. You instantly receive a Visibility Score (0–100), your top 3 critical issues ranked by revenue impact, and a link to your free report. No account or email required.</p>
+</div>
+<div class="faq-item">
+<h3>What does InfoLady check during the audit?</h3>
+<p>InfoLady analyzes 50+ signals across five categories: Technical SEO (page speed, mobile, HTTPS, crawlability), Content Quality (originality, depth, readability, E-E-A-T), AI Visibility (how ChatGPT, Perplexity, Gemini see your site), Authority Signals (schema markup, brand mentions, entity links), and Competitor Benchmarking (how you compare to your top 3 rivals).</p>
+</div>
+<div class="faq-item">
+<h3>What is the difference between the free scan and the full PDF audit?</h3>
+<p>The free scan delivers your overall Visibility Score and top 3 issues in 30 seconds — ideal for a quick health check. The full PDF audit ($50–$300) is a professional 5-section report delivered within 48 hours: it covers all 50+ signals in depth, includes competitor analysis, AI visibility breakdown, and a prioritized 30-day action plan with specific fix instructions for your website.</p>
+</div>
+<div class="faq-item">
+<h3>What is GEO (Generative Engine Optimization) and why does it matter?</h3>
+<p>GEO is the practice of optimizing your website so AI search engines — ChatGPT, Perplexity, Google AI Overviews, Gemini — can understand, cite, and recommend your content. A 2024 study by Georgia Tech, Princeton, and IIT Delhi found that GEO-optimized sites receive 30–115% more visibility in AI-generated responses. InfoLady measures and improves both traditional SEO and GEO simultaneously, preparing your site for the way search actually works in 2026.</p>
+</div>
+<div class="faq-item">
+<h3>Does InfoLady work for small businesses and solo professionals?</h3>
+<p>Yes. InfoLady is specifically designed for SMBs, freelancers, coaches, and local service businesses that need expert-level website analysis without a $5,000/month agency retainer. The platform has analyzed websites for dentists, yoga studios, e-commerce stores, SaaS products, law firms, and personal brands. The free scan requires no technical knowledge — just paste your URL.</p>
+</div>
+<div class="faq-item" style="border-bottom: none;">
+<h3>How do I get started?</h3>
+<p>Two ways: (1) <a href="/en/visibility-audit.html" style="color: var(--accent-primary);">Run a free scan on the website</a> — enter your URL and get results in 30 seconds. (2) <a href="https://t.me/lyazkai_bot?start=global_cta" style="color: var(--accent-primary);">Open our Telegram bot @lyazkai_bot</a> — paste your website URL and our AI advisor will walk you through the findings and recommend the right plan for your business.</p>
+</div>
+</div>
+</section>
+
+<!-- ── CTA ── -->
+<section class="cta-section" style="padding: 80px 0;">
+<div class="cta-section__glow"></div>
+<div class="container" style="text-align:center;">
+<h2 style="margin-bottom: 16px;">Ready to Find Your Hidden Revenue Leaks?</h2>
+<p style="color: var(--text-muted); max-width: 560px; margin: 0 auto 40px;">Run a free scan in 30 seconds — no signup, no credit card. Or start a conversation with our AI advisor in Telegram right now.</p>
+<div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+<a class="btn btn-primary btn-lg" href="/en/visibility-audit.html">Scan My Website Free →</a>
+<a class="btn btn-ghost btn-lg" href="https://t.me/lyazkai_bot?start=global_cta">Open Telegram Bot</a>
+</div>
+<p style="margin-top: 24px; font-size: 0.85rem; color: var(--text-muted);">Or explore: <a href="/en/platform.html" style="color: var(--accent-primary);">Platform Overview</a> · <a href="/en/ai-tools-directory.html" style="color: var(--accent-primary);">AI Tools Directory</a> · <a href="/en/about.html" style="color: var(--accent-primary);">About InfoLady</a></p>
+</div>
+</section>
+
 </main>
 
-
-<div class="global-cta-bar inline-bar" style="background: linear-gradient(90deg, #1A1D26 0%, #242838 100%); padding: 22px; text-align: center; border: 1px solid rgba(255,255,255,0.05); font-size: 1rem; font-weight: 600; font-family:var(--font-body); display: flex; justify-content: center; align-items: center; gap: 15px; margin: 30px 0; border-radius: 12px; background: rgba(255,255,255,0.03); backdrop-filter: blur(5px); box-shadow: 0 4px 25px rgba(0,0,0,0.4);">
-<span style="color: #fff;">Check your website free</span>
-<a class="btn btn-primary btn-sm" href="/en/scan.html" style="padding: 10px 20px; font-size: 0.9rem; box-shadow: 0 4px 15px rgba(0, 224, 255, 0.25);"> Check your site for free </a>
+<footer class="footer" role="contentinfo">
+<style>
+.footer-wrapper { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; padding: 40px 24px; }
+@media (max-width: 768px) { .footer-wrapper { grid-template-columns: 1fr; gap: 30px; } }
+.footer-col h5 { font-size: 16px; margin-bottom: 16px; color: #fff; font-weight: 600; }
+.footer-col ul { list-style: none; padding: 0; margin: 0; }
+.footer-col ul li { margin-bottom: 12px; }
+.footer-col ul li a { color: rgba(255,255,255,0.6); text-decoration: none; font-size: 14px; transition: color 0.2s ease; }
+.footer-col ul li a:hover { color: #fff; }
+.footer-bottom { border-top: 1px solid rgba(255,255,255,0.05); margin-top: 40px; padding-top: 20px; text-align: center; font-size: 13px; color: rgba(255,255,255,0.4); }
+</style>
+<div class="footer-wrapper">
+<div class="footer-col">
+<h5>Solutions</h5>
+<ul>
+<li><a href="/en/visibility-audit.html">SEO Audit</a></li>
+<li><a href="/en/ai-integration.html">AI Integration</a></li>
+<li><a href="/en/ai-seo-tools.html">Free SEO Checker</a></li>
+<li><a href="/en/search-trend-radar.html">Trend Radar</a></li>
+</ul>
 </div>
+<div class="footer-col">
+<h5>Information</h5>
+<ul>
+<li><a href="/en/about.html">About InfoLady</a></li>
+<li><a href="/en/privacy-policy.html">Privacy Policy</a></li>
+<li><a href="/en/terms-of-service.html">Terms of Service</a></li>
+<li><a href="/en/cookie-policy.html">Cookie Policy</a></li>
+</ul>
+</div>
+</div>
+<div class="footer-bottom">
+<p>© <span id="footer-year-hiw"></span> InfoLady. All rights reserved.</p>
+</div>
+<script>document.getElementById('footer-year-hiw').textContent = new Date().getFullYear();</script>
+</footer>
+<script defer src="/js/script.js"></script>
 </body>
 </html>

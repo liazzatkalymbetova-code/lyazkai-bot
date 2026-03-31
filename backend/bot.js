@@ -26,7 +26,7 @@ const strings = {
         greet: `Привет! 👋\n\nЯ просканирую твой сайт и покажу, где скрываются ошибки, мешающие продажам.\n\n👇 **Отправь ссылку (например, mysite.com) прямо сейчас!**`,
         analyzing: 'Анализирую... ⏳',
         success: 'Готово 👇 Вот твой анализ',
-        upsell: `Хочешь узнать, как исправить ошибки и привлечь больше клиентов?\n\n✔ Ключевые ошибки\n✔ Слабые места\n✔ Первые рекомендации\n\n👇 Получить полный отчёт`,
+        upsell: `Хочешь увидеть полную картину?\n\n✔ 50+ технических проверок\n✔ AI-видимость в ChatGPT и Google\n✔ Пошаговый план на 4 недели\n\n💰 Стоимость: 25 000 ₸ · PDF за 48 ч`,
         upsellBtn: '📄 Получить полный отчёт',
         auditResults: '🔍 *Результаты аудита:*',
         seoScore: 'SEO-рейтинг',
@@ -34,7 +34,7 @@ const strings = {
         bestPractices: 'Лучшие практики',
         mainIssues: 'Главные проблемы',
         noIssues: '• Данные недоступны',
-        verdict: '⚠️ *Вывод:* Клиенты могут уходить к конкурентам прямо сейчас.',
+        verdict: '⚠️ *Вывод:* Эти проблемы сейчас стоят вам клиентов каждый день.',
         error: '⚠️ Не удалось проанализировать сайт. Проверь ссылку и попробуй ещё раз.',
         link: 'Откройте полный анализ',
         followUp: `Ваш отчёт готов.\nНо там скрыты ключевые точки роста.\n\n👇 Открыть полный анализ`,
@@ -44,7 +44,7 @@ const strings = {
         greet: `Hello! 👋\n\nI will scan your website and show you where issues are hiding that block sales.\n\n👇 **Send your link (e.g., mysite.com) right now!**`,
         analyzing: 'Analyzing... ⏳',
         success: 'Done 👇 Here is your analysis',
-        upsell: `Want to find out how to fix issues and solve customer dropoffs?\n\n✔ Key issues\n✔ Hidden leaks\n✔ First tips\n\n👇 Get Full Report`,
+        upsell: `Want to see the full picture?\n\n✔ 50+ technical checks\n✔ AI visibility in ChatGPT & Google\n✔ Step-by-step 4-week plan\n\n💰 Price: $50 · PDF within 48h`,
         upsellBtn: '📄 Get Full Report',
         auditResults: '🔍 *Audit Results:*',
         seoScore: 'SEO Rating',
@@ -52,7 +52,7 @@ const strings = {
         bestPractices: 'Best Practices',
         mainIssues: 'Main Issues',
         noIssues: '• Data not available',
-        verdict: '⚠️ *Verdict:* Customers may be leaving to competitors right now.',
+        verdict: '⚠️ *Verdict:* These issues are costing you customers every day.',
         error: '⚠️ Failed to analyze website. Check link and try again.',
         link: 'Unlock full analysis',
         followUp: `Your report is ready.\nBut key growth points are hidden there.\n\n👇 Unlock full analysis`,
@@ -134,13 +134,17 @@ module.exports = function(app) {
     app.post('/api/payment-success', async (req, res) => {
         const { chatId } = req.body;
         if (userStates[chatId]) {
-            userStates[chatId].status = 'paid';
-            if (typeof stopFollowUps === 'function') {
-                stopFollowUps(chatId);
-            }
-            console.log(`[Payment] ${chatId} status set to paid.`);
+            userStates[chatId].status = 'purchased'; // matches follow-up guard
+            stopFollowUps(chatId); // stop all pending follow-ups
+            console.log(`[Payment] ${chatId} status set to purchased.`);
             try {
-                await bot.sendMessage(chatId, `🎉 Спасибо за оплату! Начинаю глубокий разбор вашего сайта.`);
+                const lang = userStates[chatId].lang || 'ru';
+                const domain = userStates[chatId].domain || '';
+                const domainLine = domain ? (lang === 'en' ? `\n\nSite: ${domain}` : `\n\nСайт: ${domain}`) : '';
+                const confirmMsg = lang === 'en'
+                    ? `🎉 Payment received! Thank you!\n\nI'm starting a deep analysis of your site.${domainLine}\n\n⏱ Your full audit PDF will be ready within 24–48 hours.\n\nI'll send it here in this chat.`
+                    : `🎉 Оплата получена! Спасибо!\n\nНачинаю глубокий разбор вашего сайта.${domainLine}\n\n⏱ Полный PDF-отчёт будет готов в течение 24–48 часов.\n\nОтправлю его прямо сюда в чат.`;
+                await bot.sendMessage(chatId, confirmMsg);
             } catch (e) {}
         }
         res.json({ success: true, status: 'paid' });
@@ -178,6 +182,61 @@ bot.onText(/\/start(?:\s+(.+))?/, async (msg, match) => {
         
         saveUser(chatId, data);
 
+        // User returning after payment from website
+        if (data.step === 'paid') {
+            userStates[chatId] = userStates[chatId] || {};
+            userStates[chatId].status = 'purchased';
+            userStates[chatId].lang = data.lang || (data.source && data.source.endsWith('_en') ? 'en' : 'ru');
+            stopFollowUps(chatId);
+
+            const l = userStates[chatId].lang;
+
+            const msg1 = l === 'en'
+                ? '⚡ We have started analysing your site...'
+                : '⚡ Мы уже начали анализ вашего сайта...';
+            const msg2 = l === 'en'
+                ? '🔍 Checking SEO, speed, and AI visibility across 50+ signals...'
+                : '🔍 Проверяем SEO, скорость и AI-видимость по 50+ параметрам...';
+            const msg3 = l === 'en'
+                ? '📊 Preparing your personalised recommendations. Your PDF report will arrive within 24–48 hours. We will message you here the moment it\'s ready.'
+                : '📊 Готовим персональные рекомендации. PDF-отчёт придёт в течение 24–48 часов. Как только будет готово — напишем сюда.';
+
+            await bot.sendMessage(chatId, msg1);
+            setTimeout(async () => {
+                try { await bot.sendMessage(chatId, msg2); } catch(e) {}
+            }, 25000);
+            setTimeout(async () => {
+                try { await bot.sendMessage(chatId, msg3); } catch(e) {}
+            }, 50000);
+            return;
+        }
+
+        if (data.domain) {
+            // STEP 1
+            const step1 = data.lang === 'en'
+                ? `I checked your website ${data.domain}. I already see several issues affecting your conversions.`
+                : `Я посмотрел ваш сайт ${data.domain}. Уже вижу несколько проблем, из-за которых вы теряете заявки.`;
+            await bot.sendMessage(chatId, step1);
+            
+            if (!userStates[chatId]) userStates[chatId] = {};
+            userStates[chatId].domain = data.domain;
+            userStates[chatId].lang = data.lang || 'ru';
+
+            // STEP 2
+            setTimeout(async () => {
+                const step2 = data.lang === 'en'
+                    ? `Do you want me to show 2–3 issues for free?`
+                    : `Хотите покажу 2–3 ошибки бесплатно?`;
+                const reply_markup = {
+                    inline_keyboard: [
+                        [{ text: data.lang === 'en' ? "Show issues" : "Показать ошибки", callback_data: "show_free_issues" }]
+                    ]
+                };
+                await bot.sendMessage(chatId, step2, { reply_markup });
+            }, 2000);
+            return; // skip standard welcome
+        }
+
         sendWelcome(chatId, data);
 
         scheduleFollowUps(chatId, data.segment);
@@ -188,7 +247,29 @@ bot.onText(/\/start(?:\s+(.+))?/, async (msg, match) => {
 });
 
 function parseStart(start) {
-    const parts = decodeURIComponent(start || '').split('_');
+    const decoded = decodeURIComponent(start || '');
+    
+    // NEW format: lang|domain
+    if (decoded.includes('|')) {
+        const [lang, domain] = decoded.split('|');
+        return {
+            source: 'site',
+            lang: lang || 'ru',
+            step: 'chat',
+            segment: 'warm',
+            domain: domain || ''
+        };
+    }
+    
+    // Known simple params from site CTAs
+    const knownCtaParams = ['global_cta', 'mobile_cta', 'audit_root_index', 'audit_root_ru', 'audit_root_en', 'paid_ru', 'paid_en'];
+    if (knownCtaParams.includes(decoded)) {
+        const lang = decoded.includes('en') ? 'en' : 'ru';
+        const isPaid = decoded.startsWith('paid_');
+        return { source: 'site', lang, step: isPaid ? 'paid' : 'chat', segment: isPaid ? 'purchased' : 'warm', domain: '' };
+    }
+
+    const parts = decoded.split('_');
     const map = {};
     for (let i = 0; i < parts.length; i += 2) {
         if (parts[i] && parts[i+1]) {
@@ -205,15 +286,23 @@ function parseStart(start) {
 }
 
 async function sendWelcome(chatId, data) {
-    const s = strings[data.lang || 'ru'] || strings['ru'];
-    if (data.source === 'site') {
-        await bot.sendMessage(chatId, `Я посмотрел ваш сайт 👇\nЕсть ошибки, из-за которых вы теряете клиентов.`);
-        setTimeout(async () => {
-            await bot.sendMessage(chatId, `У вас есть трафик 📈\nно заявок меньше, чем может быть.`);
-        }, 2000);
-    } else {
-        await bot.sendMessage(chatId, s.greet || "Привет! 👋 Отправь ссылку на свой сайт.");
-    }
+    const lang = data.lang || 'ru';
+    const s = strings[lang] || strings['ru'];
+
+    const greetMsg = lang === 'en'
+        ? `Hello! 👋\n\nI'm InfoLady — AI search visibility analyzer.\n\nSend me your website URL and I'll show you:\n📉 Where you're losing customers\n📊 Your SEO & AI visibility score\n🎯 Top 3 issues to fix\n\n👇 Just paste your URL (e.g. mysite.com)`
+        : `Привет! 👋\n\nЯ InfoLady — AI-аналитик видимости сайтов.\n\nОтправь мне ссылку на сайт, и я покажу:\n📉 Где ты теряешь клиентов\n📊 Твой SEO и AI-рейтинг\n🎯 Топ-3 ошибки которые нужно исправить\n\n👇 Просто отправь ссылку (например, mysite.com)`;
+
+    const opts = {
+        reply_markup: {
+            inline_keyboard: [
+                [{ text: lang === 'en' ? "📋 View Pricing" : "📋 Посмотреть тарифы", callback_data: "view_price" }],
+                [{ text: lang === 'en' ? "📈 Success Case" : "📈 Кейс: +40% заявок", callback_data: "view_case" }]
+            ]
+        }
+    };
+
+    await bot.sendMessage(chatId, greetMsg, opts);
 }
 
 
@@ -224,6 +313,51 @@ bot.on('callback_query', async (query) => {
     }
 
     const data = query.data;
+
+    if (data === 'show_free_issues') {
+        const state = userStates[chatId] || { lang: 'ru' };
+        const l = state.lang || 'ru';
+        const domain = state.domain || '';
+        const domainRef = domain ? (l === 'en' ? ` on ${domain}` : ` на ${domain}`) : '';
+
+        const step3 = l === 'en'
+            ? `Here's what I can already see${domainRef}:\n\n❌ Visitors don't understand what to do next — no visible action button\n⚠️ The offer isn't clear in the first 5 seconds — people leave\n📉 These 2 issues alone can kill 30–60% of potential leads`
+            : `Вот что уже видно${domainRef}:\n\n❌ Посетитель не понимает что делать дальше — нет явной кнопки действия\n⚠️ Оффер не считывается за первые 5 секунд — люди уходят\n📉 Только из-за этих 2 проблем вы теряете 30–60% потенциальных заявок`;
+
+        await bot.sendMessage(chatId, step3);
+
+        setTimeout(async () => {
+            const step4 = l === 'en'
+                ? `That's just 2 of the issues I found.\n\nThe full audit covers 50+ checks:\n→ Technical SEO\n→ AI search visibility\n→ Competitor gaps\n→ Content quality\n\nYou get a prioritized PDF plan — exactly what to fix and in what order.\n\n💰 $50 · PDF within 48h`
+                : `Это только 2 из найденных проблем.\n\nПолный аудит включает 50+ проверок:\n→ Технический SEO\n→ Видимость в AI-поиске\n→ Анализ конкурентов\n→ Качество контента\n\nВы получаете PDF с приоритетным планом — что исправить и в какой очерёдности.\n\n💰 25 000 ₸ · PDF за 48 ч`;
+            const reply_markup = {
+                inline_keyboard: [
+                    [{ text: l === 'en' ? "✅ Get Full Audit — $50" : "✅ Хочу полный аудит — 25 000 ₸", callback_data: "get_full_audit" }],
+                    [{ text: l === 'en' ? "📈 See a real case first" : "📈 Сначала посмотреть кейс", callback_data: "view_case" }]
+                ]
+            };
+            await bot.sendMessage(chatId, step4, { reply_markup });
+        }, 2500);
+    }
+
+    if (data === 'get_full_audit') {
+        const state = userStates[chatId] || { lang: 'ru' };
+        const l = state.lang || 'ru';
+        const payUrl = `https://infolady.online/${l}/payment.html?plan=basic&source=bot&user=${chatId}`;
+        const text = l === 'en'
+            ? `⚠️ I found several critical issues on your site.\n\nThey are actively reducing your conversions and search visibility right now.\n\nThe full audit will show you:\n• exactly where you're losing customers\n• why your site isn't ranking in Google\n• how competitors are outranking you\n\n👇 Tap to see the complete breakdown:`
+            : `⚠️ Я нашёл несколько критических ошибок на вашем сайте.\n\nОни прямо сейчас снижают вашу конверсию и видимость в поиске.\n\nПолный аудит покажет:\n• где именно теряются клиенты\n• почему сайт не виден в Google\n• как конкуренты вас обходят\n\n👇 Нажмите, чтобы увидеть полный разбор:`;
+        if (!userStates[chatId]) userStates[chatId] = {};
+        userStates[chatId].status = 'payment_pending';
+        userStates[chatId].payment_timestamp = Date.now();
+        await bot.sendMessage(chatId, text, {
+            reply_markup: {
+                inline_keyboard: [
+                    [{ text: l === 'en' ? "👉 Show Full Audit" : "👉 Показать полный аудит", url: payUrl }]
+                ]
+            }
+        });
+    }
 
     bot.answerCallbackQuery(query.id);
     if (data === 'get_audit') {
@@ -239,24 +373,30 @@ bot.on('callback_query', async (query) => {
 
 
     if (data === 'view_price') {
-        const text = `💰 **Наши Тарифы:**\n\n` +
-                     `— **Базовый (25 000 ₸ / 50$):** Краткий аудит ошибок\n` +
-                     `— **Стандарт (50 000 ₸ / 100$):** Пошаговый план роста\n` +
-                     `— **Премиум (150 000 ₸ / 300$):** Индивидуальный разбор\n\n` +
-                     `👉 **Ссылка на оплату:** https://infolady.online/payment.html?user=${chatId}`;
-        await bot.sendMessage(chatId, text, { parse_mode: 'Markdown' });
-        
+        const state = userStates[chatId] || { lang: 'ru' };
+        const l = state.lang || 'ru';
+        const payUrl = `https://infolady.online/${l}/payment.html?plan=basic&source=bot&user=${chatId}`;
+        const text = l === 'en'
+            ? `⚠️ Your site is losing customers right now.\n\nThe audit shows exactly where — and how to fix it.\n\n💰 *Our Plans:*\n\n— *Basic ($50):* Issue audit + top fixes\n— *Standard ($100):* Step-by-step growth plan\n— *Premium ($300):* Personal walkthrough\n\nMost popular: Basic`
+            : `⚠️ Ваш сайт теряет клиентов прямо сейчас.\n\nАудит покажет точно где — и как это исправить.\n\n💰 *Наши Тарифы:*\n\n— *Базовый (25 000 ₸):* Краткий аудит ошибок\n— *Стандарт (50 000 ₸):* Пошаговый план роста\n— *Премиум (150 000 ₸):* Индивидуальный разбор\n\nСамый популярный: Базовый`;
+        await bot.sendMessage(chatId, text, {
+            parse_mode: 'Markdown',
+            reply_markup: {
+                inline_keyboard: [
+                    [{ text: l === 'en' ? "✅ Get Basic Audit — $50" : "✅ Базовый аудит — 25 000 ₸", url: payUrl }]
+                ]
+            }
+        });
         if (userStates[chatId]) userStates[chatId].status = 'interested';
     }
 
     if (data === 'view_case') {
-        const text = `📈 **Кейс: Рост заявок на 40% за 1 неделю**\n\n` +
-                     `**Проблема:** Страница услуг теряла клиентов из-за сложной формы.\n` +
-                     `**Решение:** Упростили форму до 1 поля, добавили блок доверия.\n` +
-                     `**Результат:** Заявки выросли в 1.4 раза 🚀\n\n` +
-                     `Хотите также? Напишите "хочу"!`;
+        const state = userStates[chatId] || { lang: 'ru' };
+        const l = state.lang || 'ru';
+        const text = l === 'en'
+            ? `📈 *Case Study: +40% leads in 1 week*\n\n*Problem:* A services page was losing visitors due to a complex form.\n*Solution:* Simplified to 1 field, added a trust block.\n*Result:* Leads grew 1.4x 🚀\n\nWant the same for your site? Type "ready"!`
+            : `📈 *Кейс: Рост заявок на 40% за 1 неделю*\n\n*Проблема:* Страница услуг теряла клиентов из-за сложной формы.\n*Решение:* Упростили форму до 1 поля, добавили блок доверия.\n*Результат:* Заявки выросли в 1.4 раза 🚀\n\nХотите также? Напишите "хочу"!`;
         await bot.sendMessage(chatId, text, { parse_mode: 'Markdown' });
-        
         if (userStates[chatId]) userStates[chatId].status = 'warm';
     }
 });
@@ -298,24 +438,37 @@ bot.on('message', async (msg) => {
                 );
                 const data = apiRes.data;
 
+                // Step 1: show audit scores
                 const summary = buildSummary(data, lang);
                 await bot.sendMessage(chatId, summary, { parse_mode: 'Markdown' });
 
+                // Step 2: pause, then show report link
+                await new Promise(r => setTimeout(r, 1500));
                 const reportLink = `https://infolady.online/${lang}/report.html?user=${chatId}`;
-                await bot.sendMessage(chatId, `${s.success}\n${reportLink}`);
+                await bot.sendMessage(chatId, lang === 'en'
+                    ? `📄 Your free report is ready:\n${reportLink}`
+                    : `📄 Твой бесплатный отчёт готов:\n${reportLink}`);
 
-                const sellBlock = s.upsell;
+                // Step 3: pause, then upsell
+                await new Promise(r => setTimeout(r, 2500));
+                const issueCount = (data.issues || []).length;
+                const sellBlock = lang === 'en'
+                    ? `I found ${issueCount || 'several'} issues.\n\nThe free report shows *what* is broken.\nThe full audit shows *why* — and gives you an exact fix plan.\n\n✔ 50+ checks\n✔ Competitor analysis\n✔ PDF delivered in 48h`
+                    : `Я нашёл ${issueCount || 'несколько'} проблем.\n\nБесплатный отчёт показывает *что* сломано.\nПолный аудит — *почему* и как исправить.\n\n✔ 50+ проверок\n✔ Анализ конкурентов\n✔ PDF за 48 ч`;
                 const opts = {
+                    parse_mode: 'Markdown',
                     reply_markup: {
                         inline_keyboard: [
-                            [{ text: s.upsellBtn, url: `https://infolady.online/${lang}/payment.html?plan=basic&source=${source}&user=${chatId}` }]
+                            [{ text: lang === 'en' ? "✅ Get Full Audit — $50" : "✅ Полный аудит — 25 000 ₸", url: `https://infolady.online/${lang}/payment.html?plan=basic&source=${source}&user=${chatId}` }],
+                            [{ text: lang === 'en' ? "📈 See a real case" : "📈 Посмотреть кейс", callback_data: "view_case" }]
                         ]
                     }
                 };
                 await bot.sendMessage(chatId, sellBlock, opts);
 
-                // Update state to warm after audit
-                userStates[chatId] = { status: 'warm', updated_at: new Date().toISOString(), timestamp: Date.now() };
+                // Update state
+                userStates[chatId] = { status: 'warm', lang, domain: targetUrl, updated_at: new Date().toISOString(), timestamp: Date.now() };
+                scheduleFollowUps(chatId, 'warm');
 
             } catch (auditErr) {
                 console.error('[Audit] API error:', auditErr.message);
@@ -337,20 +490,26 @@ bot.on('message', async (msg) => {
 
             if (reply) {
                 console.log("GPT REPLY:", reply);
-                await bot.sendMessage(chatId, reply); 
-            const segment = detectSegment(text, { 
-                messagesCount: userStates[chatId].messagesCount || 1, 
-                clicked: userStates[chatId].clicked || false 
-            });
-            userStates[chatId].segment = segment;
-            console.log("SEGMENT:", segment);
-            scheduleFollowUps(chatId, segment); // Start segmented follow-up chain
+                await bot.sendMessage(chatId, reply);
+                const segment = detectSegment(text, {
+                    messagesCount: userStates[chatId].messagesCount || 1,
+                    clicked: userStates[chatId].clicked || false
+                });
+                userStates[chatId].segment = segment;
+                console.log("SEGMENT:", segment);
+                scheduleFollowUps(chatId, segment);
             } else {
-                await bot.sendMessage(chatId, `Я могу показать, где вы теряете клиентов 👇`);
+                await bot.sendMessage(chatId, lang === 'en'
+                    ? `I can show where you're losing customers 👇`
+                    : `Я могу показать, где вы теряете клиентов 👇`,
+                    getFollowUpOpts(chatId));
             }
         } catch (gptErr) {
             console.error("[GPT] Error in bot handler:", gptErr.message);
-            await bot.sendMessage(chatId, `Я могу показать, где вы теряете клиентов 👇`);
+            await bot.sendMessage(chatId, lang === 'en'
+                ? `I can show where you're losing customers 👇`
+                : `Я могу показать, где вы теряете клиентов 👇`,
+                getFollowUpOpts(chatId));
         }
 
     } catch (err) {
@@ -414,67 +573,80 @@ function stopFollowUps(chatId) {
     }
 }
 
-const followUpOpts = {
-    reply_markup: {
-        inline_keyboard: [
-            [{ text: "📊 Получить разбор", callback_data: "get_audit" }]
-        ]
-    }
-};
+function getFollowUpOpts(chatId) {
+    const lang = userStates[chatId]?.lang || 'ru';
+    const payUrl = `https://infolady.online/${lang}/payment.html?plan=basic&source=followup&user=${chatId}`;
+    return {
+        reply_markup: {
+            inline_keyboard: [
+                [{ text: lang === 'en' ? "📊 Get Full Audit — $50" : "📊 Получить полный разбор — 25 000 ₸", url: payUrl }]
+            ]
+        }
+    };
+}
 
 async function send1(chatId, segment) {
     if (userStates[chatId]?.status === 'purchased') return;
-    
-    const texts = {
+    const lang = userStates[chatId]?.lang || 'ru';
+    const texts = lang === 'en' ? {
+        hot: "You're almost there 👇\n\nI can show you exactly\nwhere you're losing money\n\nReady to dig in?",
+        warm: "I see you're interested 👇\n\nTypical situation:\nsite exists — but no leads\n\nWant me to explain why?",
+        cold: "Quick look at your site 👇\n\nFound a couple of things\nthat are killing your conversions\n\nShall I show you?"
+    } : {
         hot: "Ты уже близко 👇\n\nЯ могу сразу показать,\nгде именно ты теряешь деньги\n\nГотов разобрать?",
         warm: "Я вижу ты уже смотришь 👇\n\nУ тебя типичная ситуация:\nсайт есть — заявок нет\n\nХочешь объясню почему?",
         cold: "Быстро глянул твой сайт 👇\n\nЕсть пара моментов,\nкоторые режут конверсию\n\nПоказать?"
     };
-
     const text = texts[segment] || texts.cold;
     console.log(`FOLLOW-UP 1 SENT [${segment}]`);
-    await bot.sendMessage(chatId, text, followUpOpts);
+    await bot.sendMessage(chatId, text, getFollowUpOpts(chatId));
 }
 
 async function send2(chatId, segment) {
     if (userStates[chatId]?.status === 'purchased') return;
-
-    const texts = {
+    const lang = userStates[chatId]?.lang || 'ru';
+    const texts = lang === 'en' ? {
+        hot: "Without the audit you keep losing leads\n\nThis isn't theory — it shows on your site\n\nLet me show you",
+        warm: "The problem isn't traffic\n\nThe problem is how\nyour site sells\n\nWant me to break it down?",
+        cold: "The issue is often not obvious\n\nBut it's the reason you have no clients\n\nI can show you an example"
+    } : {
         hot: "Смотри, без разбора ты продолжаешь терять заявки\n\nЭто не теория — это видно по твоему сайту\n\nДавай покажу",
         warm: "Проблема не в трафике\n\nПроблема в том,\nкак сайт продаёт\n\nРазобрать?",
         cold: "Часто проблема не очевидна\n\nНо именно из-за неё нет клиентов\n\nМогу показать на примере"
     };
-
     const text = texts[segment] || texts.cold;
     console.log(`FOLLOW-UP 2 SENT [${segment}]`);
-    await bot.sendMessage(chatId, text, followUpOpts);
+    await bot.sendMessage(chatId, text, getFollowUpOpts(chatId));
 }
 
 async function send3(chatId, segment) {
     if (userStates[chatId]?.status === 'purchased') return;
+    const lang = userStates[chatId]?.lang || 'ru';
+    const text = lang === 'en'
+        ? "While you think — customers leave\n\nCompetitors just made their site clearer\n\nAnd they're taking your traffic\n\nWant me to show where?"
+        : "Пока ты думаешь — клиенты уходят\n\nКонкуренты просто сделали сайт понятнее\n\nИ забирают твой трафик\n\nХочешь покажу где именно?";
     console.log("FOLLOW-UP 3 SENT");
-    await bot.sendMessage(chatId, "Пока ты думаешь — клиенты уходят\n\nКонкуренты просто сделали сайт понятнее\n\nИ забирают твой трафик\n\nХочешь покажу где именно?", followUpOpts);
+    await bot.sendMessage(chatId, text, getFollowUpOpts(chatId));
 }
 
 async function send4(chatId, segment) {
     if (userStates[chatId]?.status === 'purchased') return;
+    const lang = userStates[chatId]?.lang || 'ru';
+    const text = lang === 'en'
+        ? "Had a similar site recently\n\nAfter fixes:\n+ leads doubled\n\nReason — the same errors\n\nShall we look at yours?"
+        : "Недавно был похожий сайт\n\nПосле правок:\n+ заявки выросли в 2 раза\n\nПричина — те же ошибки\n\nРазобрать твой?";
     console.log("FOLLOW-UP 4 SENT");
-    await bot.sendMessage(chatId, "Недавно был похожий сайт\n\nПосле правок:\n+ заявки выросли в 2 раза\n\nПричина — те же ошибки\n\nРазобрать твой?", followUpOpts);
+    await bot.sendMessage(chatId, text, getFollowUpOpts(chatId));
 }
 
 async function send5(chatId, segment) {
     if (userStates[chatId]?.status === 'purchased') return;
+    const lang = userStates[chatId]?.lang || 'ru';
+    const text = lang === 'en'
+        ? `Let's keep it simple:\n\nI'll show you:\n— where you lose customers\n— what to fix\n— how to get more leads\n\nNo fluff. Ready?`
+        : `Сделаем просто:\n\nПокажу:\n— где теряешь клиентов\n— что исправить\n— как увеличить заявки\n\nБез воды\n\nГотов?`;
     console.log("FOLLOW-UP 5 SENT");
-    await bot.sendMessage(chatId, `Сделаем просто:
-
-Покажу:
-— где теряешь клиентов
-— что исправить
-— как увеличить заявки
-
-Без воды
-
-Готов?`, followUpOpts);
+    await bot.sendMessage(chatId, text, getFollowUpOpts(chatId));
 }
 
 function triggerBotDrip() {

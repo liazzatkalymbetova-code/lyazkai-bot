@@ -3,3 +3,22 @@
 
 # Telegram bot report link: /report?user=123 → serves /ru/report.html (200 = rewrite, URL stays same)
 /report   /ru/report.html   200
+
+# 301 Redirects for deleted C-group pages → nearest relevant page
+/en/ai-seo-check.html          /en/visibility-audit.html   301
+/en/ai-seo-checker.html        /en/ai-seo-tools.html       301
+/en/check-my-website.html      /en/visibility-audit.html   301
+/en/free-seo-audit.html        /en/visibility-audit.html   301
+/en/free-seo-checker.html      /en/ai-seo-tools.html       301
+/en/methodology.html           /en/how-it-works.html       301
+/en/seo-audit-free.html        /en/visibility-audit.html   301
+/en/visibility-rating.html     /en/visibility-audit.html   301
+
+/ru/ai-seo-check.html          /ru/visibility-audit.html   301
+/ru/ai-seo-checker.html        /ru/ai-seo-tools.html       301
+/ru/check-my-website.html      /ru/visibility-audit.html   301
+/ru/free-seo-audit.html        /ru/visibility-audit.html   301
+/ru/free-seo-checker.html      /ru/ai-seo-tools.html       301
+/ru/methodology.html           /ru/how-it-works.html       301
+/ru/seo-audit-free.html        /ru/visibility-audit.html   301
+/ru/visibility-rating.html     /ru/visibility-audit.html   301

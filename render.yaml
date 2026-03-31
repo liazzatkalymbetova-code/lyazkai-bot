@@ -1,0 +1,55 @@
+services:
+  - type: web
+    name: infolady-online
+    runtime: static
+    staticPublishPath: ./site
+    headers:
+      - path: /*
+        name: Strict-Transport-Security
+        value: max-age=31536000; includeSubDomains; preload
+      - path: /*
+        name: X-Content-Type-Options
+        value: nosniff
+      - path: /*
+        name: X-Frame-Options
+        value: SAMEORIGIN
+      - path: /*
+        name: Referrer-Policy
+        value: strict-origin-when-cross-origin
+      - path: /*
+        name: Permissions-Policy
+        value: camera=(), microphone=(), geolocation=(), payment=()
+      - path: /*
+        name: Content-Security-Policy
+        value: "default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' https: data:; connect-src 'self' https://api.infolady.online; frame-ancestors 'none';"
+      - path: /*.html
+        name: Cache-Control
+        value: public, max-age=3600, must-revalidate
+      - path: /sitemap.xml
+        name: Cache-Control
+        value: public, max-age=86400
+      - path: /robots.txt
+        name: Cache-Control
+        value: public, max-age=86400
+      - path: /llms.txt
+        name: Cache-Control
+        value: public, max-age=86400
+      - path: /js/*
+        name: Cache-Control
+        value: public, max-age=604800
+      - path: /style.css
+        name: Cache-Control
+        value: public, max-age=604800
+      - path: /*.png
+        name: Cache-Control
+        value: public, max-age=2592000
+      - path: /*.jpg
+        name: Cache-Control
+        value: public, max-age=2592000
+      - path: /*.ico
+        name: Cache-Control
+        value: public, max-age=2592000
+    routes:
+      - type: rewrite
+        source: /report
+        destination: /ru/report.html

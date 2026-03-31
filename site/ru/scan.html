@@ -10,6 +10,7 @@
   <meta name="target-country" content="KZ">
 
 <meta charset="utf-8"/>
+    <meta name="robots" content="noindex, nofollow"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Анализ сайта | Платформа InfoLady</title>
 <meta content="Запустите профессиональный анализ поисковой видимости. Узнайте, как ChatGPT и Google Gemini воспринимают ваш бренд." name="description"/>
@@ -127,7 +128,7 @@
     </style>
 
     <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://unpkg.com/lucide@latest" defer></script>
     <script>
       document.addEventListener("DOMContentLoaded", function() {
         if (typeof lucide !== 'undefined') {
@@ -154,7 +155,7 @@
 </head>
 <body class="platform-body">
 <header>
-<a href="https://t.me/lyazkai_bot?start=global_cta" class="cta-top">🔥 Узнать, где теряете клиентов</a>
+<a href="https://t.me/lyazkai_bot?start=global_cta" class="cta-top"><i data-lucide="zap" style="width: 14px; height: 14px; stroke-width: 2;"></i> Узнать, где теряете клиентов</a>
 <nav class="nav platform-nav">
 <div class="container">
 <div class="nav__inner">
@@ -175,36 +176,41 @@
 <div class="scan-card fade-up">
 <div class="loading-overlay" id="loadingOverlay">
 <div class="spinner"></div>
-<h2 id="loadingTitle">Анализ окружения</h2>
+<div id="percentCounter" style="font-size: 2rem; font-weight: 800; color: #fff; margin-bottom: 20px;">0%</div>
+<h2 id="loadingTitle" style="margin-bottom: 20px;">Запущен ИИ Анализ</h2>
 <div class="loading-steps">
-<div class="loading-step" id="step1">Подключение к индексам...</div>
-<div class="loading-step" id="step2">Аудит технических сигналов...</div>
-<div class="loading-step" id="step3">Симуляция ИИ-восприятия...</div>
-<div class="loading-step" id="step4">Генерация отчета...</div>
+<div class="loading-step" id="step1"><i data-lucide="search" class="icon"></i> <span>Анализируем структуру сайта...</span></div>
+<div class="loading-step" id="step2"><i data-lucide="zap" class="icon"></i> <span>Проверяем SEO и мета-теги...</span></div>
+<div class="loading-step" id="step3"><i data-lucide="bar-chart" class="icon"></i> <span>Оцениваем конверсию...</span></div>
+<div class="loading-step" id="step4"><i data-lucide="alert-triangle" class="icon"></i> <span>Ищем точки потери клиентов...</span></div>
 </div>
 </div>
 <div class="scan-header">
-<h1>Анализ видимости</h1>
-<p>Введите URL сайта, чтобы запустить движок анализа поисковой видимости.</p>
+<h1>Узнайте, где именно сайт теряет клиентов</h1>
+<p>Введите адрес сайта. За 3 минуты вы увидите SEO и AI-рейтинг, топ-3 проблемы и пошаговый план исправлений.</p>
 </div>
 <div class="scan-input-group">
-<input class="scan-input" id="scanUrl" placeholder="https://example.com" required="" type="url"/>
-<button class="btn btn-primary scan-btn" onclick="startScan()">Запустить анализ</button>
+<input class="scan-input" id="scanUrl" placeholder="yourwebsite.com" required="" type="url"/>
+<button class="btn btn-primary scan-btn" onclick="startScan()">Проанализировать сайт бесплатно →</button>
 </div>
+<p style="font-size:0.82rem; color:rgba(255,255,255,0.5); margin-top:10px;">Без регистрации · 3 минуты · 50+ проверок</p>
 <div class="scan-hints">
-<div class="scan-hint-item"><span>🔒</span> Безопасно</div>
-<div class="scan-hint-item"><span>⚡</span> Мгновенно</div>
-<div class="scan-hint-item"><span>🤖</span> На базе ИИ</div>
+<div class="scan-hint-item"><i data-lucide="shield" class="icon"></i> <span>Безопасно</span></div>
+<div class="scan-hint-item"><i data-lucide="zap" class="icon"></i> <span>Мгновенно</span></div>
+<div class="scan-hint-item"><i data-lucide="bot" class="icon"></i> <span>На базе ИИ</span></div>
 </div>
+            <div style="margin-top: 25px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 20px; text-align: left;">
+                <h3 style="color: #ff4d4d; font-weight: 800; font-size: 1.1rem; margin-bottom: 12px;"><i data-lucide="alert-triangle" class="icon" style="color: #ff4d4d;"></i> Вы уже теряете клиентов</h3>
+                <ul style="list-style: none; padding: 0; margin: 0; color: #fff; font-size: 0.9rem; line-height: 1.6;">
+                    <li style="margin-bottom: 8px; display: flex; align-items: flex-start; gap: 8px;"><i data-lucide="minus" class="icon" style="width:12px; height:12px; margin-top:6px;"></i> <span>сайт не виден в поиске</span></li>
+                    <li style="margin-bottom: 8px; display: flex; align-items: flex-start; gap: 8px;"><i data-lucide="minus" class="icon" style="width:12px; height:12px; margin-top:6px;"></i> <span>клиенты не понимают, что вы продаёте</span></li>
+                    <li style="margin-bottom: 15px; display: flex; align-items: flex-start; gap: 8px;"><i data-lucide="minus" class="icon" style="width:12px; height:12px; margin-top:6px;"></i> <span>заявки уходят конкурентам</span></li>
+                </ul>
+                <p style="color: #febc2e; font-weight: 700; font-size: 0.9rem; margin: 0;"><i data-lucide="arrow-right" class="icon" style="width:14px; height:14px; color: #febc2e;"></i> анализ покажет 2–3 ошибки за 10 секунд</p>
+            </div>
+        </div>
+    </div>
 </div>
-</div>
-
-<section class="ai-block">
-<h2>Как мы помогаем бизнесу</h2>
-<p>Мы внедряем ИИ в бизнесы в Казахстане, СНГ и по всему миру.</p>
-<p>Помогаем автоматизировать заявки, увеличить конверсию и привлекать клиентов через современные AI-системы.</p>
-<p>Наши услуги включают внедрение ИИ в Казахстане, AI автоматизацию бизнеса в Алматы и по всему СНГ, а также оптимизацию того, как получать заявки из сайта в Казахстане.</p>
-</section>
 
 <section class="faq">
 <h2>Частые вопросы</h2>
@@ -228,11 +234,22 @@
             const overlay = document.getElementById('loadingOverlay');
             overlay.classList.add('active');
 
+            // Percent Counter Ticker
+            let pct = 0;
+            const counterEl = document.getElementById('percentCounter');
+            const pctInterval = setInterval(() => {
+                if (pct < 98) {
+                    pct += Math.floor(Math.random() * 3) + 1;
+                    if (pct > 98) pct = 98;
+                    counterEl.textContent = pct + '%';
+                }
+            }, 50);
+
             const steps = [
-                { id: 'step1', time: 800 },
-                { id: 'step2', time: 1500 },
-                { id: 'step3', time: 1200 },
-                { id: 'step4', time: 1000 }
+                { id: 'step1', time: 700 },
+                { id: 'step2', time: 700 },
+                { id: 'step3', time: 700 },
+                { id: 'step4', time: 700 }
             ];
 
             let totalTime = 0;
@@ -245,12 +262,14 @@
                     
                     if (index === steps.length - 1) {
                         setTimeout(() => {
+                            clearInterval(pctInterval);
+                            counterEl.textContent = '100%';
                             const domain = url.replace(/^https?:\/\//i, '').split('/')[0];
                             const params = new URLSearchParams(window.location.search);
                             const src = params.get('src') || '';
                             const ref = params.get('ref') || '';
                             location.href = `/ru/report.html?domain=${encodeURIComponent(domain)}&url=${encodeURIComponent(url)}&src=${encodeURIComponent(src)}&ref=${encodeURIComponent(ref)}`;
-                        }, 1000);
+                        }, 500);
                     }
                 }, totalTime);
             });

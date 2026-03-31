@@ -165,26 +165,36 @@
         .result { color: #4ade80; font-weight: bold; margin-bottom: 8px; font-size: 0.95rem; }
         .urgency { color: #facc15; font-weight: 600; font-size: 0.9rem; }
 </style>
+<script src="https://unpkg.com/lucide@latest" defer></script>
 </head>
 <body>
 
     <div class="payment-card">
         <a href="/en/" class="logo">InfoLady</a>
-        <h1>Marketing Audit Payment</h1>
-        <p class="subtitle">You are getting access to automated AI audit</p>
+        <h1>Your Full Site Audit</h1>
+        <p class="subtitle">One-time payment. PDF report within 48 hours.</p>
 
         
         <div class="value-box">
-          <h2>You will get:</h2>
-          <ul>
-            <li>✔ Full website audit</li>
-            <li>✔ List of critical errors</li>
-            <li>✔ Step-by-step growth plan</li>
-            <li>✔ Business-tailored recommendations</li>
-          </ul>
-          <p class="result">⏱ Delivery time: 24 hours</p>
-          <p class="urgency">🔥 Limited-time price available today</p>
-        </div>
+  <h2 style="color:#ef4444; font-size:1.1rem; margin-bottom:14px;">⚠️ Your site is losing customers right now:</h2>
+  <ul style="list-style:none; padding:0; margin-bottom:16px;">
+    <li style="margin-bottom:8px; font-size:0.95rem; color:rgba(255,255,255,0.9);">❌ Not visible in Google or ChatGPT results</li>
+    <li style="margin-bottom:8px; font-size:0.95rem; color:rgba(255,255,255,0.9);">❌ Visitors leave — you don't know why</li>
+    <li style="margin-bottom:8px; font-size:0.95rem; color:rgba(255,255,255,0.9);">❌ Competitors are outranking you in search</li>
+  </ul>
+  <div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top:14px; margin-bottom:14px;">
+    <p style="font-size:0.9rem; color:rgba(255,255,255,0.7); margin-bottom:8px;">After the audit you'll have:</p>
+    <ul style="list-style:none; padding:0; margin:0;">
+      <li style="margin-bottom:6px; font-size:0.9rem; color:rgba(255,255,255,0.9);">✅ Full error list ranked by impact</li>
+      <li style="margin-bottom:6px; font-size:0.9rem; color:rgba(255,255,255,0.9);">✅ 30-day step-by-step growth plan</li>
+      <li style="margin-bottom:6px; font-size:0.9rem; color:rgba(255,255,255,0.9);">✅ Competitor gap analysis &amp; quick wins</li>
+      <li style="margin-bottom:6px; font-size:0.9rem; color:rgba(255,255,255,0.9);">✅ PDF report to your email in 24–48 hrs</li>
+    </ul>
+  </div>
+  <p class="result">✓ Delivered within 24–48 hours</p>
+  <p style="color:#4ade80; font-size:0.85rem; font-weight:600; margin-top:8px;">🛡 No value found? Full refund guaranteed.</p>
+  <p class="urgency">Limited slots available — price increases after 10 more orders</p>
+</div>
 
         <div class="details-box">
             <div class="detail-row">
@@ -202,7 +212,7 @@
         </div>
 
         <div class="instruction" id="plan-instruction">
-            ⚠️ Waiting for parameters...
+            <i data-lucide="alert-triangle" class="icon"></i> Waiting for parameters...
         </div>
 
         
@@ -210,19 +220,33 @@
             <label for="userEmail" style="display:block; font-size: 0.85rem; color: var(--text-dim); margin-bottom: 8px;">Enter email to receive the report</label>
             <input type="email" id="userEmail" placeholder="your@email.com" style="width:100%; padding:14px; border-radius:12px; background: rgba(255,255,255,0.04); border: 1px solid var(--border); color:#fff; font-family:inherit; font-size:0.95rem; outline:none; box-sizing:border-box;" required>
         </div>
-        <p style="text-align:center; font-weight:bold; color:#00e0ff; margin: 15px 0 10px 0;">🚀 After payment, we will launch it immediately and you will see the result</p>
+        <p style="text-align:center; color:rgba(255,255,255,0.5); font-size:0.82rem; margin: -8px 0 16px;">Your report will be sent here. No spam.</p>
 <!-- PayPal SDK -->
 <script data-sdk-integration-source="button-factory" src="https://www.paypal.com/sdk/js?currency=USD&amp;client-id=ASqiemk9c7mWcBRpPQLiz1yXK5dWJSRc6kyfWH3AVuVVnjThsdiValcNRNBo5nKCbRQU0bwX69CDHmf8&amp;intent=capture"></script>
 <script src="/js/config.js"></script>
 
 <div id="paypal-button-container" style="margin-top:20px;"></div>
+<p style="text-align:center; color:rgba(255,255,255,0.45); font-size:0.78rem; margin: 8px 0 4px;">🔒 Payment takes 1 minute · Secure · Results delivered to Telegram</p>
 <div id="status-message" style="margin-top:10px; font-weight:bold;"></div>
+<div id="progress-block" style="display:none; margin-top:16px; background:rgba(0,224,255,0.06); border:1px solid rgba(0,224,255,0.2); border-radius:12px; padding:16px; text-align:left;">
+  <p id="progress-step-1" style="margin:0 0 8px; font-size:0.9rem; color:#fff; opacity:0; transition:opacity 0.5s;">⚡ Analysis has started...</p>
+  <p id="progress-step-2" style="margin:0 0 8px; font-size:0.9rem; color:rgba(255,255,255,0.8); opacity:0; transition:opacity 0.5s;">🔍 Checking 50+ parameters on your site...</p>
+  <p id="progress-step-3" style="margin:0; font-size:0.9rem; color:rgba(255,255,255,0.8); opacity:0; transition:opacity 0.5s;">📊 Preparing your personalized recommendations...</p>
+</div>
+
+        <!-- Return to Telegram after payment -->
+        <div id="tg-return-block" style="display:none; margin: 20px 0; padding: 16px; background: rgba(0,224,255,0.08); border: 1px solid rgba(0,224,255,0.3); border-radius: 12px; text-align: center;">
+            <p style="margin: 0 0 12px; font-weight: 600; color: #fff;">🎉 Payment received! Your audit is being prepared. Return to the bot for updates.</p>
+            <a id="tg-return-btn" href="https://t.me/lyazkai_bot" target="_blank" style="display: inline-block; background: linear-gradient(135deg, #00E0FF, #7C5AFF); color: #000; font-weight: 800; padding: 14px 28px; border-radius: 12px; text-decoration: none; font-size: 1rem;">
+                → Open Telegram Bot
+            </a>
+        </div>
 
         <div class="trust-info">
-            <p>⚡ Instant report after payment</p>
+            <p><i data-lucide="activity" class="icon"></i> Instant report after payment</p>
             <p>🔒 One-time payment, no subscriptions</p>
             <p>📄 PDF version included</p>
-            <p style="color: #00e0ff; font-weight: 700; margin-top: 10px;">🔥 Limited-time price today</p>
+            <p style="color: #00e0ff; font-weight: 700; margin-top: 10px;"><i data-lucide="flame" class="icon"></i> Limited-time price today</p>
         </div>
 
         <a href="/en/#pricing" class="back-link">← Back to pricing</a>
@@ -271,7 +295,7 @@
             document.getElementById('plan-title').textContent       = config[plan].title;
             document.getElementById('plan-price').textContent       = config[plan].price;
             document.getElementById('plan-instruction').innerHTML   =
-                `⚠️ Total amount: <span style="font-size:1.1rem;font-weight:800;color:#fff">${config[plan].price}</span>`;
+                `<i data-lucide="alert-triangle" class="icon"></i> Total amount: <span style="font-size:1.1rem;font-weight:800;color:#fff">${config[plan].price}</span>`;
             
             window.currentPlanValue = config[plan].value; // Keep for PayPal
         })();
@@ -293,6 +317,7 @@
                         const statusMsg = document.getElementById('status-message');
                         statusMsg.style.color = '#facc15';
                         statusMsg.textContent = 'Verifying payment...';
+                        showProgressAnimation();
 
                         try {
                             const details = await actions.order.capture();
@@ -310,10 +335,14 @@
 
                             const baseUrl = typeof API_URL !== 'undefined' ? API_URL : window.location.origin;
 
+                            const urlParams = new URLSearchParams(window.location.search);
+                            const chatId = urlParams.get('user') || '';
+
                             const response = await fetch(`${baseUrl}/api/payment-success`, {
                                 method: 'POST',
                                 headers: { 'Content-Type': 'application/json' },
                                 body: JSON.stringify({
+                                    chatId: chatId,
                                     email: email,
                                     domain: domain,
                                     tariff: plan,
@@ -326,9 +355,12 @@
                             if (result.success) {
                                 statusMsg.style.color = '#4ade80';
                                 statusMsg.textContent = 'Payment approved! Access unlocked.';
+                                const tgUrl = chatId ? `https://t.me/lyazkai_bot?start=paid_en` : `https://t.me/lyazkai_bot`;
+                                document.getElementById('tg-return-block').style.display = 'block';
+                                document.getElementById('tg-return-btn').href = tgUrl;
                                 setTimeout(() => {
                                     window.location.href = `/en/dashboard.html?email=${encodeURIComponent(email)}`;
-                                }, 1500);
+                                }, 4000);
                             } else {
                                 statusMsg.style.color = '#ef4444';
                                 statusMsg.textContent = 'Verification Error. Please try again.';
@@ -343,6 +375,15 @@
             }
         });
 
+        function showProgressAnimation() {
+            const block = document.getElementById('progress-block');
+            if (!block) return;
+            block.style.display = 'block';
+            setTimeout(() => { const el = document.getElementById('progress-step-1'); if(el) el.style.opacity = '1'; }, 200);
+            setTimeout(() => { const el = document.getElementById('progress-step-2'); if(el) el.style.opacity = '1'; }, 1500);
+            setTimeout(() => { const el = document.getElementById('progress-step-3'); if(el) el.style.opacity = '1'; }, 3000);
+        }
+
         function handlePayment() {
             const emailInput = document.getElementById('userEmail');
             const email = emailInput ? emailInput.value.trim() : '';
@@ -355,5 +396,10 @@
             return true;
         }
     </script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    if (typeof lucide !== "undefined") { lucide.createIcons(); }
+  });
+</script>
 </body>
 </html>
