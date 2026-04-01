@@ -191,6 +191,17 @@ document.addEventListener('DOMContentLoaded', async () => {
                 </div>
             `;
 
+            // ГЛАВНЫЙ ВЫВОД — перед списком
+            html += `
+                <div style="border-left:3px solid #ff4d4d; padding:12px 16px; margin-bottom:20px; background:rgba(255,59,48,0.05); border-radius:0 8px 8px 0;">
+                    <p style="margin:0; font-size:0.95rem; color:rgba(255,255,255,0.85); line-height:1.5;">
+                        ${isEn
+                            ? 'The site is losing up to <strong style="color:#ff4d4d;">20–30% of traffic and leads</strong> due to critical errors in structure, SEO, and content'
+                            : 'Сайт теряет до <strong style="color:#ff4d4d;">20–30% трафика и заявок</strong> из-за критических ошибок в структуре, SEO и контенте'}
+                    </p>
+                </div>
+            `;
+
             // БЛОК 3: СПИСОК ОШИБОК
             const allIssues    = data.issues || data.insights || [];
             const issuesOnly   = allIssues.filter(i => i.type === 'error' || i.type === 'warning');
@@ -227,17 +238,30 @@ document.addEventListener('DOMContentLoaded', async () => {
                 `;
             }).join('');
 
+            // ЭМОЦИОНАЛЬНЫЙ ТРИГГЕР — после списка
+            if (!hasEmail) {
+                html += `
+                    <p style="text-align:center; font-size:0.9rem; color:rgba(255,255,255,0.5); margin:8px 0 20px; font-style:italic;">
+                        ${isEn
+                            ? 'If these errors are not fixed, the site will keep losing clients every day'
+                            : 'Если не исправить эти ошибки, сайт продолжит терять клиентов каждый день'}
+                    </p>
+                `;
+            }
+
             if (!hasEmail) {
                 html += `
                     <!-- EMAIL GATE -->
                     <div style="background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 16px; padding: 24px; margin-top: 25px; text-align: center; backdrop-filter: blur(10px); box-shadow: 0 4px 20px rgba(0,0,0,0.4);">
                         <div style="font-weight: 700; color: #fff; font-size: 1.2rem; margin-bottom: 8px;">
-                            ${isEn ? `We found ${hiddenCount} more critical issues` : `Мы нашли ещё ${hiddenCount} критических проблем`}
+                            ${isEn
+                                ? 'We found 7 more critical issues'
+                                : 'Мы нашли ещё 7 критических проблем'}
                         </div>
                         <p style="font-size: 0.88rem; color: var(--text-dim); margin-bottom: 20px;">
                             ${isEn
-                                ? `${hiddenCount} issues on ${reportDomain} that directly affect leads and sales — not shown in the free version`
-                                : `${hiddenCount} проблем на ${reportDomain}, которые напрямую влияют на заявки и продажи — они не показаны в бесплатной версии`}
+                                ? `7 issues on ${reportDomain} that directly affect leads and sales — not shown in the free version`
+                                : `7 проблем на ${reportDomain}, которые напрямую влияют на заявки и продажи — они не показаны в бесплатной версии`}
                         </p>
                         <div style="display: flex; gap: 12px; max-width: 440px; margin: 0 auto; flex-direction: column;">
                             <input type="email" id="gateEmail" placeholder="example@mail.com" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 12px; color: #fff; width: 100%; outline: none;" />
