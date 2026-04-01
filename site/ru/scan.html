@@ -77,6 +77,17 @@
         .scan-btn {
             padding: 16px 32px;
             font-size: 1rem;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        @media (max-width: 560px) {
+            .scan-input-group {
+                flex-direction: column;
+            }
+            .scan-btn {
+                width: 100%;
+                text-align: center;
+            }
         }
         .scan-hints {
             display: flex;
