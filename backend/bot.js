@@ -324,14 +324,48 @@ bot.on('callback_query', async (query) => {
         const domain = state.domain || '';
         const today = new Date().toLocaleDateString(l === 'ru' ? 'ru-RU' : 'en-US', { day: 'numeric', month: 'long', year: 'numeric' });
         const domainHeader = domain
-            ? (l === 'en' ? `📊 Analysis of *${domain}* · ${today}\n\n` : `📊 Анализ *${domain}* · ${today}\n\n`)
+            ? (l === 'en' ? `📊 *Analysis of ${domain}* · ${today}\n\n` : `📊 *Анализ ${domain}* · ${today}\n\n`)
             : '';
 
-        const step3 = l === 'en'
-            ? `${domainHeader}Here's what I can already see:\n\n❌ Visitors don't understand what to do next — no visible action button\n⚠️ The offer isn't clear in the first 5 seconds — people leave\n📉 These 2 issues alone can kill 30–60% of potential leads`
-            : `${domainHeader}Вот что уже видно:\n\n❌ Посетитель не понимает что делать дальше — нет явной кнопки действия\n⚠️ Оффер не считывается за первые 5 секунд — люди уходят\n📉 Только из-за этих 2 проблем вы теряете 30–60% потенциальных заявок`;
+        // Use real issues if already scanned, otherwise run a live scan now
+        let realIssues = state.freeIssues || [];
+        let issueCountForState = state.issueCount || 0;
 
-        await bot.sendMessage(chatId, step3, { parse_mode: 'Markdown' });
+        if (realIssues.length === 0 && domain) {
+            try {
+                await bot.sendMessage(chatId, l === 'en' ? '🔍 Running analysis...' : '🔍 Запускаю анализ...');
+                const port = process.env.PORT || 3000;
+                const apiRes = await axios.get(
+                    `http://localhost:${port}/api/scan?url=${encodeURIComponent(domain)}&lang=${l}`,
+                    { timeout: 15000 }
+                );
+                const scanData = apiRes.data;
+                realIssues = (scanData.issues || []).slice(0, 3);
+                issueCountForState = (scanData.issues || []).length;
+                if (!userStates[chatId]) userStates[chatId] = {};
+                userStates[chatId].freeIssues = realIssues;
+                userStates[chatId].issueCount = issueCountForState;
+                userStates[chatId].seoScore = scanData.seoScore;
+                userStates[chatId].geoScore = scanData.geoScore;
+            } catch (e) {
+                console.error('[show_free_issues] scan failed:', e.message);
+            }
+        }
+
+        let issuesText;
+        if (realIssues.length > 0) {
+            const lines = realIssues.map(i => `⚠️ ${i.title}${i.description ? ' — ' + i.description : ''}`).join('\n');
+            issuesText = l === 'en'
+                ? `${domainHeader}Here's what I found on your site:\n\n${lines}`
+                : `${domainHeader}Вот что я нашёл на вашем сайте:\n\n${lines}`;
+        } else {
+            // Fallback only if scan failed entirely
+            issuesText = l === 'en'
+                ? `${domainHeader}Here's what I can already see:\n\n❌ No clear call-to-action visible above the fold\n⚠️ Page offer unclear in the first 5 seconds\n📉 These 2 issues can reduce leads by 30–60%`
+                : `${domainHeader}Вот что уже видно:\n\n❌ Нет явной кнопки действия в первом экране\n⚠️ Оффер не считывается за первые 5 секунд\n📉 Только из-за этих 2 проблем вы теряете 30–60% заявок`;
+        }
+
+        await bot.sendMessage(chatId, issuesText, { parse_mode: 'Markdown' });
 
         setTimeout(async () => {
             const storedCount = state.issueCount || 0;
@@ -465,6 +499,7 @@ bot.on('message', async (msg) => {
                 await new Promise(r => setTimeout(r, 2500));
                 const issueCount = (data.issues || []).length;
                 userStates[chatId].issueCount = issueCount;
+                userStates[chatId].freeIssues = (data.issues || []).slice(0, 3);
                 const hiddenReal = issueCount > 3 ? issueCount - 3 : null;
                 const hiddenNote = hiddenReal
                     ? (lang === 'en' ? `🔒 *${hiddenReal} more issues* not shown in the free report.\n\n` : `🔒 *Ещё ${hiddenReal} проблем* не показаны в бесплатном отчёте.\n\n`)
