@@ -589,13 +589,13 @@ async function send1(chatId, segment) {
     if (userStates[chatId]?.status === 'purchased') return;
     const lang = userStates[chatId]?.lang || 'ru';
     const texts = lang === 'en' ? {
-        hot: "You're almost there 👇\n\nI can show you exactly\nwhere you're losing money\n\nReady to dig in?",
-        warm: "I see you're interested 👇\n\nTypical situation:\nsite exists — but no leads\n\nWant me to explain why?",
-        cold: "Quick look at your site 👇\n\nFound a couple of things\nthat are killing your conversions\n\nShall I show you?"
+        hot: "⏱ You didn't complete your audit checkout.\n\nI found critical issues actively hurting your sales right now.\n\nWant to see the full list?",
+        warm: "⏱ You started the audit but didn't finish.\n\nThese errors are costing you customers every day.",
+        cold: "🔍 Want to find out why your site isn't converting?"
     } : {
-        hot: "Ты уже близко 👇\n\nЯ могу сразу показать,\nгде именно ты теряешь деньги\n\nГотов разобрать?",
-        warm: "Я вижу ты уже смотришь 👇\n\nУ тебя типичная ситуация:\nсайт есть — заявок нет\n\nХочешь объясню почему?",
-        cold: "Быстро глянул твой сайт 👇\n\nЕсть пара моментов,\nкоторые режут конверсию\n\nПоказать?"
+        hot: "⏱ Вы не завершили оформление аудита.\n\nЯ нашёл критические ошибки, которые прямо сейчас мешают вашим продажам.\n\nХотите увидеть полный список?",
+        warm: "⏱ Вы начали аудит, но не завершили.\n\nЭти ошибки стоят вам клиентов каждый день.",
+        cold: "🔍 Хотите узнать, почему ваш сайт не продаёт?"
     };
     const text = texts[segment] || texts.cold;
     console.log(`FOLLOW-UP 1 SENT [${segment}]`);
@@ -606,13 +606,13 @@ async function send2(chatId, segment) {
     if (userStates[chatId]?.status === 'purchased') return;
     const lang = userStates[chatId]?.lang || 'ru';
     const texts = lang === 'en' ? {
-        hot: "Without the audit you keep losing leads\n\nThis isn't theory — it shows on your site\n\nLet me show you",
-        warm: "The problem isn't traffic\n\nThe problem is how\nyour site sells\n\nWant me to break it down?",
-        cold: "The issue is often not obvious\n\nBut it's the reason you have no clients\n\nI can show you an example"
+        hot: "📊 In the last 3 hours, sites with similar issues lost potential customers.\n\nI'm ready to show you exactly what's holding your site back — and how to fix it within a week.",
+        warm: "📊 In the last 3 hours, sites with similar issues lost potential customers.\n\nI'm ready to show you exactly what's holding your site back — and how to fix it within a week.",
+        cold: "📊 In the last 3 hours, sites with similar issues lost potential customers.\n\nI'm ready to show you exactly what's holding your site back — and how to fix it within a week."
     } : {
-        hot: "Смотри, без разбора ты продолжаешь терять заявки\n\nЭто не теория — это видно по твоему сайту\n\nДавай покажу",
-        warm: "Проблема не в трафике\n\nПроблема в том,\nкак сайт продаёт\n\nРазобрать?",
-        cold: "Часто проблема не очевидна\n\nНо именно из-за неё нет клиентов\n\nМогу показать на примере"
+        hot: "📊 За последние 3 часа сайты с похожими ошибками потеряли потенциальных клиентов.\n\nЯ готов показать, что именно мешает вашему сайту — и как это исправить за неделю.",
+        warm: "📊 За последние 3 часа сайты с похожими ошибками потеряли потенциальных клиентов.\n\nЯ готов показать, что именно мешает вашему сайту — и как это исправить за неделю.",
+        cold: "📊 За последние 3 часа сайты с похожими ошибками потеряли потенциальных клиентов.\n\nЯ готов показать, что именно мешает вашему сайту — и как это исправить за неделю."
     };
     const text = texts[segment] || texts.cold;
     console.log(`FOLLOW-UP 2 SENT [${segment}]`);
@@ -623,8 +623,8 @@ async function send3(chatId, segment) {
     if (userStates[chatId]?.status === 'purchased') return;
     const lang = userStates[chatId]?.lang || 'ru';
     const text = lang === 'en'
-        ? "While you think — customers leave\n\nCompetitors just made their site clearer\n\nAnd they're taking your traffic\n\nWant me to show where?"
-        : "Пока ты думаешь — клиенты уходят\n\nКонкуренты просто сделали сайт понятнее\n\nИ забирают твой трафик\n\nХочешь покажу где именно?";
+        ? "💡 Yesterday you started an audit — but never got the result.\n\nMost of our clients find 5–12 issues they didn't know about.\n\n👉 Complete your audit today — price hasn't gone up yet."
+        : "💡 Вчера вы начали аудит — но так и не получили результат.\n\nБольшинство наших клиентов находят 5–12 ошибок, о которых не знали.\n\n👉 Пройдите аудит сегодня — цена ещё не выросла.";
     console.log("FOLLOW-UP 3 SENT");
     await bot.sendMessage(chatId, text, getFollowUpOpts(chatId));
 }
@@ -633,8 +633,8 @@ async function send4(chatId, segment) {
     if (userStates[chatId]?.status === 'purchased') return;
     const lang = userStates[chatId]?.lang || 'ru';
     const text = lang === 'en'
-        ? "Had a similar site recently\n\nAfter fixes:\n+ leads doubled\n\nReason — the same errors\n\nShall we look at yours?"
-        : "Недавно был похожий сайт\n\nПосле правок:\n+ заявки выросли в 2 раза\n\nПричина — те же ошибки\n\nРазобрать твой?";
+        ? "⚠️ Last reminder.\n\nThe audit price is going up soon.\n\nGet your full site breakdown now — while the current price stands."
+        : "⚠️ Последнее напоминание.\n\nЦена на аудит скоро вырастет.\n\nПолучите полный разбор своего сайта прямо сейчас — пока действует текущая цена.";
     console.log("FOLLOW-UP 4 SENT");
     await bot.sendMessage(chatId, text, getFollowUpOpts(chatId));
 }
@@ -643,8 +643,8 @@ async function send5(chatId, segment) {
     if (userStates[chatId]?.status === 'purchased') return;
     const lang = userStates[chatId]?.lang || 'ru';
     const text = lang === 'en'
-        ? `Let's keep it simple:\n\nI'll show you:\n— where you lose customers\n— what to fix\n— how to get more leads\n\nNo fluff. Ready?`
-        : `Сделаем просто:\n\nПокажу:\n— где теряешь клиентов\n— что исправить\n— как увеличить заявки\n\nБез воды\n\nГотов?`;
+        ? `🎯 Final offer.\n\nThe audit will show you exactly where and why you're losing customers.\n\nOne-time investment — results that last for months.`
+        : `🎯 Финальное предложение.\n\nАудит покажет точно, где и почему вы теряете клиентов.\n\nЭто разовая инвестиция — результат работает месяцами.`;
     console.log("FOLLOW-UP 5 SENT");
     await bot.sendMessage(chatId, text, getFollowUpOpts(chatId));
 }
