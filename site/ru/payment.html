@@ -219,7 +219,7 @@
         <div class="instruction" id="plan-instruction">
             <i data-lucide="alert-triangle" class="icon"></i> Ожидание параметров...
         </div>
-        <p style="text-align:center; font-size:0.8rem; color:rgba(255,255,255,0.5); margin: -16px 0 16px;">Kaspi — самый популярный способ оплаты в Казахстане. Принимает карты Visa, Mastercard и счёт Kaspi.</p>
+        <p style="text-align:center; font-size:0.8rem; color:rgba(255,255,255,0.5); margin: -16px 0 16px;">Оплата через приложение Kaspi — быстро и без комиссии.</p>
 
 
         <div style="margin-bottom: 20px; text-align: left;">
@@ -228,7 +228,7 @@
         </div>
         <p style="text-align:center; color:rgba(255,255,255,0.5); font-size:0.82rem; margin: -8px 0 16px;">Отчёт придёт на этот email. Без спама.</p>
 <a href="https://pay.kaspi.kz/pay/fpquqhbx" class="cta-btn" target="_blank" onclick="handlePayment()">Получить полный аудит →</a>
-<p style="text-align:center; color:rgba(255,255,255,0.45); font-size:0.78rem; margin: -12px 0 8px;">🔒 Оплата занимает 1 минуту · Безопасно · Результат придёт в Telegram и на email</p>
+<p style="text-align:center; color:rgba(255,255,255,0.45); font-size:0.78rem; margin: -12px 0 8px;">🔒 Оплата через Kaspi · 1 минута · Результат придёт на email</p>
 <script src="/js/config.js"></script>
 <button class="cta-btn" style="background: #10b981; margin-top: 10px;" onclick="handleConfirmPayment()">✅ Я уже оплатил — запустить аудит</button>
 <p style="text-align:center; color:rgba(255,255,255,0.5); font-size:0.8rem; margin: 4px 0 0;">После подтверждения вы получите сообщение в Telegram. Нет Telegram? Отчёт придёт на email.</p>
@@ -241,17 +241,18 @@
 
         <!-- Return to Telegram after payment -->
         <div id="tg-return-block" style="display:none; margin: 20px 0; padding: 16px; background: rgba(0,224,255,0.08); border: 1px solid rgba(0,224,255,0.3); border-radius: 12px; text-align: center;">
-            <p style="margin: 0 0 12px; font-weight: 600; color: #fff;">🎉 Оплата принята! Возвращайтесь в бот — там уже ждёт ваш аудит.</p>
-            <a id="tg-return-btn" href="https://t.me/lyazkai_bot" target="_blank" style="display: inline-block; background: linear-gradient(135deg, #00E0FF, #7C5AFF); color: #000; font-weight: 800; padding: 14px 28px; border-radius: 12px; text-decoration: none; font-size: 1rem;">
-                → Открыть Telegram-бот
+            <p style="margin: 0 0 6px; font-weight: 600; color: #fff;">🎉 Оплата принята!</p>
+            <p style="margin: 0 0 12px; font-size:0.9rem; color:rgba(255,255,255,0.75);">Отчёт придёт на ваш email в течение 24–48 часов.</p>
+            <a id="tg-return-btn" href="https://t.me/lyazkai_bot" target="_blank" style="display: inline-block; background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.7); font-weight: 600; padding: 10px 20px; border-radius: 10px; text-decoration: none; font-size: 0.85rem; border: 1px solid rgba(255,255,255,0.15);">
+                Получать обновления в Telegram (необязательно)
             </a>
         </div>
 <div style="margin: 16px 0; padding: 14px; background:rgba(74,222,128,0.06); border:1px solid rgba(74,222,128,0.2); border-radius:12px; text-align:center;">
-  <p style="margin:0; font-size:0.85rem; color:#4ade80; font-weight:600;">После оплаты автоматически откроется Telegram-бот с вашим аудитом</p>
+  <p style="margin:0; font-size:0.85rem; color:#4ade80; font-weight:600;">Отчёт придёт на email. Telegram — дополнительный канал уведомлений.</p>
 </div>
 
         <div class="trust-info">
-            <p><i data-lucide="activity" class="icon"></i> Мгновенный отчёт после оплаты</p>
+            <p><i data-lucide="activity" class="icon"></i> Отчёт на email в течение 24–48 часов</p>
             <p>🔒 Единоразовый платёж, без подписок</p>
             <p>📄 PDF версия входит в стоимость</p>
             <p style="color: #00e0ff; font-weight: 700; margin-top: 10px;"><i data-lucide="flame" class="icon"></i> Акционная цена: <span id="promo-price">25 000 ₸</span></p>
@@ -369,7 +370,7 @@
                 const result = await response.json();
                 if (result.success) {
                     statusMsg.style.color = '#4ade80';
-                    statusMsg.textContent = 'Оплата подтверждена! Доступ открыт.';
+                    statusMsg.textContent = 'Оплата подтверждена! Отчёт придёт на email в течение 24–48 часов.';
                     // Show return-to-telegram button
                     const tgUrl = chatId
                         ? `https://t.me/lyazkai_bot?start=paid_ru`

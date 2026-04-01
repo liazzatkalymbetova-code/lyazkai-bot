@@ -230,7 +230,7 @@
 <script src="/js/config.js"></script>
 
 <div id="paypal-button-container" style="margin-top:20px;"></div>
-<p style="text-align:center; color:rgba(255,255,255,0.45); font-size:0.78rem; margin: 8px 0 4px;">🔒 Payment takes 1 minute · Secure · Results delivered to email &amp; Telegram. No Telegram? The report will be sent to your email.</p>
+<p style="text-align:center; color:rgba(255,255,255,0.45); font-size:0.78rem; margin: 8px 0 4px;">🔒 Payment takes 1 minute · Secure · Report delivered to your email</p>
 <div id="status-message" style="margin-top:10px; font-weight:bold;"></div>
 <div id="progress-block" style="display:none; margin-top:16px; background:rgba(0,224,255,0.06); border:1px solid rgba(0,224,255,0.2); border-radius:12px; padding:16px; text-align:left;">
   <p id="progress-step-1" style="margin:0 0 8px; font-size:0.9rem; color:#fff; opacity:0; transition:opacity 0.5s;">⚡ Analysis has started...</p>
@@ -240,17 +240,18 @@
 
         <!-- Return to Telegram after payment -->
         <div id="tg-return-block" style="display:none; margin: 20px 0; padding: 16px; background: rgba(0,224,255,0.08); border: 1px solid rgba(0,224,255,0.3); border-radius: 12px; text-align: center;">
-            <p style="margin: 0 0 12px; font-weight: 600; color: #fff;">🎉 Payment received! Your audit is being prepared. Return to the bot for updates.</p>
-            <a id="tg-return-btn" href="https://t.me/lyazkai_bot" target="_blank" style="display: inline-block; background: linear-gradient(135deg, #00E0FF, #7C5AFF); color: #000; font-weight: 800; padding: 14px 28px; border-radius: 12px; text-decoration: none; font-size: 1rem;">
-                → Open Telegram Bot
+            <p style="margin: 0 0 6px; font-weight: 600; color: #fff;">🎉 Payment confirmed!</p>
+            <p style="margin: 0 0 12px; font-size:0.9rem; color:rgba(255,255,255,0.75);">Your report will be delivered to your email within 24–48 hours.</p>
+            <a id="tg-return-btn" href="https://t.me/lyazkai_bot" target="_blank" style="display: inline-block; background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.7); font-weight: 600; padding: 10px 20px; border-radius: 10px; text-decoration: none; font-size: 0.85rem; border: 1px solid rgba(255,255,255,0.15);">
+                Get updates in Telegram (optional)
             </a>
         </div>
 <div style="margin: 16px 0; padding: 14px; background:rgba(74,222,128,0.06); border:1px solid rgba(74,222,128,0.2); border-radius:12px; text-align:center;">
-  <p style="margin:0; font-size:0.85rem; color:#4ade80; font-weight:600;">After payment, the Telegram bot will open automatically with your audit.</p>
+  <p style="margin:0; font-size:0.85rem; color:#4ade80; font-weight:600;">Report goes to your email. Telegram is optional for updates.</p>
 </div>
 
         <div class="trust-info">
-            <p><i data-lucide="activity" class="icon"></i> Instant report after payment</p>
+            <p><i data-lucide="activity" class="icon"></i> Report delivered to email within 24–48 hours</p>
             <p>🔒 One-time payment, no subscriptions</p>
             <p>📄 PDF version included</p>
             <p style="color: #00e0ff; font-weight: 700; margin-top: 10px;"><i data-lucide="flame" class="icon"></i> Limited-time price today</p>
