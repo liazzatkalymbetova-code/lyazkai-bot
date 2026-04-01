@@ -235,11 +235,17 @@
             <input type="email" id="userEmail" placeholder="your@email.com" style="width:100%; padding:14px; border-radius:12px; background: rgba(255,255,255,0.04); border: 1px solid var(--border); color:#fff; font-family:inherit; font-size:0.95rem; outline:none; box-sizing:border-box;" required>
         </div>
         <p style="text-align:center; color:rgba(255,255,255,0.5); font-size:0.82rem; margin: -8px 0 16px;">Отчёт придёт на этот email. Без спама.</p>
-<a href="https://pay.kaspi.kz/pay/fpquqhbx" class="cta-btn" target="_blank" onclick="handlePayment()">Получить полный аудит →</a>
+<div style="background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); border-radius:12px; padding:14px 16px; margin-bottom:16px; text-align:left;">
+  <p style="margin:0 0 8px; font-size:0.85rem; font-weight:700; color:#fff;">Как это работает:</p>
+  <p style="margin:0 0 6px; font-size:0.85rem; color:rgba(255,255,255,0.75);">1️⃣ Нажмите кнопку ниже — откроется Kaspi</p>
+  <p style="margin:0 0 6px; font-size:0.85rem; color:rgba(255,255,255,0.75);">2️⃣ Оплатите и вернитесь на эту страницу</p>
+  <p style="margin:0; font-size:0.85rem; color:rgba(255,255,255,0.75);">3️⃣ Нажмите зелёную кнопку «Я уже оплатил»</p>
+</div>
+<a href="https://pay.kaspi.kz/pay/fpquqhbx" class="cta-btn" target="_blank" onclick="handlePayment()">Шаг 1: Оплатить через Kaspi →</a>
 <p style="text-align:center; color:rgba(255,255,255,0.45); font-size:0.78rem; margin: -12px 0 8px;">🔒 Оплата через Kaspi · 1 минута · Результат придёт на email</p>
 <script src="/js/config.js"></script>
-<button class="cta-btn" style="background: #10b981; margin-top: 10px;" onclick="handleConfirmPayment()">✅ Я уже оплатил — запустить аудит</button>
-<p style="text-align:center; color:rgba(255,255,255,0.5); font-size:0.8rem; margin: 4px 0 0;">После подтверждения вы получите сообщение в Telegram. Нет Telegram? Отчёт придёт на email.</p>
+<button class="cta-btn" style="background: #10b981; margin-top: 10px;" onclick="handleConfirmPayment()">Шаг 2: Я уже оплатил — запустить аудит ✅</button>
+<p style="text-align:center; color:rgba(255,255,255,0.5); font-size:0.8rem; margin: 4px 0 0;">После подтверждения отчёт придёт на email за 24–48 часов.</p>
 <div id="status-message" style="margin-top:10px; font-weight:bold;"></div>
 <div id="progress-block" style="display:none; margin-top:16px; background:rgba(0,224,255,0.06); border:1px solid rgba(0,224,255,0.2); border-radius:12px; padding:16px; text-align:left;">
   <p id="progress-step-1" style="margin:0 0 8px; font-size:0.9rem; color:#fff; opacity:0; transition:opacity 0.5s;">⚡ Анализ уже начался...</p>
@@ -255,15 +261,12 @@
                 Получать обновления в Telegram (необязательно)
             </a>
         </div>
-<div style="margin: 16px 0; padding: 14px; background:rgba(74,222,128,0.06); border:1px solid rgba(74,222,128,0.2); border-radius:12px; text-align:center;">
-  <p style="margin:0; font-size:0.85rem; color:#4ade80; font-weight:600;">Отчёт придёт на email. Telegram — дополнительный канал уведомлений.</p>
-</div>
 
         <div class="trust-info">
             <p><i data-lucide="activity" class="icon"></i> Отчёт на email в течение 24–48 часов</p>
             <p>🔒 Единоразовый платёж, без подписок</p>
             <p>📄 PDF версия входит в стоимость</p>
-            <p style="color: #00e0ff; font-weight: 700; margin-top: 10px;"><i data-lucide="flame" class="icon"></i> Акционная цена: <span id="promo-price">25 000 ₸</span></p>
+            <p style="color: #00e0ff; font-weight: 700; margin-top: 10px;"><i data-lucide="flame" class="icon"></i> Итого: <span id="promo-price">25 000 ₸</span></p>
         </div>
 
         <a href="/ru/#pricing" class="back-link">← Вернуться к ценам</a>
