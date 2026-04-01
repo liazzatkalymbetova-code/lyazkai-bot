@@ -173,7 +173,7 @@
     <div class="payment-card">
         <a href="/ru/" class="logo">InfoLady</a>
         <h1>Полный аудит вашего сайта</h1>
-        <p class="subtitle">Единоразовая оплата. PDF-отчёт в течение 48 часов.</p>
+        <p class="subtitle">Единоразовая оплата. PDF-отчёт на email + уведомление в Telegram за 24–48 часов.</p>
 
         
         <div class="value-box">
@@ -219,18 +219,19 @@
         <div class="instruction" id="plan-instruction">
             <i data-lucide="alert-triangle" class="icon"></i> Ожидание параметров...
         </div>
+        <p style="text-align:center; font-size:0.8rem; color:rgba(255,255,255,0.5); margin: -16px 0 16px;">Kaspi — самый популярный способ оплаты в Казахстане. Принимает карты Visa, Mastercard и счёт Kaspi.</p>
 
-        
+
         <div style="margin-bottom: 20px; text-align: left;">
             <label for="userEmail" style="display:block; font-size: 0.85rem; color: var(--text-dim); margin-bottom: 8px;">Введите email для получения отчёта</label>
             <input type="email" id="userEmail" placeholder="your@email.com" style="width:100%; padding:14px; border-radius:12px; background: rgba(255,255,255,0.04); border: 1px solid var(--border); color:#fff; font-family:inherit; font-size:0.95rem; outline:none; box-sizing:border-box;" required>
         </div>
         <p style="text-align:center; color:rgba(255,255,255,0.5); font-size:0.82rem; margin: -8px 0 16px;">Отчёт придёт на этот email. Без спама.</p>
 <a href="https://pay.kaspi.kz/pay/fpquqhbx" class="cta-btn" target="_blank" onclick="handlePayment()">Получить полный аудит →</a>
-<p style="text-align:center; color:rgba(255,255,255,0.45); font-size:0.78rem; margin: -12px 0 8px;">🔒 Оплата занимает 1 минуту · Безопасно · Результат придёт в Telegram</p>
+<p style="text-align:center; color:rgba(255,255,255,0.45); font-size:0.78rem; margin: -12px 0 8px;">🔒 Оплата занимает 1 минуту · Безопасно · Результат придёт в Telegram и на email</p>
 <script src="/js/config.js"></script>
 <button class="cta-btn" style="background: #10b981; margin-top: 10px;" onclick="handleConfirmPayment()">✅ Я уже оплатил — запустить аудит</button>
-<p style="text-align:center; color:rgba(255,255,255,0.5); font-size:0.8rem; margin: 4px 0 0;">После подтверждения вы получите сообщение в Telegram</p>
+<p style="text-align:center; color:rgba(255,255,255,0.5); font-size:0.8rem; margin: 4px 0 0;">После подтверждения вы получите сообщение в Telegram. Нет Telegram? Отчёт придёт на email.</p>
 <div id="status-message" style="margin-top:10px; font-weight:bold;"></div>
 <div id="progress-block" style="display:none; margin-top:16px; background:rgba(0,224,255,0.06); border:1px solid rgba(0,224,255,0.2); border-radius:12px; padding:16px; text-align:left;">
   <p id="progress-step-1" style="margin:0 0 8px; font-size:0.9rem; color:#fff; opacity:0; transition:opacity 0.5s;">⚡ Анализ уже начался...</p>
