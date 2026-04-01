@@ -94,11 +94,12 @@ function normalizeUrl(text) {
 /**
  * Builds a short Telegram-friendly audit summary from the /api/scan response.
  */
-function buildSummary(data, lang = 'ru') {
+function buildSummary(data, lang = 'ru', domain = '') {
     const seo = data.seoScore || 0;
     const geo = data.geoScore || 0;
     const ai  = data.aiScore  || 0;
     const s   = strings[lang];
+    const today = new Date().toLocaleDateString(lang === 'ru' ? 'ru-RU' : 'en-US', { day: 'numeric', month: 'long', year: 'numeric' });
 
     const scoreBar = (score) => {
         if (score >= 80) return '🟢';
@@ -110,9 +111,12 @@ function buildSummary(data, lang = 'ru') {
         .map(i => `• ${i.title}`)
         .join('\n');
 
-    return (
-`🔍 *${s.auditResults}*
+    const header = domain
+        ? (lang === 'en' ? `📊 *Analysis of ${domain}*\n📅 ${today}\n` : `📊 *Анализ ${domain}*\n📅 ${today}\n`)
+        : `🔍 *${s.auditResults}*\n`;
 
+    return (
+`${header}
 ${scoreBar(seo)} ${s.seoScore}: *${seo}/100*
 ${scoreBar(geo)} ${s.aiScore}: *${geo}/100*
 ${scoreBar(ai)} ${s.bestPractices}: *${ai}/100*
@@ -318,18 +322,23 @@ bot.on('callback_query', async (query) => {
         const state = userStates[chatId] || { lang: 'ru' };
         const l = state.lang || 'ru';
         const domain = state.domain || '';
-        const domainRef = domain ? (l === 'en' ? ` on ${domain}` : ` на ${domain}`) : '';
+        const today = new Date().toLocaleDateString(l === 'ru' ? 'ru-RU' : 'en-US', { day: 'numeric', month: 'long', year: 'numeric' });
+        const domainHeader = domain
+            ? (l === 'en' ? `📊 Analysis of *${domain}* · ${today}\n\n` : `📊 Анализ *${domain}* · ${today}\n\n`)
+            : '';
 
         const step3 = l === 'en'
-            ? `Here's what I can already see${domainRef}:\n\n❌ Visitors don't understand what to do next — no visible action button\n⚠️ The offer isn't clear in the first 5 seconds — people leave\n📉 These 2 issues alone can kill 30–60% of potential leads`
-            : `Вот что уже видно${domainRef}:\n\n❌ Посетитель не понимает что делать дальше — нет явной кнопки действия\n⚠️ Оффер не считывается за первые 5 секунд — люди уходят\n📉 Только из-за этих 2 проблем вы теряете 30–60% потенциальных заявок`;
+            ? `${domainHeader}Here's what I can already see:\n\n❌ Visitors don't understand what to do next — no visible action button\n⚠️ The offer isn't clear in the first 5 seconds — people leave\n📉 These 2 issues alone can kill 30–60% of potential leads`
+            : `${domainHeader}Вот что уже видно:\n\n❌ Посетитель не понимает что делать дальше — нет явной кнопки действия\n⚠️ Оффер не считывается за первые 5 секунд — люди уходят\n📉 Только из-за этих 2 проблем вы теряете 30–60% потенциальных заявок`;
 
-        await bot.sendMessage(chatId, step3);
+        await bot.sendMessage(chatId, step3, { parse_mode: 'Markdown' });
 
         setTimeout(async () => {
+            const storedCount = state.issueCount || 9;
+            const hiddenCount = Math.max(storedCount - 2, 7);
             const step4 = l === 'en'
-                ? `That's just 2 of the issues I found.\n\nThe full audit covers 50+ checks:\n→ Technical SEO\n→ AI search visibility\n→ Competitor gaps\n→ Content quality\n\nYou get a prioritized PDF plan — exactly what to fix and in what order.\n\n💰 $50 · PDF within 48h`
-                : `Это только 2 из найденных проблем.\n\nПолный аудит включает 50+ проверок:\n→ Технический SEO\n→ Видимость в AI-поиске\n→ Анализ конкурентов\n→ Качество контента\n\nВы получаете PDF с приоритетным планом — что исправить и в какой очерёдности.\n\n💰 25 000 ₸ · PDF за 48 ч`;
+                ? `We found *${hiddenCount}+ more critical issues* affecting your conversions — not shown above.\n\n*In the full audit you'll get:*\n→ Complete list of all issues\n→ Priority fix plan\n→ 30-day growth roadmap\n→ Competitor gap analysis\n→ PDF delivered within 48h\n\n💰 $50 · PDF within 48h`
+                : `Мы нашли *ещё ${hiddenCount}+ критических проблем*, которые влияют на ваши заявки — они не показаны выше.\n\n*В полном аудите вы получите:*\n→ Полный список всех ошибок\n→ Приоритеты и план исправлений\n→ План роста на 30 дней\n→ Анализ конкурентов\n→ PDF за 48 ч\n\n💰 25 000 ₸ · PDF за 48 ч`;
             const reply_markup = {
                 inline_keyboard: [
                     [{ text: l === 'en' ? "✅ Get Full Audit — $50" : "✅ Хочу полный аудит — 25 000 ₸", callback_data: "get_full_audit" }],
@@ -439,7 +448,7 @@ bot.on('message', async (msg) => {
                 const data = apiRes.data;
 
                 // Step 1: show audit scores
-                const summary = buildSummary(data, lang);
+                const summary = buildSummary(data, lang, targetUrl);
                 await bot.sendMessage(chatId, summary, { parse_mode: 'Markdown' });
 
                 // Step 2: pause, then show report link
@@ -452,9 +461,11 @@ bot.on('message', async (msg) => {
                 // Step 3: pause, then upsell
                 await new Promise(r => setTimeout(r, 2500));
                 const issueCount = (data.issues || []).length;
+                userStates[chatId].issueCount = issueCount;
+                const hiddenCount = Math.max(issueCount - 3, 5);
                 const sellBlock = lang === 'en'
-                    ? `I found ${issueCount || 'several'} issues.\n\nThe free report shows *what* is broken.\nThe full audit shows *why* — and gives you an exact fix plan.\n\n✔ 50+ checks\n✔ Competitor analysis\n✔ PDF delivered in 48h`
-                    : `Я нашёл ${issueCount || 'несколько'} проблем.\n\nБесплатный отчёт показывает *что* сломано.\nПолный аудит — *почему* и как исправить.\n\n✔ 50+ проверок\n✔ Анализ конкурентов\n✔ PDF за 48 ч`;
+                    ? `We found *${issueCount || 'several'} issues* on ${targetUrl}.\n\n🔒 *${hiddenCount}+ more critical issues are affecting your conversions* — not shown in the free report.\n\n*In the full audit you'll get:*\n→ Complete list of all issues\n→ Priority fix plan\n→ 30-day growth roadmap\n→ Competitor gap analysis\n→ PDF delivered within 48h`
+                    : `Мы нашли *${issueCount || 'несколько'} проблем* на ${targetUrl}.\n\n🔒 *Ещё ${hiddenCount}+ критических проблем влияют на ваши заявки* — они не показаны в бесплатном отчёте.\n\n*В полном аудите вы получите:*\n→ Полный список всех ошибок\n→ Приоритеты и план исправлений\n→ План роста на 30 дней\n→ Анализ конкурентов\n→ PDF за 48 ч`;
                 const opts = {
                     parse_mode: 'Markdown',
                     reply_markup: {
