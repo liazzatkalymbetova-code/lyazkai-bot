@@ -134,7 +134,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             const totalIssues   = criticalCount + mediumCount;
             const reportDomain  = data.domain || domain;
             const reportDate    = data.analysisDate || new Date().toLocaleDateString(isRu ? 'ru-RU' : 'en-US', { day: 'numeric', month: 'long', year: 'numeric' });
-            const hiddenCount   = data.hiddenCount != null ? data.hiddenCount : Math.max(0, totalIssues - 3);
+            const hiddenCount   = Math.max(0, issuesOnly.length - 3);
 
             const isEn = window.location.pathname.includes('/en/');
 
@@ -192,12 +192,15 @@ document.addEventListener('DOMContentLoaded', async () => {
             `;
 
             // БЛОК 3: СПИСОК ОШИБОК
-            let insightsToRender = data.issues || data.insights || [];
-            const hasEmail = localStorage.getItem('lead_email') || isUnlocked;
+            const allIssues    = data.issues || data.insights || [];
+            const issuesOnly   = allIssues.filter(i => i.type === 'error' || i.type === 'warning');
+            const successOnly  = allIssues.filter(i => i.type === 'success');
+            const hasEmail     = localStorage.getItem('lead_email') || isUnlocked;
 
-            if (!hasEmail) {
-                insightsToRender = data.insights.slice(0, 3);
-            }
+            // Free: show first 3 real problems (errors+warnings), then 1 success as reassurance
+            let insightsToRender = hasEmail
+                ? allIssues
+                : [...issuesOnly.slice(0, 3), ...successOnly.slice(0, 1)];
 
             html += insightsToRender.map(i => {
                 let icon = '💡';

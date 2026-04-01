@@ -93,6 +93,14 @@ app.get('/api/report', async (req, res) => {
                                   : 'Search engines show random text instead of your description — users don\'t understand your offer',
                 impact:      isRu ? 'Снижает CTR из поиска на 20–35%' : 'Reduces search CTR by 20–35%'
             });
+        } else if (metaDesc.length < 50) {
+            insights.push({ type: 'warning',
+                title:       isRu ? `Описание слишком короткое — ${metaDesc.length} симв. (норма 50–160)` : `Description too short — ${metaDesc.length} chars (ideal 50–160)`,
+                page:        '/',
+                description: isRu ? `Текущее описание: «${metaDesc}» — слишком коротко, чтобы объяснить ценность сайта в поиске`
+                                  : `Current description: «${metaDesc}» — too short to explain your site's value in search`,
+                impact:      isRu ? 'Снижает CTR из поиска на 15–25%' : 'Reduces search CTR by 15–25%'
+            });
         } else if (metaDesc.length > 160) {
             insights.push({ type: 'warning',
                 title:       isRu ? `Описание обрезается в Google (${metaDesc.length} симв., лимит 160)` : `Description truncated by Google (${metaDesc.length} chars, limit 160)`,
