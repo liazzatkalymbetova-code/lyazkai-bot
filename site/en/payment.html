@@ -172,6 +172,7 @@
 </style>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link rel="preconnect" href="https://unpkg.com"/>
 <script src="https://unpkg.com/lucide@0.474.0/dist/umd/lucide.min.js" defer></script>
 </head>
 <body>
@@ -289,7 +290,7 @@
             const plan = params.get('plan');
 
             if (!plan) {
-                window.location.href = '/en/index.html';
+                window.location.href = '/en/';
                 return;
             }
 
@@ -301,7 +302,7 @@
             };
 
             if (!config[plan]) {
-                window.location.href = '/en/index.html';
+                window.location.href = '/en/';
                 return;
             }
 

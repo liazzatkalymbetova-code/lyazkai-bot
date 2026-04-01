@@ -759,7 +759,7 @@
 <link href="https://infolady.online/ru/visibility-audit.html" hreflang="ru" rel="alternate"/>
 <link href="https://infolady.online/" hreflang="x-default" rel="alternate"/>
 <!-- Lucide Icons -->
-<script src="https://unpkg.com/lucide@latest" defer></script>
+<script src="https://unpkg.com/lucide@0.474.0/dist/umd/lucide.min.js" defer></script>
 <script>
       document.addEventListener("DOMContentLoaded", function() {
         if (typeof lucide !== 'undefined') {
@@ -1010,7 +1010,7 @@
     : `Я прошёл аудит сайта ${domain}. Хочу полный разбор и решение.`;
 
   // ЗАМЕНИТЕ НА ВАШ ТЕЛЕГРАМ-НИКНЕЙМ (НЕ БОТА)
-  const tgUrl = `https://t.me/YOUR_USERNAME?text=${encodeURIComponent(msg)}`;
+  const tgUrl = `https://t.me/lyazkai_bot?text=${encodeURIComponent(msg)}`;
   document.getElementById("tg-link").href = tgUrl;
 
   lucide.createIcons();
@@ -1173,7 +1173,7 @@
     : `Я прошёл аудит сайта ${domain}. Хочу полный разбор и решение.`;
 
   // ЗАМЕНИТЕ НА ВАШ ТЕЛЕГРАМ-НИКНЕЙМ (НЕ БОТА)
-  const tgUrl = `https://t.me/YOUR_USERNAME?text=${encodeURIComponent(message)}`;
+  const tgUrl = `https://t.me/lyazkai_bot?text=${encodeURIComponent(message)}`;
   const tgLink = document.getElementById("tg-link-cta");
   if (tgLink) tgLink.href = tgUrl;
 
