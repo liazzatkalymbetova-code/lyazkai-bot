@@ -34,12 +34,13 @@ const deterministicHash = (str) => {
 };
 
 app.get('/api/report', async (req, res) => {
-    let { url } = req.query;
+    let { url, lang } = req.query;
     if (!url) url = 'https://example.com';
-    
-    if (!/^https?:\/\//i.test(url)) {
-        url = 'https://' + url;
-    }
+    if (!/^https?:\/\//i.test(url)) url = 'https://' + url;
+
+    const isRu = lang !== 'en';
+    const domainStr = url.replace(/^https?:\/\//i, '').split('/')[0];
+    const analysisDate = new Date().toLocaleDateString(isRu ? 'ru-RU' : 'en-US', { day: 'numeric', month: 'long', year: 'numeric' });
 
     console.log(`[API] /api/report called for: ${url}`);
 
@@ -48,36 +49,157 @@ app.get('/api/report', async (req, res) => {
         const html = response.data;
         const $ = cheerio.load(html);
 
-        const hasH1 = $('h1').length > 0;
-        const hasTitle = $('title').text().trim().length > 0;
-        const hasDesc = $('meta[name="description"]').attr('content') ? true : false;
+        const title      = $('title').text().trim();
+        const metaDesc   = $('meta[name="description"]').attr('content') || '';
+        const h1Count    = $('h1').length;
+        const canonical  = $('link[rel="canonical"]').attr('href') || '';
+        const robots     = $('meta[name="robots"]').attr('content') || '';
+        const hasSchema  = $('script[type="application/ld+json"]').length > 0;
+        const bodyText   = $('body').text().trim();
+        const contentLen = bodyText.length;
+        const h2Count    = $('h2').length;
+        const hasFAQ     = /FAQ|Часто задаваемые вопросы|Вопросы и ответы/i.test(bodyText) || $('[class*="faq"],[id*="faq"]').length > 0;
+        const imgTotal   = $('img').length;
+        const imgNoAlt   = $('img:not([alt]), img[alt=""]').length;
 
         const insights = [];
-        if (!hasH1) {
-            insights.push({ type: "error", message: "Нет H1 — поисковики не понимают страницу" });
+
+        // ── H1 ──────────────────────────────────────────────
+        if (h1Count === 0) {
+            insights.push({ type: 'error',
+                title:       isRu ? 'Отсутствует заголовок H1' : 'Missing H1 heading',
+                page:        '/',
+                description: isRu ? 'H1 — главный сигнал о теме страницы. Без него алгоритм не понимает, что продвигать'
+                                  : 'H1 is the primary signal about the page topic. Without it, the algorithm has no idea what to rank.',
+                impact:      isRu ? 'Снижает позиции в поиске на 10–25%' : 'Reduces search rankings by 10–25%'
+            });
+        } else if (h1Count > 1) {
+            insights.push({ type: 'warning',
+                title:       isRu ? `На странице ${h1Count} заголовка H1 — допустим только один` : `${h1Count} H1 tags found — only one allowed`,
+                page:        '/',
+                description: isRu ? 'Несколько H1 запутывают поисковик: непонятно, какой заголовок главный'
+                                  : 'Multiple H1 tags confuse search engines — unclear which heading is primary'
+            });
         } else {
-            insights.push({ type: "success", message: "H1 есть — структура страницы понятна" });
+            insights.push({ type: 'success', title: isRu ? 'H1 присутствует — структура страницы понятна' : 'H1 present — page structure is clear', page: '/' });
         }
 
-        if (!hasDesc) {
-            insights.push({ type: "warning", message: "Нет description — вы теряете клики" });
+        // ── Meta Description ─────────────────────────────────
+        if (!metaDesc) {
+            insights.push({ type: 'warning',
+                title:       isRu ? 'Нет мета-описания (description)' : 'Missing meta description',
+                page:        '/',
+                description: isRu ? 'Поисковики показывают случайный текст вместо вашего описания — пользователи не понимают, что вы предлагаете'
+                                  : 'Search engines show random text instead of your description — users don\'t understand your offer',
+                impact:      isRu ? 'Снижает CTR из поиска на 20–35%' : 'Reduces search CTR by 20–35%'
+            });
+        } else if (metaDesc.length > 160) {
+            insights.push({ type: 'warning',
+                title:       isRu ? `Описание обрезается в Google (${metaDesc.length} симв., лимит 160)` : `Description truncated by Google (${metaDesc.length} chars, limit 160)`,
+                page:        '/',
+                description: isRu ? 'Google обрезает текст на 160 символах — в поиске видно не всё описание'
+                                  : 'Google cuts off text at 160 chars — incomplete description shown in search'
+            });
         } else {
-            insights.push({ type: "success", message: "Description есть — улучшает CTR" });
+            insights.push({ type: 'success', title: isRu ? 'Description есть — помогает CTR' : 'Meta description present — improves CTR', page: '/' });
         }
 
-        if (!hasTitle) {
-            insights.push({ type: "error", message: "Нет title — сайт не будет нормально ранжироваться" });
+        // ── Title ────────────────────────────────────────────
+        if (!title) {
+            insights.push({ type: 'error',
+                title:       isRu ? 'Отсутствует тег Title' : 'Missing title tag',
+                page:        '/',
+                description: isRu ? 'Без Title поисковики не знают, о чём ваш сайт — страница не ранжируется'
+                                  : 'Without Title, search engines don\'t know what your page is about — it won\'t rank',
+                impact:      isRu ? 'Снижает трафик из поиска на 30–50%' : 'Reduces organic traffic by 30–50%'
+            });
+        } else if (title.length > 70) {
+            insights.push({ type: 'warning',
+                title:       isRu ? `Title обрезается в Google (${title.length} симв., лимит 70)` : `Title truncated by Google (${title.length} chars, limit 70)`,
+                page:        '/',
+                description: isRu ? `Google показывает: «${title.substring(0, 67)}…» — пользователи видят неполный заголовок`
+                                  : `Google shows: «${title.substring(0, 67)}…» — users see a cut-off title`
+            });
         } else {
-            insights.push({ type: "success", message: "Title есть — базовое SEO присутствует" });
+            insights.push({ type: 'success', title: isRu ? 'Title присутствует — базовое SEO в порядке' : 'Title present — basic SEO in order', page: '/' });
         }
 
-        res.json({ url: url, insights: insights });
+        // ── Canonical ────────────────────────────────────────
+        if (!canonical) {
+            insights.push({ type: 'warning',
+                title:       isRu ? 'Нет тега Canonical' : 'Missing canonical tag',
+                page:        '/',
+                description: isRu ? 'Без canonical поисковик может индексировать дублирующиеся версии страницы (http/https, www/без www), размывая ссылочный вес'
+                                  : 'Without canonical, search engines may index duplicate versions (http/https, www/non-www), splitting link equity'
+            });
+        }
+
+        // ── Robots noindex ───────────────────────────────────
+        if (robots && robots.toLowerCase().includes('noindex')) {
+            insights.push({ type: 'error',
+                title:       isRu ? 'КРИТИЧНО: сайт закрыт от индексации (noindex)' : 'CRITICAL: site blocked from indexing (noindex)',
+                page:        '/',
+                description: isRu ? 'Тег noindex запрещает Google и Яндекс показывать ваш сайт в поиске — вы буквально не существуете для поисковиков'
+                                  : 'The noindex tag prevents Google from showing your site in search — you literally don\'t exist in search results',
+                impact:      isRu ? '100% потеря органического трафика' : '100% loss of organic traffic'
+            });
+        }
+
+        // ── Schema.org ───────────────────────────────────────
+        if (!hasSchema) {
+            insights.push({ type: 'warning',
+                title:       isRu ? 'Нет разметки Schema.org' : 'Missing Schema.org markup',
+                page:        '/',
+                description: isRu ? 'Без Schema.org ChatGPT и Google AI не понимают структуру вашего бизнеса — сайт не цитируется в AI-ответах'
+                                  : 'Without Schema.org, ChatGPT and Google AI don\'t understand your business — site won\'t be cited in AI answers',
+                impact:      isRu ? 'Сайт не упоминается в ИИ-поиске (ChatGPT, Gemini)' : 'Site not mentioned in AI search (ChatGPT, Gemini)'
+            });
+        }
+
+        // ── FAQ / AI structure ────────────────────────────────
+        if (!hasFAQ || h2Count < 2) {
+            insights.push({ type: 'warning',
+                title:       isRu ? 'Нет FAQ-блоков и слабая H2-структура' : 'No FAQ blocks and weak H2 structure',
+                page:        '/',
+                description: isRu ? 'FAQ-блоки и чёткая H2/H3 структура — обязательное условие для попадания в Google AI Overviews и ChatGPT'
+                                  : 'FAQ blocks and clear H2/H3 structure are required for Google AI Overviews and ChatGPT citations',
+                impact:      isRu ? 'Сайт не цитируется в AI-ответах — теряете 15–30% потенциального трафика' : 'Site not cited in AI answers — missing 15–30% of potential traffic'
+            });
+        }
+
+        // ── Images without alt ───────────────────────────────
+        if (imgNoAlt > 0) {
+            insights.push({ type: 'warning',
+                title:       isRu ? `${imgNoAlt} из ${imgTotal} изображений без alt-текста` : `${imgNoAlt} of ${imgTotal} images missing alt text`,
+                page:        '/',
+                description: isRu ? 'Изображения без alt-текста не индексируются Google Images и не читаются скринридерами — потеря трафика и доступности'
+                                  : 'Images without alt text are not indexed by Google Images and unreadable by screen readers'
+            });
+        }
+
+        // ── Content thin ─────────────────────────────────────
+        if (contentLen < 1000) {
+            insights.push({ type: 'error',
+                title:       isRu ? `Мало контента — примерно ${Math.round(contentLen / 5)} слов` : `Thin content — approximately ${Math.round(contentLen / 5)} words`,
+                page:        '/',
+                description: isRu ? 'Страница с менее чем 200 словами считается "тонкой" — поисковики ей не доверяют и не продвигают'
+                                  : 'Pages with fewer than 200 words are considered "thin" — search engines don\'t trust or rank them'
+            });
+        }
+
+        const hiddenCount = Math.max(0, insights.filter(i => i.type !== 'success').length - 3);
+
+        res.json({ url, domain: domainStr, analysisDate, insights, hiddenCount });
 
     } catch (err) {
         console.error(`[API/report] Error:`, err.message);
         res.json({
+            domain: url.replace(/^https?:\/\//i, '').split('/')[0],
+            analysisDate: new Date().toLocaleDateString(isRu ? 'ru-RU' : 'en-US', { day: 'numeric', month: 'long', year: 'numeric' }),
+            hiddenCount: 4,
             insights: [
-                { type: "error", message: "Сайт недоступен или блокирует анализ" }
+                { type: 'error', title: isRu ? 'Сайт недоступен или блокирует анализ' : 'Site unavailable or blocking analysis', page: '/',
+                  description: isRu ? 'Некоторые сайты блокируют внешние запросы — это само по себе может влиять на индексацию' : 'Some sites block external requests — this can itself affect indexing' }
             ]
         });
     }

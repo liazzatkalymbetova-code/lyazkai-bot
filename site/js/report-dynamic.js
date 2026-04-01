@@ -129,36 +129,51 @@ document.addEventListener('DOMContentLoaded', async () => {
             actionList.style.margin = '0 auto';
 
             const criticalCount = data.insights.filter(i => i.type === 'error').length;
-            const mediumCount = data.insights.filter(i => i.type === 'warning').length;
-            const fixedCount = data.insights.filter(i => i.type === 'success').length;
+            const mediumCount   = data.insights.filter(i => i.type === 'warning').length;
+            const fixedCount    = data.insights.filter(i => i.type === 'success').length;
+            const totalIssues   = criticalCount + mediumCount;
+            const reportDomain  = data.domain || domain;
+            const reportDate    = data.analysisDate || new Date().toLocaleDateString(isRu ? 'ru-RU' : 'en-US', { day: 'numeric', month: 'long', year: 'numeric' });
+            const hiddenCount   = data.hiddenCount != null ? data.hiddenCount : Math.max(0, totalIssues - 3);
 
             const isEn = window.location.pathname.includes('/en/');
 
             const t = {
-                title1: isEn ? "🚨 You are losing clients right now" : "🚨 Вы теряете клиентов прямо сейчас",
-                sub1: isEn ? "Your site is already losing style up to 30–60% of leads due to critical errors" : "Ваш сайт уже теряет до 30–60% заявок из-за критических ошибок",
-                resTitle: isEn ? "Your Result:" : "Ваш результат:",
-                crit: isEn ? "critical errors" : "критические ошибки",
-                crit1: isEn ? "critical error" : "критическая ошибка",
-                critMany: isEn ? "critical errors" : "критических ошибок",
-                med: isEn ? "medium" : "средние",
-                fixed: isEn ? "fixed" : "исправлено",
-                conseqTitle: isEn ? "🔥 These errors are costing you clients" : "🔥 Эти ошибки стоят вам клиентов",
-                conseq1: isEn ? "• Up to 30–50% loss in leads" : "• До 30–50% потерь заявок",
-                conseq2: isEn ? "• Less trust" : "• Меньше доверия",
-                conseq3: isEn ? "• Leaving to competitors" : "• Уходят к конкурентам",
-                question: isEn ? "👉 Want to fix this in 1–2 days?" : "👉 Хотите исправить это за 1–2 дня?",
-                sub2: isEn ? "We will show what exactly to change and how it affects leads" : "Мы покажем, что конкретно изменить и как это влияет на заявки",
+                title1:     isEn ? "🚨 Your site is losing clients right now" : "🚨 Ваш сайт теряет клиентов прямо сейчас",
+                sub1:       isEn ? `Found ${totalIssues} issues on <strong>${reportDomain}</strong> that directly affect conversions`
+                                 : `На сайте <strong>${reportDomain}</strong> найдено ${totalIssues} проблем, которые напрямую влияют на заявки`,
+                resTitle:   isEn ? "Scan result:" : "Результат анализа:",
+                crit:       isEn ? "critical errors" : "критические ошибки",
+                crit1:      isEn ? "critical error" : "критическая ошибка",
+                critMany:   isEn ? "critical errors" : "критических ошибок",
+                med:        isEn ? "warnings" : "предупреждения",
+                fixed:      isEn ? "ok" : "в порядке",
+                conseqTitle: isEn ? `🔥 These errors cost ${reportDomain} clients` : `🔥 Эти ошибки стоят ${reportDomain} клиентов`,
+                conseq1:    isEn ? "• Up to 30–50% fewer leads from search" : "• До 30–50% потерь заявок из поиска",
+                conseq2:    isEn ? "• Lower trust, users leave faster" : "• Ниже доверие — пользователи уходят быстрее",
+                conseq3:    isEn ? "• Competitors with fixed sites rank above you" : "• Конкуренты с исправленными сайтами обгоняют вас",
+                question:   isEn ? "👉 Want to fix this in 24–48 hours?" : "👉 Хотите исправить это за 24–48 часов?",
+                sub2:       isEn ? "Full report shows exact pages, fixes, and expected traffic growth"
+                                 : "Полный отчёт покажет конкретные страницы, правки и ожидаемый рост трафика",
                 ctaPrimary: isEn ? "💰 Get Full Audit — $50" : "💰 Получить полный аудит — 25 000 ₸",
-                ctaSub1: isEn ? "✔ Action checklist" : "✔ Чек-лист исправлений",
-                ctaSub2: isEn ? "✔ Concrete fixes" : "✔ Конкретные правки",
-                ctaSub3: isEn ? "✔ Leads growth" : "✔ Рост заявок",
+                ctaSub1:    isEn ? "✔ Priority fix list" : "✔ Список правок по приоритету",
+                ctaSub2:    isEn ? "✔ Specific fixes" : "✔ Конкретные исправления",
+                ctaSub3:    isEn ? "✔ Lead growth" : "✔ Рост заявок",
                 ctaSecondary: isEn ? "Write in Telegram" : "Написать в Telegram"
             };
 
             const critText = criticalCount === 1 ? t.crit1 : (criticalCount > 1 && criticalCount < 5 ? t.crit : t.critMany);
 
             let html = `
+                <!-- БЛОК 0: ПЕРСОНАЛИЗАЦИЯ -->
+                <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07); border-radius:12px; padding:12px 16px; margin-bottom:20px;">
+                    <div style="font-size:0.88rem; color:rgba(255,255,255,0.5);">
+                        ${isEn ? 'Analysis of site' : 'Анализ сайта'}:
+                        <span style="color:#00e0ff; font-weight:700; margin-left:4px;">${reportDomain}</span>
+                    </div>
+                    <div style="font-size:0.82rem; color:rgba(255,255,255,0.35);">📅 ${reportDate}</div>
+                </div>
+
                 <!-- БЛОК 1: УДАР -->
                 <div style="background: rgba(255, 59, 48, 0.08); border: 1px solid rgba(255, 59, 48, 0.2); padding: 25px; border-radius: 16px; margin-bottom: 25px; text-align:center;">
                     <h2 style="color: #ff4d4d; font-size: 1.5rem; font-weight: 800; margin-bottom: 8px;">${t.title1}</h2>
@@ -186,22 +201,25 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             html += insightsToRender.map(i => {
                 let icon = '💡';
-                let color = '#fff';
-                if (i.type === 'error') { icon = '❌'; color = '#ff4d4d'; }
-                else if (i.type === 'warning') { icon = '⚠️'; color = '#febc2e'; }
-                else if (i.type === 'success') { icon = '✅'; color = '#28c840'; }
+                let borderColor = 'rgba(255,255,255,0.05)';
+                let titleColor = '#fff';
+                if (i.type === 'error')   { icon = '❌'; borderColor = 'rgba(255,59,48,0.2)';  titleColor = '#ff4d4d'; }
+                else if (i.type === 'warning') { icon = '⚠️'; borderColor = 'rgba(255,159,10,0.2)'; titleColor = '#febc2e'; }
+                else if (i.type === 'success') { icon = '✅'; borderColor = 'rgba(40,200,64,0.15)';  titleColor = '#28c840'; }
 
-                const itemText = i.title || i.message || '';
-                const parts = itemText.split(' — ');
-                const title = parts[0];
-                const desc = parts[1] || '';
+                const itemTitle = i.title || i.message || '';
+                const itemPage  = i.page  || null;
+                const itemDesc  = i.description || (() => { const p = itemTitle.split(' — '); return p[1] || ''; })();
+                const itemImpact = i.impact || null;
 
                 return `
-                    <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; padding: 18px; margin-bottom: 15px; text-align: left; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
-                        <div style="display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 1.1rem; color: ${color};">
-                            <span>${icon}</span> ${title}
+                    <div style="background:rgba(255,255,255,0.02); border:1px solid ${borderColor}; border-radius:12px; padding:18px; margin-bottom:15px; text-align:left; box-shadow:0 4px 15px rgba(0,0,0,0.2);">
+                        <div style="display:flex; align-items:flex-start; gap:8px; font-weight:700; font-size:1rem; color:${titleColor}; line-height:1.4;">
+                            <span style="flex-shrink:0;">${icon}</span> <span>${itemTitle.split(' — ')[0]}</span>
                         </div>
-                        ${desc ? `<div style="margin-top: 8px; margin-left: 28px; color: var(--text-dim); font-size: 0.92rem; line-height: 1.5;">→ ${desc}</div>` : ''}
+                        ${itemPage ? `<div style="margin-top:6px; margin-left:28px; font-size:0.78rem; color:rgba(255,255,255,0.3); font-family:monospace;">${itemPage}</div>` : ''}
+                        ${itemDesc ? `<div style="margin-top:8px; margin-left:28px; color:rgba(255,255,255,0.65); font-size:0.9rem; line-height:1.55;">${itemDesc}</div>` : ''}
+                        ${itemImpact ? `<div style="margin-top:8px; margin-left:28px; font-size:0.82rem; font-weight:700; color:#ff9f0a;">📉 ${itemImpact}</div>` : ''}
                     </div>
                 `;
             }).join('');
@@ -211,10 +229,12 @@ document.addEventListener('DOMContentLoaded', async () => {
                     <!-- EMAIL GATE -->
                     <div style="background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 16px; padding: 24px; margin-top: 25px; text-align: center; backdrop-filter: blur(10px); box-shadow: 0 4px 20px rgba(0,0,0,0.4);">
                         <div style="font-weight: 700; color: #fff; font-size: 1.2rem; margin-bottom: 8px;">
-                            ${isEn ? 'Enter your email to unlock full report' : 'Введите email, чтобы получить полный разбор'}
+                            ${isEn ? `We found ${hiddenCount} more critical issues` : `Мы нашли ещё ${hiddenCount} критических проблем`}
                         </div>
                         <p style="font-size: 0.88rem; color: var(--text-dim); margin-bottom: 20px;">
-                            ${isEn ? 'We found critical issues affecting your conversions.' : 'Мы нашли критические ошибки, которые скрыты'}
+                            ${isEn
+                                ? `${hiddenCount} issues on ${reportDomain} that directly affect leads and sales — not shown in the free version`
+                                : `${hiddenCount} проблем на ${reportDomain}, которые напрямую влияют на заявки и продажи — они не показаны в бесплатной версии`}
                         </p>
                         <div style="display: flex; gap: 12px; max-width: 440px; margin: 0 auto; flex-direction: column;">
                             <input type="email" id="gateEmail" placeholder="example@mail.com" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 12px; color: #fff; width: 100%; outline: none;" />
@@ -308,7 +328,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                     <input type="text" id="auditSite" value="${domain}" style="width:100%; background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.1); border-radius:8px; padding:10px; color:rgba(255,255,255,0.6); margin-bottom: 20px; outline:none;" readonly>
 
                     <button class="btn btn-primary btn-block btn-lg" onclick="window.payForAudit()" style="background: linear-gradient(135deg, #00e0ff 0%, #7c5cff 100%); color: #000; font-weight: 800; width:100%;">${isRu ? 'Оплатить — 25 000 ₸' : 'Pay — $50'}</button>
-                    <p style="font-size:0.75rem; color: var(--text-dim); text-align:center; margin-top: 8px;">Доступ сразу после оплаты</p>
+                    <p style="font-size:0.75rem; color: var(--text-dim); text-align:center; margin-top: 8px;">${isRu ? `Отчёт по ${domain} придёт на email за 24–48 ч` : `Report for ${domain} delivered to email in 24–48 h`}</p>
                 </div>
             `;
             modal.className = 'modal-root';
