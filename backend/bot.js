@@ -334,11 +334,14 @@ bot.on('callback_query', async (query) => {
         await bot.sendMessage(chatId, step3, { parse_mode: 'Markdown' });
 
         setTimeout(async () => {
-            const storedCount = state.issueCount || 9;
-            const hiddenCount = Math.max(storedCount - 2, 7);
+            const storedCount = state.issueCount || 0;
+            const hiddenCount = storedCount > 2 ? storedCount - 2 : null;
+            const hiddenLine = hiddenCount
+                ? (l === 'en' ? `🔒 *${hiddenCount} more critical issues* are in the full report.\n\n` : `🔒 *Ещё ${hiddenCount} критических проблем* — в полном отчёте.\n\n`)
+                : (l === 'en' ? `🔒 *Full analysis* includes additional checks beyond this preview.\n\n` : `🔒 *Полный анализ* включает дополнительные проверки.\n\n`);
             const step4 = l === 'en'
-                ? `We found *${hiddenCount}+ more critical issues* affecting your conversions — not shown above.\n\n*In the full audit you'll get:*\n→ Complete list of all issues\n→ Priority fix plan\n→ 30-day growth roadmap\n→ Competitor gap analysis\n→ PDF delivered within 48h\n\n💰 $50 · PDF within 48h`
-                : `Мы нашли *ещё ${hiddenCount}+ критических проблем*, которые влияют на ваши заявки — они не показаны выше.\n\n*В полном аудите вы получите:*\n→ Полный список всех ошибок\n→ Приоритеты и план исправлений\n→ План роста на 30 дней\n→ Анализ конкурентов\n→ PDF за 48 ч\n\n💰 25 000 ₸ · PDF за 48 ч`;
+                ? `${hiddenLine}*In the full audit you'll get:*\n→ Complete list of all issues\n→ Priority fix plan\n→ 30-day growth roadmap\n→ Competitor gap analysis\n→ PDF delivered within 48h\n\n💰 $50 · PDF within 48h`
+                : `${hiddenLine}*В полном аудите вы получите:*\n→ Полный список всех ошибок\n→ Приоритеты и план исправлений\n→ План роста на 30 дней\n→ Анализ конкурентов\n→ PDF за 48 ч\n\n💰 25 000 ₸ · PDF за 48 ч`;
             const reply_markup = {
                 inline_keyboard: [
                     [{ text: l === 'en' ? "✅ Get Full Audit — $50" : "✅ Хочу полный аудит — 25 000 ₸", callback_data: "get_full_audit" }],
@@ -462,10 +465,13 @@ bot.on('message', async (msg) => {
                 await new Promise(r => setTimeout(r, 2500));
                 const issueCount = (data.issues || []).length;
                 userStates[chatId].issueCount = issueCount;
-                const hiddenCount = Math.max(issueCount - 3, 5);
+                const hiddenReal = issueCount > 3 ? issueCount - 3 : null;
+                const hiddenNote = hiddenReal
+                    ? (lang === 'en' ? `🔒 *${hiddenReal} more issues* not shown in the free report.\n\n` : `🔒 *Ещё ${hiddenReal} проблем* не показаны в бесплатном отчёте.\n\n`)
+                    : (lang === 'en' ? `🔒 *Full audit* goes deeper than this preview.\n\n` : `🔒 *Полный аудит* — это глубже, чем бесплатный обзор.\n\n`);
                 const sellBlock = lang === 'en'
-                    ? `We found *${issueCount || 'several'} issues* on ${targetUrl}.\n\n🔒 *${hiddenCount}+ more critical issues are affecting your conversions* — not shown in the free report.\n\n*In the full audit you'll get:*\n→ Complete list of all issues\n→ Priority fix plan\n→ 30-day growth roadmap\n→ Competitor gap analysis\n→ PDF delivered within 48h`
-                    : `Мы нашли *${issueCount || 'несколько'} проблем* на ${targetUrl}.\n\n🔒 *Ещё ${hiddenCount}+ критических проблем влияют на ваши заявки* — они не показаны в бесплатном отчёте.\n\n*В полном аудите вы получите:*\n→ Полный список всех ошибок\n→ Приоритеты и план исправлений\n→ План роста на 30 дней\n→ Анализ конкурентов\n→ PDF за 48 ч`;
+                    ? `We found *${issueCount || 'several'} issues* on ${targetUrl}.\n\n${hiddenNote}*In the full audit you'll get:*\n→ Complete list of all issues\n→ Priority fix plan\n→ 30-day growth roadmap\n→ Competitor gap analysis\n→ PDF delivered within 48h`
+                    : `Мы нашли *${issueCount || 'несколько'} проблем* на ${targetUrl}.\n\n${hiddenNote}*В полном аудите вы получите:*\n→ Полный список всех ошибок\n→ Приоритеты и план исправлений\n→ План роста на 30 дней\n→ Анализ конкурентов\n→ PDF за 48 ч`;
                 const opts = {
                     parse_mode: 'Markdown',
                     reply_markup: {
@@ -634,8 +640,8 @@ async function send3(chatId, segment) {
     if (userStates[chatId]?.status === 'purchased') return;
     const lang = userStates[chatId]?.lang || 'ru';
     const text = lang === 'en'
-        ? "💡 Yesterday you started an audit — but never got the result.\n\nMost of our clients find 5–12 issues they didn't know about.\n\n👉 Complete your audit today — price hasn't gone up yet."
-        : "💡 Вчера вы начали аудит — но так и не получили результат.\n\nБольшинство наших клиентов находят 5–12 ошибок, о которых не знали.\n\n👉 Пройдите аудит сегодня — цена ещё не выросла.";
+        ? "💡 Yesterday you started an audit — but never got the result.\n\nMost of our clients find 5–12 issues they didn't know about.\n\n👉 Complete your audit today — slots fill up this week."
+        : "💡 Вчера вы начали аудит — но так и не получили результат.\n\nБольшинство наших клиентов находят 5–12 ошибок, о которых не знали.\n\n👉 Пройдите аудит сегодня — места на этой неделе ещё есть.";
     console.log("FOLLOW-UP 3 SENT");
     await bot.sendMessage(chatId, text, getFollowUpOpts(chatId));
 }
@@ -644,8 +650,8 @@ async function send4(chatId, segment) {
     if (userStates[chatId]?.status === 'purchased') return;
     const lang = userStates[chatId]?.lang || 'ru';
     const text = lang === 'en'
-        ? "⚠️ Last reminder.\n\nThe audit price is going up soon.\n\nGet your full site breakdown now — while the current price stands."
-        : "⚠️ Последнее напоминание.\n\nЦена на аудит скоро вырастет.\n\nПолучите полный разбор своего сайта прямо сейчас — пока действует текущая цена.";
+        ? "⚠️ Last reminder.\n\nWe take a limited number of audits per week — and this week is filling up.\n\nGet your full site breakdown before capacity is reached."
+        : "⚠️ Последнее напоминание.\n\nМы принимаем ограниченное количество аудитов в неделю — и места заканчиваются.\n\nПолучите полный разбор вашего сайта, пока есть возможность.";
     console.log("FOLLOW-UP 4 SENT");
     await bot.sendMessage(chatId, text, getFollowUpOpts(chatId));
 }

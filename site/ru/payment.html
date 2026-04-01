@@ -194,7 +194,7 @@
   </div>
   <p class="result">✓ Готово за 24–48 часов</p>
   <p style="color:#4ade80; font-size:0.85rem; font-weight:600; margin-top:8px;">🛡 Если не найдём ничего полезного — вернём деньги</p>
-  <p class="urgency">Ограниченное количество мест — цена вырастет после 10 заказов</p>
+  <p class="urgency">Ограниченная вместимость — принимаем до 10 заказов в неделю</p>
 </div>
 
         <div style="background:rgba(239,68,68,0.08); border:1px solid rgba(239,68,68,0.3); border-radius:12px; padding:14px 16px; margin-bottom:20px; text-align:left;">
@@ -313,7 +313,7 @@
         function handlePayment() {
             const emailInput = document.getElementById('userEmail');
             const email = emailInput ? emailInput.value.trim() : '';
-            if (!email || !email.includes('@')) {
+            if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
                 alert('Пожалуйста, введите корректный email для получения отчёта.');
                 event.preventDefault();
                 if(emailInput) emailInput.focus();
@@ -335,7 +335,7 @@
         async function handleConfirmPayment() {
             const emailInput = document.getElementById('userEmail');
             const email = emailInput ? emailInput.value.trim() : '';
-            if (!email || !email.includes('@')) {
+            if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
                 alert('Пожалуйста, введите корректный email.');
                 if(emailInput) emailInput.focus();
                 return;

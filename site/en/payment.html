@@ -193,7 +193,7 @@
   </div>
   <p class="result">✓ Delivered within 24–48 hours</p>
   <p style="color:#4ade80; font-size:0.85rem; font-weight:600; margin-top:8px;">🛡 No value found? Full refund guaranteed.</p>
-  <p class="urgency">Limited slots available — price increases after 10 more orders</p>
+  <p class="urgency">Limited capacity — we take up to 10 audits per week</p>
 </div>
 
         <div style="background:rgba(239,68,68,0.08); border:1px solid rgba(239,68,68,0.3); border-radius:12px; padding:14px 16px; margin-bottom:20px; text-align:left;">
@@ -395,7 +395,7 @@
         function handlePayment() {
             const emailInput = document.getElementById('userEmail');
             const email = emailInput ? emailInput.value.trim() : '';
-            if (!email || !email.includes('@')) {
+            if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
                 alert('Please enter a valid email to receive the report.');
                 if(emailInput) emailInput.focus();
                 return false;
