@@ -844,6 +844,10 @@
   .hero-container {
     grid-template-columns: 1fr;
     gap: 40px;
+    padding: 40px 20px;
+  }
+  .hero-right {
+    display: none;
   }
 }
 
@@ -861,7 +865,7 @@
 }
 
 .hero-title {
-  font-size: 44px;
+  font-size: clamp(26px, 5vw, 44px);
   line-height: 1.2;
   font-weight: 700;
   margin-bottom: 16px;
@@ -966,14 +970,14 @@
 
   const content = {
     ru: {
-      badge: "AI анализ сайта",
-      title: "Ваш сайт теряет клиентов каждый день",
-      subtitle: "Покажем, что мешает получать заявки и как это исправить",
-      mainBtn: "💰 Получить аудит — 25 000 ₸",
+      badge: "ИИ-аудит · 120+ проверок уже сделано",
+      title: "Ваш сайт теряет клиентов — покажем где именно",
+      subtitle: "50+ автоматических проверок. Топ-3 ошибки — бесплатно за 30 секунд. Полный PDF-отчёт с планом роста — от 25 000 ₸.",
+      mainBtn: "Запустить бесплатный анализ →",
       tgBtn: "💬 Обсудить в Telegram",
-      b1: "Найдём ошибки за 5 минут",
+      b1: "Результат за 30 секунд",
       b2: "Без регистрации",
-      b3: "Конкретные рекомендации",
+      b3: "7 ошибок находим в среднем",
       widget: "ИИ анализирует сайт..."
     },
     en: {
@@ -1800,8 +1804,8 @@ document.addEventListener('DOMContentLoaded', function() {
 <script src="/js/script.js?v=1"></script>
 
 <div class="mobile-cta">
-<a href="https://t.me/lyazkai_bot?start=mobile_cta">
-Получить клиентов
+<a href="#scanner" onclick="setTimeout(()=>document.getElementById('domain-input').focus(),200);">
+Проверить сайт бесплатно →
 </a>
 </div>
 <script>
