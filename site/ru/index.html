@@ -167,7 +167,9 @@
 <div class="nav__inner">
 <a class="nav__logo" href="/ru/">InfoLady</a>
 <ul class="pnav__links" role="list">
-
+    <li><a href="/ru/#how-it-works">Как работает</a></li>
+    <li><a href="/ru/#pricing">Тарифы</a></li>
+    <li><a href="/ru/about.html">О нас</a></li>
 </ul>
 <div class="pnav__right">
 <div class="lang-switch">
@@ -181,13 +183,19 @@
 </button>
 </div>
 <nav class="pnav__mobile" hidden="" id="mobileDrawer">
-<div class="pnav__mobile-section"></div>
-<div class="pnav__mobile-section"><a class="pnav__mobile-section-trigger" href="/ru/ai-integration.html">ИИ-интеграция</a></div>
-
-<div class="pnav__mobile-bottom"><div class="lang-switch">
-<button class="lang-btn active" data-lang="ru">RU</button>
-<button class="lang-btn" data-lang="en" onclick="location.href='/en/'">EN</button>
-</div></div></nav>
+<div class="pnav__mobile-section">
+    <a class="pnav__mobile-section-trigger" href="/ru/#how-it-works">Как работает</a>
+    <a class="pnav__mobile-section-trigger" href="/ru/#pricing">Тарифы</a>
+    <a class="pnav__mobile-section-trigger" href="/ru/ai-integration.html">ИИ-интеграция</a>
+    <a class="pnav__mobile-section-trigger" href="/ru/about.html">О нас</a>
+</div>
+<div class="pnav__mobile-bottom">
+    <a class="btn btn-primary" href="/ru/scan.html" style="width:100%; text-align:center; margin-bottom:12px;">Проверить сайт бесплатно</a>
+    <div class="lang-switch">
+        <button class="lang-btn active" data-lang="ru">RU</button>
+        <button class="lang-btn" data-lang="en" onclick="location.href='/en/'">EN</button>
+    </div>
+</div></nav>
 </div>
 </nav>
 </header>
@@ -206,7 +214,7 @@
 <span data-en="Search Analytics Platform" data-ru="Платформа поисковой аналитики">Платформа поисковой аналитики</span>
 </div>
 <h1 id="heroTitle"><span>Узнайте, почему ваш сайт не продаёт — за 3 минуты</span></h1>
-<p class="lead">50+ автоматических проверок. Список ошибок по приоритетам. PDF-отчёт за 24–48 часов. Базовый отчёт — бесплатно. Полный аудит с PDF — от 25 000 ₸.</p>
+<p class="lead">50+ автоматических проверок. Бесплатный результат — за 30 секунд. Полный PDF-отчёт с планом роста — от 25 000 ₸, за 24–48 часов.</p>
 <div style="background: rgba(255, 77, 77, 0.1); border: 1px solid rgba(255, 77, 77, 0.2); border-radius: 20px; padding: 6px 12px; font-size: 0.82rem; color: #ff4d4d; display: inline-flex; align-items: center; gap: 6px; margin-bottom: 16px;">
 <i data-lucide="alert-circle" style="width: 14px; height: 14px;"></i>
 <span>Утечка заявок зафиксирована</span>
@@ -220,11 +228,11 @@
 <span>Проверить мой сайт бесплатно →</span>
 </button>
 </div>
-<p style="font-size:0.83rem; color:rgba(255,255,255,0.55); margin-top:10px; margin-bottom:16px;">Без регистрации · 3 минуты · Бесплатно</p>
+<p style="font-size:0.83rem; color:rgba(255,255,255,0.55); margin-top:10px; margin-bottom:16px;">Без регистрации · 30 секунд · Бесплатно</p>
 <div class="hero-subtext" style="display: flex; justify-content: center; gap: 16px; margin-top: 4px; font-size: 0.85rem; color: var(--text-dim); font-weight: 500; margin-bottom: 20px;">
 <div style="display: flex; align-items: center; gap: 6px;"><i data-lucide="check-circle" class="icon" style="color: #28c840; width: 14px; height: 14px;"></i> <span>Без регистрации</span></div>
-<div style="display: flex; align-items: center; gap: 6px;"><i data-lucide="zap" class="icon" style="color: #febc2e; width: 14px; height: 14px;"></i> <span>Быстро (30 сек)</span></div>
-<div style="display: flex; align-items: center; gap: 6px;"><i data-lucide="bar-chart" class="icon" style="color: var(--accent-secondary); width: 14px; height: 14px;"></i> <span>Конкретно</span></div>
+<div style="display: flex; align-items: center; gap: 6px;"><i data-lucide="zap" class="icon" style="color: #febc2e; width: 14px; height: 14px;"></i> <span>Результат за 30 сек</span></div>
+<div style="display: flex; align-items: center; gap: 6px;"><i data-lucide="bar-chart" class="icon" style="color: var(--accent-secondary); width: 14px; height: 14px;"></i> <span>Конкретные ошибки</span></div>
 </div>
 <!-- Removed redundant Telegram link under scanner -->
 
@@ -366,7 +374,8 @@
 <a href="/ru/payment.html?plan=basic" class="cta" data-plan="basic">Получить аудит →</a>
 </div>
 
-<div class="card">
+<div class="card highlight">
+<div class="pricing-card__badge" style="position: absolute; top: -14px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, #00e0ff 0%, #7c12ff 100%); color: #fff; font-size: .72rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; padding: 5px 16px; border-radius: 20px;">Рекомендуем</div>
 <h3>Стандарт</h3>
 <p style="color:rgba(255,255,255,0.6); font-size:0.85rem; margin: 4px 0 12px;">Для компаний с несколькими направлениями</p>
 <div class="price">50 000 ₸</div>
@@ -378,8 +387,7 @@
 <a href="/ru/payment.html?plan=standard" class="cta" data-plan="standard">Получить аудит →</a>
 </div>
 
-<div class="card highlight">
-<div class="pricing-card__badge" style="position: absolute; top: -14px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, #00e0ff 0%, #7c12ff 100%); color: #fff; font-size: .72rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; padding: 5px 16px; border-radius: 20px;">Рекомендуем</div>
+<div class="card">
 <h3>Премиум</h3>
 <p style="color:rgba(255,255,255,0.6); font-size:0.85rem; margin: 4px 0 12px;">Для агентств и e-commerce</p>
 <div class="price">150 000 ₸</div>
@@ -448,14 +456,17 @@
 <section class="faq">
 <h2>Частые вопросы</h2>
 
-<h3>Как ИИ увеличивает заявки?</h3>
-<p>ИИ автоматизирует обработку клиентов и повышает конверсию сайта.</p>
+<h3>Что я получу бесплатно?</h3>
+<p>Топ-3 ошибки вашего сайта и общий балл видимости — сразу после сканирования, без регистрации. Полный список из 50+ проверок, PDF-отчёт и план роста — в платном тарифе.</p>
 
-<h3>Сколько стоит внедрение?</h3>
-<p>Зависит от бизнеса, начинается с аудита.</p>
+<h3>Как ИИ-аудит помогает увеличить заявки?</h3>
+<p>Аудит находит конкретные причины, почему пользователи уходят без заявки: незаметные CTA, медленная загрузка, плохая видимость в поиске, слабые мета-теги. Устранив эти ошибки, сайты обычно увеличивают конверсию на 20–50% в течение 2–4 недель.</p>
+
+<h3>Сколько стоит полный аудит?</h3>
+<p>Базовый — 25 000 ₸ (PDF + план роста на email за 24–48 ч). Стандарт — 50 000 ₸ (+ анализ конкурентов + 30-дневная дорожная карта). Премиум — 150 000 ₸ (полный аудит + внедрение ИИ-инструментов + сопровождение).</p>
 
 <h3>Подходит ли для малого бизнеса?</h3>
-<p>Да, особенно если нет заявок.</p>
+<p>Да. Базовый тариф создан специально для владельцев одного сайта — кафе, салонов, клиник, интернет-магазинов. Если сайт есть, но заявок нет — аудит покажет, почему, и что исправить первым.</p>
 </section>
 <footer class="footer" role="contentinfo">
 <style>

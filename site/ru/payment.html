@@ -224,27 +224,27 @@
             </div>
         </div>
 
+        <div style="margin-bottom: 20px; text-align: left;">
+            <label for="userEmail" style="display:block; font-size: 0.9rem; font-weight: 600; color: #fff; margin-bottom: 8px;">1. Введите email — на него придёт отчёт</label>
+            <input type="email" id="userEmail" placeholder="your@email.com" style="width:100%; padding:14px; border-radius:12px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); color:#fff; font-family:inherit; font-size:0.95rem; outline:none; box-sizing:border-box; transition: border-color 0.2s;" required>
+            <p style="color:rgba(255,255,255,0.45); font-size:0.8rem; margin: 6px 0 0;">Без спама. Только отчёт.</p>
+        </div>
+
         <div class="instruction" id="plan-instruction">
             <i data-lucide="alert-triangle" class="icon"></i> Ожидание параметров...
         </div>
         <p style="text-align:center; font-size:0.8rem; color:rgba(255,255,255,0.5); margin: -16px 0 16px;">Оплата через приложение Kaspi — быстро и без комиссии.</p>
 
-
-        <div style="margin-bottom: 20px; text-align: left;">
-            <label for="userEmail" style="display:block; font-size: 0.85rem; color: var(--text-dim); margin-bottom: 8px;">Введите email для получения отчёта</label>
-            <input type="email" id="userEmail" placeholder="your@email.com" style="width:100%; padding:14px; border-radius:12px; background: rgba(255,255,255,0.04); border: 1px solid var(--border); color:#fff; font-family:inherit; font-size:0.95rem; outline:none; box-sizing:border-box;" required>
-        </div>
-        <p style="text-align:center; color:rgba(255,255,255,0.5); font-size:0.82rem; margin: -8px 0 16px;">Отчёт придёт на этот email. Без спама.</p>
 <div style="background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); border-radius:12px; padding:14px 16px; margin-bottom:16px; text-align:left;">
   <p style="margin:0 0 8px; font-size:0.85rem; font-weight:700; color:#fff;">Как это работает:</p>
-  <p style="margin:0 0 6px; font-size:0.85rem; color:rgba(255,255,255,0.75);">1️⃣ Нажмите кнопку ниже — откроется Kaspi</p>
-  <p style="margin:0 0 6px; font-size:0.85rem; color:rgba(255,255,255,0.75);">2️⃣ Оплатите и вернитесь на эту страницу</p>
-  <p style="margin:0; font-size:0.85rem; color:rgba(255,255,255,0.75);">3️⃣ Нажмите зелёную кнопку «Я уже оплатил»</p>
+  <p style="margin:0 0 6px; font-size:0.85rem; color:rgba(255,255,255,0.75);">1️⃣ Введите email выше</p>
+  <p style="margin:0 0 6px; font-size:0.85rem; color:rgba(255,255,255,0.75);">2️⃣ Нажмите кнопку — откроется Kaspi, оплатите</p>
+  <p style="margin:0; font-size:0.85rem; color:rgba(255,255,255,0.75);">3️⃣ Вернитесь и нажмите зелёную кнопку «Я уже оплатил»</p>
 </div>
-<a href="https://pay.kaspi.kz/pay/fpquqhbx" class="cta-btn" target="_blank" onclick="handlePayment()">Шаг 1: Оплатить через Kaspi →</a>
+<a href="https://pay.kaspi.kz/pay/fpquqhbx" class="cta-btn" target="_blank" onclick="handlePayment()">Шаг 2: Оплатить через Kaspi →</a>
 <p style="text-align:center; color:rgba(255,255,255,0.45); font-size:0.78rem; margin: -12px 0 8px;">🔒 Оплата через Kaspi · 1 минута · Результат придёт на email</p>
 <script src="/js/config.js"></script>
-<button class="cta-btn" style="background: #10b981; margin-top: 10px;" onclick="handleConfirmPayment()">Шаг 2: Я уже оплатил — запустить аудит ✅</button>
+<button class="cta-btn" style="background: #10b981; margin-top: 10px;" onclick="handleConfirmPayment()">Шаг 3: Я уже оплатил — запустить аудит ✅</button>
 <p style="text-align:center; color:rgba(255,255,255,0.5); font-size:0.8rem; margin: 4px 0 0;">После подтверждения отчёт придёт на email за 24–48 часов.</p>
 <div id="status-message" style="margin-top:10px; font-weight:bold;"></div>
 <div id="progress-block" style="display:none; margin-top:16px; background:rgba(0,224,255,0.06); border:1px solid rgba(0,224,255,0.2); border-radius:12px; padding:16px; text-align:left;">
