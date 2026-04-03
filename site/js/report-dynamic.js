@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // API Endpoint config
     const API_BASE = typeof API_URL !== 'undefined' ? API_URL : (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-        ? 'http://localhost:3000'
+        ? `${window.location.protocol}//localhost:3000`
         : '');
 
     try {

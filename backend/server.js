@@ -13,6 +13,39 @@ console.log("OPENAI_API_KEY:", process.env.OPENAI_API_KEY ? (process.env.OPENAI_
 const app = express();
 app.use(cors());
 
+// Security Headers Middleware
+app.use((req, res, next) => {
+    // HSTS - Force HTTPS for 1 year
+    res.setHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains; preload');
+    
+    // Prevent MIME sniffing
+    res.setHeader('X-Content-Type-Options', 'nosniff');
+    
+    // Prevent clickjacking
+    res.setHeader('X-Frame-Options', 'DENY');
+    
+    // Referrer policy
+    res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+    
+    // Permissions Policy (formerly Feature Policy)
+    res.setHeader('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
+    
+    // Content Security Policy - allows fonts, scripts, and images from trusted sources
+    res.setHeader('Content-Security-Policy', 
+        "default-src 'self'; " +
+        "script-src 'self' 'unsafe-inline' https://unpkg.com https://fonts.googleapis.com https://www.googletagmanager.com https://cdn.jsdelivr.net; " +
+        "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net; " +
+        "font-src 'self' https://fonts.gstatic.com data:; " +
+        "img-src 'self' https: data:; " +
+        "connect-src 'self' https: wss:; " +
+        "frame-ancestors 'none'; " +
+        "base-uri 'self'; " +
+        "form-action 'self'"
+    );
+    
+    next();
+});
+
 // --- /report ROUTE (must be ABOVE express.static) ---
 // Handles: /report  AND  /report?user=123  (query params ignored by Express route matching)
 app.get('/report', (req, res) => {

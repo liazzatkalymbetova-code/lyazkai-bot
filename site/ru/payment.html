@@ -283,7 +283,7 @@
             const params = new URLSearchParams(window.location.search);
             const user = params.get('user');
             if (user) {
-                const baseUrl = typeof API_URL !== 'undefined' ? API_URL : (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' ? 'http://localhost:3000' : '');
+                const baseUrl = typeof API_URL !== 'undefined' ? API_URL : (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' ? `${window.location.protocol}//localhost:3000` : '');
                 fetch(`${baseUrl}/api/payment-intent`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
