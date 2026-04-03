@@ -351,6 +351,17 @@ p {
     cursor: pointer;
     border: none;
     outline: none;
+    min-height: 44px;
+}
+
+@media (max-width: 640px) {
+    .btn {
+        min-height: 44px;
+    }
+    
+    .btn-block {
+        white-space: normal;
+    }
 }
 
 .btn:hover {
@@ -433,7 +444,17 @@ p {
 
 .btn-block {
     width: 100%;
-    justify-content: center
+    display: flex;
+    justify-content: center;
+}
+
+@media (max-width: 640px) {
+    .btn-block {
+        font-size: 0.9rem;
+        padding: 12px 18px;
+        word-break: break-word;
+        white-space: normal;
+    }
 }
 
 /* 5. Nav */
