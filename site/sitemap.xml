@@ -4,14 +4,14 @@
 
   <url>
     <loc>https://infolady.online/</loc>
-    <lastmod>2026-03-31</lastmod>
+    <lastmod>2026-04-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://infolady.online/"/>
   </url>
   <url>
     <loc>https://infolady.online/en/</loc>
-    <lastmod>2026-03-31</lastmod>
+    <lastmod>2026-04-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://infolady.online/en/"/>
@@ -19,8 +19,17 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://infolady.online/"/>
   </url>
   <url>
+    <loc>https://infolady.online/en/payment.html</loc>
+    <lastmod>2026-04-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://infolady.online/en/payment.html"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://infolady.online/ru/payment.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://infolady.online/"/>
+  </url>
+  <url>
     <loc>https://infolady.online/en/visibility-audit.html</loc>
-    <lastmod>2026-03-31</lastmod>
+    <lastmod>2026-04-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://infolady.online/en/visibility-audit.html"/>
@@ -29,7 +38,7 @@
   </url>
   <url>
     <loc>https://infolady.online/en/ai-integration.html</loc>
-    <lastmod>2026-03-31</lastmod>
+    <lastmod>2026-04-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://infolady.online/en/ai-integration.html"/>
@@ -38,160 +47,143 @@
   </url>
   <url>
     <loc>https://infolady.online/en/about.html</loc>
-    <lastmod>2026-03-31</lastmod>
+    <lastmod>2026-04-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://infolady.online/en/about.html"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://infolady.online/ru/about.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://infolady.online/"/>
   </url>
   <url>
     <loc>https://infolady.online/en/ai-tools-directory.html</loc>
-    <lastmod>2026-03-31</lastmod>
+    <lastmod>2026-04-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://infolady.online/en/ai-tools-directory.html"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://infolady.online/ru/ai-tools-directory.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://infolady.online/"/>
   </url>
   <url>
     <loc>https://infolady.online/en/search-trend-radar.html</loc>
-    <lastmod>2026-03-31</lastmod>
+    <lastmod>2026-04-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://infolady.online/en/search-trend-radar.html"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://infolady.online/ru/search-trend-radar.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://infolady.online/"/>
   </url>
   <url>
     <loc>https://infolady.online/en/ai-market-map.html</loc>
-    <lastmod>2026-03-31</lastmod>
+    <lastmod>2026-04-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://infolady.online/en/ai-market-map.html"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://infolady.online/ru/ai-market-map.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://infolady.online/"/>
   </url>
   <url>
     <loc>https://infolady.online/en/ai-seo-tools.html</loc>
-    <lastmod>2026-03-31</lastmod>
+    <lastmod>2026-04-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://infolady.online/en/ai-seo-tools.html"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://infolady.online/ru/ai-seo-tools.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://infolady.online/"/>
   </url>
   <url>
     <loc>https://infolady.online/en/how-it-works.html</loc>
-    <lastmod>2026-03-31</lastmod>
+    <lastmod>2026-04-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://infolady.online/en/how-it-works.html"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://infolady.online/ru/how-it-works.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://infolady.online/"/>
   </url>
   <url>
     <loc>https://infolady.online/en/platform.html</loc>
-    <lastmod>2026-03-31</lastmod>
+    <lastmod>2026-04-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://infolady.online/en/platform.html"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://infolady.online/ru/platform.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://infolady.online/"/>
   </url>
   <url>
     <loc>https://infolady.online/en/white-label.html</loc>
-    <lastmod>2026-03-31</lastmod>
+    <lastmod>2026-04-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://infolady.online/en/white-label.html"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://infolady.online/ru/white-label.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://infolady.online/"/>
   </url>
   <url>
     <loc>https://infolady.online/en/digital-tools.html</loc>
-    <lastmod>2026-03-31</lastmod>
+    <lastmod>2026-04-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://infolady.online/en/digital-tools.html"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://infolady.online/ru/digital-tools.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://infolady.online/"/>
   </url>
   <url>
     <loc>https://infolady.online/en/ai-content-optimizer.html</loc>
-    <lastmod>2026-03-31</lastmod>
+    <lastmod>2026-04-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://infolady.online/en/ai-content-optimizer.html"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://infolady.online/ru/ai-content-optimizer.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://infolady.online/"/>
   </url>
   <url>
     <loc>https://infolady.online/en/ai-competitor-intelligence.html</loc>
-    <lastmod>2026-03-31</lastmod>
+    <lastmod>2026-04-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://infolady.online/en/ai-competitor-intelligence.html"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://infolady.online/ru/ai-competitor-intelligence.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://infolady.online/"/>
   </url>
   <url>
     <loc>https://infolady.online/en/ai-traffic-analytics.html</loc>
-    <lastmod>2026-03-31</lastmod>
+    <lastmod>2026-04-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://infolady.online/en/ai-traffic-analytics.html"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://infolady.online/ru/ai-traffic-analytics.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://infolady.online/"/>
   </url>
   <url>
     <loc>https://infolady.online/en/ai-lead-finder.html</loc>
-    <lastmod>2026-03-31</lastmod>
+    <lastmod>2026-04-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://infolady.online/en/ai-lead-finder.html"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://infolady.online/ru/ai-lead-finder.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://infolady.online/"/>
   </url>
   <url>
     <loc>https://infolady.online/en/ai-report-generator.html</loc>
-    <lastmod>2026-03-31</lastmod>
+    <lastmod>2026-04-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://infolady.online/en/ai-report-generator.html"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://infolady.online/ru/ai-report-generator.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://infolady.online/"/>
   </url>
   <url>
     <loc>https://infolady.online/en/ai-auto-outreach.html</loc>
-    <lastmod>2026-03-31</lastmod>
+    <lastmod>2026-04-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://infolady.online/en/ai-auto-outreach.html"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://infolady.online/ru/ai-auto-outreach.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://infolady.online/"/>
   </url>
   <url>
     <loc>https://infolady.online/en/ai-outreach.html</loc>
-    <lastmod>2026-03-31</lastmod>
+    <lastmod>2026-04-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://infolady.online/en/ai-outreach.html"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://infolady.online/ru/ai-outreach.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://infolady.online/"/>
   </url>
   <url>
     <loc>https://infolady.online/en/visibility-badge.html</loc>
-    <lastmod>2026-03-31</lastmod>
+    <lastmod>2026-04-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://infolady.online/en/visibility-badge.html"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://infolady.online/ru/visibility-badge.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://infolady.online/"/>
   </url>
   <url>
     <loc>https://infolady.online/en/privacy-policy.html</loc>
-    <lastmod>2026-03-31</lastmod>
+    <lastmod>2026-04-03</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://infolady.online/en/privacy-policy.html"/>
@@ -200,7 +192,7 @@
   </url>
   <url>
     <loc>https://infolady.online/en/terms-of-service.html</loc>
-    <lastmod>2026-03-31</lastmod>
+    <lastmod>2026-04-03</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://infolady.online/en/terms-of-service.html"/>
@@ -209,7 +201,7 @@
   </url>
   <url>
     <loc>https://infolady.online/en/cookie-policy.html</loc>
-    <lastmod>2026-03-31</lastmod>
+    <lastmod>2026-04-03</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://infolady.online/en/cookie-policy.html"/>

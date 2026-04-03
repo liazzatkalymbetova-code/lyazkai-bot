@@ -39,7 +39,7 @@
   <script type="application/ld+json">
   {
    "@context": "https://schema.org",
-   "@type": "О проектеPage",
+    "@type": "AboutPage",
    "mainEntity": {
     "@type": "Organization",
     "name": "InfoLady",
@@ -126,12 +126,14 @@
         <div class="nav__inner">
           <a class="nav__logo" href="/ru/">InfoLady</a>
           <ul class="pnav__links" role="list">
-            <li class="pnav__item"><a class="pnav__trigger" href="/en/visibility-audit.html">SEO Audit</a></li>
+            <li><a href="/ru/#how-it-works">Как работает</a></li>
+            <li><a href="/ru/#pricing">Тарифы</a></li>
+            <li><a href="/ru/about.html">О нас</a></li>
           </ul>
           <div class="pnav__right">
             <div class="lang-switch">
               <button class="lang-btn active" data-lang="ru">RU</button>
-              <button class="lang-btn" data-lang="en" onclick="location.href='/en/about.html'">EN</button>
+              <button class="lang-btn" data-lang="en">EN</button>
             </div>
             <a class="btn btn-primary btn-sm" data-i18n="btn_free_scan" href="/ru/visibility-audit.html">Бесплатный
               анализ</a>
@@ -141,15 +143,16 @@
           </button>
         </div>
         <nav class="pnav__mobile" hidden="" id="mobileDrawer">
-          <div class="pnav__mobile-section"><a class="pnav__mobile-section-trigger" href="/ru/visibility-audit.html">SEO
-              аудит</a></div>
-          <div class="pnav__mobile-section"><a class="pnav__mobile-section-trigger"
-              href="/ru/ai-integration.html">ИИ-интеграция</a></div>
-
+          <div class="pnav__mobile-section">
+            <a class="pnav__mobile-section-trigger" href="/ru/#how-it-works">Как работает</a>
+            <a class="pnav__mobile-section-trigger" href="/ru/#pricing">Тарифы</a>
+            <a class="pnav__mobile-section-trigger" href="/ru/about.html">О нас</a>
+          </div>
           <div class="pnav__mobile-bottom">
+            <a class="btn btn-primary" href="/ru/visibility-audit.html" style="width:100%; text-align:center; margin-bottom:12px;">Проверить сайт бесплатно</a>
             <div class="lang-switch">
               <button class="lang-btn active" data-lang="ru">RU</button>
-              <button class="lang-btn" data-lang="en" onclick="location.href='/en/index.html'">EN</button>
+              <button class="lang-btn" data-lang="en">EN</button>
             </div>
           </div>
         </nav>
@@ -171,7 +174,7 @@
     <div class="global-cta-bar inline-bar"
       style="background: linear-gradient(90deg, #1A1D26 0%, #242838 100%); padding: 22px; text-align: center; border: 1px solid rgba(255,255,255,0.05); font-size: 1rem; font-weight: 600; font-family:var(--font-body); display: flex; justify-content: center; align-items: center; gap: 15px; margin: 30px 0; border-radius: 12px; background: rgba(255,255,255,0.03); backdrop-filter: blur(5px); box-shadow: 0 4px 25px rgba(0,0,0,0.4);">
       <span style="color: #fff;">Проверь свой сайт бесплатно</span>
-      <a class="btn btn-primary btn-sm" href="/ru/scan.html"
+      <a class="btn btn-primary btn-sm" href="/ru/visibility-audit.html"
         style="padding: 10px 20px; font-size: 0.9rem; box-shadow: 0 4px 15px rgba(0, 224, 255, 0.25);"> Попробовать
         сейчас </a>
     </div>

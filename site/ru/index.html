@@ -174,7 +174,7 @@
 <div class="pnav__right">
 <div class="lang-switch">
 <button class="lang-btn active" data-lang="ru">RU</button>
-<button class="lang-btn" data-lang="en" onclick="location.href='/en/'">EN</button>
+<button class="lang-btn" data-lang="en">EN</button>
 </div>
 <a class="btn btn-primary btn-sm" data-i18n="btn_free_scan" href="/ru/visibility-audit.html">Получить аудит сайта</a>
 </div>
@@ -186,14 +186,13 @@
 <div class="pnav__mobile-section">
     <a class="pnav__mobile-section-trigger" href="/ru/#how-it-works">Как работает</a>
     <a class="pnav__mobile-section-trigger" href="/ru/#pricing">Тарифы</a>
-    <a class="pnav__mobile-section-trigger" href="/ru/ai-integration.html">ИИ-интеграция</a>
     <a class="pnav__mobile-section-trigger" href="/ru/about.html">О нас</a>
 </div>
 <div class="pnav__mobile-bottom">
-    <a class="btn btn-primary" href="/ru/scan.html" style="width:100%; text-align:center; margin-bottom:12px;">Проверить сайт бесплатно</a>
+    <a class="btn btn-primary" href="/ru/visibility-audit.html" style="width:100%; text-align:center; margin-bottom:12px;">Проверить сайт бесплатно</a>
     <div class="lang-switch">
         <button class="lang-btn active" data-lang="ru">RU</button>
-        <button class="lang-btn" data-lang="en" onclick="location.href='/en/'">EN</button>
+        <button class="lang-btn" data-lang="en">EN</button>
     </div>
 </div></nav>
 </div>
@@ -211,108 +210,24 @@
 <div class="hero__content">
 <div class="hero__eyebrow">
 <span aria-hidden="true" class="dot"></span>
-<span>ИИ-аудит сайта · 120+ проверок уже сделано</span>
+<span data-en="AI-Powered Website Analysis" data-ru="ИИ-анализ вашего сайта">ИИ-анализ вашего сайта</span>
 </div>
-<h1 id="heroTitle"><span>Узнайте, почему ваш сайт не продаёт — за 30 секунд</span></h1>
-<p class="lead">50+ автоматических проверок. Бесплатный результат — за 30 секунд. Полный PDF-отчёт с планом роста — от 25 000 ₸, за 24–48 часов.</p>
-<div style="background: rgba(255, 77, 77, 0.1); border: 1px solid rgba(255, 77, 77, 0.2); border-radius: 20px; padding: 6px 12px; font-size: 0.82rem; color: #ff4d4d; display: inline-flex; align-items: center; gap: 6px; margin-bottom: 16px;">
-<i data-lucide="alert-circle" style="width: 14px; height: 14px;"></i>
-<span>7 ошибок находим у каждого второго сайта</span>
-</div>
+<h1 id="heroTitle"><span data-en="Find Why Your Site Isn't Converting" data-ru="Узнайте, что мешает вашему сайту продавать">Узнайте, что мешает вашему сайту продавать</span></h1>
+<p class="lead" data-en="Scan across 50+ parameters. Instant insights into what's blocking sales. No signup, no credit card, completely free." data-ru="Проверим по 50+ параметрам. Сразу узнаете, что блокирует продажи. Без регистрации, без карты, полностью бесплатно.">Проверим по 50+ параметрам. Сразу узнаете, что блокирует продажи. Без регистрации, без карты, полностью бесплатно.</p>
 <div class="hero__actions-scan">
 <div class="hero__input-wrapper">
-<input class="hero__scan-input" data-placeholder-en="Введите ваш сайт (example.com)" data-placeholder-ru="Введите ваш сайт (example.com)" id="heroScanInput" placeholder="Введите ваш сайт (example.com)" required="" type="url"/>
+<input class="hero__scan-input" type="url" placeholder="https://вашсайт.com" aria-label="URL вашего сайта" id="heroScanInput" required />
 </div>
 <button class="primary-btn" id="heroScanSubmit" style="height: 52px; padding: 0 32px; font-size: 1rem; display: flex; align-items: center; gap: 8px;">
 <i data-lucide="bar-chart" class="icon" style="width: 18px; height: 18px;"></i>
-<span>Проверить мой сайт бесплатно →</span>
+<span data-en="Scan My Site Free" data-ru="Проверить сайт">Проверить сайт</span>
 </button>
 </div>
-<p style="font-size:0.83rem; color:rgba(255,255,255,0.55); margin-top:10px; margin-bottom:16px;">Без регистрации · 30 секунд · Бесплатно</p>
+<p style="font-size:0.83rem; color:rgba(255,255,255,0.55); margin-top:10px; margin-bottom:16px;" data-en="No signup · Instant results · Completely free" data-ru="Без регистрации · Результаты сразу · Полностью бесплатно">Без регистрации · Результаты сразу · Полностью бесплатно</p>
 <div class="hero-subtext" style="display: flex; justify-content: center; gap: 16px; margin-top: 4px; font-size: 0.85rem; color: var(--text-dim); font-weight: 500; margin-bottom: 20px;">
-<div style="display: flex; align-items: center; gap: 6px;"><i data-lucide="check-circle" class="icon" style="color: #28c840; width: 14px; height: 14px;"></i> <span>Без регистрации</span></div>
-<div style="display: flex; align-items: center; gap: 6px;"><i data-lucide="zap" class="icon" style="color: #febc2e; width: 14px; height: 14px;"></i> <span>Результат за 30 сек</span></div>
-<div style="display: flex; align-items: center; gap: 6px;"><i data-lucide="bar-chart" class="icon" style="color: var(--accent-secondary); width: 14px; height: 14px;"></i> <span>Конкретные ошибки</span></div>
-</div>
-<!-- Removed redundant Telegram link under scanner -->
-
-<div class="hero__stats">
-<div class="hero__stat">
-<strong>120+</strong>
-<span>сайтов уже проверено</span>
-</div>
-<div class="hero__stat">
-<strong>7 ошибок</strong>
-<span>находим в среднем</span>
-</div>
-<div class="hero__stat">
-<strong>+40%</strong>
-<span>рост заявок после правок</span>
-</div>
-</div>
-</div>
-<div aria-hidden="true" class="hero__visual">
-<div class="hero__card-glow"></div>
-<div class="hero__dashboard card" id="heroDashboard">
-<div class="hero__dash-header">
-<span class="hero__dash-dot hero__dash-dot--red"></span>
-<span class="hero__dash-dot hero__dash-dot--yellow"></span>
-<span class="hero__dash-dot hero__dash-dot--green"></span>
-<span class="hero__dash-title" id="dashboardTitle">Platform Dashboard · InfoLady</span>
-</div>
-<div class="hero__dash-body" id="dashboardBody">
-<div class="hero__dash-row">
-<div class="hero__dash-label">Статус</div>
-<div class="hero__dash-value">ИИ-анализ завершен <span class="pill pill--cyan">ИИ Готов</span></div>
-</div>
-<div class="hero__dash-row">
-<div class="hero__dash-label">Прогресс</div>
-<div class="hero__dash-progress">
-<div class="hero__dash-bar">
-<div class="hero__dash-fill" style="width: 0%;"></div>
-</div>
-<span>0%</span>
-</div>
-</div>
-<div class="hero__dash-row">
-<div class="hero__dash-label">Ошибки</div>
-<div class="hero__dash-value">Ожидание...</div>
-</div>
-</div>
-<div class="hero__dash-footer" id="dashboardFooter">
-<span class="hero__status-dot"></span> ИИ-помощник онлайн
-       </div>
-</div>
-<div class="hero__float hero__float--tl">
-<i data-lucide="bot" class="icon"></i>
-<span>ИИ-помощник активен</span>
-</div>
-<div class="hero__float hero__float--br">
-<i data-lucide="check-circle" class="icon"></i>
-<span>Аудит завершен</span>
-</div>
-</div>
-</div>
-</div>
-</section>
-<!-- ══════════════════════════ TRUST STRIP ══════════════════════════ -->
-<div class="container">
-<div class="trust-strip card" style="gap: 24px; text-align: center; padding: 24px; margin: -20px auto 40px auto; position: relative; z-index: 100; max-width: 900px;">
-    <div class="trust-item">
-        <i data-lucide="bar-chart" class="icon" style="color: var(--accent-secondary); margin-bottom: 8px;"></i>
-        <div style="font-weight: 800; font-size: 1.25rem; color: #fff;">120+</div>
-        <div style="font-size: 0.82rem; color: var(--text-dim);">сайтов уже проверено</div>
-    </div>
-    <div class="trust-item">
-        <i data-lucide="zap" class="icon" style="color: #febc2e; margin-bottom: 8px;"></i>
-        <div style="font-weight: 800; font-size: 1.25rem; color: #fff;">7 ошибок</div>
-        <div style="font-size: 0.82rem; color: var(--text-dim);">находим в среднем у сайта</div>
-    </div>
-    <div class="trust-item">
-        <i data-lucide="trending-up" class="icon" style="color: #28c840; margin-bottom: 8px;"></i>
-        <div style="font-weight: 800; font-size: 1.25rem; color: #fff;">+40%</div>
-        <div style="font-size: 0.82rem; color: var(--text-dim);">рост заявок после правок</div>
-    </div>
+<div style="display: flex; align-items: center; gap: 6px;"><i data-lucide="check-circle" class="icon" style="color: #28c840; width: 14px; height: 14px;"></i> <span data-en="No signup" data-ru="Без регистрации">Без регистрации</span></div>
+<div style="display: flex; align-items: center; gap: 6px;"><i data-lucide="zap" class="icon" style="color: #febc2e; width: 14px; height: 14px;"></i> <span data-en="Instant results" data-ru="Результат сразу">Результат сразу</span></div>
+<div style="display: flex; align-items: center; gap: 6px;"><i data-lucide="shield-check" class="icon" style="color: var(--accent-secondary); width: 14px; height: 14px;"></i> <span data-en="100% free" data-ru="Полностью бесплатно">Полностью бесплатно</span></div>
 </div>
 </div>
 <!-- ══════════════════════════ HOW IT WORKS ══════════════════ -->
@@ -321,27 +236,24 @@
 <div class="container">
 <div class="section-header">
 <span class="section-label" data-en="How It Works" data-ru="Как это работает">Как это работает</span>
-<h2 data-en="Get Your Search Рейтинг видимости" data-ru="Ваш Рейтинг видимости" id="howTitle">Ваш Рейтинг видимости</h2>
-<p data-en="Discover how modern search engines see your brand in three simple steps." data-ru="Узнайте, как современные поисковые системы видят ваш бренд за три простых шага.">Узнайте, как современные поисковые системы
-      продвигают свой бренд за три простых шага.</p>
+<h2 data-en="Find Issues in 3 Simple Steps" data-ru="Найдите проблемы в 3 простых шага" id="howTitle">Найдите проблемы в 3 простых шага</h2>
+<p data-en="We scan your site, show you what drains conversions, then deliver a growth plan." data-ru="Мы сканируем ваш сайт, показываем, что блокирует продажи, и даём план роста.">Мы сканируем ваш сайт, показываем, что блокирует продажи, и даём план роста.</p>
 </div>
 <div class="steps__grid">
 <div class="step fade-up">
 <div aria-label="Шаг 1" class="step__num">1</div>
-<h3 data-en="Visibility Scan" data-ru="Сканирование">Сканирование</h3>
-<p data-en="Введите URL для глубокого анализа of your website's content and perception." data-ru="Введите URL для глубокого анализа контента и восприятия вашего сайта.">Введите URL для глубокого анализа контента и восприятия вашего сайта.</p>
+<h3 data-en="Enter Your Website URL" data-ru="Отправьте URL вашего сайта">Отправьте URL вашего сайта</h3>
+<p data-en="Type in your domain and we start analyzing immediately." data-ru="Просто введите адрес — анализ начнётся сразу.">Просто введите адрес — анализ начнётся сразу.</p>
 </div>
 <div class="step fade-up">
 <div aria-label="Шаг 2" class="step__num">2</div>
-<h3 data-en="Visibility Rating" data-ru="Рейтинг видимости">Рейтинг видимости</h3>
-<p data-en="Receive a rating based on how ChatGPT, Perplexity, and Google Gemini index your site." data-ru="Получите оценку на основе того, как ChatGPT, Perplexity и Google Gemini индексируют ваш сайт.">
-       Получите балл на основе индекса ChatGPT, Perplexity и Google Gemini, который анализирует ваш сайт.</p>
+<h3 data-en="AI Runs 50+ Checks" data-ru="ИИ проверит 50+ параметров">ИИ проверит 50+ параметров</h3>
+<p data-en="SEO, speed, security, mobile, AI visibility — we check everything that matters." data-ru="SEO, скорость, безопасность, дизайн, видимость в ИИ-поиске — всё, что отводит покупателей.">SEO, скорость, безопасность, дизайн, видимость в ИИ-поиске — всё, что отводит покупателей.</p>
 </div>
 <div class="step fade-up">
 <div aria-label="Шаг 3" class="step__num">3</div>
-<h3 data-en="Аудит видимости" data-ru="Аудит видимости">Аудит видимости</h3>
-<p data-en="Get a detailed report with specific optimization recommendations for modern search." data-ru="Получите подробный отчет с конкретными рекомендациями по оптимизации для современного поиска.">Получите подробный
-       отчет с рекомендациями по оптимизации для современного поиска.</p>
+<h3 data-en="Get Your Growth Plan" data-ru="Получите план роста">Получите план роста</h3>
+<p data-en="Clear priorities: fix what blocks sales, implement quick wins, scale what works." data-ru="Видите приоритеты: устраните блокеры, внедрите быстро срабатывающие решения, масштабируйте эффективное.">Видите приоритеты: устраните блокеры, внедрите быстро срабатывающие решения, масштабируйте эффективное.</p>
 </div>
 </div>
 </div>
