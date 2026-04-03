@@ -589,6 +589,52 @@
         });
     }
 
+    /* ── Mobile CTA Scroll Behavior ──────────────────────────── */
+    function initMobileCtaScroll() {
+        const cta = $('.mobile-cta');
+        if (!cta) return;
+
+        let lastScrollY = 0;
+        let scrollDirection = 'up';
+        const scrollThreshold = 50;
+        let scrollTimer;
+
+        function updateScrollBehavior() {
+            const currentScrollY = window.scrollY;
+            const isAtTop = currentScrollY < scrollThreshold;
+            const isAtBottom = (currentScrollY + window.innerHeight) >= document.documentElement.scrollHeight - 200;
+
+            /* Show button if at top, bottom, or scrolling up */
+            const shouldShow = isAtTop || isAtBottom || scrollDirection === 'up';
+            
+            if (shouldShow && cta.classList.contains('hidden')) {
+                cta.classList.remove('hidden');
+            } else if (!shouldShow && !cta.classList.contains('hidden')) {
+                cta.classList.add('hidden');
+            }
+
+            lastScrollY = currentScrollY;
+        }
+
+        window.addEventListener('scroll', () => {
+            clearTimeout(scrollTimer);
+            const currentScrollY = window.scrollY;
+
+            /* Determine scroll direction */
+            if (currentScrollY > lastScrollY + 5) {
+                scrollDirection = 'down';
+            } else if (currentScrollY < lastScrollY - 5) {
+                scrollDirection = 'up';
+            }
+
+            /* Debounce final check */
+            scrollTimer = setTimeout(updateScrollBehavior, 100);
+        }, { passive: true });
+
+        /* Initial state */
+        updateScrollBehavior();
+    }
+
     /* ── Bootstrap ───────────────────────────────────────────── */
     document.addEventListener('DOMContentLoaded', () => {
         /* Load Lucide Icons */
@@ -617,6 +663,7 @@
         initBarCharts();
         initGauges();
         initTabs();
+        initMobileCtaScroll();
 
         applyTranslations(); // Apply i18n on load
 

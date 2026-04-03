@@ -4496,33 +4496,66 @@ p {
   left: 0;
   right: 0;
   z-index: 9999;
-  padding: 12px 16px;
-  padding-bottom: calc(12px + env(safe-area-inset-bottom));
-  background: rgba(11, 15, 28, 0.95);
+  padding: 8px 16px;
+  padding-bottom: calc(8px + env(safe-area-inset-bottom));
+  background: rgba(11, 15, 28, 0.98);
   backdrop-filter: blur(12px);
-  border-top: 1px solid rgba(255,255,255,0.07);
+  -webkit-backdrop-filter: blur(12px);
+  border-top: 1px solid rgba(255,255,255,0.08);
+  transition: transform 0.3s ease;
+  transform: translateY(0);
+}
+
+.mobile-cta.hidden {
+  transform: translateY(120%);
 }
 
 .mobile-cta a {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background: linear-gradient(135deg, #7c5cff 0%, #00e0ff 100%);
   color: #000;
-  text-align: center;
-  padding: 14px;
-  border-radius: 14px;
+  padding: 11px 20px;
+  border-radius: 12px;
   font-weight: 800;
-  font-size: 1rem;
+  font-size: 0.95rem;
   text-decoration: none;
   box-shadow: 0 4px 20px rgba(0, 224, 255, 0.25);
+  transition: box-shadow 0.2s ease;
+  min-height: 44px;
+}
+
+.mobile-cta a:active {
+  transform: scale(0.98);
 }
 
 @media (max-width: 768px) {
   .mobile-cta {
     display: block;
   }
+  
   /* Prevent content hiding behind fixed bar */
   body {
-    padding-bottom: calc(72px + env(safe-area-inset-bottom));
+    padding-bottom: calc(68px + env(safe-area-inset-bottom));
+  }
+  
+  main {
+    padding-bottom: 20px;
+  }
+  
+  /* Ensure forms and CTAs have bottom margin */
+  .audit-form,
+  .form-group:last-child,
+  .section:last-child {
+    margin-bottom: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .mobile-cta a {
+    font-size: 0.9rem;
+    padding: 10px 18px;
   }
 }
 
