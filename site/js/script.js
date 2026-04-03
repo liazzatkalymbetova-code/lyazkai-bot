@@ -1081,11 +1081,19 @@
         widget.className = 'chatbot';
         widget.id = 'chatbotWidget';
         widget.innerHTML = `
-            <button class="chatbot__trigger" id="chatbotTrigger" aria-label="AI SEO Ассистент" aria-expanded="false" style="z-index:9999">🤖</button>
+            <button class="chatbot__trigger" id="chatbotTrigger" aria-label="AI SEO Ассистент" aria-expanded="false" style="z-index:9999" title="Помощник — задай вопрос">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: #fff;">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                    <circle cx="9" cy="10" r="1"></circle>
+                    <circle cx="12" cy="10" r="1"></circle>
+                    <circle cx="15" cy="10" r="1"></circle>
+                </svg>
+            </button>
+            <div class="chatbot__tooltip" id="chatbotTooltip">Помощник — задай вопрос</div>
             <div class="chatbot__panel" id="chatbotPanel" role="dialog" aria-label="AI SEO Ассистент" style="z-index:10000">
                 <div class="chatbot__header">
                     <div class="chatbot__header-info">
-                        <div class="chatbot__avatar" aria-hidden="true">🤖</div>
+                        <div class="chatbot__avatar" aria-hidden="true">💬</div>
                         <div class="chatbot__header-text">
                             <strong>AI SEO Ассистент</strong>
                             <span>● Онлайн · InfoLady</span>
@@ -1104,6 +1112,7 @@
 
         const trigger = $('#chatbotTrigger');
         const panel = $('#chatbotPanel');
+        const tooltip = $('#chatbotTooltip');
         const closeBtn = $('#chatbotClose');
         const messagesEl = $('#chatbotMessages');
         const qrEl = $('#chatbotQR');
@@ -1112,7 +1121,15 @@
 
         let started = false;
 
-        function getLang() { return localStorage.getItem('il_lang') || 'ru'; }
+        function getLang() { return localStorage.getItem('lang') || localStorage.getItem('site_language') || 'ru'; }
+
+        function openTelegram() {
+            const message = getLang() === 'ru' 
+                ? 'Помощник InfoLady готов помочь 👇' 
+                : 'InfoLady assistant ready to help 👇';
+            const telegramLink = `https://t.me/lyazkai_bot?text=${encodeURIComponent(message)}&start=mobile_chat`;
+            window.open(telegramLink, '_blank');
+        }
 
         function togglePanel() {
             const open = panel.classList.toggle('open');
@@ -1120,8 +1137,23 @@
             if (open && !started) { started = true; startChat(); }
         }
 
-        trigger.addEventListener('click', togglePanel);
-        closeBtn.addEventListener('click', () => { panel.classList.remove('open'); trigger.setAttribute('aria-expanded', 'false'); });
+        trigger.addEventListener('click', (e) => {
+            e.preventDefault();
+            togglePanel();
+        });
+        
+        trigger.addEventListener('mouseenter', () => {
+            tooltip.classList.add('show');
+        });
+        
+        trigger.addEventListener('mouseleave', () => {
+            tooltip.classList.remove('show');
+        });
+
+        closeBtn.addEventListener('click', () => { 
+            panel.classList.remove('open'); 
+            trigger.setAttribute('aria-expanded', 'false'); 
+        });
 
         function addMsg(text, role = 'bot') {
             const msg = document.createElement('div');
@@ -1132,8 +1164,22 @@
         }
 
         function setQR(replies) {
-            qrEl.innerHTML = replies.map(r => `<button class="chatbot__qr" data-reply="${r}">${r}</button>`).join('');
-            $$('.chatbot__qr', qrEl).forEach(btn => btn.addEventListener('click', () => handleReply(btn.dataset.reply)));
+            qrEl.innerHTML = replies.map(r => {
+                if (r.includes('Telegram') || r.includes('Switch')) {
+                    return `<button class="chatbot__qr" data-reply="${r}" style="background: linear-gradient(135deg, #229ED9 0%, #0088cc 100%); color: #fff; border: none;">${r}</button>`;
+                }
+                return `<button class="chatbot__qr" data-reply="${r}">${r}</button>`;
+            }).join('');
+            
+            $$('.chatbot__qr', qrEl).forEach(btn => {
+                btn.addEventListener('click', () => {
+                    if (btn.dataset.reply.includes('Telegram') || btn.dataset.reply.includes('Switch')) {
+                        openTelegram();
+                    } else {
+                        handleReply(btn.dataset.reply);
+                    }
+                });
+            });
         }
 
         let chatState = 'init';
