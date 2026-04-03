@@ -554,7 +554,19 @@
 
     /* ── Translations & i18n ─────────────────────────────────── */
     function applyTranslations() {
-        const lang = localStorage.getItem('il_lang') || 'ru';
+        // Detect language from URL first, then fallback to localStorage
+        let lang = 'ru'; // default
+        const path = window.location.pathname;
+        
+        if (path.startsWith('/en/')) {
+            lang = 'en';
+        } else if (path.startsWith('/ru/')) {
+            lang = 'ru';
+        } else {
+            // Fallback to localStorage (use correct key)
+            lang = localStorage.getItem('lang') || localStorage.getItem('site_language') || 'ru';
+        }
+        
         const dict = typeof T !== 'undefined' ? (T[lang] || T.ru) : {};
 
         // 1. Text content translation (if dict exists)
