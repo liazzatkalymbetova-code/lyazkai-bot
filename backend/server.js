@@ -769,6 +769,159 @@ app.post('/api/gpt-chat', async (req, res) => {
     }
 });
 
+// --- AUDIT PREVIEW ENDPOINT ---
+app.get('/api/audit', async (req, res) => {
+    let { url, lang } = req.query;
+    if (!url) return res.status(400).json({ error: 'URL required' });
+    if (!/^https?:\/\//i.test(url)) url = 'https://' + url;
+
+    const isRu = lang !== 'en';
+    const domainStr = url.replace(/^https?:\/\//i, '').split('/')[0];
+    const analysisDate = new Date().toLocaleDateString(isRu ? 'ru-RU' : 'en-US', { day: 'numeric', month: 'long', year: 'numeric' });
+
+    console.log(`[API] /api/audit called for: ${url}`);
+
+    try {
+        const https = require('https');
+        const response = await axios.get(url, {
+            headers: { 'User-Agent': 'Mozilla/5.0 (compatible; InfoLadyBot/1.0; +https://infolady.online)' },
+            timeout: 10000,
+            httpsAgent: new https.Agent({ rejectUnauthorized: false })
+        });
+
+        const html = response.data;
+        const $ = cheerio.load(html);
+
+        const title     = $('title').text().trim();
+        const metaDesc  = $('meta[name="description"]').attr('content') || '';
+        const h1Count   = $('h1').length;
+        const canonical = $('link[rel="canonical"]').attr('href') || '';
+        const robots    = $('meta[name="robots"]').attr('content') || '';
+        const hasSchema = $('script[type="application/ld+json"]').length > 0;
+        const bodyText  = $('body').text().trim();
+        const contentLen = bodyText.length;
+        const h2Count   = $('h2').length;
+        const hasFAQ    = /FAQ|Часто задаваемые вопросы|Вопросы и ответы/i.test(bodyText) || $('[class*="faq"],[id*="faq"]').length > 0;
+        const imgTotal  = $('img').length;
+        const imgNoAlt  = $('img:not([alt]), img[alt=""]').length;
+
+        let score = 100;
+        const allIssues = [];
+
+        if (!title) {
+            score -= 20;
+            allIssues.push({ type: 'error', title: isRu ? 'Отсутствует тег Title' : 'Missing title tag', impact: isRu ? 'Снижает трафик из поиска на 30–50%' : 'Reduces organic traffic by 30–50%' });
+        } else if (title.length > 70) {
+            score -= 5;
+            allIssues.push({ type: 'warning', title: isRu ? `Title обрезается в Google (${title.length} симв., лимит 70)` : `Title truncated in Google (${title.length} chars, limit 70)`, impact: isRu ? 'Пользователи видят неполный заголовок в поиске' : 'Users see a cut-off title in search results' });
+        }
+
+        if (!metaDesc) {
+            score -= 15;
+            allIssues.push({ type: 'warning', title: isRu ? 'Нет мета-описания (description)' : 'Missing meta description', impact: isRu ? 'Снижает CTR из поиска на 20–35%' : 'Reduces search CTR by 20–35%' });
+        } else if (metaDesc.length < 50) {
+            score -= 5;
+            allIssues.push({ type: 'warning', title: isRu ? `Описание слишком короткое (${metaDesc.length} симв., норма 50–160)` : `Description too short (${metaDesc.length} chars, ideal 50–160)`, impact: isRu ? 'Не раскрывает ценность сайта в поиске' : 'Doesn\'t convey site value in search' });
+        } else if (metaDesc.length > 160) {
+            score -= 3;
+            allIssues.push({ type: 'warning', title: isRu ? `Описание обрезается в Google (${metaDesc.length} симв.)` : `Description truncated by Google (${metaDesc.length} chars)`, impact: isRu ? 'В поиске видна неполная информация' : 'Incomplete info shown in search' });
+        }
+
+        if (h1Count === 0) {
+            score -= 15;
+            allIssues.push({ type: 'error', title: isRu ? 'Отсутствует заголовок H1' : 'Missing H1 heading', impact: isRu ? 'Снижает позиции в поиске на 10–25%' : 'Reduces search rankings by 10–25%' });
+        } else if (h1Count > 1) {
+            score -= 5;
+            allIssues.push({ type: 'warning', title: isRu ? `На странице ${h1Count} тега H1 — допустим только один` : `${h1Count} H1 tags found — only one allowed`, impact: isRu ? 'Запутывает поисковый алгоритм' : 'Confuses search engine algorithms' });
+        }
+
+        if (robots && robots.toLowerCase().includes('noindex')) {
+            score -= 50;
+            allIssues.push({ type: 'error', title: isRu ? 'КРИТИЧНО: сайт закрыт от индексации (noindex)' : 'CRITICAL: site blocked from indexing (noindex)', impact: isRu ? '100% потеря органического трафика' : '100% loss of organic traffic' });
+        }
+
+        if (!canonical) {
+            score -= 5;
+            allIssues.push({ type: 'warning', title: isRu ? 'Нет тега Canonical' : 'Missing canonical tag', impact: isRu ? 'Риск индексации дублей страницы' : 'Risk of duplicate page indexing' });
+        }
+
+        if (!hasSchema) {
+            score -= 10;
+            allIssues.push({ type: 'warning', title: isRu ? 'Нет разметки Schema.org' : 'Missing Schema.org markup', impact: isRu ? 'Сайт не упоминается в AI-поиске (ChatGPT, Gemini)' : 'Not cited in AI search (ChatGPT, Gemini)' });
+        }
+
+        if (!hasFAQ || h2Count < 2) {
+            score -= 5;
+            allIssues.push({ type: 'warning', title: isRu ? 'Нет FAQ-блоков и слабая H2-структура' : 'No FAQ blocks and weak H2 structure', impact: isRu ? 'Теряете 15–30% AI-трафика' : 'Missing 15–30% of AI traffic potential' });
+        }
+
+        if (imgNoAlt > 0) {
+            score -= 5;
+            allIssues.push({ type: 'warning', title: isRu ? `${imgNoAlt} из ${imgTotal} изображений без alt-текста` : `${imgNoAlt} of ${imgTotal} images missing alt text`, impact: isRu ? 'Теряете трафик из Google Images' : 'Missing Google Images traffic' });
+        }
+
+        if (contentLen < 1000) {
+            score -= 10;
+            allIssues.push({ type: 'error', title: isRu ? `Мало контента — ~${Math.round(contentLen / 5)} слов` : `Thin content — ~${Math.round(contentLen / 5)} words`, impact: isRu ? 'Поисковики не продвигают страницы с малым контентом' : 'Search engines don\'t rank thin content' });
+        }
+
+        score = Math.max(0, Math.min(100, score));
+
+        const grade = score >= 80 ? (isRu ? 'Хорошо' : 'Good')
+                    : score >= 60 ? (isRu ? 'Средне' : 'Fair')
+                    : (isRu ? 'Критично' : 'Critical');
+
+        const gradeColor = score >= 80 ? '#10B981' : score >= 60 ? '#F59E0B' : '#EF4444';
+
+        const problemIssues = allIssues.filter(i => i.type !== 'success');
+        const visibleIssues = problemIssues.slice(0, 3);
+        const hiddenIssues  = problemIssues.slice(3);
+
+        const { generateAuditSummary } = require('./gpt');
+        const summary = await generateAuditSummary({
+            domain: domainStr, score, title, metaDesc,
+            issues: problemIssues.map(i => i.title),
+            lang: isRu ? 'ru' : 'en'
+        });
+
+        res.json({
+            domain: domainStr,
+            analysisDate,
+            score,
+            grade,
+            gradeColor,
+            summary,
+            issues: visibleIssues,
+            hiddenIssues,
+            totalIssues: problemIssues.length
+        });
+
+    } catch (err) {
+        console.error(`[API/audit] Error:`, err.message);
+        const fallbackDomain = url.replace(/^https?:\/\//i, '').split('/')[0];
+        const { generateAuditSummary } = require('./gpt');
+        const summary = await generateAuditSummary({
+            domain: fallbackDomain, score: 40, title: '', metaDesc: '',
+            issues: [isRu ? 'Сайт недоступен или блокирует анализ' : 'Site unavailable or blocking analysis'],
+            lang: isRu ? 'ru' : 'en'
+        }).catch(() => isRu
+            ? `Сайт ${fallbackDomain} не удалось полностью проанализировать — возможно, он блокирует внешние запросы.`
+            : `Unable to fully analyze ${fallbackDomain} — the site may be blocking external requests.`
+        );
+        res.json({
+            domain: fallbackDomain,
+            analysisDate,
+            score: 40,
+            grade: isRu ? 'Критично' : 'Critical',
+            gradeColor: '#EF4444',
+            summary,
+            issues: [{ type: 'error', title: isRu ? 'Сайт недоступен или блокирует анализ' : 'Site unavailable or blocking analysis', impact: isRu ? 'Поисковые боты также могут не видеть ваш сайт' : 'Search bots may also be unable to crawl your site' }],
+            hiddenIssues: [],
+            totalIssues: 1
+        });
+    }
+});
+
 app.get('/health', (req, res) => res.json({ status: 'ok', uptime: process.uptime() }));
 
 const PORT = process.env.PORT || 3000;

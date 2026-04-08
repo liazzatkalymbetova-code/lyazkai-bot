@@ -292,7 +292,52 @@ async function askWidgetGPT(sessionId, message, context = {}) {
     }
 }
 
+async function generateAuditSummary({ domain, score, title, metaDesc, issues, lang }) {
+    if (usingDummy) {
+        return lang === 'ru'
+            ? `Сайт ${domain} набрал ${score}/100 — выявлены критические проблемы с SEO-оптимизацией, которые снижают видимость в поиске.`
+            : `${domain} scored ${score}/100 — critical SEO issues detected that are blocking organic growth.`;
+    }
+
+    const issuesList = issues.slice(0, 5).join('; ');
+    const prompt = lang === 'ru'
+        ? `Ты — SEO-аналитик. Напиши Executive Summary для аудита сайта ${domain}.
+
+Данные анализа:
+- Title: ${title || 'отсутствует'}
+- Meta description: ${metaDesc ? metaDesc.substring(0, 100) : 'отсутствует'}
+- SEO-score: ${score}/100
+- Найденные проблемы: ${issuesList}
+
+Напиши 2–3 предложения, которые: конкретно называют главную проблему этого сайта (не общими словами), объясняют как это влияет на трафик или клиентов, создают ощущение срочности. Только текст, без заголовков. Пиши на русском.`
+        : `You are an SEO analyst. Write an Executive Summary for an audit of ${domain}.
+
+Analysis data:
+- Title: ${title || 'missing'}
+- Meta description: ${metaDesc ? metaDesc.substring(0, 100) : 'missing'}
+- SEO score: ${score}/100
+- Issues found: ${issuesList}
+
+Write 2–3 sentences that: specifically name the main problem for this site (not generic), explain how it affects traffic or customers, create urgency. Plain text only, no headers. Write in English.`;
+
+    try {
+        const completion = await openai.chat.completions.create({
+            model: 'gpt-4o-mini',
+            messages: [{ role: 'user', content: prompt }],
+            max_tokens: 150,
+            temperature: 0.7
+        });
+        return completion.choices[0].message.content.trim();
+    } catch (err) {
+        console.error('[GPT] generateAuditSummary error:', err.message);
+        return lang === 'ru'
+            ? `Сайт ${domain} набрал ${score}/100. Обнаружены проблемы, которые снижают видимость в поиске.`
+            : `${domain} scored ${score}/100. Issues detected that are reducing search visibility.`;
+    }
+}
+
 module.exports = {
     askGPT,
-    askWidgetGPT
+    askWidgetGPT,
+    generateAuditSummary
 };
