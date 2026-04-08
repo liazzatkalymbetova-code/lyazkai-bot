@@ -1109,7 +1109,8 @@
                     <button class="chatbot__send" id="chatbotSend" aria-label="${isEN ? 'Send' : 'Отправить'}">⟳</button>
                 </div>
             </div>`;
-        setTimeout(() => { document.body.appendChild(widget); }, 4000);
+        setTimeout(() => {
+        document.body.appendChild(widget);
 
         const trigger = $('#chatbotTrigger');
         const panel = $('#chatbotPanel');
@@ -1125,8 +1126,8 @@
         function getLang() { return localStorage.getItem('lang') || localStorage.getItem('site_language') || 'ru'; }
 
         function openTelegram() {
-            const message = getLang() === 'ru' 
-                ? 'Помощник InfoLady готов помочь 👇' 
+            const message = getLang() === 'ru'
+                ? 'Помощник InfoLady готов помочь 👇'
                 : 'InfoLady assistant ready to help 👇';
             const telegramLink = `https://t.me/lyazkai_bot?text=${encodeURIComponent(message)}&start=mobile_chat`;
             window.open(telegramLink, '_blank');
@@ -1142,18 +1143,23 @@
             e.preventDefault();
             togglePanel();
         });
-        
+
+        trigger.addEventListener('touchend', (e) => {
+            e.preventDefault();
+            togglePanel();
+        });
+
         trigger.addEventListener('mouseenter', () => {
             tooltip.classList.add('show');
         });
-        
+
         trigger.addEventListener('mouseleave', () => {
             tooltip.classList.remove('show');
         });
 
-        closeBtn.addEventListener('click', () => { 
-            panel.classList.remove('open'); 
-            trigger.setAttribute('aria-expanded', 'false'); 
+        closeBtn.addEventListener('click', () => {
+            panel.classList.remove('open');
+            trigger.setAttribute('aria-expanded', 'false');
         });
 
         function addMsg(text, role = 'bot') {
@@ -1162,6 +1168,7 @@
             msg.innerHTML = `<div class="chatbot__bubble">${text}</div>`;
             messagesEl.appendChild(msg);
             messagesEl.scrollTop = messagesEl.scrollHeight;
+            return msg;
         }
 
         function setQR(replies) {
@@ -1209,16 +1216,6 @@
                 report: ['📄 Get Full Audit Report', '🔍 Scan another site'],
             }
         };
-
-        // --- Smart GPT Integration (Item 2, 3, 8, 9) ---
-        function addMsg(text, role = 'bot') {
-            const msg = document.createElement('div');
-            msg.className = `chatbot__msg chatbot__msg--${role}`;
-            msg.innerHTML = `<div class="chatbot__bubble">${text}</div>`;
-            messagesEl.appendChild(msg);
-            messagesEl.scrollTop = messagesEl.scrollHeight;
-            return msg;
-        }
 
         function startChat() {
             setTimeout(() => {
@@ -1293,6 +1290,8 @@
         input.addEventListener('keydown', e => { if (e.key === 'Enter') handleUserInput(input.value); });
 
         $$('.chatbot__qr', qrEl).forEach(btn => btn.addEventListener('click', () => handleReply(btn.dataset.reply)));
+
+        }, 4000); // end setTimeout
     }
 
     /* ── Bar Charts (animate fills on view) ─────────────────── */
