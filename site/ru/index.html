@@ -154,6 +154,209 @@
             border: none;
         }
 
+        /* ══════════════════ TRUST & ACCORDION STYLES ══════════════════ */
+        .trust-section {
+            padding: 80px 0;
+            border-top: 1px solid rgba(255,255,255,0.03);
+            background: radial-gradient(circle at center bottom, rgba(124, 58, 237, 0.08), transparent);
+        }
+
+        .trust-badges {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 40px 0 50px;
+        }
+
+        .trust-badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(0, 224, 255, 0.08);
+            border: 1px solid rgba(0, 224, 255, 0.2);
+            border-radius: 24px;
+            padding: 10px 18px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #00e0ff;
+        }
+
+        .badge-icon {
+            width: 18px;
+            height: 18px;
+            stroke-width: 2;
+        }
+
+        .accordion {
+            max-width: 900px;
+            margin: 0 auto 50px;
+        }
+
+        .accordion-item {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 16px;
+            margin-bottom: 16px;
+            overflow: hidden;
+            transition: all 0.2s ease;
+        }
+
+        .accordion-item.active {
+            border-color: rgba(0, 224, 255, 0.3);
+            background: rgba(0, 224, 255, 0.04);
+            box-shadow: 0 8px 24px rgba(0, 224, 255, 0.1);
+        }
+
+        .accordion-trigger {
+            width: 100%;
+            padding: 20px 24px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            text-align: left;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #fff;
+            transition: all 0.2s ease;
+        }
+
+        .accordion-trigger:hover {
+            color: #00e0ff;
+        }
+
+        .accordion-item.active .accordion-trigger {
+            color: #00e0ff;
+        }
+
+        .accordion-icon {
+            width: 20px;
+            height: 20px;
+            stroke-width: 2;
+            flex-shrink: 0;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .accordion-item.active .accordion-icon {
+            transform: rotate(180deg);
+        }
+
+        .accordion-content {
+            overflow: hidden;
+            max-height: 0;
+            transition: max-height 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .accordion-item.active .accordion-content {
+            max-height: 1000px;
+        }
+
+        .accordion-answer {
+            padding: 0 24px 24px;
+            color: rgba(255,255,255,0.8);
+            line-height: 1.8;
+            font-size: 0.95rem;
+        }
+
+        .accordion-answer p {
+            margin-bottom: 12px;
+        }
+
+        .accordion-answer p:last-child {
+            margin-bottom: 0;
+        }
+
+        .answer-list {
+            list-style: none;
+            padding-left: 0;
+            margin: 12px 0;
+        }
+
+        .answer-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 10px;
+            padding-left: 0;
+        }
+
+        .answer-list li::before {
+            content: "→";
+            color: #00e0ff;
+            font-weight: bold;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        /* Trust CTA Section */
+        .trust-cta-section {
+            padding: 40px 0;
+            background: rgba(0, 224, 255, 0.03);
+            border-top: 1px solid rgba(0, 224, 255, 0.1);
+            border-bottom: 1px solid rgba(0, 224, 255, 0.1);
+            margin-top: 60px;
+        }
+
+        .trust-cta-box {
+            text-align: center;
+            padding: 40px;
+            background: linear-gradient(135deg, rgba(124, 58, 237, 0.1), rgba(0, 224, 255, 0.05));
+            border: 1px solid rgba(0, 224, 255, 0.2);
+            border-radius: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .trust-cta-box h3 {
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+            color: #fff;
+        }
+
+        .trust-cta-subtext {
+            color: rgba(255,255,255,0.7);
+            font-size: 0.95rem;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .trust-section {
+                padding: 60px 0;
+            }
+
+            .trust-badges {
+                gap: 12px;
+                margin: 30px 0 40px;
+            }
+
+            .trust-badge {
+                padding: 8px 14px;
+                font-size: 0.8rem;
+            }
+
+            .accordion-trigger {
+                padding: 16px 16px;
+                font-size: 0.95rem;
+            }
+
+            .accordion-answer {
+                padding: 0 16px 16px;
+                font-size: 0.9rem;
+            }
+
+            .trust-cta-box {
+                padding: 24px 16px;
+            }
+
+            .trust-cta-box h3 {
+                font-size: 1.25rem;
+            }
+        }
+
     </style>
 </head>
 <body class="top-bar-active">
@@ -365,20 +568,137 @@
 </div>
 </section>
 
-<section class="faq">
-<h2>Частые вопросы</h2>
+<section class="trust-section">
+<div class="container">
+<!-- Trust Section Header -->
+<div class="section-header">
+<span class="section-label">Перед началом</span>
+<h2>Отвечаем на главные вопросы</h2>
+<p>Развеем сомнения за 30 секунд. Это реально дает результаты, не требует сложного внедрения и подходит любому бизнесу с сайтом.</p>
+</div>
 
-<h3>Что я получу бесплатно?</h3>
-<p>Топ-3 ошибки вашего сайта и общий балл видимости — сразу после сканирования, без регистрации. Полный список из 50+ проверок, PDF-отчёт и план роста — в платном тарифе.</p>
+<!-- Trust Badges -->
+<div class="trust-badges">
+<div class="trust-badge">
+<i data-lucide="zap" class="badge-icon"></i>
+<span>Быстрый старт</span>
+</div>
+<div class="trust-badge">
+<i data-lucide="check-circle-2" class="badge-icon"></i>
+<span>Понятные решения</span>
+</div>
+<div class="trust-badge">
+<i data-lucide="shield-check" class="badge-icon"></i>
+<span>Без риска</span>
+</div>
+</div>
 
-<h3>Как ИИ-аудит помогает увеличить заявки?</h3>
-<p>Аудит находит конкретные причины, почему пользователи уходят без заявки: незаметные CTA, медленная загрузка, плохая видимость в поиске, слабые мета-теги. Устранив эти ошибки, сайты обычно увеличивают конверсию на 20–50% в течение 2–4 недель.</p>
+<!-- Accordion FAQ -->
+<div class="accordion">
+<!-- Q1 -->
+<div class="accordion-item active">
+<button class="accordion-trigger" aria-expanded="true">
+<span class="accordion-q">Это реально даст клиентов или просто анализ?</span>
+<i data-lucide="chevron-down" class="accordion-icon"></i>
+</button>
+<div class="accordion-content" style="display: block;">
+<div class="accordion-answer">
+<p>Вы получаете не просто анализ, а конкретные точки роста:</p>
+<ul class="answer-list">
+<li>где вы теряете заявки</li>
+<li>что мешает продажам</li>
+<li>что исправить, чтобы увеличить поток клиентов</li>
+</ul>
+<p><strong>Уже на этапе аудита становится понятно, где теряются деньги.</strong> Владельцы говорят: «Мы не знали, что люди уходят вот здесь». После устранения этих точек заявки начинают расти в первые 2-3 недели.</p>
+</div>
+</div>
+</div>
 
-<h3>Сколько стоит полный аудит?</h3>
-<p>Базовый — 25 000 ₸ (PDF + план роста на email за 24–48 ч). Стандарт — 50 000 ₸ (+ анализ конкурентов + 30-дневная дорожная карта). Премиум — 150 000 ₸ (полный аудит + внедрение ИИ-инструментов + сопровождение).</p>
+<!-- Q2 -->
+<div class="accordion-item">
+<button class="accordion-trigger" aria-expanded="false">
+<span class="accordion-q">Сколько времени занимает?</span>
+<i data-lucide="chevron-down" class="accordion-icon"></i>
+</button>
+<div class="accordion-content">
+<div class="accordion-answer">
+<p><strong>Первичный анализ</strong> — за 10 секунд.
+Вы сразу видите топ-3 ошибки и общую оценку видимости.</p>
+<p><strong>Полный разбор и рекомендации</strong> — в течение 24 часов.
+Получите PDF-отчёт с планом роста и приоритизацией всех ошибок.</p>
+</div>
+</div>
+</div>
 
-<h3>Подходит ли для малого бизнеса?</h3>
-<p>Да. Базовый тариф создан специально для владельцев одного сайта — кафе, салонов, клиник, интернет-магазинов. Если сайт есть, но заявок нет — аудит покажет, почему, и что исправить первым.</p>
+<!-- Q3 -->
+<div class="accordion-item">
+<button class="accordion-trigger" aria-expanded="false">
+<span class="accordion-q">Это сложно внедрять?</span>
+<i data-lucide="chevron-down" class="accordion-icon"></i>
+</button>
+<div class="accordion-content">
+<div class="accordion-answer">
+<p><strong>Нет.</strong> Мы даём понятные рекомендации или внедряем за вас — в зависимости от выбранного тарифа.</p>
+<p>Вам НЕ нужно разбираться в SEO или ИИ. Все рекомендации записаны пошагово: что изменить, где, какая будет польза.</p>
+<p>Даже простые исправления (заголовки, тексты, CTA) часто дают +30% к конверсии.</p>
+</div>
+</div>
+</div>
+
+<!-- Q4 -->
+<div class="accordion-item">
+<button class="accordion-trigger" aria-expanded="false">
+<span class="accordion-q">Подходит ли это моему бизнесу?</span>
+<i data-lucide="chevron-down" class="accordion-icon"></i>
+</button>
+<div class="accordion-content">
+<div class="accordion-answer">
+<p><strong>Да, если у вас есть сайт и вы хотите больше заявок.</strong></p>
+<p>Подходит для:</p>
+<ul class="answer-list">
+<li>Услуги (консультации, лечение, обучение)</li>
+<li>Онлайн-бизнес (курсы, софт, подписки)</li>
+<li>Локальные компании (кафе, салоны, клиники)</li>
+<li>Интернет-магазины</li>
+<li>SaaS и B2B</li>
+</ul>
+<p>Главное — иметь сайт, который уже получает трафик (даже если мало заявок).</p>
+</div>
+</div>
+</div>
+
+<!-- Q5 -->
+<div class="accordion-item">
+<button class="accordion-trigger" aria-expanded="false">
+<span class="accordion-q">Сколько это стоит?</span>
+<i data-lucide="chevron-down" class="accordion-icon"></i>
+</button>
+<div class="accordion-content">
+<div class="accordion-answer">
+<p><strong>Аудит — первый шаг.</strong> Стоимость зависит от глубины анализа и необходимых доработок.</p>
+<ul class="answer-list">
+<li><strong>Базовый:</strong> 25 000 ₸ за топ-3 ошибки + план улучшений</li>
+<li><strong>Стандарт:</strong> 50 000 ₸ за полный разбор + конкуренты + дорожная карта</li>
+<li><strong>Премиум:</strong> 150 000 ₸ с внедрением и сопровождением</li>
+</ul>
+<p>Вы сразу понимаете, <strong>где теряете деньги</strong> и <strong>как их вернуть.</strong> ROI от исправлений обычно окупает стоимость аудита в первый месяц.</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Trust CTA Section -->
+<section class="trust-cta-section">
+<div class="container">
+<div class="trust-cta-box">
+<h3>Готовы увидеть, где теряете клиентов?</h3>
+<p class="trust-cta-subtext">Показать, где вы теряете заявки — это займет 10 секунд</p>
+<button class="primary-btn" id="ctaQuickScan" style="margin-top: 20px;">
+<i data-lucide="bar-chart" class="icon" style="width: 18px; height: 18px;"></i>
+Начать анализ сейчас
+</button>
+</div>
+</div>
 </section>
 <footer class="footer" role="contentinfo">
 <style>
@@ -481,6 +801,50 @@
 })();
 </script>
 </footer>
+<script>
+// Accordion functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const accordionTriggers = document.querySelectorAll('.accordion-trigger');
+    
+    accordionTriggers.forEach(trigger => {
+        trigger.addEventListener('click', function() {
+            const accordionItem = this.closest('.accordion-item');
+            const isActive = accordionItem.classList.contains('active');
+            
+            // Close all other items
+            document.querySelectorAll('.accordion-item').forEach(item => {
+                if (item !== accordionItem) {
+                    item.classList.remove('active');
+                    const content = item.querySelector('.accordion-content');
+                    content.style.display = 'none';
+                }
+            });
+            
+            // Toggle current item
+            if (isActive) {
+                accordionItem.classList.remove('active');
+                this.setAttribute('aria-expanded', 'false');
+                const content = accordionItem.querySelector('.accordion-content');
+                content.style.display = 'none';
+            } else {
+                accordionItem.classList.add('active');
+                this.setAttribute('aria-expanded', 'true');
+                const content = accordionItem.querySelector('.accordion-content');
+                content.style.display = 'block';
+            }
+        });
+    });
+
+    // CTA button link
+    const ctaQuickScan = document.getElementById('ctaQuickScan');
+    if (ctaQuickScan) {
+        ctaQuickScan.addEventListener('click', function() {
+            document.getElementById('heroScanInput').focus();
+            document.getElementById('heroScanInput').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
+    }
+});
+</script>
 <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 <script defer="" src="/js/api-config.js"></script>
 <script defer="" src="/js/script.js"></script>

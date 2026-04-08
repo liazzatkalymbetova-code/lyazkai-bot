@@ -148,6 +148,209 @@
             border: none;
         }
 
+        /* ══════════════════ TRUST & ACCORDION STYLES ══════════════════ */
+        .trust-section {
+            padding: 80px 0;
+            border-top: 1px solid rgba(255,255,255,0.03);
+            background: radial-gradient(circle at center bottom, rgba(124, 58, 237, 0.08), transparent);
+        }
+
+        .trust-badges {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 40px 0 50px;
+        }
+
+        .trust-badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(0, 224, 255, 0.08);
+            border: 1px solid rgba(0, 224, 255, 0.2);
+            border-radius: 24px;
+            padding: 10px 18px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #00e0ff;
+        }
+
+        .badge-icon {
+            width: 18px;
+            height: 18px;
+            stroke-width: 2;
+        }
+
+        .accordion {
+            max-width: 900px;
+            margin: 0 auto 50px;
+        }
+
+        .accordion-item {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 16px;
+            margin-bottom: 16px;
+            overflow: hidden;
+            transition: all 0.2s ease;
+        }
+
+        .accordion-item.active {
+            border-color: rgba(0, 224, 255, 0.3);
+            background: rgba(0, 224, 255, 0.04);
+            box-shadow: 0 8px 24px rgba(0, 224, 255, 0.1);
+        }
+
+        .accordion-trigger {
+            width: 100%;
+            padding: 20px 24px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            text-align: left;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #fff;
+            transition: all 0.2s ease;
+        }
+
+        .accordion-trigger:hover {
+            color: #00e0ff;
+        }
+
+        .accordion-item.active .accordion-trigger {
+            color: #00e0ff;
+        }
+
+        .accordion-icon {
+            width: 20px;
+            height: 20px;
+            stroke-width: 2;
+            flex-shrink: 0;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .accordion-item.active .accordion-icon {
+            transform: rotate(180deg);
+        }
+
+        .accordion-content {
+            overflow: hidden;
+            max-height: 0;
+            transition: max-height 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .accordion-item.active .accordion-content {
+            max-height: 1000px;
+        }
+
+        .accordion-answer {
+            padding: 0 24px 24px;
+            color: rgba(255,255,255,0.8);
+            line-height: 1.8;
+            font-size: 0.95rem;
+        }
+
+        .accordion-answer p {
+            margin-bottom: 12px;
+        }
+
+        .accordion-answer p:last-child {
+            margin-bottom: 0;
+        }
+
+        .answer-list {
+            list-style: none;
+            padding-left: 0;
+            margin: 12px 0;
+        }
+
+        .answer-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 10px;
+            padding-left: 0;
+        }
+
+        .answer-list li::before {
+            content: "→";
+            color: #00e0ff;
+            font-weight: bold;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        /* Trust CTA Section */
+        .trust-cta-section {
+            padding: 40px 0;
+            background: rgba(0, 224, 255, 0.03);
+            border-top: 1px solid rgba(0, 224, 255, 0.1);
+            border-bottom: 1px solid rgba(0, 224, 255, 0.1);
+            margin-top: 60px;
+        }
+
+        .trust-cta-box {
+            text-align: center;
+            padding: 40px;
+            background: linear-gradient(135deg, rgba(124, 58, 237, 0.1), rgba(0, 224, 255, 0.05));
+            border: 1px solid rgba(0, 224, 255, 0.2);
+            border-radius: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .trust-cta-box h3 {
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+            color: #fff;
+        }
+
+        .trust-cta-subtext {
+            color: rgba(255,255,255,0.7);
+            font-size: 0.95rem;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .trust-section {
+                padding: 60px 0;
+            }
+
+            .trust-badges {
+                gap: 12px;
+                margin: 30px 0 40px;
+            }
+
+            .trust-badge {
+                padding: 8px 14px;
+                font-size: 0.8rem;
+            }
+
+            .accordion-trigger {
+                padding: 16px 16px;
+                font-size: 0.95rem;
+            }
+
+            .accordion-answer {
+                padding: 0 16px 16px;
+                font-size: 0.9rem;
+            }
+
+            .trust-cta-box {
+                padding: 24px 16px;
+            }
+
+            .trust-cta-box h3 {
+                font-size: 1.25rem;
+            }
+        }
+
     </style>
 </head>
 <body class="top-bar-active">
@@ -320,6 +523,139 @@
 </div>
 </section>
 
+<!-- ══════════════════════════ TRUST & CONVERSION BLOCK ════════════════════ -->
+<section class="trust-section">
+<div class="container">
+<!-- Trust Section Header -->
+<div class="section-header">
+<span class="section-label">Before you start</span>
+<h2>Answers to your key questions</h2>
+<p>Let's clear your doubts in 30 seconds. This delivers real results, requires no complex setup, and works for any business with a website.</p>
+</div>
+
+<!-- Trust Badges -->
+<div class="trust-badges">
+<div class="trust-badge">
+<i data-lucide="zap" class="badge-icon"></i>
+<span>Fast start</span>
+</div>
+<div class="trust-badge">
+<i data-lucide="check-circle-2" class="badge-icon"></i>
+<span>Clear solutions</span>
+</div>
+<div class="trust-badge">
+<i data-lucide="shield-check" class="badge-icon"></i>
+<span>No risk</span>
+</div>
+</div>
+
+<!-- Accordion FAQ -->
+<div class="accordion">
+<!-- Q1 -->
+<div class="accordion-item active">
+<button class="accordion-trigger" aria-expanded="true">
+<span class="accordion-q">Will this actually bring clients or just give me data?</span>
+<i data-lucide="chevron-down" class="accordion-icon"></i>
+</button>
+<div class="accordion-content" style="display: block;">
+<div class="accordion-answer">
+<p>You don't just get analysis — you get clear growth points:</p>
+<ul class="answer-list">
+<li>where you're losing leads</li>
+<li>what blocks your conversions</li>
+<li>what to fix to increase client flow</li>
+</ul>
+<p><strong>You immediately see where money is being lost.</strong> Business owners often realize: "I didn't know people were leaving here." After fixing these points, leads typically increase within 2-3 weeks.</p>
+</div>
+</div>
+</div>
+
+<!-- Q2 -->
+<div class="accordion-item">
+<button class="accordion-trigger" aria-expanded="false">
+<span class="accordion-q">How long does it take?</span>
+<i data-lucide="chevron-down" class="accordion-icon"></i>
+</button>
+<div class="accordion-content">
+<div class="accordion-answer">
+<p><strong>Initial analysis takes 10 seconds.</strong>
+You immediately see your top 3 errors and overall visibility score.</p>
+<p><strong>Full audit and recommendations — within 24 hours.</strong>
+You'll get a PDF report with your growth plan and prioritized fixes.</p>
+</div>
+</div>
+</div>
+
+<!-- Q3 -->
+<div class="accordion-item">
+<button class="accordion-trigger" aria-expanded="false">
+<span class="accordion-q">Is it difficult to implement?</span>
+<i data-lucide="chevron-down" class="accordion-icon"></i>
+</button>
+<div class="accordion-content">
+<div class="accordion-answer">
+<p><strong>No.</strong> We provide clear, step-by-step recommendations — or implement them for you depending on your plan.</p>
+<p>You don't need to understand SEO or AI. Every recommendation is written as actionable steps: what to change, where, and the expected benefit.</p>
+<p>Even simple fixes (headlines, copy, CTAs) often deliver +30% conversion lift.</p>
+</div>
+</div>
+</div>
+
+<!-- Q4 -->
+<div class="accordion-item">
+<button class="accordion-trigger" aria-expanded="false">
+<span class="accordion-q">Will this work for my business?</span>
+<i data-lucide="chevron-down" class="accordion-icon"></i>
+</button>
+<div class="accordion-content">
+<div class="accordion-answer">
+<p><strong>Yes — if you have a website and want more leads.</strong></p>
+<p>Works for:</p>
+<ul class="answer-list">
+<li>Services (consulting, healthcare, education)</li>
+<li>Online businesses (courses, software, subscriptions)</li>
+<li>Local companies (cafes, salons, clinics)</li>
+<li>E-commerce stores</li>
+<li>SaaS and B2B</li>
+</ul>
+<p>The key requirement: you need a website that's already getting traffic (even if conversion is low).</p>
+</div>
+</div>
+</div>
+
+<!-- Q5 -->
+<div class="accordion-item">
+<button class="accordion-trigger" aria-expanded="false">
+<span class="accordion-q">How much does it cost?</span>
+<i data-lucide="chevron-down" class="accordion-icon"></i>
+</button>
+<div class="accordion-content">
+<div class="accordion-answer">
+<p><strong>The audit is the first step.</strong> Pricing depends on depth of analysis and implementation needs.</p>
+<ul class="answer-list">
+<li><strong>Basic:</strong> $199 — top 3 errors + growth plan</li>
+<li><strong>Standard:</strong> $399 — full analysis + competitor review + 30-day roadmap</li>
+<li><strong>Premium:</strong> $999+ — implementation + AI tools setup + ongoing support</li>
+</ul>
+<p>You immediately understand <strong>where money is being lost</strong> and <strong>how to recover it.</strong> ROI typically pays for the audit within the first month.</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Trust CTA Section -->
+<section class="trust-cta-section">
+<div class="container">
+<div class="trust-cta-box">
+<h3>Ready to see where you're losing leads?</h3>
+<p class="trust-cta-subtext">Show me my exact loss points — takes 10 seconds</p>
+<button class="primary-btn" id="ctaQuickScan" style="margin-top: 20px;">
+<i data-lucide="bar-chart" class="icon" style="width: 18px; height: 18px;"></i>
+Start analysis now
+</button>
+</div>
+</div>
+</section>
 
 <section aria-labelledby="ctaTitle" class="cta-section">
 <div aria-hidden="true" class="cta-section__glow"></div>
@@ -469,6 +805,50 @@
 
   document.getElementById('dynamic-footer-wrapper').innerHTML = html;
 })();
+</script>
+<script>
+// Accordion functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const accordionTriggers = document.querySelectorAll('.accordion-trigger');
+    
+    accordionTriggers.forEach(trigger => {
+        trigger.addEventListener('click', function() {
+            const accordionItem = this.closest('.accordion-item');
+            const isActive = accordionItem.classList.contains('active');
+            
+            // Close all other items
+            document.querySelectorAll('.accordion-item').forEach(item => {
+                if (item !== accordionItem) {
+                    item.classList.remove('active');
+                    const content = item.querySelector('.accordion-content');
+                    content.style.display = 'none';
+                }
+            });
+            
+            // Toggle current item
+            if (isActive) {
+                accordionItem.classList.remove('active');
+                this.setAttribute('aria-expanded', 'false');
+                const content = accordionItem.querySelector('.accordion-content');
+                content.style.display = 'none';
+            } else {
+                accordionItem.classList.add('active');
+                this.setAttribute('aria-expanded', 'true');
+                const content = accordionItem.querySelector('.accordion-content');
+                content.style.display = 'block';
+            }
+        });
+    });
+
+    // CTA button link
+    const ctaQuickScan = document.getElementById('ctaQuickScan');
+    if (ctaQuickScan) {
+        ctaQuickScan.addEventListener('click', function() {
+            document.getElementById('heroScanInput').focus();
+            document.getElementById('heroScanInput').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
+    }
+});
 </script>
 </footer>
 <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
