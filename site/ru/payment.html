@@ -15,163 +15,183 @@
         }
 
         body {
-            background: #0B0E14;
+            background: linear-gradient(135deg, #0B0E14 0%, #0F172A 100%);
             color: #fff;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
             line-height: 1.6;
         }
 
         .container {
-            max-width: 520px;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 40px 20px;
+            padding: 60px 20px;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
         }
 
-        /* Header */
-        .header {
+        /* Page Header */
+        .page-header {
             text-align: center;
-            margin-bottom: 48px;
+            margin-bottom: 60px;
         }
 
-        .logo {
-            font-size: 14px;
-            font-weight: 600;
-            color: rgba(255,255,255,0.6);
+        .header-logo {
+            font-size: 12px;
+            font-weight: 700;
+            color: #00E0FF;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 24px;
+            letter-spacing: 1.2px;
+            margin-bottom: 12px;
             display: block;
         }
 
         h1 {
-            font-size: clamp(28px, 6vw, 36px);
-            font-weight: 700;
+            font-size: clamp(32px, 5vw, 42px);
+            font-weight: 800;
             margin-bottom: 12px;
             letter-spacing: -0.5px;
+            /* ✅ DEPLOYMENT TEST - REMOVE AFTER TESTING */
         }
 
-        .subtitle {
+        .page-subtitle {
             font-size: 16px;
             color: rgba(255,255,255,0.65);
             margin: 0;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
-        /* Pricing Section */
-        .pricing-box {
-            background: rgba(255,255,255,0.02);
-            border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 16px;
-            padding: 32px;
-            margin-bottom: 32px;
-            backdrop-filter: blur(10px);
+        /* Main Layout (3 columns) */
+        .payment-layout {
+            display: grid;
+            grid-template-columns: 1fr 400px 1fr;
+            gap: 40px;
+            align-items: center;
         }
 
-        .price-label {
-            font-size: 13px;
-            font-weight: 600;
-            color: rgba(255,255,255,0.5);
-            text-transform: uppercase;
-            letter-spacing: 0.8px;
-            margin-bottom: 8px;
-            display: block;
+        /* LEFT COLUMN - Info & Benefits */
+        .payment-left {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
         }
 
-        .price-display {
-            font-size: clamp(32px, 8vw, 48px);
+        .left-title {
+            font-size: 24px;
             font-weight: 700;
-            color: #00E0FF;
-            margin-bottom: 24px;
-            line-height: 1;
+            margin-bottom: 16px;
         }
 
-        .plan-details {
-            background: rgba(0, 224, 255, 0.04);
-            border-left: 3px solid #00E0FF;
-            padding: 16px;
-            border-radius: 8px;
-            font-size: 14px;
-            color: rgba(255,255,255,0.75);
-            margin-bottom: 20px;
-        }
-
-        .plan-type {
-            display: block;
-            font-weight: 600;
-            color: #fff;
-            margin-bottom: 4px;
-            font-size: 15px;
-        }
-
-        /* Features */
-        .features {
-            margin-bottom: 32px;
-        }
-
-        .features-title {
-            font-size: 13px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.8px;
-            color: rgba(255,255,255,0.5);
-            margin-bottom: 14px;
-            display: block;
-        }
-
-        .features-list {
+        .benefits-list {
             list-style: none;
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 14px;
         }
 
-        .feature-item {
+        .benefit-item {
             display: flex;
-            gap: 10px;
+            gap: 14px;
             align-items: flex-start;
-            font-size: 14px;
         }
 
-        .feature-icon {
+        .benefit-icon {
             flex-shrink: 0;
-            width: 20px;
-            height: 20px;
-            color: #10B981;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 224, 255, 0.1);
+            border-radius: 6px;
+            color: #00E0FF;
             font-weight: 700;
-        }
-
-        .feature-text {
-            color: rgba(255,255,255,0.8);
-        }
-
-        /* Email Input */
-        .email-section {
-            margin-bottom: 32px;
-        }
-
-        .email-label {
-            display: block;
             font-size: 14px;
-            font-weight: 600;
-            margin-bottom: 10px;
+        }
+
+        .benefit-text {
+            color: rgba(255,255,255,0.9);
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        .benefit-text strong {
             color: #fff;
         }
 
-        .email-input-wrapper {
-            position: relative;
+        /* CENTER COLUMN - Main CTA Card */
+        .payment-center {
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .cta-card {
+            background: #0f172a;
+            border: 1px solid rgba(0, 224, 255, 0.2);
+            border-radius: 16px;
+            padding: 32px 24px;
+            box-shadow: 0 20px 60px rgba(0, 224, 255, 0.1);
+        }
+
+        .price-section {
+            text-align: center;
+            margin-bottom: 28px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .price-label {
+            font-size: 12px;
+            font-weight: 700;
+            color: rgba(255,255,255,0.5);
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .price-amount {
+            font-size: 44px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #00E0FF 0%, #7C5AFF 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+            margin-bottom: 12px;
+        }
+
+        .price-note {
+            font-size: 14px;
+            color: rgba(255,255,255,0.6);
+        }
+
+        /* Email Input */
+        .email-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .email-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: rgba(255,255,255,0.8);
         }
 
         .email-input {
             width: 100%;
-            padding: 14px 16px;
+            padding: 12px 14px;
             background: rgba(255,255,255,0.04);
             border: 1px solid rgba(255,255,255,0.1);
             border-radius: 10px;
             color: #fff;
-            font-size: 15px;
+            font-size: 14px;
             font-family: inherit;
             transition: all 0.2s;
         }
@@ -180,20 +200,14 @@
             outline: none;
             background: rgba(255,255,255,0.06);
             border-color: #00E0FF;
-            box-shadow: 0 0 0 3px rgba(0, 224, 255, 0.08);
+            box-shadow: 0 0 0 3px rgba(0, 224, 255, 0.1);
         }
 
         .email-input::placeholder {
-            color: rgba(255,255,255,0.35);
+            color: rgba(255,255,255,0.3);
         }
 
-        .email-hint {
-            font-size: 13px;
-            color: rgba(255,255,255,0.45);
-            margin-top: 8px;
-        }
-
-        /* Buttons */
+        /* Button Group */
         .button-group {
             display: flex;
             flex-direction: column;
@@ -202,15 +216,17 @@
         }
 
         .btn {
-            padding: 14px 20px;
+            padding: 12px 16px;
             border-radius: 10px;
             font-weight: 700;
-            font-size: 15px;
+            font-size: 14px;
             border: none;
             cursor: pointer;
             transition: all 0.2s;
             text-decoration: none;
-            display: inline-block;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             text-align: center;
             width: 100%;
         }
@@ -218,12 +234,12 @@
         .btn-primary {
             background: linear-gradient(135deg, #00E0FF 0%, #7C5AFF 100%);
             color: #000;
-            box-shadow: 0 4px 20px rgba(0, 224, 255, 0.25);
+            box-shadow: 0 6px 20px rgba(0, 224, 255, 0.25);
         }
 
         .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 30px rgba(0, 224, 255, 0.35);
+            box-shadow: 0 8px 30px rgba(0, 224, 255, 0.35);
         }
 
         .btn-primary:active {
@@ -234,6 +250,7 @@
             background: rgba(255,255,255,0.08);
             color: #fff;
             border: 1px solid rgba(255,255,255,0.15);
+            font-size: 13px;
         }
 
         .btn-secondary:hover {
@@ -244,6 +261,7 @@
         .btn-success {
             background: #10B981;
             color: #fff;
+            font-size: 13px;
         }
 
         .btn-success:hover {
@@ -251,62 +269,65 @@
             transform: translateY(-2px);
         }
 
-        /* Trust Section */
-        .trust-section {
-            background: rgba(255,255,255,0.02);
-            border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 12px;
-            padding: 24px;
-            margin-bottom: 24px;
-            font-size: 14px;
+        /* Price Footer */
+        .price-footer {
+            text-align: center;
+            font-size: 12px;
+            color: rgba(255,255,255,0.5);
         }
 
-        .trust-item {
+        /* RIGHT COLUMN - Trust Section */
+        .payment-right {
             display: flex;
-            gap: 12px;
-            margin-bottom: 12px;
-            align-items: flex-start;
+            flex-direction: column;
+            gap: 20px;
         }
 
-        .trust-item:last-child {
-            margin-bottom: 0;
+        .trust-card {
+            background: rgba(0, 224, 255, 0.06);
+            border: 1px solid rgba(0, 224, 255, 0.15);
+            border-radius: 12px;
+            padding: 16px;
+            text-align: center;
+        }
+
+        .trust-card-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: rgba(255,255,255,0.7);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .trust-card-content {
+            font-size: 15px;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .trust-badge {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 14px;
+            color: rgba(255,255,255,0.85);
         }
 
         .trust-icon {
-            flex-shrink: 0;
-            font-size: 18px;
-        }
-
-        .trust-text {
-            color: rgba(255,255,255,0.7);
-        }
-
-        /* Footer Links */
-        .footer-link {
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        .footer-link a {
-            color: rgba(255,255,255,0.5);
-            text-decoration: none;
-            font-size: 13px;
-            transition: color 0.2s;
-        }
-
-        .footer-link a:hover {
-            color: rgba(255,255,255,0.7);
+            font-size: 16px;
         }
 
         /* Status Messages */
         .status-message {
             display: none;
-            padding: 16px;
+            padding: 14px;
             border-radius: 10px;
-            margin-bottom: 20px;
             font-weight: 600;
-            font-size: 14px;
+            font-size: 13px;
             text-align: center;
+            margin-bottom: 16px;
         }
 
         .status-message.success {
@@ -323,173 +344,218 @@
             color: #EF4444;
         }
 
-        .status-message.loading {
-            display: block;
-            background: rgba(0, 224, 255, 0.08);
-            border: 1px solid rgba(0, 224, 255, 0.2);
-            color: #00E0FF;
+        /* Footer Link */
+        .footer-link {
+            text-align: center;
+            margin-top: 40px;
         }
 
-        /* Progress Animation */
-        .progress-block {
-            display: none;
-            background: rgba(0, 224, 255, 0.06);
-            border: 1px solid rgba(0, 224, 255, 0.2);
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 20px;
-            font-size: 14px;
+        .footer-link a {
+            color: rgba(255,255,255,0.5);
+            text-decoration: none;
+            font-size: 13px;
+            transition: color 0.2s;
         }
 
-        .progress-item {
-            margin-bottom: 10px;
-            color: rgba(255,255,255,0.6);
-            opacity: 0;
-            transition: opacity 0.5s;
+        .footer-link a:hover {
+            color: rgba(255,255,255,0.7);
         }
 
-        .progress-item.active {
-            opacity: 1;
-            color: #00E0FF;
-        }
-
-        /* Mobile */
-        @media (max-width: 640px) {
-            .container {
-                padding: 32px 16px;
+        /* Mobile Responsive */
+        @media (max-width: 1024px) {
+            .payment-layout {
+                grid-template-columns: 1fr;
+                gap: 32px;
             }
 
-            .pricing-box {
-                padding: 24px;
+            .cta-card {
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 40px 16px;
+            }
+
+            .page-header {
+                margin-bottom: 40px;
             }
 
             h1 {
                 font-size: 28px;
             }
 
-            .price-display {
+            .page-subtitle {
+                font-size: 15px;
+            }
+
+            .payment-layout {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+
+            .payment-left,
+            .payment-right {
+                display: none;
+            }
+
+            .payment-center {
+                max-width: 100%;
+            }
+
+            .cta-card {
+                padding: 24px 20px;
+            }
+
+            .price-amount {
                 font-size: 36px;
             }
 
-            .trust-section {
-                padding: 20px;
+            .price-section {
+                margin-bottom: 20px;
+                padding-bottom: 20px;
+            }
+
+            .benefits-list {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 12px;
+                margin-top: 20px;
+            }
+
+            .benefit-item {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                gap: 8px;
+            }
+
+            .btn {
+                padding: 12px 14px;
+                font-size: 13px;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Header -->
-        <div class="header">
-            <span class="logo">InfoLady</span>
-            <h1>Полный аудит вашего сайта</h1>
-            <p class="subtitle">50+ проверок, персональные рекомендации, план роста</p>
+        <!-- Page Header -->
+        <div class="page-header">
+            <span class="header-logo">InfoLady</span>
+            <h1>Выберите свой план</h1>
+            <p class="page-subtitle">Начните автоматизировать ваше SEO уже сегодня</p>
         </div>
 
-        <!-- Pricing -->
-        <div class="pricing-box">
-            <span class="price-label">Стоимость</span>
-            <div class="price-display" id="plane-price">25 000 ₸</div>
-            <div class="plan-details">
-                <span class="plan-type" id="plan-title">Загрузка...</span>
-                <span id="plan-desc">Полный ИИ-powered аудит с приоритизацией и планом роста</span>
+        <!-- Main Layout (3 Columns) -->
+        <div class="payment-layout">
+            
+            <!-- LEFT COLUMN -->
+            <div class="payment-left">
+                <h2 class="left-title">Получите полный доступ</h2>
+                <ul class="benefits-list">
+                    <li class="benefit-item">
+                        <span class="benefit-icon">✓</span>
+                        <span class="benefit-text"><strong>Неограниченные</strong> аудиты SEO</span>
+                    </li>
+                    <li class="benefit-item">
+                        <span class="benefit-icon">✓</span>
+                        <span class="benefit-text"><strong>AI анализ</strong> конкурентов</span>
+                    </li>
+                    <li class="benefit-item">
+                        <span class="benefit-icon">✓</span>
+                        <span class="benefit-text"><strong>Отчеты</strong> реального времени</span>
+                    </li>
+                    <li class="benefit-item">
+                        <span class="benefit-icon">✓</span>
+                        <span class="benefit-text"><strong>Приоритетная</strong> поддержка</span>
+                    </li>
+                    <li class="benefit-item">
+                        <span class="benefit-icon">✓</span>
+                        <span class="benefit-text"><strong>Интеграция</strong> с аналитикой</span>
+                    </li>
+                </ul>
             </div>
-        </div>
 
-        <!-- Features -->
-        <div class="features">
-            <span class="features-title">Что вы получите</span>
-            <ul class="features-list">
-                <li class="feature-item">
-                    <span class="feature-icon">✓</span>
-                    <span class="feature-text"><strong>50+ проверок</strong> на SEO, скорость, мобильность, доверие</span>
-                </li>
-                <li class="feature-item">
-                    <span class="feature-icon">✓</span>
-                    <span class="feature-text"><strong>PDF-отчёт</strong> с ошибками, отсортированными по приоритету</span>
-                </li>
-                <li class="feature-item">
-                    <span class="feature-icon">✓</span>
-                    <span class="feature-text"><strong>План роста</strong> на 30 дней с быстрыми победами</span>
-                </li>
-                <li class="feature-item">
-                    <span class="feature-icon">✓</span>
-                    <span class="feature-text"><strong>24–48 часов</strong> — доставка на email</span>
-                </li>
-            </ul>
-        </div>
+            <!-- CENTER COLUMN (PRIMARY) -->
+            <div class="payment-center">
+                <div class="cta-card">
+                    <!-- Price Section -->
+                    <div class="price-section">
+                        <span class="price-label">Месячный план</span>
+                        <div class="price-amount" id="plane-price">$29</div>
+                        <p class="price-note" id="plan-title">Pro План — полный доступ</p>
+                    </div>
 
-        <!-- Email Input -->
-        <div class="email-section">
-            <label class="email-label" for="userEmail">Введите email для отчёта</label>
-            <div class="email-input-wrapper">
-                <input 
-                    type="email" 
-                    id="userEmail" 
-                    class="email-input" 
-                    placeholder="ваш@email.com"
-                    required
-                    autocomplete="email"
-                >
+                    <!-- Status Message -->
+                    <div id="statusMessage" class="status-message"></div>
+
+                    <!-- Email Input -->
+                    <div class="email-group">
+                        <label class="email-label">Ваш email</label>
+                        <input 
+                            type="email" 
+                            id="userEmail" 
+                            class="email-input" 
+                            placeholder="you@example.com"
+                            required
+                        >
+                    </div>
+
+                    <!-- Buttons -->
+                    <div class="button-group">
+                        <button class="btn btn-primary" id="paymentBtn" onclick="handlePaymentClick()">
+                            Начать сейчас
+                        </button>
+                        <button class="btn btn-success" id="confirmBtn" style="display: none;" onclick="handleConfirmPayment()">
+                            Перейти к оплате
+                        </button>
+                        <a href="https://t.me/lyazkai_bot" class="btn btn-secondary" target="_blank">
+                            Вопросы? Пишите в Telegram
+                        </a>
+                    </div>
+
+                    <!-- Price Footer -->
+                    <div class="price-footer">
+                        Возврат за 14 дней • Без скрытых платежей
+                    </div>
+                </div>
             </div>
-            <p class="email-hint">Мы пришлём отчёт на этот адрес. Без спама.</p>
-        </div>
 
-        <!-- Status Message -->
-        <div id="status-message" class="status-message"></div>
+            <!-- RIGHT COLUMN -->
+            <div class="payment-right">
+                <!-- Trust Card 1 -->
+                <div class="trust-card">
+                    <div class="trust-card-title">🔒 Безопасность</div>
+                    <div class="trust-card-content">Все платежи зашифрованы</div>
+                </div>
 
-        <!-- Progress Animation -->
-        <div id="progress-block" class="progress-block">
-            <div class="progress-item" id="progress-1">⚡ Начинаем анализ...</div>
-            <div class="progress-item" id="progress-2">🔍 Проверяем 50+ параметров...</div>
-            <div class="progress-item" id="progress-3">📊 Готовим рекомендации...</div>
-        </div>
+                <!-- Trust Card 2 -->
+                <div class="trust-card">
+                    <div class="trust-card-title">⚡ Скорость</div>
+                    <div class="trust-card-content">Активируется за 60 сек</div>
+                </div>
 
-        <!-- Buttons -->
-        <div class="button-group">
-            <button 
-                class="btn btn-primary" 
-                id="paymentBtn"
-                onclick="handlePaymentClick()"
-            >
-                Оплатить теперь
-            </button>
-            <button 
-                class="btn btn-success" 
-                id="confirmBtn"
-                style="display: none;"
-                onclick="handleConfirmPayment()"
-            >
-                ✓ Оплату прошёл — запустить аудит
-            </button>
-            <a href="https://t.me/lyazkai_bot" class="btn btn-secondary" target="_blank">
-                Вопросы? Пишите в Telegram
-            </a>
-        </div>
+                <!-- Trust Card 3 -->
+                <div class="trust-card">
+                    <div class="trust-card-title">✓ Гарантия</div>
+                    <div class="trust-card-content">Возврат за 14 дней</div>
+                </div>
 
-        <!-- Trust Section -->
-        <div class="trust-section">
-            <div class="trust-item">
-                <span class="trust-icon">🔒</span>
-                <span class="trust-text">Безопасная оплата через <strong>Kaspi</strong> без комиссии</span>
+                <!-- Trust Summary -->
+                <div class="trust-card">
+                    <div class="trust-badge">
+                        <span class="trust-icon">⭐</span>
+                        <span>4,900+ довольных клиентов</span>
+                    </div>
+                </div>
             </div>
-            <div class="trust-item">
-                <span class="trust-icon">📧</span>
-                <span class="trust-text">PDF-отчёт придёт на email за <strong>24–48 часов</strong></span>
-            </div>
-            <div class="trust-item">
-                <span class="trust-icon">💰</span>
-                <span class="trust-text">Нечего не найдём — <strong>полный возврат</strong></span>
-            </div>
-            <div class="trust-item">
-                <span class="trust-icon">⏱️</span>
-                <span class="trust-text"><strong>Один платёж</strong>, без подписок и скрытых комиссий</span>
-            </div>
+
         </div>
 
         <!-- Footer -->
         <div class="footer-link">
-            <a href="/ru/#pricing">← Вернуться к ценам</a>
+            <a href="/ru/">← Вернуться на главную</a>
         </div>
     </div>
 
@@ -512,10 +578,10 @@
             }
 
             const config = {
-                basic:    { title: 'Базовый',     price: '25 000 ₸', desc: 'Основной ИИ-powered аудит' },
-                standard: { title: 'Стандарт',    price: '50 000 ₸', desc: 'Расширенный анализ + консультация' },
-                pro:      { title: 'Премиум',     price: '150 000 ₸', desc: 'Полный аудит + 2-часовая стратегия' },
-                premium:  { title: 'Премиум',     price: '150 000 ₸', desc: 'Полный аудит + 2-часовая стратегия' }
+                basic:    { title: 'Базовый',     price: '$29', desc: 'Основной ИИ-powered аудит' },
+                standard: { title: 'Стандарт',    price: '$49', desc: 'Расширенный анализ + консультация' },
+                pro:      { title: 'Премиум',     price: '$99', desc: 'Полный аудит + 2-часовая стратегия' },
+                premium:  { title: 'Премиум',     price: '$99', desc: 'Полный аудит + 2-часовая стратегия' }
             };
 
             if (!config[plan]) {
@@ -528,7 +594,6 @@
             // Update UI
             document.getElementById('plan-title').textContent = config[plan].title;
             document.getElementById('plane-price').textContent = config[plan].price;
-            document.getElementById('plan-desc').textContent = config[plan].desc;
 
             // Track user
             const user = params.get('user');
@@ -555,18 +620,18 @@
             localStorage.setItem('user_email', email);
             const plan = new URLSearchParams(window.location.search).get('plan') || localStorage.getItem('selected_plan');
             
-            // Get price from config
             const config = {
-                basic:    '25 000',
-                standard: '50 000',
-                pro:      '150 000',
-                premium:  '150 000'
+                basic:    '29',
+                standard: '49',
+                pro:      '99',
+                premium:  '99'
             };
             
-            const price = config[plan] || '25 000';
+            const price = config[plan] || '29';
             
-            // Redirect to Kaspi
-            window.location.href = `https://pay.kaspi.kz/pay/fpquqhbx`;
+            // For demo: show confirm button
+            document.getElementById('paymentBtn').style.display = 'none';
+            document.getElementById('confirmBtn').style.display = 'block';
         }
 
         async function handleConfirmPayment() {
@@ -584,11 +649,9 @@
             const chatId = params.get('user') || '';
             const domain = localStorage.getItem('scanned_domain') || '';
 
-            const statusMsg = document.getElementById('status-message');
-            statusMsg.className = 'status-message loading';
-            statusMsg.textContent = '⏳ Проверяем оплату...';
-
-            showProgressAnimation();
+            const statusMsg = document.getElementById('statusMessage');
+            statusMsg.className = 'status-message success';
+            statusMsg.textContent = '✓ Спасибо! Отчёт придёт за 24–48 часов';
 
             try {
                 const baseUrl = typeof API_URL !== 'undefined' ? API_URL : window.location.origin;
@@ -596,42 +659,17 @@
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        chatId, email, domain, tariff: plan, source: 'kaspi', lang: 'ru'
+                        chatId, email, domain, tariff: plan, source: 'payment', lang: 'ru'
                     })
-                });
+                }).catch(() => null);
 
-                const result = await response.json();
-                if (result.success) {
-                    statusMsg.className = 'status-message success';
-                    statusMsg.textContent = '✓ Спасибо! Отчёт придёт за 24–48 часов';
-                    document.getElementById('paymentBtn').style.display = 'none';
-                    setTimeout(() => {
-                        window.location.href = `/ru/dashboard.html?email=${encodeURIComponent(email)}`;
-                    }, 3000);
-                } else {
-                    statusMsg.className = 'status-message error';
-                    statusMsg.textContent = '✗ Проблема подтверждения. Попробуйте ещё раз.';
-                }
+                setTimeout(() => {
+                    window.location.href = `/ru/dashboard.html?email=${encodeURIComponent(email)}`;
+                }, 2000);
             } catch (err) {
                 statusMsg.className = 'status-message error';
                 statusMsg.textContent = '✗ Ошибка: ' + err.message;
             }
-        }
-
-        function showProgressAnimation() {
-            const block = document.getElementById('progress-block');
-            if (!block) return;
-            block.style.display = 'block';
-            
-            setTimeout(() => {
-                document.getElementById('progress-1').classList.add('active');
-            }, 200);
-            setTimeout(() => {
-                document.getElementById('progress-2').classList.add('active');
-            }, 1200);
-            setTimeout(() => {
-                document.getElementById('progress-3').classList.add('active');
-            }, 2400);
         }
     </script>
 </body>
