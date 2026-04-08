@@ -2610,7 +2610,9 @@ p {
     position: fixed;
     bottom: 100px;
     right: 24px;
-    z-index: 9998;
+    z-index: 10002;
+    pointer-events: auto;
+    touch-action: manipulation;
 }
 
 .chatbot__trigger {
@@ -3745,7 +3747,7 @@ p {
     }
 
     .chatbot {
-        bottom: 16px;
+        bottom: 88px;
         right: 16px
     }
 
@@ -4652,7 +4654,7 @@ p {
   bottom: 0;
   left: 0;
   right: 0;
-  z-index: 9999;
+  z-index: 9000;
   padding: 8px 16px;
   padding-bottom: calc(8px + env(safe-area-inset-bottom));
   background: rgba(11, 15, 28, 0.98);
