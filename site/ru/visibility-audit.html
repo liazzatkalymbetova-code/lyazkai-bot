@@ -734,7 +734,58 @@
             }
         }
 
+    @media (max-width: 900px) {
+      .audit-form__wrap {
+        gap: 32px;
+      }
+    }
+
     @media (max-width: 640px) {
+      /* Audit form mobile optimization */
+      .audit-form__wrap {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      .audit-form {
+        padding: 20px;
+        width: 100%;
+      }
+
+      .form-group {
+        margin-bottom: 14px;
+        gap: 6px;
+      }
+
+      .form-group label {
+        font-size: 0.8rem;
+        margin-bottom: 4px;
+      }
+
+      .form-group input,
+      .form-group textarea,
+      .form-group select {
+        padding: 12px 14px;
+        font-size: 16px;
+        border-radius: 10px;
+      }
+
+      .audit-form button[type="submit"] {
+        width: 100%;
+        font-size: 15px;
+        padding: 14px 16px;
+        white-space: normal;
+        word-break: break-word;
+        min-height: 48px;
+        margin-top: 8px;
+      }
+
+      .form-note {
+        font-size: 0.8rem;
+        margin-top: 12px;
+        text-align: center;
+      }
+
       .scanner__input-row {
         flex-direction: column;
       }
