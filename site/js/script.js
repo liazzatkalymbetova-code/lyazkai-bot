@@ -1240,7 +1240,9 @@
             );
             
             try {
-                const apiUrl = typeof API !== 'undefined' && API.GPT_CHAT ? API.GPT_CHAT : '/api/gpt-chat';
+                const apiUrl = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+                    ? 'http://localhost:3000/api/gpt-chat'
+                    : 'https://api.infolady.online/api/gpt-chat';
                 
                 const res = await fetch(apiUrl, {
                     method: 'POST',
