@@ -4,7 +4,10 @@ const dotenv = require('dotenv');
 const { askGPT } = require('./gpt');
 const path = require('path');
 
-dotenv.config({ path: path.join(__dirname, '.env') });
+// Load .env only in development to avoid overwriting Render's environment variables
+if (process.env.NODE_ENV !== 'production') {
+    dotenv.config({ path: path.join(__dirname, '.env') });
+}
 
 const token = process.env.TELEGRAM_BOT_TOKEN;
 

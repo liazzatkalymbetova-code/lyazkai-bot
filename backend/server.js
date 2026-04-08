@@ -5,8 +5,13 @@ const cors = require('cors');
 const path = require('path');
 const dotenv = require('dotenv');
 const envPath = path.join(__dirname, '.env');
-dotenv.config({ path: envPath });
-console.log("Loading .env from:", envPath);
+// Load .env only in development to avoid overwriting Render's environment variables
+if (process.env.NODE_ENV !== 'production') {
+    dotenv.config({ path: envPath });
+    console.log("Loading .env from:", envPath);
+} else {
+    console.log("Production mode: Using environment variables from Render (skipping .env)");
+}
 console.log("OPENAI_API_KEY:", process.env.OPENAI_API_KEY ? (process.env.OPENAI_API_KEY.substring(0, 6) + "...") : "undefined");
 
 

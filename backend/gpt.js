@@ -1,11 +1,23 @@
-require('dotenv').config();
+// Load .env only in development to avoid overwriting Render's environment variables
+if (process.env.NODE_ENV !== 'production') {
+    require('dotenv').config();
+}
 const { OpenAI } = require('openai');
 
-const openai = new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY || 'sk-dummy-prevent-crash'
-});
+const apiKey = process.env.OPENAI_API_KEY;
+const usingDummy = !apiKey || apiKey === 'sk-dummy-prevent-crash';
 
-console.log("GPT KEY:", process.env.OPENAI_API_KEY ? "OK" : "MISSING");
+console.log("\n[GPT INIT] ═══════════════════════════════════════");
+console.log("[GPT INIT] OPENAI_API_KEY present:", !!apiKey);
+if (apiKey) console.log("[GPT INIT] API Key starts with:", apiKey.substring(0, 15) + '...');
+console.log("[GPT INIT] Using REAL API:", !usingDummy);
+console.log("[GPT INIT] Using DUMMY fallback:", usingDummy);
+if (usingDummy) console.warn("[GPT INIT] ⚠️  WARNING: Dummy key active!");
+console.log("[GPT INIT] ═══════════════════════════════════════\n");
+
+const openai = new OpenAI({
+    apiKey: apiKey || 'sk-dummy-prevent-crash'
+});
 
 // In-memory chat histories (Item 5: Memory dialog)
 const chatHistories = {};
@@ -110,6 +122,19 @@ async function askGPT(chatId, message, context = {}) {
 
 async function askWidgetGPT(sessionId, message, context = {}) {
     try {
+        console.log(`\n[Widget GPT] ────────────────────────────────`);
+        console.log(`[Widget GPT] User message: "${message.substring(0, 40)}..."`);
+        console.log(`[Widget GPT] Session ID: ${sessionId}`);
+        console.log(`[Widget GPT] Using real API key: ${!usingDummy}`);
+        
+        if (usingDummy) {
+            console.warn(`[Widget GPT] ⚠️  DUMMY KEY DETECTED - No real OpenAI response!`);
+            return { 
+                reply: "🧠 Ошибка: API ключ не настроен. Обратитесь в Telegram для помощи.",
+                showTelegram: true 
+            };
+        }
+        
         if (!widgetHistories[sessionId]) {
             widgetHistories[sessionId] = [];
             widgetHistories[sessionId].count = 0;
@@ -128,29 +153,45 @@ async function askWidgetGPT(sessionId, message, context = {}) {
             ...history
         ];
 
-        // Ensure OpenAI is initialized safely even with dummy keys
+        console.log(`[Widget GPT] Calling OpenAI API (gpt-4o-mini)...`);
+        
         const response = await openai.chat.completions.create({
             model: 'gpt-4o-mini',
             messages: messages,
             max_tokens: 200,
             temperature: 0.7
         });
-
+        
         const reply = response.choices[0]?.message?.content;
         
+        console.log(`[Widget GPT] ✅ Success! Reply: "${reply.substring(0, 50)}..."`);
+        
         if (reply) {
-            console.log(`[Widget GPT] Session ${sessionId} Reply: ${reply.substring(0, 50)}...`);
             history.push({ role: 'assistant', content: reply });
         }
 
         return {
             reply: reply || "🧠 Извините, я задумался. Напишите еще раз!",
-            showTelegram: history.count >= 2 // Trigger button after 2 answers
+            showTelegram: history.count >= 2
         };
 
     } catch (e) {
-        console.error('[Widget GPT] Error:', e.message);
-        return { reply: "🧠 Сервис временно обучается новым ответам.", showTelegram: true };
+        console.error(`[Widget GPT] ❌ ERROR: ${e.message}`);
+        console.error(`[Widget GPT] Error code: ${e.code}`);
+        console.error(`[Widget GPT] Status: ${e.status}`);
+        if (e.response?.data) {
+            console.error(`[Widget GPT] API Response:`, JSON.stringify(e.response.data));
+        }
+        
+        // Check if it's auth error
+        if (e.status === 401 || e.code === 'invalid_api_key') {
+            console.error(`[Widget GPT] 🔑 INVALID API KEY - check OPENAI_API_KEY environment variable`);
+        }
+        
+        return { 
+            reply: "🧠 Сервис временно обучается новым ответам.",
+            showTelegram: true 
+        };
     }
 }
 
