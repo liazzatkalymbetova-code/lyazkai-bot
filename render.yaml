@@ -1,5 +1,20 @@
 services:
   - type: web
+    name: infolady-api
+    runtime: node
+    buildCommand: cd backend && npm install
+    startCommand: cd backend && npm start
+    env:
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: TELEGRAM_BOT_TOKEN
+        sync: false
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3000
+
+  - type: web
     name: infolady-online
     runtime: static
     staticPublishPath: ./site
@@ -21,7 +36,7 @@ services:
         value: camera=(), microphone=(), geolocation=(), payment=()
       - path: /*
         name: Content-Security-Policy
-        value: "default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' https: data:; connect-src 'self' https://api.infolady.online; frame-ancestors 'none';"
+        value: "default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' https: data:; connect-src 'self' https://api.infolady.online https://*.onrender.com; frame-ancestors 'none';"
       - path: /*.html
         name: Cache-Control
         value: public, max-age=3600, must-revalidate

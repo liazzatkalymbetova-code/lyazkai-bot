@@ -1239,7 +1239,9 @@
             );
             
             try {
-                const res = await fetch('/api/gpt-chat', {
+                const apiUrl = typeof API !== 'undefined' && API.GPT_CHAT ? API.GPT_CHAT : '/api/gpt-chat';
+                
+                const res = await fetch(apiUrl, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
