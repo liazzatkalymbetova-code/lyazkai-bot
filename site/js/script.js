@@ -1077,11 +1077,12 @@
 
     /* ── Chatbot ──────────────────────────────────────────────── */
     function initChatbot() {
+        const isEN = window.location.pathname.includes('/en/');
         const widget = document.createElement('div');
         widget.className = 'chatbot';
         widget.id = 'chatbotWidget';
         widget.innerHTML = `
-            <button class="chatbot__trigger" id="chatbotTrigger" aria-label="AI Sales Assistant" aria-expanded="false" style="z-index:9999" title="Задай вопрос">
+            <button class="chatbot__trigger" id="chatbotTrigger" aria-label="AI Sales Assistant" aria-expanded="false" style="z-index:9999" title="${isEN ? 'Ask a question' : 'Задай вопрос'}">
                 <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color: #fff;">
                     <path d="M12 2C6.48 2 2 6.48 2 12c0 1.54.36 3 .97 4.29L2 22l6.29-1.97C9 21.64 10.46 22 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm0 18c-1.41 0-2.73-.36-3.88-1.02l-.28-.15-2.89.92.92-2.89-.15-.28C4.36 14.73 4 13.41 4 12c0-4.41 3.59-8 8-8s8 3.59 8 8-3.59 8-8 8z"></path>
                     <circle cx="8" cy="12" r="1.5" fill="currentColor"></circle>
@@ -1089,23 +1090,23 @@
                     <circle cx="16" cy="12" r="1.5" fill="currentColor"></circle>
                 </svg>
             </button>
-            <div class="chatbot__tooltip" id="chatbotTooltip">Разберу, где теряешь клиентов</div>
+            <div class="chatbot__tooltip" id="chatbotTooltip">${isEN ? "Find where you're losing customers" : 'Разберу, где теряешь клиентов'}</div>
             <div class="chatbot__panel" id="chatbotPanel" role="dialog" aria-label="InfoLady Assistant" style="z-index:10000">
                 <div class="chatbot__header">
                     <div class="chatbot__header-info">
                         <div class="chatbot__avatar" aria-hidden="true">👋</div>
                         <div class="chatbot__header-text">
                             <strong>InfoLady</strong>
-                            <span>AI Sales Assistant — Онлайн</span>
+                            <span>${isEN ? 'AI Sales Assistant — Online' : 'AI Sales Assistant — Онлайн'}</span>
                         </div>
                     </div>
-                    <button class="chatbot__close" id="chatbotClose" aria-label="Закрыть чат">✕</button>
+                    <button class="chatbot__close" id="chatbotClose" aria-label="${isEN ? 'Close chat' : 'Закрыть чат'}">✕</button>
                 </div>
                 <div class="chatbot__messages" id="chatbotMessages"></div>
                 <div class="chatbot__quick-replies" id="chatbotQR"></div>
                 <div class="chatbot__input-row">
-                    <input type="text" class="chatbot__input" id="chatbotInput" placeholder="Спросите про SEO…" aria-label="Сообщение">
-                    <button class="chatbot__send" id="chatbotSend" aria-label="Отправить">⟳</button>
+                    <input type="text" class="chatbot__input" id="chatbotInput" placeholder="${isEN ? 'Ask about SEO…' : 'Спросите про SEO…'}" aria-label="${isEN ? 'Message' : 'Сообщение'}">
+                    <button class="chatbot__send" id="chatbotSend" aria-label="${isEN ? 'Send' : 'Отправить'}">⟳</button>
                 </div>
             </div>`;
         setTimeout(() => { document.body.appendChild(widget); }, 4000);
