@@ -979,7 +979,7 @@
     <div class="hero-subtitle" id="subtitle"></div>
 
     <div class="hero-actions">
-      <a class="btn btn-primary" id="main-btn" href="#scanner"></a>
+      <a class="btn btn-primary" id="main-btn" href="/en/payment.html?plan=basic"></a>
       <!-- ЗАМЕНИТЕ НА ВАШ ТЕЛЕГРАМ-НИКНЕЙМ (НЕ БОТА) -->
       <a id="tg-link" target="_blank" class="btn btn-secondary" style="border: 1px solid rgba(255,255,255,0.2); color: #ccc;"></a>
     </div>
@@ -1228,15 +1228,11 @@
   const tgLink = document.getElementById("tg-link-cta");
   if (tgLink) tgLink.href = tgUrl;
 
-  // Payment button binding to existing flow
+  // Payment button
   const payBtn = document.getElementById("pay-btn");
   if (payBtn) {
     payBtn.onclick = () => {
-      if (typeof showPayPalSection === 'function') {
-         showPayPalSection();
-      } else {
-         window.location.hash = 'paypal-checkout';
-      }
+      window.location.href = '/en/payment.html?plan=basic';
     };
   }
 
@@ -1597,6 +1593,9 @@
   document.getElementById("q3").innerText = t.q3;
   document.getElementById("a3").innerText = t.a3;
   document.getElementById("faq-cta").innerText = t.cta;
+  document.getElementById("faq-cta").onclick = () => {
+    window.location.href = isEN ? '/en/payment.html?plan=basic' : '/ru/payment.html?plan=basic';
+  };
 
   // accordion
   document.querySelectorAll(".faq-item").forEach(item => {

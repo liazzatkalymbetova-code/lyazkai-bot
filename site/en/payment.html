@@ -577,10 +577,12 @@
             }
 
             const config = {
-                express:  { title: 'Basic',      price: '$29', desc: 'Core AI-powered audit' },
-                full:     { title: 'Standard',   price: '$49', desc: 'Extended analysis + consultation' },
-                pro:      { title: 'Premium',    price: '$99', desc: 'Complete audit + 2-hour strategy session' },
-                premium:  { title: 'Premium',    price: '$99', desc: 'Complete audit + 2-hour strategy session' }
+                basic:    { title: 'Basic',      price: '$50',  desc: 'Core AI-powered audit' },
+                standard: { title: 'Standard',   price: '$100', desc: 'Extended analysis + consultation' },
+                premium:  { title: 'Premium',    price: '$300', desc: 'Complete audit + 2-hour strategy session' },
+                express:  { title: 'Basic',      price: '$50',  desc: 'Core AI-powered audit' },
+                full:     { title: 'Standard',   price: '$100', desc: 'Extended analysis + consultation' },
+                pro:      { title: 'Premium',    price: '$300', desc: 'Complete audit + 2-hour strategy session' }
             };
 
             if (!config[plan]) {
