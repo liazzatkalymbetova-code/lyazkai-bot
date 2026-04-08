@@ -4,303 +4,518 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Payment — Full Site Audit | InfoLady</title>
-    <meta name="description" content="Pay for your full AI website audit. Get a PDF report with 50+ checks, priorities, and a growth plan within 24–48 hours." />
+    <meta name="description" content="Pay for your full AI website audit. 50+ checks, PDF report, growth plan. Delivered within 24–48 hours." />
     <meta name="robots" content="noindex, nofollow" />
-    <meta property="og:title" content="InfoLady — Full Site Audit" />
-    <meta property="og:description" content="50+ checks · PDF report · Growth plan · 24–48 hours" />
-    <meta property="og:image" content="https://infolady.online/audit-report-preview.png" />
     <link rel="stylesheet" href="/style.css">
     <style>
-        :root {
-            --bg-dark: #0B0E14;
-            --accent-primary: #00E0FF;
-            --accent-secondary: #7C5AFF;
-            --text-dim: rgba(255, 255, 255, 0.7);
-            --bg-card: rgba(255, 255, 255, 0.02);
-            --border: rgba(255, 255, 255, 0.04);
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
         body {
-            background-color: var(--bg-dark);
+            background: #0B0E14;
             color: #fff;
-            font-family: 'Inter', system-ui, -apple-system, sans-serif;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            margin: 0;
-            padding: 20px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            line-height: 1.6;
         }
 
-        .payment-card {
-            background: linear-gradient(145deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
-            border: 1px solid var(--border);
-            border-radius: 24px;
-            padding: 40px;
-            max-width: 440px;
-            width: 100%;
+        .container {
+            max-width: 520px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* Header */
+        .header {
             text-align: center;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+            margin-bottom: 48px;
         }
 
         .logo {
-            font-weight: 800;
-            font-size: 1.5rem;
-            color: #fff;
-            text-decoration: none;
-            display: inline-block;
+            font-size: 14px;
+            font-weight: 600;
+            color: rgba(255,255,255,0.6);
+            text-transform: uppercase;
+            letter-spacing: 1px;
             margin-bottom: 24px;
+            display: block;
         }
 
         h1 {
-            font-size: 1.5rem;
-            margin-bottom: 8px;
+            font-size: clamp(28px, 6vw, 36px);
             font-weight: 700;
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
         }
 
         .subtitle {
-            color: var(--text-dim);
-            font-size: 0.9rem;
+            font-size: 16px;
+            color: rgba(255,255,255,0.65);
+            margin: 0;
+        }
+
+        /* Pricing Section */
+        .pricing-box {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 16px;
+            padding: 32px;
+            margin-bottom: 32px;
+            backdrop-filter: blur(10px);
+        }
+
+        .price-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: rgba(255,255,255,0.5);
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .price-display {
+            font-size: clamp(32px, 8vw, 48px);
+            font-weight: 700;
+            color: #00E0FF;
+            margin-bottom: 24px;
+            line-height: 1;
+        }
+
+        .plan-details {
+            background: rgba(0, 224, 255, 0.04);
+            border-left: 3px solid #00E0FF;
+            padding: 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            color: rgba(255,255,255,0.75);
+            margin-bottom: 20px;
+        }
+
+        .plan-type {
+            display: block;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 4px;
+            font-size: 15px;
+        }
+
+        /* Features */
+        .features {
             margin-bottom: 32px;
         }
 
-        .details-box {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.03);
-            border-radius: 16px;
-            padding: 24px;
-            margin-bottom: 24px;
-            text-align: left;
+        .features-title {
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: rgba(255,255,255,0.5);
+            margin-bottom: 14px;
+            display: block;
         }
 
-        .detail-row {
+        .features-list {
+            list-style: none;
             display: flex;
-            justify-content: space-between;
-            margin-bottom: 12px;
-            font-size: 0.95rem;
+            flex-direction: column;
+            gap: 10px;
         }
 
-        .detail-row:last-child {
-            margin-bottom: 0;
-            padding-top: 12px;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        .feature-item {
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+            font-size: 14px;
         }
 
-        .detail-label {
-            color: var(--text-dim);
+        .feature-icon {
+            flex-shrink: 0;
+            width: 20px;
+            height: 20px;
+            color: #10B981;
+            font-weight: 700;
         }
 
-        .detail-value {
+        .feature-text {
+            color: rgba(255,255,255,0.8);
+        }
+
+        /* Email Input */
+        .email-section {
+            margin-bottom: 32px;
+        }
+
+        .email-label {
+            display: block;
+            font-size: 14px;
             font-weight: 600;
+            margin-bottom: 10px;
             color: #fff;
         }
 
-        .detail-value.price {
-            color: var(--accent-primary);
-            font-size: 1.25rem;
-            font-weight: 800;
+        .email-input-wrapper {
+            position: relative;
         }
 
-        .instruction {
-            background: rgba(255, 171, 0, 0.05);
-            border: 1px solid rgba(255, 171, 0, 0.2);
-            color: #FFAB00;
-            padding: 14px;
-            border-radius: 12px;
-            font-size: 0.9rem;
+        .email-input {
+            width: 100%;
+            padding: 14px 16px;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 10px;
+            color: #fff;
+            font-size: 15px;
+            font-family: inherit;
+            transition: all 0.2s;
+        }
+
+        .email-input:focus {
+            outline: none;
+            background: rgba(255,255,255,0.06);
+            border-color: #00E0FF;
+            box-shadow: 0 0 0 3px rgba(0, 224, 255, 0.08);
+        }
+
+        .email-input::placeholder {
+            color: rgba(255,255,255,0.35);
+        }
+
+        .email-hint {
+            font-size: 13px;
+            color: rgba(255,255,255,0.45);
+            margin-top: 8px;
+        }
+
+        /* Buttons */
+        .button-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
             margin-bottom: 24px;
-            font-weight: 600;
         }
 
-        .cta-btn {
-            display: block;
+        .btn {
+            padding: 14px 20px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 15px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            width: 100%;
+        }
+
+        .btn-primary {
             background: linear-gradient(135deg, #00E0FF 0%, #7C5AFF 100%);
             color: #000;
-            text-decoration: none;
-            padding: 16px;
-            border-radius: 14px;
-            font-weight: 800;
-            font-size: 1rem;
-            margin-bottom: 16px;
-            box-shadow: 0 4px 15px rgba(0, 224, 255, 0.2);
-            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 20px rgba(0, 224, 255, 0.25);
         }
 
-        .cta-btn:hover {
+        .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0, 224, 255, 0.3);
+            box-shadow: 0 6px 30px rgba(0, 224, 255, 0.35);
         }
 
-        .trust-info {
-            font-size: 0.8rem;
-            color: var(--text-dim);
-            line-height: 1.4;
+        .btn-primary:active {
+            transform: translateY(0);
         }
 
-        .trust-info p {
-            margin: 4px 0;
+        .btn-secondary {
+            background: rgba(255,255,255,0.08);
+            color: #fff;
+            border: 1px solid rgba(255,255,255,0.15);
         }
 
-        .back-link {
-            display: inline-block;
-            margin-top: 24px;
-            color: var(--text-dim);
-            font-size: 0.85rem;
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.12);
+            border-color: rgba(255,255,255,0.25);
+        }
+
+        .btn-success {
+            background: #10B981;
+            color: #fff;
+        }
+
+        .btn-success:hover {
+            background: #059669;
+            transform: translateY(-2px);
+        }
+
+        /* Trust Section */
+        .trust-section {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+            font-size: 14px;
+        }
+
+        .trust-item {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 12px;
+            align-items: flex-start;
+        }
+
+        .trust-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .trust-icon {
+            flex-shrink: 0;
+            font-size: 18px;
+        }
+
+        .trust-text {
+            color: rgba(255,255,255,0.7);
+        }
+
+        /* Footer Links */
+        .footer-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .footer-link a {
+            color: rgba(255,255,255,0.5);
             text-decoration: none;
+            font-size: 13px;
             transition: color 0.2s;
         }
 
-        .back-link:hover {
-            color: #fff;
+        .footer-link a:hover {
+            color: rgba(255,255,255,0.7);
         }
-    
-        /* VALUE BOX STYLES */
-        .value-box {
-            background: #0f172a;
+
+        /* Status Messages */
+        .status-message {
+            display: none;
+            padding: 16px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-weight: 600;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .status-message.success {
+            display: block;
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            color: #10B981;
+        }
+
+        .status-message.error {
+            display: block;
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #EF4444;
+        }
+
+        .status-message.loading {
+            display: block;
+            background: rgba(0, 224, 255, 0.08);
+            border: 1px solid rgba(0, 224, 255, 0.2);
+            color: #00E0FF;
+        }
+
+        /* Progress Animation */
+        .progress-block {
+            display: none;
+            background: rgba(0, 224, 255, 0.06);
+            border: 1px solid rgba(0, 224, 255, 0.2);
+            border-radius: 12px;
             padding: 20px;
-            border-radius: 16px;
-            margin-bottom: 24px;
-            color: #fff;
-            text-align: left;
+            margin-bottom: 20px;
+            font-size: 14px;
         }
-        .value-box h2 { font-size: 20px; margin-bottom: 12px; color: #fff; }
-        .value-box ul { padding-left: 18px; margin-bottom: 12px; }
-        .value-box li { margin-bottom: 8px; font-size: 0.95rem; color: rgba(255,255,255,0.9); }
-        .result { color: #4ade80; font-weight: bold; margin-bottom: 8px; font-size: 0.95rem; }
-        .urgency { color: #facc15; font-weight: 600; font-size: 0.9rem; }
-</style>
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link rel="preconnect" href="https://unpkg.com"/>
-<script src="https://unpkg.com/lucide@0.474.0/dist/umd/lucide.min.js" defer></script>
+
+        .progress-item {
+            margin-bottom: 10px;
+            color: rgba(255,255,255,0.6);
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+
+        .progress-item.active {
+            opacity: 1;
+            color: #00E0FF;
+        }
+
+        /* Mobile */
+        @media (max-width: 640px) {
+            .container {
+                padding: 32px 16px;
+            }
+
+            .pricing-box {
+                padding: 24px;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+
+            .price-display {
+                font-size: 36px;
+            }
+
+            .trust-section {
+                padding: 20px;
+            }
+        }
+    </style>
 </head>
 <body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <span class="logo">InfoLady</span>
+            <h1>Your Full Site Audit</h1>
+            <p class="subtitle">50+ checks, personalized recommendations, growth roadmap</p>
+        </div>
 
-    <div class="payment-card">
-        <a href="/en/" class="logo">InfoLady</a>
-        <h1>Your Full Site Audit</h1>
-        <p class="subtitle">50+ checks. PDF report with priorities and growth plan. Delivered to your email within 24–48 hours.</p>
-
-        
-        <div class="value-box">
-  <h2 style="color:#fff; font-size:1.1rem; margin-bottom:14px;">💡 What You'll Get:</h2>
-  <ul style="list-style:none; padding:0; margin-bottom:16px;">
-    <li style="margin-bottom:8px; font-size:0.95rem; color:rgba(255,255,255,0.9);">✓ Complete analysis of 50+ parameters</li>
-    <li style="margin-bottom:8px; font-size:0.95rem; color:rgba(255,255,255,0.9);">✓ All issues ranked by priority</li>
-    <li style="margin-bottom:8px; font-size:0.95rem; color:rgba(255,255,255,0.9);">✓ 30-day growth roadmap with quick wins</li>
-  </ul>
-  <div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top:14px; margin-bottom:14px;">
-    <p style="font-size:0.9rem; color:rgba(255,255,255,0.7); margin-bottom:8px;">🏁 Delivery timeline:</p>
-    <ul style="list-style:none; padding:0; margin:0;">
-      <li style="margin-bottom:6px; font-size:0.9rem; color:rgba(255,255,255,0.9);">📧 PDF report to email — 24–48 hours</li>
-      <li style="margin-bottom:6px; font-size:0.9rem; color:rgba(255,255,255,0.9);">💬 Telegram notification — optional</li>
-    </ul>
-  </div>
-  <p class="result">✓ One-time payment. No subscriptions.</p>
-  <p style="color:#4ade80; font-size:0.85rem; font-weight:600; margin-top:8px;">🛡 No value found? Full refund, no questions asked.</p>
-</div>
-  </div>
-  <p class="result">✓ Delivered within 24–48 hours</p>
-  <p style="color:#4ade80; font-size:0.85rem; font-weight:600; margin-top:8px;">🛡 No value found? Full refund guaranteed.</p>
-  <p class="urgency">Limited capacity — we take up to 10 audits per week</p>
-</div>
-
-<div style="background:rgba(0,224,255,0.05); border:1px solid rgba(0,224,255,0.2); border-radius:12px; padding:14px 16px; margin-bottom:20px; text-align:left;">
-  <p style="margin:0 0 6px; font-size:0.88rem; font-weight:700; color:#00e0ff;">📊 Your report includes:</p>
-  <p style="margin:0; font-size:0.82rem; color:rgba(255,255,255,0.75);">Search visibility analysis (Google, ChatGPT), complete error list with solutions, competitor insights, and a ready-to-implement 30-day roadmap.</p>
-</div>
-        <div class="details-box">
-            <div class="detail-row">
-                <span class="detail-label">Tariff</span>
-                <span class="detail-value" id="plan-title">Loading...</span>
-            </div>
-            <div class="detail-row">
-                <span class="detail-label">Type</span>
-                <span class="detail-value">AI Audit</span>
-            </div>
-            <div class="detail-row">
-                <span class="detail-label">Total</span>
-                <span class="detail-value price" id="plan-price">...</span>
+        <!-- Pricing -->
+        <div class="pricing-box">
+            <span class="price-label">Price</span>
+            <div class="price-display" id="plane-price">$50</div>
+            <div class="plan-details">
+                <span class="plan-type" id="plan-title">Loading...</span>
+                <span id="plan-desc">Complete AI-powered audit with prioritization and growth plan</span>
             </div>
         </div>
 
-        <div class="instruction" id="plan-instruction">
-            <i data-lucide="alert-triangle" class="icon"></i> Waiting for parameters...
+        <!-- Features -->
+        <div class="features">
+            <span class="features-title">What You'll Get</span>
+            <ul class="features-list">
+                <li class="feature-item">
+                    <span class="feature-icon">✓</span>
+                    <span class="feature-text"><strong>50+ checks</strong> for SEO, performance, mobile, trust</span>
+                </li>
+                <li class="feature-item">
+                    <span class="feature-icon">✓</span>
+                    <span class="feature-text"><strong>PDF report</strong> with issues ranked by priority</span>
+                </li>
+                <li class="feature-item">
+                    <span class="feature-icon">✓</span>
+                    <span class="feature-text"><strong>Growth roadmap</strong> for 30 days with quick wins</span>
+                </li>
+                <li class="feature-item">
+                    <span class="feature-icon">✓</span>
+                    <span class="feature-text"><strong>24–48 hours</strong> delivery to your email</span>
+                </li>
+            </ul>
         </div>
 
-        
-        <div style="margin-bottom: 20px; text-align: left;">
-            <label for="userEmail" style="display:block; font-size: 0.85rem; color: var(--text-dim); margin-bottom: 8px;">Enter email to receive the report</label>
-            <input type="email" id="userEmail" placeholder="your@email.com" style="width:100%; padding:14px; border-radius:12px; background: rgba(255,255,255,0.04); border: 1px solid var(--border); color:#fff; font-family:inherit; font-size:0.95rem; outline:none; box-sizing:border-box;" required>
+        <!-- Email Input -->
+        <div class="email-section">
+            <label class="email-label" for="userEmail">Enter your email for the report</label>
+            <div class="email-input-wrapper">
+                <input 
+                    type="email" 
+                    id="userEmail" 
+                    class="email-input" 
+                    placeholder="your@email.com"
+                    required
+                    autocomplete="email"
+                >
+            </div>
+            <p class="email-hint">We'll send your report here. No spam, ever.</p>
         </div>
-        <p style="text-align:center; color:rgba(255,255,255,0.5); font-size:0.82rem; margin: -8px 0 16px;">Your report will be sent here. No spam.</p>
-<!-- PayPal SDK -->
-<script data-sdk-integration-source="button-factory" src="https://www.paypal.com/sdk/js?currency=USD&amp;client-id=ASqiemk9c7mWcBRpPQLiz1yXK5dWJSRc6kyfWH3AVuVVnjThsdiValcNRNBo5nKCbRQU0bwX69CDHmf8&amp;intent=capture"></script>
-<script src="/js/config.js"></script>
 
-<div id="paypal-button-container" style="margin-top:20px;"></div>
-<p style="text-align:center; color:rgba(255,255,255,0.45); font-size:0.78rem; margin: 8px 0 4px;">🔒 Payment takes 1 minute · Secure · Report delivered to your email</p>
-<div id="status-message" style="margin-top:10px; font-weight:bold;"></div>
-<div id="progress-block" style="display:none; margin-top:16px; background:rgba(0,224,255,0.06); border:1px solid rgba(0,224,255,0.2); border-radius:12px; padding:16px; text-align:left;">
-  <p id="progress-step-1" style="margin:0 0 8px; font-size:0.9rem; color:#fff; opacity:0; transition:opacity 0.5s;">⚡ Analysis has started...</p>
-  <p id="progress-step-2" style="margin:0 0 8px; font-size:0.9rem; color:rgba(255,255,255,0.8); opacity:0; transition:opacity 0.5s;">🔍 Checking 50+ parameters on your site...</p>
-  <p id="progress-step-3" style="margin:0; font-size:0.9rem; color:rgba(255,255,255,0.8); opacity:0; transition:opacity 0.5s;">📊 Preparing your personalized recommendations...</p>
-</div>
+        <!-- Status Message -->
+        <div id="status-message" class="status-message"></div>
 
-        <!-- Return to Telegram after payment -->
-        <div id="tg-return-block" style="display:none; margin: 20px 0; padding: 16px; background: rgba(0,224,255,0.08); border: 1px solid rgba(0,224,255,0.3); border-radius: 12px; text-align: center;">
-            <p style="margin: 0 0 6px; font-weight: 600; color: #fff;">🎉 Payment confirmed!</p>
-            <p style="margin: 0 0 12px; font-size:0.9rem; color:rgba(255,255,255,0.75);">Your report will be delivered to your email within 24–48 hours.</p>
-            <a id="tg-return-btn" href="https://t.me/lyazkai_bot" target="_blank" style="display: inline-block; background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.7); font-weight: 600; padding: 10px 20px; border-radius: 10px; text-decoration: none; font-size: 0.85rem; border: 1px solid rgba(255,255,255,0.15);">
-                Get updates in Telegram (optional)
+        <!-- Progress Animation -->
+        <div id="progress-block" class="progress-block">
+            <div class="progress-item" id="progress-1">⚡ Starting analysis...</div>
+            <div class="progress-item" id="progress-2">🔍 Checking 50+ parameters...</div>
+            <div class="progress-item" id="progress-3">📊 Preparing recommendations...</div>
+        </div>
+
+        <!-- Buttons -->
+        <div class="button-group">
+            <button 
+                class="btn btn-primary" 
+                id="paymentBtn"
+                onclick="handlePaymentClick()"
+            >
+                Pay Now
+            </button>
+            <button 
+                class="btn btn-success" 
+                id="confirmBtn"
+                style="display: none;"
+                onclick="handleConfirmPayment()"
+            >
+                ✓ Payment Complete — Start Audit
+            </button>
+            <a href="https://t.me/lyazkai_bot" class="btn btn-secondary" target="_blank">
+                Questions? Message on Telegram
             </a>
         </div>
-<div style="margin: 16px 0; padding: 14px; background:rgba(74,222,128,0.06); border:1px solid rgba(74,222,128,0.2); border-radius:12px; text-align:center;">
-  <p style="margin:0; font-size:0.85rem; color:#4ade80; font-weight:600;">Report goes to your email. Telegram is optional for updates.</p>
-</div>
 
-        <div class="trust-info">
-            <p><i data-lucide="activity" class="icon"></i> Report delivered to email within 24–48 hours</p>
-            <p>🔒 One-time payment, no subscriptions</p>
-            <p>📄 PDF version included</p>
-            <p style="color: #00e0ff; font-weight: 700; margin-top: 10px;"><i data-lucide="flame" class="icon"></i> Limited-time price today</p>
+        <!-- Trust Section -->
+        <div class="trust-section">
+            <div class="trust-item">
+                <span class="trust-icon">🔒</span>
+                <span class="trust-text">Secure payment via <strong>PayPal</strong> with buyer protection</span>
+            </div>
+            <div class="trust-item">
+                <span class="trust-icon">📧</span>
+                <span class="trust-text">PDF report delivered within <strong>24–48 hours</strong></span>
+            </div>
+            <div class="trust-item">
+                <span class="trust-icon">💰</span>
+                <span class="trust-text">Find nothing useful? Get <strong>100% refund</strong></span>
+            </div>
+            <div class="trust-item">
+                <span class="trust-icon">⏱️</span>
+                <span class="trust-text"><strong>One-time payment</strong>, no subscriptions or hidden fees</span>
+            </div>
         </div>
 
-        <a href="/en/#pricing" class="back-link">← Back to pricing</a>
+        <!-- Footer -->
+        <div class="footer-link">
+            <a href="/en/#pricing">← Back to pricing</a>
+        </div>
     </div>
 
+    <script src="/js/config.js"></script>
     <script>
         (function() {
+            const params = new URLSearchParams(window.location.search);
+            
+            // Check if RU page
             const isRU = window.location.pathname.includes('/ru/');
             if (isRU) {
                 window.location.replace('/ru/payment.html' + window.location.search);
                 return;
             }
 
-            const params = new URLSearchParams(window.location.search);
-            const user = params.get('user');
-            if (user) {
-                const baseUrl = typeof API_URL !== 'undefined' ? API_URL : (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' ? `${window.location.protocol}//localhost:3000` : '');
-                fetch(`${baseUrl}/api/payment-intent`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ chatId: user })
-                }).catch(console.error);
-            }
-
             const plan = params.get('plan');
-
             if (!plan) {
                 window.location.href = '/en/';
                 return;
             }
 
             const config = {
-                basic:    { title: 'Basic',            price: '$50', value: '50.00' },
-                standard: { title: 'Standard',         price: '$100', value: '100.00' },
-                pro:      { title: 'Premium',          price: '$300', value: '300.00' },
-                premium:  { title: 'Premium',          price: '$300', value: '300.00' }
+                express:  { title: 'Basic',      price: '$50', desc: 'Core AI-powered audit' },
+                full:     { title: 'Standard',   price: '$100', desc: 'Extended analysis + consultation' },
+                pro:      { title: 'Premium',    price: '$200', desc: 'Complete audit + 2-hour strategy session' },
+                premium:  { title: 'Premium',    price: '$200', desc: 'Complete audit + 2-hour strategy session' }
             };
 
             if (!config[plan]) {
@@ -309,120 +524,105 @@
             }
 
             localStorage.setItem('selected_plan', plan);
-
-            document.getElementById('plan-title').textContent       = config[plan].title;
-            document.getElementById('plan-price').textContent       = config[plan].price;
-            document.getElementById('plan-instruction').innerHTML   =
-                `<i data-lucide="alert-triangle" class="icon"></i> Total amount: <span style="font-size:1.1rem;font-weight:800;color:#fff">${config[plan].price}</span>`;
             
-            window.currentPlanValue = config[plan].value; // Keep for PayPal
+            // Update UI
+            document.getElementById('plan-title').textContent = config[plan].title;
+            document.getElementById('plane-price').textContent = config[plan].price;
+            document.getElementById('plan-desc').textContent = config[plan].desc;
+
+            // Track user
+            const user = params.get('user');
+            if (user) {
+                const baseUrl = typeof API_URL !== 'undefined' ? API_URL : (window.location.hostname === 'localhost' ? `${window.location.protocol}//localhost:3000` : '');
+                fetch(`${baseUrl}/api/payment-intent`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ chatId: user })
+                }).catch(console.error);
+            }
         })();
 
-        document.addEventListener('DOMContentLoaded', function() {
-            if (typeof paypal !== 'undefined') {
-                paypal.Buttons({
-                    createOrder: function(data, actions) {
-                        const val = window.currentPlanValue || '50.00';
-                        return actions.order.create({
-                            purchase_units: [{
-                                amount: {
-                                    value: val
-                                }
-                            }]
-                        });
-                    },
-                    onApprove: async function(data, actions) {
-                        const statusMsg = document.getElementById('status-message');
-                        statusMsg.style.color = '#facc15';
-                        statusMsg.textContent = 'Verifying payment...';
-                        showProgressAnimation();
+        function handlePaymentClick() {
+            const emailInput = document.getElementById('userEmail');
+            const email = emailInput.value.trim();
 
-                        try {
-                            const details = await actions.order.capture();
-                            const emailInput = document.getElementById('userEmail');
-                            const email = emailInput ? emailInput.value.trim() : details.payer.email_address;
-                            if (emailInput && !emailInput.value.trim()) {
-                                localStorage.setItem('user_email', email);
-                            } else {
-                                localStorage.setItem('user_email', email);
-                            }
-
-                            const params = new URLSearchParams(window.location.search);
-                            const plan = params.get('plan') || localStorage.getItem('selected_plan');
-                            const domain = localStorage.getItem('scanned_domain') || '';
-
-                            const baseUrl = typeof API_URL !== 'undefined' ? API_URL : window.location.origin;
-
-                            const urlParams = new URLSearchParams(window.location.search);
-                            const chatId = urlParams.get('user') || '';
-
-                            const response = await fetch(`${baseUrl}/api/payment-success`, {
-                                method: 'POST',
-                                headers: { 'Content-Type': 'application/json' },
-                                body: JSON.stringify({
-                                    chatId: chatId,
-                                    email: email,
-                                    domain: domain,
-                                    tariff: plan,
-                                    source: 'paypal',
-                                    lang: 'en'
-                                })
-                            });
-
-                            const result = await response.json();
-                            if (result.success) {
-                                statusMsg.style.color = '#4ade80';
-                                statusMsg.textContent = 'Payment approved! Access unlocked.';
-                                const tgUrl = chatId ? `https://t.me/lyazkai_bot?start=paid_en` : `https://t.me/lyazkai_bot`;
-                                document.getElementById('tg-return-block').style.display = 'block';
-                                document.getElementById('tg-return-btn').href = tgUrl;
-                                setTimeout(() => {
-                                    window.location.href = `/en/dashboard.html?email=${encodeURIComponent(email)}`;
-                                }, 4000);
-                            } else {
-                                statusMsg.style.color = '#ef4444';
-                                statusMsg.textContent = 'Verification Error. Please try again.';
-                            }
-
-                        } catch (err) {
-                            statusMsg.style.color = '#ef4444';
-                            statusMsg.textContent = 'Network Error: ' + err.message;
-                        }
-                    }
-                }).render('#paypal-button-container');
+            if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                alert('Please enter a valid email address');
+                emailInput.focus();
+                return;
             }
-        });
+
+            localStorage.setItem('user_email', email);
+            const plan = new URLSearchParams(window.location.search).get('plan') || localStorage.getItem('selected_plan');
+            
+            // Redirect to PayPal
+            window.location.href = `https://www.paypal.com/`;
+        }
+
+        async function handleConfirmPayment() {
+            const emailInput = document.getElementById('userEmail');
+            const email = emailInput.value.trim();
+
+            if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                alert('Please enter your email');
+                emailInput.focus();
+                return;
+            }
+
+            const params = new URLSearchParams(window.location.search);
+            const plan = params.get('plan') || localStorage.getItem('selected_plan');
+            const chatId = params.get('user') || '';
+            const domain = localStorage.getItem('scanned_domain') || '';
+
+            const statusMsg = document.getElementById('status-message');
+            statusMsg.className = 'status-message loading';
+            statusMsg.textContent = '⏳ Verifying payment...';
+
+            showProgressAnimation();
+
+            try {
+                const baseUrl = typeof API_URL !== 'undefined' ? API_URL : window.location.origin;
+                const response = await fetch(`${baseUrl}/api/payment-success`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        chatId, email, domain, tariff: plan, source: 'paypal', lang: 'en'
+                    })
+                });
+
+                const result = await response.json();
+                if (result.success) {
+                    statusMsg.className = 'status-message success';
+                    statusMsg.textContent = '✓ Thank you! Your report will arrive within 24–48 hours';
+                    document.getElementById('paymentBtn').style.display = 'none';
+                    setTimeout(() => {
+                        window.location.href = `/en/dashboard.html?email=${encodeURIComponent(email)}`;
+                    }, 3000);
+                } else {
+                    statusMsg.className = 'status-message error';
+                    statusMsg.textContent = '✗ Payment verification failed. Please try again.';
+                }
+            } catch (err) {
+                statusMsg.className = 'status-message error';
+                statusMsg.textContent = '✗ Error: ' + err.message;
+            }
+        }
 
         function showProgressAnimation() {
             const block = document.getElementById('progress-block');
             if (!block) return;
             block.style.display = 'block';
-            setTimeout(() => { const el = document.getElementById('progress-step-1'); if(el) el.style.opacity = '1'; }, 200);
-            setTimeout(() => { const el = document.getElementById('progress-step-2'); if(el) el.style.opacity = '1'; }, 1500);
-            setTimeout(() => { const el = document.getElementById('progress-step-3'); if(el) el.style.opacity = '1'; }, 3000);
-        }
-
-        function handlePayment() {
-            const emailInput = document.getElementById('userEmail');
-            const email = emailInput ? emailInput.value.trim() : '';
-            if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-                alert('Please enter a valid email to receive the report.');
-                if(emailInput) emailInput.focus();
-                return false;
-            }
-            localStorage.setItem('user_email', email);
-            return true;
+            
+            setTimeout(() => {
+                document.getElementById('progress-1').classList.add('active');
+            }, 200);
+            setTimeout(() => {
+                document.getElementById('progress-2').classList.add('active');
+            }, 1200);
+            setTimeout(() => {
+                document.getElementById('progress-3').classList.add('active');
+            }, 2400);
         }
     </script>
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    if (typeof lucide !== "undefined") { lucide.createIcons(); }
-  });
-</script>
-<div class="mobile-cta">
-<a href="https://t.me/lyazkai_bot?start=mobile_cta">
-Get Clients
-</a>
-</div>
 </body>
 </html>
