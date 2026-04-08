@@ -463,7 +463,7 @@
             }, 1200);
 
             // --- 2. Fetch API ---
-            fetch(`/api/report?url=${encodeURIComponent(url)}`)
+            fetch(`https://api.infolady.online/api/report?url=${encodeURIComponent(url)}`)
                 .then(res => res.json())
                 .then(data => {
                     clearInterval(stepInterval);

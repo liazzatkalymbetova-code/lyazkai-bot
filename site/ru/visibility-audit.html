@@ -1893,7 +1893,7 @@ async function runAnalysis(domain) {
   }, 800);
 
   try {
-    const res = await fetch(`/api/report?domain=${domain}`);
+    const res = await fetch(`https://api.infolady.online/api/report?domain=${domain}`);
     const data = await res.json();
 
     clearInterval(interval);

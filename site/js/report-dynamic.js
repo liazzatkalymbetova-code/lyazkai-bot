@@ -86,9 +86,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (aiScoreText) aiScoreText.textContent = 'loading...';
 
     // API Endpoint config
-    const API_BASE = typeof API_URL !== 'undefined' ? API_URL : (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-        ? `${window.location.protocol}//localhost:3000`
-        : '');
+    const API_BASE = typeof API_URL !== 'undefined' ? API_URL : 'https://api.infolady.online';
 
     try {
         const response = await fetch(`${API_BASE}/api/report?url=${encodeURIComponent(url)}&lang=${isRu ? 'ru' : 'en'}`);
