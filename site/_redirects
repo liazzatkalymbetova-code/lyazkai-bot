@@ -1,6 +1,9 @@
 # Render Static Site redirect/rewrite rules
 # Format: source  destination  status_code
 
+# Proxy all /api/* calls to the backend service
+/api/*  https://api.infolady.online/api/:splat  200
+
 # Telegram bot report link: /report?user=123 → serves /ru/report.html (200 = rewrite, URL stays same)
 /report   /ru/report.html   200
 

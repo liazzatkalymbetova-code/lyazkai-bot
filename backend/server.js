@@ -757,8 +757,6 @@ botModule(app);
 const userStates = botModule.userStates || {};
 
 // ── Smart GPT Widget Endpoint (Item 2) ──
-app.use(express.json()); // Ensure body parser fits
-
 app.post('/api/gpt-chat', async (req, res) => {
     const { message, context } = req.body;
     const sessionId = req.headers['x-forwarded-for'] || req.socket.remoteAddress || 'guest';
@@ -771,20 +769,7 @@ app.post('/api/gpt-chat', async (req, res) => {
     }
 });
 
-// Intent tracker to capture Abandoned Cart steps (Item 6)
-app.post('/api/payment-intent', (req, res) => {
-    const { chatId } = req.body;
-    if (!chatId) return res.status(400).json({ error: 'chatId required' });
-
-    if (userStates[chatId]) {
-        userStates[chatId].status = 'payment_pending';
-        userStates[chatId].payment_timestamp = Date.now();
-        userStates[chatId].pay_30m = false;
-        userStates[chatId].pay_2h = false;
-        console.log(`[PAYMENT_INTENT] User ${chatId} started checkout`);
-    }
-    res.json({ success: true });
-});
+app.get('/health', (req, res) => res.json({ status: 'ok', uptime: process.uptime() }));
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
