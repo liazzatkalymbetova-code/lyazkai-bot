@@ -393,35 +393,6 @@
         const input = $('#heroScanInput');
         if (!btn || !input) return;
 
-        // ─── Auto-Restore Session ───
-        const lastDomain = localStorage.getItem('last_domain');
-        if (lastDomain) {
-            const actions = $('.hero__actions-scan');
-            if (actions && actions.parentNode) {
-                const lang = document.documentElement.lang === 'ru' ? 'ru' : 'en';
-                const isUnlocked = localStorage.getItem('unlocked') === 'true';
-                const isPro = localStorage.getItem('pro') === 'true';
-                
-                const returnBlock = document.createElement('div');
-                returnBlock.className = 'returning-user-block';
-                returnBlock.style.cssText = 'background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 14px; margin-bottom: 20px; text-align: left; display: flex; align-items: center; justify-content: space-between; gap: 12px; width: 100%; max-width: 640px;';
-                returnBlock.innerHTML = `
-                    <div style="display: flex; gap: 10px; align-items: center;">
-                        <i data-lucide="history" style="color: #00e0ff; width: 20px; height: 20px; flex-shrink:0;"></i>
-                        <div>
-                            <div style="font-weight: 700; color: #fff; font-size: 0.95rem;">${lang === 'ru' ? 'Вы уже проверяли сайт' : 'You already analyzed a site'}</div>
-                            <div style="font-size: 0.8rem; color: var(--text-dim); text-overflow: ellipsis; overflow: hidden; white-space: nowrap; max-width: 280px;">${lastDomain}</div>
-                        </div>
-                    </div>
-                    <a href="/${lang}/report.html?domain=${encodeURIComponent(lastDomain)}${isUnlocked ? '&unlocked=true' : ''}${isPro ? '&pro=true' : ''}" class="btn btn-primary btn-sm" style="flex-shrink: 0; padding: 8px 16px; font-size: 0.85rem;">
-                        ${lang === 'ru' ? 'Вернуться к отчету' : 'Return to report'}
-                    </a>
-                `;
-                actions.parentNode.insertBefore(returnBlock, actions);
-                setTimeout(() => { if (window.lucide) lucide.createIcons(); }, 100);
-            }
-        }
-
         btn.addEventListener('click', () => {
             const url = input.value.trim();
             if (!url) {
