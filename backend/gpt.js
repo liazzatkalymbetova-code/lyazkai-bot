@@ -217,59 +217,75 @@ async function askGPT(chatId, message, context = {}) {
     }
 }
 
-async function askWidgetGPT(sessionId, message, context = {}) {
+// clientMessages: array of {role, content} sent from frontend (preferred over server-side history)
+async function askWidgetGPT(sessionId, message, context = {}, clientMessages = null) {
     try {
         console.log(`\n[Widget GPT] ────────────────────────────────`);
-        console.log(`[Widget GPT] User message: "${message.substring(0, 40)}..."`);
-        console.log(`[Widget GPT] Session ID: ${sessionId}`);
+        console.log(`[Widget GPT] User message: "${String(message).substring(0, 40)}"`);
+        console.log(`[Widget GPT] Has client history: ${!!(clientMessages && clientMessages.length)}`);
         console.log(`[Widget GPT] Using real API key: ${!usingDummy}`);
-        
+
         if (usingDummy) {
-            console.warn(`[Widget GPT] ⚠️  DUMMY KEY DETECTED - No real OpenAI response!`);
-            return { 
+            console.warn(`[Widget GPT] ⚠️  DUMMY KEY DETECTED`);
+            return {
                 reply: "🧠 Ошибка: API ключ не настроен. Обратитесь в Telegram для помощи.",
-                showTelegram: true 
+                showTelegram: true
             };
         }
-        
-        if (!widgetHistories[sessionId]) {
-            widgetHistories[sessionId] = [];
-            widgetHistories[sessionId].count = 0;
-        }
-
-        const history = widgetHistories[sessionId];
-        history.push({ role: 'user', content: message });
-        history.count = (history.count || 0) + 1;
-
-        if (history.length > 8) history.shift();
 
         const contextHeader = `[Контекст страницы: Язык=${context.lang || 'ru'}, Домен=${context.domain || 'site'}]`;
+
+        // Prefer client-provided history (restart-safe, no IP collision)
+        let history;
+        let turnCount;
+        if (clientMessages && clientMessages.length > 0) {
+            // Validate roles and content to prevent prompt injection
+            history = clientMessages
+                .filter(m => m && (m.role === 'user' || m.role === 'assistant') && typeof m.content === 'string')
+                .slice(-10);
+            turnCount = history.filter(m => m.role === 'user').length;
+        } else {
+            // Fallback: server-side session history
+            if (!widgetHistories[sessionId]) {
+                widgetHistories[sessionId] = [];
+                widgetHistories[sessionId].count = 0;
+            }
+            const sess = widgetHistories[sessionId];
+            sess.push({ role: 'user', content: message });
+            sess.count = (sess.count || 0) + 1;
+            if (sess.length > 10) sess.shift();
+            history = sess;
+            turnCount = sess.count;
+        }
 
         const messages = [
             { role: 'system', content: WIDGET_SYSTEM_PROMPT + `\n\n${contextHeader}` },
             ...history
         ];
 
-        console.log(`[Widget GPT] Calling OpenAI API (gpt-4o-mini)...`);
-        
+        console.log(`[Widget GPT] Turn count: ${turnCount}, calling OpenAI...`);
+
         const response = await openai.chat.completions.create({
             model: 'gpt-4o-mini',
-            messages: messages,
+            messages,
             max_tokens: 200,
-            temperature: 0.7
+            temperature: 0.8,
+            frequency_penalty: 0.6,  // reduce repetitive phrasing
+            presence_penalty: 0.3    // encourage varied topics
         });
-        
+
         const reply = response.choices[0]?.message?.content;
-        
-        console.log(`[Widget GPT] ✅ Success! Reply: "${reply.substring(0, 50)}..."`);
-        
-        if (reply) {
-            history.push({ role: 'assistant', content: reply });
+
+        console.log(`[Widget GPT] ✅ Reply: "${String(reply).substring(0, 60)}"`);
+
+        // Update server-side history only when using fallback path
+        if ((!clientMessages || !clientMessages.length) && reply) {
+            widgetHistories[sessionId].push({ role: 'assistant', content: reply });
         }
 
         return {
-            reply: reply || "🧠 Извините, я задумался. Напишите еще раз!",
-            showTelegram: history.count >= 2
+            reply: reply || "🧠 Задумался. Напишите ещё раз!",
+            showTelegram: turnCount >= 2
         };
 
     } catch (e) {

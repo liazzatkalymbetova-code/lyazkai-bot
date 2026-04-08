@@ -1079,6 +1079,8 @@
 
         let chatState = 'init';
         let capturedUrl = '';
+        let isSending = false;
+        const localHistory = []; // client-side message history
 
         /* Bilingual quick-reply sets */
         const QR = {
@@ -1117,22 +1119,31 @@
         }
 
         async function fetchReply(text) {
+            if (isSending) return;
+            isSending = true;
+            sendBtn.disabled = true;
+
             const ru = getLang() === 'ru';
+
+            // Add to local history BEFORE sending so backend gets full context
+            localHistory.push({ role: 'user', content: text });
+
             const typingBubble = addMsg(
-                `<div class="typing-indicator" style="display:flex;gap:4px"><span>.</span><span>.</span><span>.</span></div>`, 
+                `<div class="typing-indicator" style="display:flex;gap:4px"><span>.</span><span>.</span><span>.</span></div>`,
                 'bot'
             );
-            
+
             try {
                 const apiUrl = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
                     ? 'http://localhost:3000/api/gpt-chat'
                     : 'https://api.infolady.online/api/gpt-chat';
-                
+
                 const res = await fetch(apiUrl, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         message: text,
+                        messages: localHistory.slice(-10), // send last 10 for context
                         context: {
                             lang: getLang(),
                             page: window.location.pathname,
@@ -1142,32 +1153,40 @@
                 });
 
                 const data = await res.json();
-                
-                // Typing Delay (Item 8)
+
+                // Add assistant reply to local history
+                if (data.reply) localHistory.push({ role: 'assistant', content: data.reply });
+
                 setTimeout(() => {
                     typingBubble.innerHTML = `<div class="chatbot__bubble">${data.reply}</div>`;
-                    
+
                     if (data.showTelegram) {
                         const payload = `src_site_lang_${getLang()}_step_chat`;
                         const link = `https://t.me/lyazkai_bot?start=${payload}`;
-                        qrEl.innerHTML = `<button class="chatbot__qr" style="background:#229ED9;color:#fff;border:none" onclick="window.open('${link}', '_blank')">🚀 ` + 
+                        qrEl.innerHTML = `<button class="chatbot__qr" style="background:#229ED9;color:#fff;border:none" onclick="window.open('${link}', '_blank')">🚀 ` +
                             (ru ? 'Хочу полный разбор в Telegram' : 'Get analysis in Telegram') + `</button>`;
                     }
                 }, 1000);
 
             } catch (err) {
-                typingBubble.innerHTML = `<div class="chatbot__bubble">${ru ? 'Задумался. Напишите еще раз!' : 'Thinking. Try again!'}</div>`;
+                // Roll back history on error so user can retry
+                localHistory.pop();
+                typingBubble.innerHTML = `<div class="chatbot__bubble">${ru ? 'Задумался. Напишите ещё раз!' : 'Thinking. Try again!'}</div>`;
+            } finally {
+                isSending = false;
+                sendBtn.disabled = false;
             }
         }
 
         function handleReply(text) {
+            if (isSending) return;
             addMsg(text, 'user');
             qrEl.innerHTML = '';
             fetchReply(text);
         }
 
         function handleUserInput(val) {
-            if (!val.trim()) return;
+            if (!val.trim() || isSending) return;
             addMsg(val, 'user');
             input.value = '';
             fetchReply(val);

@@ -756,13 +756,13 @@ const { askWidgetGPT } = require('./gpt'); // Imported
 botModule(app);
 const userStates = botModule.userStates || {};
 
-// ── Smart GPT Widget Endpoint (Item 2) ──
+// ── Smart GPT Widget Endpoint ──
 app.post('/api/gpt-chat', async (req, res) => {
-    const { message, context } = req.body;
+    const { message, messages, context } = req.body;
     const sessionId = req.headers['x-forwarded-for'] || req.socket.remoteAddress || 'guest';
 
     try {
-        const result = await askWidgetGPT(sessionId, message, context || {});
+        const result = await askWidgetGPT(sessionId, message, context || {}, messages || null);
         res.json(result);
     } catch (err) {
         res.status(500).json({ reply: "🧠 Задумался. Напишите еще раз!", showTelegram: true });
