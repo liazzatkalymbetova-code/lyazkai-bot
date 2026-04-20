@@ -495,11 +495,8 @@
 
     /* ── Bootstrap ───────────────────────────────────────────── */
     document.addEventListener('DOMContentLoaded', () => {
-        /* Load Lucide Icons */
-        const lScript = document.createElement('script');
-        lScript.src = 'https://unpkg.com/lucide@latest';
-        lScript.onload = () => { if (window.lucide) { lucide.createIcons(); } };
-        document.head.appendChild(lScript);
+        /* Lucide already loaded via <head> defer — just init icons */
+        if (window.lucide) { lucide.createIcons(); }
 
         initNav();
         initMegaNav();
