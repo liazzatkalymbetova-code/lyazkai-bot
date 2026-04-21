@@ -409,109 +409,256 @@
 <div aria-hidden="true" class="hero__grid-line"></div>
 <div class="container">
 <div class="hero__inner">
+
+<!-- Left: content -->
 <div class="hero__content">
 <div class="hero__eyebrow">
 <span aria-hidden="true" class="dot"></span>
-<span data-en="AI-Powered Website Analysis" data-ru="ИИ-анализ вашего сайта">ИИ-анализ вашего сайта</span>
+<span>ИИ-аудит сайта · 50+ проверок</span>
 </div>
-<h1 id="heroTitle"><span data-en="Find Why Your Site Isn't Converting" data-ru="Узнайте, что мешает вашему сайту продавать">Узнайте, что мешает вашему сайту продавать</span></h1>
-<p class="lead" data-en="Scan across 50+ parameters. Instant insights into what's blocking sales. No signup, no credit card, completely free." data-ru="Проверим по 50+ параметрам. Сразу узнаете, что блокирует продажи. Без регистрации, без карты, полностью бесплатно.">Проверим по 50+ параметрам. Сразу узнаете, что блокирует продажи. Без регистрации, без карты, полностью бесплатно.</p>
+<h1 id="heroTitle">Узнайте, что <span class="gradient-text">мешает сайту</span> продавать</h1>
+<p class="lead">Проверим по 50+ параметрам за 30 секунд. Сразу увидите, что блокирует продажи. Без регистрации, без карты — бесплатно.</p>
+
 <div class="hero__actions-scan">
 <div class="hero__input-wrapper">
 <input class="hero__scan-input" type="url" placeholder="https://вашсайт.com" aria-label="URL вашего сайта" id="heroScanInput" required />
 </div>
-<button class="primary-btn" id="heroScanSubmit" style="height: 52px; padding: 0 32px; font-size: 1rem; display: flex; align-items: center; gap: 8px;">
-<i data-lucide="bar-chart" class="icon" style="width: 18px; height: 18px;"></i>
-<span data-en="Scan My Site Free" data-ru="Проверить сайт">Проверить сайт</span>
+<button class="btn btn-primary" id="heroScanSubmit">
+<i data-lucide="bar-chart" class="icon"></i>
+Проверить сайт
 </button>
 </div>
-<p style="font-size:0.83rem; color:rgba(255,255,255,0.55); margin-top:10px; margin-bottom:16px;" data-en="No signup · Instant results · Completely free" data-ru="Без регистрации · Результаты сразу · Полностью бесплатно">Без регистрации · Результаты сразу · Полностью бесплатно</p>
-<div class="hero-subtext" style="display: flex; justify-content: center; gap: 16px; margin-top: 4px; font-size: 0.85rem; color: var(--text-dim); font-weight: 500; margin-bottom: 20px;">
-<div style="display: flex; align-items: center; gap: 6px;"><i data-lucide="check-circle" class="icon" style="color: #28c840; width: 14px; height: 14px;"></i> <span data-en="No signup" data-ru="Без регистрации">Без регистрации</span></div>
-<div style="display: flex; align-items: center; gap: 6px;"><i data-lucide="zap" class="icon" style="color: #febc2e; width: 14px; height: 14px;"></i> <span data-en="Instant results" data-ru="Результат сразу">Результат сразу</span></div>
-<div style="display: flex; align-items: center; gap: 6px;"><i data-lucide="shield-check" class="icon" style="color: var(--accent-secondary); width: 14px; height: 14px;"></i> <span data-en="100% free" data-ru="Полностью бесплатно">Полностью бесплатно</span></div>
-</div>
-</div>
-<!-- ══════════════════════════ HOW IT WORKS ══════════════════ -->
 
+<div class="hero__micro-trust">
+<span class="hero__micro-trust-item">
+<i data-lucide="check-circle" class="icon" style="color:#10b981;width:14px;height:14px;"></i>
+Без регистрации
+</span>
+<span class="hero__micro-trust-item">
+<i data-lucide="zap" class="icon" style="color:#febc2e;width:14px;height:14px;"></i>
+Результат за 30 сек
+</span>
+<span class="hero__micro-trust-item">
+<i data-lucide="shield-check" class="icon" style="color:#00e0ff;width:14px;height:14px;"></i>
+100% бесплатно
+</span>
+</div>
+</div>
+
+<!-- Right: audit mockup -->
+<div class="hero__visual">
+<div class="hero__float hero__float--tl">
+<i data-lucide="trending-up" class="icon" style="color:#10b981;width:15px;height:15px;"></i>
+Конверсия +38%
+</div>
+<div class="hero__float hero__float--br">
+<i data-lucide="zap" class="icon" style="color:#febc2e;width:15px;height:15px;"></i>
+Готово за 30 сек
+</div>
+<div class="hero__mockup">
+<div class="hero__mockup-header">
+<div class="hero__mockup-dot dot-r"></div>
+<div class="hero__mockup-dot dot-y"></div>
+<div class="hero__mockup-dot dot-g"></div>
+<span class="hero__mockup-title">InfoLady Audit — example.kz</span>
+</div>
+<div class="hero__mockup-body">
+<div class="hero__mockup-score">
+<div>
+<div class="hero__mockup-score-label">Общая оценка</div>
+<div class="hero__mockup-score-val">68/100</div>
+</div>
+<div style="text-align:right;">
+<div style="font-size:0.72rem;color:var(--text-dim);margin-bottom:4px;">Найдено проблем</div>
+<div style="font-size:1.4rem;font-weight:800;color:#ff6b6b;">14</div>
+</div>
+</div>
+<div class="hero__mockup-row">
+<div class="hero__mockup-row-head">
+<span class="hero__mockup-row-name">SEO-оптимизация</span>
+<span class="hero__mockup-row-score" style="color:#febc2e;">54%</span>
+</div>
+<div class="hero__mockup-bar"><div class="hero__mockup-fill hero__mockup-fill--med" style="--w:54%;animation:none;width:54%;"></div></div>
+</div>
+<div class="hero__mockup-row">
+<div class="hero__mockup-row-head">
+<span class="hero__mockup-row-name">Скорость загрузки</span>
+<span class="hero__mockup-row-score" style="color:#ff5f57;">31%</span>
+</div>
+<div class="hero__mockup-bar"><div class="hero__mockup-fill hero__mockup-fill--low" style="--w:31%;animation:none;width:31%;"></div></div>
+</div>
+<div class="hero__mockup-row">
+<div class="hero__mockup-row-head">
+<span class="hero__mockup-row-name">Видимость в ИИ</span>
+<span class="hero__mockup-row-score" style="color:#10b981;">82%</span>
+</div>
+<div class="hero__mockup-bar"><div class="hero__mockup-fill" style="animation:none;width:82%;"></div></div>
+</div>
+<div class="hero__mockup-issues">
+<div class="hero__mockup-issue">
+<div class="issue-dot issue-dot--red"></div>
+Нет тегов Open Graph для соцсетей
+</div>
+<div class="hero__mockup-issue">
+<div class="issue-dot issue-dot--red"></div>
+LCP более 4.2с — медленная загрузка
+</div>
+<div class="hero__mockup-issue">
+<div class="issue-dot issue-dot--yellow"></div>
+Изображения не оптимизированы (12 шт.)
+</div>
+</div>
+</div>
+<div class="hero__mockup-footer">
+<div class="hero__status-dot"></div>
+Анализ завершён · PDF-отчёт готов
+</div>
+</div>
+</div>
+
+</div><!-- /hero__inner -->
+</div><!-- /container -->
+</section>
+
+<!-- ══════════════════════════ SOCIAL PROOF BAR ═══════════════ -->
+<div class="container">
+<div class="social-proof-bar">
+<div class="sp-stat"><strong>120+</strong><span>проверено сайтов</span></div>
+<div class="sp-stat"><strong>+47%</strong><span>рост конверсии</span></div>
+<div class="sp-stat"><strong>50+</strong><span>параметров анализа</span></div>
+<div class="sp-stat"><strong>30 сек</strong><span>первый результат</span></div>
+</div>
+</div>
+
+<!-- ══════════════════════════ HOW IT WORKS ══════════════════ -->
 <section aria-labelledby="howTitle" class="section" id="how-it-works">
 <div class="container">
 <div class="section-header">
-<span class="section-label" data-en="How It Works" data-ru="Как это работает">Как это работает</span>
-<h2 data-en="Find Issues in 3 Simple Steps" data-ru="Найдите проблемы в 3 простых шага" id="howTitle">Найдите проблемы в 3 простых шага</h2>
-<p data-en="We scan your site, show you what drains conversions, then deliver a growth plan." data-ru="Мы сканируем ваш сайт, показываем, что блокирует продажи, и даём план роста.">Мы сканируем ваш сайт, показываем, что блокирует продажи, и даём план роста.</p>
+<span class="section-label">Как это работает</span>
+<h2 id="howTitle">Найдите проблемы в 3 шага</h2>
+<p>Сканируем сайт, показываем что блокирует продажи, даём план роста.</p>
 </div>
 <div class="steps__grid">
 <div class="step fade-up">
 <div aria-label="Шаг 1" class="step__num">1</div>
-<h3 data-en="Enter Your Website URL" data-ru="Отправьте URL вашего сайта">Отправьте URL вашего сайта</h3>
-<p data-en="Type in your domain and we start analyzing immediately." data-ru="Просто введите адрес — анализ начнётся сразу.">Просто введите адрес — анализ начнётся сразу.</p>
+<h3>Введите URL сайта</h3>
+<p>Просто вставьте адрес — анализ начнётся сразу.</p>
 </div>
 <div class="step fade-up">
 <div aria-label="Шаг 2" class="step__num">2</div>
-<h3 data-en="AI Runs 50+ Checks" data-ru="ИИ проверит 50+ параметров">ИИ проверит 50+ параметров</h3>
-<p data-en="SEO, speed, security, mobile, AI visibility — we check everything that matters." data-ru="SEO, скорость, безопасность, дизайн, видимость в ИИ-поиске — всё, что отводит покупателей.">SEO, скорость, безопасность, дизайн, видимость в ИИ-поиске — всё, что отводит покупателей.</p>
+<h3>ИИ проверит 50+ параметров</h3>
+<p>SEO, скорость, безопасность, видимость в ChatGPT и Google — всё, что отводит покупателей.</p>
 </div>
 <div class="step fade-up">
 <div aria-label="Шаг 3" class="step__num">3</div>
-<h3 data-en="Get Your Growth Plan" data-ru="Получите план роста">Получите план роста</h3>
-<p data-en="Clear priorities: fix what blocks sales, implement quick wins, scale what works." data-ru="Видите приоритеты: устраните блокеры, внедрите быстро срабатывающие решения, масштабируйте эффективное.">Видите приоритеты: устраните блокеры, внедрите быстро срабатывающие решения, масштабируйте эффективное.</p>
+<h3>Получите план роста</h3>
+<p>Конкретные приоритеты: что исправить первым, чтобы продажи выросли в ближайшие 2–4 недели.</p>
 </div>
 </div>
 </div>
 </section>
-<!-- ══════════════════════════ DIRECTIONS ════════════════════ -->
-<!-- ══════════════════════════ INDUSTRIES ════════════════════ -->
-<!-- ══════════════════════════ ИИ INTEGRATOR ═════════════════ -->
-<!-- Removed complex feature integrator -->
-<!-- ══════════════════════════ ИИ-START ══════════════════════ -->
-<!-- ══════════════════════════ CTA ═══════════════════════════ -->
 
-<section class="pricing section" id="pricing" style="padding: 60px 0; border-top: 1px solid rgba(255,255,255,0.03);">
+<!-- ══════════════════════════ TESTIMONIALS ═══════════════════ -->
+<section class="testimonials section--tinted section">
 <div class="container">
 <div class="section-header">
-<h2>Выберите уровень анализа</h2>
-<p style="color: var(--text-dim); font-size: 0.95rem;">Чем глубже анализ — тем больше точек роста вы увидите</p>
-<p style="text-align:center; color:rgba(255,255,255,0.6); font-size:0.9rem; margin-bottom:32px;">Бесплатный скан — первый шаг. Полный аудит — это 50+ проверок, PDF-отчёт и план роста.</p>
+<span class="section-label section-label--glow">Результаты клиентов</span>
+<h2>Сайты, которые начали продавать</h2>
+<p>Реальные результаты за 2–4 недели после аудита и внедрения рекомендаций.</p>
 </div>
+<div class="testimonials__grid">
+<div class="testimonial-card fade-up">
+<div class="testimonial-result">+41% заявок</div>
+<div class="testimonial-stars">★★★★★</div>
+<p class="testimonial-text">«Думала, что проблема в рекламе. Оказалось — сайт грузился 6 секунд и терял 73% посетителей. После исправлений заявки выросли в 1.4 раза за три недели.»</p>
+<div class="testimonial-author">
+<div class="testimonial-avatar">А</div>
+<div>
+<span class="testimonial-name">Алина М.</span>
+<span class="testimonial-role">Бьюти-студия, Алматы</span>
+</div>
+</div>
+</div>
+<div class="testimonial-card fade-up">
+<div class="testimonial-result">+2.3× конверсия</div>
+<div class="testimonial-stars">★★★★★</div>
+<p class="testimonial-text">«Аудит показал 18 SEO-ошибок, о которых я не знал. Исправили приоритетные — сайт начал появляться в ChatGPT и Google по нашим запросам. Трафик вырос на 60%.»</p>
+<div class="testimonial-author">
+<div class="testimonial-avatar">Д</div>
+<div>
+<span class="testimonial-name">Данияр К.</span>
+<span class="testimonial-role">Юридическая фирма, Астана</span>
+</div>
+</div>
+</div>
+<div class="testimonial-card fade-up">
+<div class="testimonial-result">ROI × 4</div>
+<div class="testimonial-stars">★★★★★</div>
+<p class="testimonial-text">«Инвестировал 50 000 ₸ в аудит Стандарт. За следующий месяц получили дополнительных клиентов на 200 000 ₸. Отчёт дал конкретный список что делать — не общие слова.»</p>
+<div class="testimonial-author">
+<div class="testimonial-avatar">Р</div>
+<div>
+<span class="testimonial-name">Рустам Б.</span>
+<span class="testimonial-role">Онлайн-школа, Шымкент</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
 
+<!-- ══════════════════════════ PRICING ════════════════════════ -->
+<section class="section" id="pricing">
+<div class="container">
+<div class="section-header">
+<span class="section-label">Тарифы</span>
+<h2>Выберите глубину анализа</h2>
+<p>Чем глубже аудит — тем больше точек роста вы увидите. Первый шаг всегда бесплатный.</p>
+</div>
 <div class="pricing-grid">
-<div class="card">
-<h3>Базовый</h3>
-<p style="color:rgba(255,255,255,0.6); font-size:0.85rem; margin: 4px 0 12px;">Для малого бизнеса с 1 сайтом</p>
-<div class="price">25 000 ₸</div>
-<ul style="list-style: none; padding-left: 0;">
-<li style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;"><i data-lucide="check-circle" class="icon" style="color: #28c840; width: 14px; height: 14px;"></i> <span>Базовый анализ видимости</span></li>
-<li style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;"><i data-lucide="check-circle" class="icon" style="color: #28c840; width: 14px; height: 14px;"></i> <span>Ключевые ошибки воронки</span></li>
-<li style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;"><i data-lucide="check-circle" class="icon" style="color: #28c840; width: 14px; height: 14px;"></i> <span>Краткие рекомендации по росту</span></li>
+
+<div class="pricing-card">
+<div class="pricing-card__name">Базовый</div>
+<div class="pricing-card__subtitle">Для малого бизнеса с 1 сайтом</div>
+<div class="pricing-card__price">25 000 ₸</div>
+<ul class="pricing-card__list">
+<li><i data-lucide="check" class="icon pricing-card__check"></i>Базовый анализ видимости</li>
+<li><i data-lucide="check" class="icon pricing-card__check"></i>Топ-3 ошибки воронки</li>
+<li><i data-lucide="check" class="icon pricing-card__check"></i>Краткие рекомендации по росту</li>
+<li><i data-lucide="check" class="icon pricing-card__check"></i>PDF-отчёт</li>
 </ul>
-<a href="/ru/payment.html?plan=basic" class="cta" data-plan="basic">Получить аудит →</a>
+<a href="/ru/payment.html?plan=basic" class="pricing-card__cta">Получить аудит</a>
 </div>
 
-<div class="card highlight">
-<div class="pricing-card__badge" style="position: absolute; top: -14px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, #00e0ff 0%, #7c12ff 100%); color: #fff; font-size: .72rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; padding: 5px 16px; border-radius: 20px;">Рекомендуем</div>
-<h3>Стандарт</h3>
-<p style="color:rgba(255,255,255,0.6); font-size:0.85rem; margin: 4px 0 12px;">Для компаний с несколькими направлениями</p>
-<div class="price">50 000 ₸</div>
-<ul style="list-style: none; padding-left: 0;">
-<li style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;"><i data-lucide="check-circle" class="icon" style="color: #28c840; width: 14px; height: 14px;"></i> <span>Полный технический + SEO аудит</span></li>
-<li style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;"><i data-lucide="check-circle" class="icon" style="color: #28c840; width: 14px; height: 14px;"></i> <span>Анализ позиционирования конкурентов</span></li>
-<li style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;"><i data-lucide="check-circle" class="icon" style="color: #28c840; width: 14px; height: 14px;"></i> <span>Дорожная карта роста на 30 дней</span></li>
+<div class="pricing-card pricing-card--featured">
+<div class="pricing-card__badge-wrap">
+<span class="pricing-card__badge">Рекомендуем</span>
+</div>
+<div class="pricing-card__name">Стандарт</div>
+<div class="pricing-card__subtitle">Для компаний с несколькими направлениями</div>
+<div class="pricing-card__price">50 000 ₸</div>
+<ul class="pricing-card__list">
+<li><i data-lucide="check" class="icon pricing-card__check"></i>Полный технический + SEO аудит</li>
+<li><i data-lucide="check" class="icon pricing-card__check"></i>Анализ позиций конкурентов</li>
+<li><i data-lucide="check" class="icon pricing-card__check"></i>Дорожная карта роста на 30 дней</li>
+<li><i data-lucide="check" class="icon pricing-card__check"></i>Проверка видимости в ИИ-поиске</li>
+<li><i data-lucide="check" class="icon pricing-card__check"></i>Расширенный PDF-отчёт</li>
 </ul>
-<a href="/ru/payment.html?plan=standard" class="cta" data-plan="standard">Получить аудит →</a>
+<a href="/ru/payment.html?plan=standard" class="pricing-card__cta pricing-card__cta--primary">Получить аудит</a>
 </div>
 
-<div class="card">
-<h3>Премиум</h3>
-<p style="color:rgba(255,255,255,0.6); font-size:0.85rem; margin: 4px 0 12px;">Для агентств и e-commerce</p>
-<div class="price">150 000 ₸</div>
-<ul style="list-style: none; padding-left: 0;">
-<li style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;"><i data-lucide="check-circle" class="icon" style="color: #28c840; width: 14px; height: 14px;"></i> <span>Полный аудит и стратегия роста</span></li>
-<li style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;"><i data-lucide="check-circle" class="icon" style="color: #28c840; width: 14px; height: 14px;"></i> <span>Внедрение ИИ-инструментов</span></li>
-<li style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;"><i data-lucide="check-circle" class="icon" style="color: #28c840; width: 14px; height: 14px;"></i> <span>Сопровождение и поддержка</span></li>
+<div class="pricing-card">
+<div class="pricing-card__name">Премиум</div>
+<div class="pricing-card__subtitle">Для агентств и e-commerce</div>
+<div class="pricing-card__price">150 000 ₸</div>
+<ul class="pricing-card__list">
+<li><i data-lucide="check" class="icon pricing-card__check"></i>Полный аудит и стратегия роста</li>
+<li><i data-lucide="check" class="icon pricing-card__check"></i>Внедрение ИИ-инструментов</li>
+<li><i data-lucide="check" class="icon pricing-card__check"></i>Сопровождение и поддержка</li>
+<li><i data-lucide="check" class="icon pricing-card__check"></i>Еженедельные отчёты прогресса</li>
+<li><i data-lucide="check" class="icon pricing-card__check"></i>Прямая связь с экспертом</li>
 </ul>
-<a href="/ru/payment.html?plan=pro" class="cta primary" data-plan="pro">Получить аудит →</a>
-</div>
+<a href="/ru/payment.html?plan=pro" class="pricing-card__cta">Получить аудит</a>
 </div>
 
 </div>
@@ -523,12 +670,12 @@
 <div aria-hidden="true" class="cta-section__glow"></div>
 <div class="container">
 <h2 id="ctaTitle">Узнайте, где ваш сайт теряет клиентов — бесплатно</h2>
-<p>Введите адрес сайта. За 3 минуты вы получите оценку видимости, топ-3 ошибки и план роста.</p>
+<p>30 секунд и адрес сайта. Получите оценку видимости, топ-3 ошибки и первый план роста.</p>
 <div class="cta-section__actions">
-<a class="btn btn-primary btn-lg" href="/ru/scan.html">
-<span aria-hidden="true">→</span> Проверить сайт бесплатно
+<a class="btn btn-primary btn-lg" href="/ru/visibility-audit.html">
+Проверить сайт бесплатно →
 </a>
-<a class="btn btn-outline-light btn-lg" href="/ru/#pricing">Посмотреть тарифы</a>
+<a class="btn btn-outline-light btn-lg" href="#pricing">Посмотреть тарифы</a>
 </div>
 </div>
 </section>
@@ -536,27 +683,55 @@
 <!-- ══════════════════════════ FOOTER ════════════════════════ -->
 
 
-<section class="ai-block" style="padding: 60px 0; background: rgba(0,0,0,0.2);">
+<section class="why-block section section--tinted">
 <div class="container">
-<h2 style="text-align: center; margin-bottom: 30px;">Почему ваш сайт не приносит прибыль</h2>
-<div style="max-width: 600px; margin: 0 auto; text-align: left; padding: 24px; background: rgba(255,255,255,0.02); border-radius: 16px; border: 1px solid rgba(255,255,255,0.05);">
-    <p style="color: #fff; font-weight: 600; margin-bottom: 16px; display: flex; align-items: center; gap: 10px;">
-        <i data-lucide="alert-triangle" class="icon" style="color: #ff4d4d;"></i> 
-        <span>Вас не видно в поиске (SEO ошибки)</span>
-    </p>
-    <p style="color: #fff; font-weight: 600; margin-bottom: 16px; display: flex; align-items: center; gap: 10px;">
-        <i data-lucide="alert-triangle" class="icon" style="color: #ff4d4d;"></i> 
-        <span>Клиенты не понимают ценность предложения</span>
-    </p>
-    <p style="color: #fff; font-weight: 600; margin-bottom: 24px; display: flex; align-items: center; gap: 10px;">
-        <i data-lucide="alert-triangle" class="icon" style="color: #ff4d4d;"></i> 
-        <span>Вы теряете заявки на этапе корзины/форм</span>
-    </p>
-
-    <div style="color: #28c840; font-weight: 800; font-size: 1.1rem; margin-top: 25px; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 20px; display: flex; align-items: center; gap: 10px;">
-        <i data-lucide="check-circle" class="icon" style="color: #28c840; width: 24px; height: 24px;"></i>
-        <span>Мы находим эти уязвимости и даем план роста</span>
-    </div>
+<div class="section-header">
+<span class="section-label">Диагностика</span>
+<h2>Почему сайт не приносит клиентов</h2>
+<p>73% посетителей уходят в первые 10 секунд. Вот типичные причины — и как их устранить.</p>
+</div>
+<div class="why-block__inner">
+<div class="problem-solution">
+<div>
+<div class="ps-col-label ps-col-label--problem">Типичные проблемы</div>
+<div class="ps-item">
+<i data-lucide="x-circle" class="icon ps-item-icon ps-item-icon--bad"></i>
+Сайт не виден в Google и ChatGPT — клиенты не находят вас
+</div>
+<div class="ps-item">
+<i data-lucide="x-circle" class="icon ps-item-icon ps-item-icon--bad"></i>
+Страница грузится дольше 3 секунд — 53% уходят, не дождавшись
+</div>
+<div class="ps-item">
+<i data-lucide="x-circle" class="icon ps-item-icon ps-item-icon--bad"></i>
+Посетители не понимают, что вы предлагаете, и нажимают «Назад»
+</div>
+<div class="ps-item">
+<i data-lucide="x-circle" class="icon ps-item-icon ps-item-icon--bad"></i>
+Кнопка «Заказать» теряется, форма сломана на мобильном
+</div>
+</div>
+<div class="ps-divider"></div>
+<div>
+<div class="ps-col-label ps-col-label--solution">После аудита InfoLady</div>
+<div class="ps-item">
+<i data-lucide="check-circle" class="icon ps-item-icon ps-item-icon--good"></i>
+Точный список ошибок с приоритетами — что исправить первым
+</div>
+<div class="ps-item">
+<i data-lucide="check-circle" class="icon ps-item-icon ps-item-icon--good"></i>
+PDF-план роста на 30 дней: конкретные шаги, не общие слова
+</div>
+<div class="ps-item">
+<i data-lucide="check-circle" class="icon ps-item-icon ps-item-icon--good"></i>
+Рекомендации понятны без технических знаний
+</div>
+<div class="ps-item">
+<i data-lucide="check-circle" class="icon ps-item-icon ps-item-icon--good"></i>
+Средний рост заявок +38% за первые 3–4 недели
+</div>
+</div>
+</div>
 </div>
 </div>
 </section>
@@ -686,10 +861,10 @@
 <div class="trust-cta-box">
 <h3>Готовы увидеть, где теряете клиентов?</h3>
 <p class="trust-cta-subtext">Показать, где вы теряете заявки — это займет 10 секунд</p>
-<button class="primary-btn" id="ctaQuickScan" style="margin-top: 20px;">
-<i data-lucide="bar-chart" class="icon" style="width: 18px; height: 18px;"></i>
+<a class="btn btn-primary btn-lg" href="/ru/visibility-audit.html" style="margin-top: 20px; display: inline-flex;">
+<i data-lucide="bar-chart" class="icon"></i>
 Начать анализ сейчас
-</button>
+</a>
 </div>
 </div>
 </section>
