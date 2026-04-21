@@ -615,55 +615,74 @@ LCP более 4.2с — медленная загрузка
 <h2>Выберите глубину анализа</h2>
 <p>Чем глубже аудит — тем больше точек роста вы увидите. Первый шаг всегда бесплатный.</p>
 </div>
-<div class="pricing-grid">
+<div class="pricing-grid-v2">
 
-<div class="pricing-card">
-<div class="pricing-card__name">Базовый</div>
-<div class="pricing-card__subtitle">Для малого бизнеса с 1 сайтом</div>
-<div class="pricing-card__price">25 000 ₸</div>
-<ul class="pricing-card__list">
-<li><i data-lucide="check" class="icon pricing-card__check"></i>Базовый анализ видимости</li>
-<li><i data-lucide="check" class="icon pricing-card__check"></i>Топ-3 ошибки воронки</li>
-<li><i data-lucide="check" class="icon pricing-card__check"></i>Краткие рекомендации по росту</li>
-<li><i data-lucide="check" class="icon pricing-card__check"></i>PDF-отчёт</li>
+<!-- Базовый -->
+<div class="pc">
+<div class="pc__name">Базовый</div>
+<div class="pc__subtitle">Для малого бизнеса с 1 сайтом</div>
+<div class="pc__price">25 000 ₸</div>
+<ul class="pc__list">
+<li><span class="pc__check">✓</span>Базовый анализ видимости</li>
+<li><span class="pc__check">✓</span>Топ-3 ошибки воронки</li>
+<li><span class="pc__check">✓</span>Краткие рекомендации по росту</li>
+<li><span class="pc__check">✓</span>PDF-отчёт</li>
 </ul>
-<a href="/ru/payment.html?plan=basic" class="pricing-card__cta">Получить аудит</a>
+<button class="pc__btn" data-plan="Базовый" data-price="25 000 тг">Получить аудит</button>
 </div>
 
-<div class="pricing-card pricing-card--featured">
-<div class="pricing-card__badge-wrap">
-<span class="pricing-card__badge">Рекомендуем</span>
-</div>
-<div class="pricing-card__name">Стандарт</div>
-<div class="pricing-card__subtitle">Для компаний с несколькими направлениями</div>
-<div class="pricing-card__price">50 000 ₸</div>
-<ul class="pricing-card__list">
-<li><i data-lucide="check" class="icon pricing-card__check"></i>Полный технический + SEO аудит</li>
-<li><i data-lucide="check" class="icon pricing-card__check"></i>Анализ позиций конкурентов</li>
-<li><i data-lucide="check" class="icon pricing-card__check"></i>Дорожная карта роста на 30 дней</li>
-<li><i data-lucide="check" class="icon pricing-card__check"></i>Проверка видимости в ИИ-поиске</li>
-<li><i data-lucide="check" class="icon pricing-card__check"></i>Расширенный PDF-отчёт</li>
+<!-- Стандарт (featured) -->
+<div class="pc pc--featured">
+<div class="pc__badge">Рекомендуем</div>
+<div class="pc__name">Стандарт</div>
+<div class="pc__subtitle">Для компаний с несколькими направлениями</div>
+<div class="pc__price">50 000 ₸</div>
+<ul class="pc__list">
+<li><span class="pc__check">✓</span>Полный технический + SEO аудит</li>
+<li><span class="pc__check">✓</span>Анализ позиций конкурентов</li>
+<li><span class="pc__check">✓</span>Дорожная карта роста на 30 дней</li>
+<li><span class="pc__check">✓</span>Проверка видимости в ИИ-поиске</li>
+<li><span class="pc__check">✓</span>Расширенный PDF-отчёт</li>
 </ul>
-<a href="/ru/payment.html?plan=standard" class="pricing-card__cta pricing-card__cta--primary">Получить аудит</a>
+<button class="pc__btn pc__btn--primary" data-plan="Стандарт" data-price="50 000 тг">Получить аудит</button>
 </div>
 
-<div class="pricing-card">
-<div class="pricing-card__name">Премиум</div>
-<div class="pricing-card__subtitle">Для агентств и e-commerce</div>
-<div class="pricing-card__price">150 000 ₸</div>
-<ul class="pricing-card__list">
-<li><i data-lucide="check" class="icon pricing-card__check"></i>Полный аудит и стратегия роста</li>
-<li><i data-lucide="check" class="icon pricing-card__check"></i>Внедрение ИИ-инструментов</li>
-<li><i data-lucide="check" class="icon pricing-card__check"></i>Сопровождение и поддержка</li>
-<li><i data-lucide="check" class="icon pricing-card__check"></i>Еженедельные отчёты прогресса</li>
-<li><i data-lucide="check" class="icon pricing-card__check"></i>Прямая связь с экспертом</li>
+<!-- Премиум -->
+<div class="pc">
+<div class="pc__name">Премиум</div>
+<div class="pc__subtitle">Для агентств и e-commerce</div>
+<div class="pc__price">150 000 ₸</div>
+<ul class="pc__list">
+<li><span class="pc__check">✓</span>Полный аудит и стратегия роста</li>
+<li><span class="pc__check">✓</span>Внедрение ИИ-инструментов</li>
+<li><span class="pc__check">✓</span>Сопровождение и поддержка</li>
+<li><span class="pc__check">✓</span>Еженедельные отчёты прогресса</li>
+<li><span class="pc__check">✓</span>Прямая связь с экспертом</li>
 </ul>
-<a href="/ru/payment.html?plan=pro" class="pricing-card__cta">Получить аудит</a>
+<button class="pc__btn" data-plan="Премиум" data-price="150 000 тг">Получить аудит</button>
 </div>
 
 </div>
 </div>
 </section>
+
+<!-- Kaspi Payment Popup -->
+<div id="kaspiPopup" class="kaspi-overlay" aria-hidden="true">
+<div class="kaspi-modal" role="dialog" aria-modal="true">
+<button class="kaspi-modal__close" id="kaspiClose" aria-label="Закрыть">×</button>
+<div class="kaspi-modal__icon">💳</div>
+<div class="kaspi-modal__title">Вы выбрали тариф</div>
+<div class="kaspi-modal__plan" id="kaspiPlanName"></div>
+<div class="kaspi-modal__price" id="kaspiPlanPrice"></div>
+<div class="kaspi-modal__note">
+После перехода в Kaspi введите эту сумму вручную
+</div>
+<a id="kaspiPayBtn" href="https://pay.kaspi.kz/pay/fpquqhbx" target="_blank" rel="noopener" class="kaspi-modal__btn">
+Перейти к оплате
+</a>
+<p class="kaspi-modal__sub">Откроется в новой вкладке · Kaspi Pay</p>
+</div>
+</div>
 
 
 <section aria-labelledby="ctaTitle" class="cta-section">
@@ -1016,6 +1035,38 @@ document.addEventListener('DOMContentLoaded', function() {
 <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 <script defer="" src="/js/api-config.js"></script>
 <script defer="" src="/js/script.js"></script>
+<script>
+(function () {
+  var overlay = document.getElementById('kaspiPopup');
+  var planEl  = document.getElementById('kaspiPlanName');
+  var priceEl = document.getElementById('kaspiPlanPrice');
+  var closeBtn = document.getElementById('kaspiClose');
+
+  document.querySelectorAll('.pc__btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      planEl.textContent  = btn.dataset.plan;
+      priceEl.textContent = btn.dataset.price;
+      overlay.classList.add('open');
+      overlay.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+
+  function closePopup() {
+    overlay.classList.remove('open');
+    overlay.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  closeBtn.addEventListener('click', closePopup);
+  overlay.addEventListener('click', function (e) {
+    if (e.target === overlay) closePopup();
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closePopup();
+  });
+})();
+</script>
 
 <div class="mobile-cta">
 <a href="/ru/visibility-audit.html">
