@@ -5394,19 +5394,22 @@ p, li { line-height: 1.75; }
 }
 
 /* ═══════════════════════════════════════════════════════
-   PRICING V3 — новые карточки с popup Kaspi
+   PRICING V3 — карточки + Kaspi popup
    ═══════════════════════════════════════════════════════ */
 
+/* Grid: 3 равных колонки, центральная чуть шире */
 .pricing-grid-v2 {
     display: grid;
-    grid-template-columns: 1fr 1.08fr 1fr;
-    gap: 20px;
-    align-items: start;
+    grid-template-columns: 1fr 1.1fr 1fr;
+    gap: 0 20px;          /* без вертикального gap — управляем margin */
+    align-items: stretch; /* все карточки одинаковой высоты */
     margin-top: 48px;
+    overflow: visible;    /* бейдж не обрезается */
 }
 @media (max-width: 860px) {
     .pricing-grid-v2 {
         grid-template-columns: 1fr;
+        gap: 20px 0;
         max-width: 440px;
         margin-left: auto;
         margin-right: auto;
@@ -5415,52 +5418,56 @@ p, li { line-height: 1.75; }
 
 /* Base card */
 .pc {
-    background: rgba(19, 25, 41, 0.85);
-    border: 1px solid rgba(124, 92, 255, 0.22);
+    background: rgba(14, 18, 36, 0.9);
+    border: 1px solid rgba(124, 92, 255, 0.25);
     border-radius: 20px;
-    padding: 32px 28px 28px;
+    padding: 32px 28px 32px;
     display: flex;
     flex-direction: column;
-    gap: 0;
     position: relative;
     transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
-    box-shadow: 0 4px 24px rgba(0,0,0,0.35);
+    box-shadow: 0 4px 28px rgba(0, 0, 0, 0.4);
 }
 .pc:hover {
-    transform: translateY(-6px) scale(1.01);
-    box-shadow: 0 16px 48px rgba(124, 92, 255, 0.22), 0 0 0 1px rgba(124, 92, 255, 0.4);
+    transform: translateY(-6px);
+    box-shadow: 0 18px 50px rgba(124, 92, 255, 0.22), 0 0 0 1px rgba(124, 92, 255, 0.45);
     border-color: rgba(124, 92, 255, 0.5);
+    z-index: 2;
 }
 
-/* Featured card */
+/* Featured — выдвинута вверх/вниз, не scale */
 .pc--featured {
-    background: linear-gradient(145deg, rgba(50, 25, 120, 0.6), rgba(10, 20, 60, 0.9));
-    border-color: rgba(124, 92, 255, 0.55);
-    box-shadow: 0 0 0 1px rgba(124, 92, 255, 0.3), 0 8px 40px rgba(124, 92, 255, 0.25);
-    padding-top: 44px;
-    transform: scale(1.02);
+    background: linear-gradient(155deg, rgba(48, 22, 110, 0.75) 0%, rgba(8, 14, 46, 0.95) 100%);
+    border-color: rgba(124, 92, 255, 0.6);
+    box-shadow: 0 0 0 1px rgba(124, 92, 255, 0.35),
+                0 12px 48px rgba(124, 92, 255, 0.3);
+    margin-top: -12px;     /* выступает вверх */
+    margin-bottom: -12px;  /* выступает вниз */
+    padding-top: 48px;     /* место под бейдж */
+    z-index: 1;
 }
 .pc--featured:hover {
-    transform: translateY(-6px) scale(1.04);
-    box-shadow: 0 0 0 1px rgba(124, 92, 255, 0.6), 0 20px 60px rgba(124, 92, 255, 0.35);
+    transform: translateY(-8px);
+    box-shadow: 0 0 0 1px rgba(124, 92, 255, 0.7),
+                0 24px 64px rgba(124, 92, 255, 0.4);
 }
 
 /* Badge */
 .pc__badge {
     position: absolute;
-    top: -14px;
+    top: -15px;
     left: 50%;
     transform: translateX(-50%);
     background: linear-gradient(135deg, #00e0ff 0%, #7c5cff 100%);
     color: #fff;
-    font-size: 0.72rem;
+    font-size: 0.7rem;
     font-weight: 800;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    padding: 5px 18px;
+    padding: 5px 20px;
     border-radius: 999px;
     white-space: nowrap;
-    box-shadow: 0 4px 16px rgba(124, 92, 255, 0.4);
+    box-shadow: 0 4px 16px rgba(124, 92, 255, 0.45);
 }
 
 /* Card content */
@@ -5486,7 +5493,7 @@ p, li { line-height: 1.75; }
 }
 .pc--featured .pc__price {
     font-size: 2.6rem;
-    background: linear-gradient(135deg, #00e0ff, #a78bff);
+    background: linear-gradient(135deg, #00e0ff 0%, #a78bff 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -5507,7 +5514,7 @@ p, li { line-height: 1.75; }
     align-items: flex-start;
     gap: 10px;
     font-size: 0.9rem;
-    color: rgba(255,255,255,0.8);
+    color: rgba(255, 255, 255, 0.82);
     line-height: 1.45;
 }
 .pc__check {
@@ -5516,6 +5523,7 @@ p, li { line-height: 1.75; }
     font-size: 1rem;
     flex-shrink: 0;
     margin-top: 1px;
+    line-height: 1.45;
 }
 
 /* CTA button */
@@ -5528,27 +5536,29 @@ p, li { line-height: 1.75; }
     font-size: 1rem;
     font-weight: 700;
     cursor: pointer;
-    border: 1px solid rgba(255,255,255,0.15);
-    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    background: rgba(255, 255, 255, 0.07);
     color: #fff;
     transition: background 0.2s, transform 0.18s, box-shadow 0.2s;
     text-align: center;
     margin-top: auto;
+    letter-spacing: 0.01em;
 }
 .pc__btn:hover {
-    background: rgba(255,255,255,0.12);
+    background: rgba(255, 255, 255, 0.14);
     transform: translateY(-2px);
+    border-color: rgba(255, 255, 255, 0.28);
 }
 .pc__btn--primary {
     background: linear-gradient(135deg, #7c5cff 0%, #00e0ff 100%);
     border: none;
     color: #fff;
-    box-shadow: 0 4px 20px rgba(124, 92, 255, 0.45);
+    box-shadow: 0 4px 20px rgba(124, 92, 255, 0.5);
     font-size: 1.05rem;
     padding: 17px 20px;
 }
 .pc__btn--primary:hover {
-    box-shadow: 0 8px 32px rgba(124, 92, 255, 0.65);
+    box-shadow: 0 8px 36px rgba(124, 92, 255, 0.7);
     transform: translateY(-2px);
     background: linear-gradient(135deg, #8f6dff 0%, #20eaff 100%);
 }
@@ -5557,9 +5567,9 @@ p, li { line-height: 1.75; }
 .kaspi-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.75);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
+    background: rgba(0, 0, 0, 0.72);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     z-index: 99999;
     display: flex;
     align-items: center;
@@ -5567,24 +5577,26 @@ p, li { line-height: 1.75; }
     padding: 20px;
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.25s ease;
+    transition: opacity 0.22s ease;
 }
 .kaspi-overlay.open {
     opacity: 1;
     pointer-events: all;
 }
 .kaspi-modal {
-    background: #111827;
-    border: 1px solid rgba(124, 92, 255, 0.35);
+    background: #0f1623;
+    border: 1px solid rgba(124, 92, 255, 0.4);
     border-radius: 24px;
-    padding: 40px 36px 36px;
-    max-width: 420px;
+    padding: 44px 36px 36px;
+    max-width: 400px;
     width: 100%;
     text-align: center;
     position: relative;
-    box-shadow: 0 24px 80px rgba(0,0,0,0.7), 0 0 0 1px rgba(124,92,255,0.2);
-    transform: translateY(20px) scale(0.97);
-    transition: transform 0.28s cubic-bezier(0.34,1.56,0.64,1);
+    box-shadow: 0 32px 80px rgba(0, 0, 0, 0.8),
+                0 0 0 1px rgba(124, 92, 255, 0.2),
+                0 0 60px rgba(124, 92, 255, 0.1);
+    transform: translateY(24px) scale(0.96);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 .kaspi-overlay.open .kaspi-modal {
     transform: translateY(0) scale(1);
@@ -5592,62 +5604,71 @@ p, li { line-height: 1.75; }
 .kaspi-modal__close {
     position: absolute;
     top: 14px;
-    right: 18px;
-    background: none;
-    border: none;
-    color: rgba(255,255,255,0.45);
-    font-size: 1.6rem;
+    right: 16px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 1.2rem;
     cursor: pointer;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     line-height: 1;
-    padding: 4px 8px;
-    transition: color 0.15s;
+    transition: background 0.15s, color 0.15s;
 }
-.kaspi-modal__close:hover { color: #fff; }
+.kaspi-modal__close:hover {
+    background: rgba(255, 255, 255, 0.12);
+    color: #fff;
+}
 .kaspi-modal__icon {
-    font-size: 2.5rem;
-    margin-bottom: 16px;
+    font-size: 2.4rem;
+    margin-bottom: 14px;
 }
 .kaspi-modal__title {
-    font-size: 0.82rem;
+    font-size: 0.75rem;
     font-weight: 600;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
     color: var(--text-dim);
-    margin-bottom: 8px;
+    margin-bottom: 6px;
 }
 .kaspi-modal__plan {
     font-family: var(--font-display);
-    font-size: 1.4rem;
+    font-size: 1.5rem;
     font-weight: 800;
     color: #fff;
     margin-bottom: 4px;
 }
 .kaspi-modal__price {
     font-family: var(--font-display);
-    font-size: 2rem;
+    font-size: 2.2rem;
     font-weight: 800;
-    background: linear-gradient(135deg, #00e0ff, #7c5cff);
+    background: linear-gradient(135deg, #00e0ff 0%, #7c5cff 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    margin-bottom: 16px;
+    margin-bottom: 20px;
+    line-height: 1.1;
 }
 .kaspi-modal__note {
     font-size: 0.88rem;
-    color: rgba(255,255,255,0.6);
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(255,255,255,0.08);
+    color: rgba(255, 255, 255, 0.65);
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 10px;
     padding: 12px 16px;
     margin-bottom: 24px;
-    line-height: 1.55;
+    line-height: 1.6;
 }
 .kaspi-modal__btn {
     display: block;
     width: 100%;
     padding: 16px;
     border-radius: 14px;
-    background: linear-gradient(135deg, #f84040 0%, #ff7c00 100%);
+    background: linear-gradient(135deg, #e8302a 0%, #ff7300 100%);
     color: #fff !important;
     font-family: var(--font-display);
     font-size: 1.05rem;
@@ -5655,12 +5676,11 @@ p, li { line-height: 1.75; }
     text-decoration: none;
     text-align: center;
     transition: transform 0.18s, box-shadow 0.18s;
-    box-shadow: 0 4px 20px rgba(248,64,64,0.4);
-    letter-spacing: 0.01em;
+    box-shadow: 0 4px 20px rgba(232, 48, 42, 0.45);
 }
 .kaspi-modal__btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 32px rgba(248,64,64,0.55);
+    box-shadow: 0 8px 32px rgba(232, 48, 42, 0.6);
 }
 .kaspi-modal__sub {
     margin-top: 12px;
