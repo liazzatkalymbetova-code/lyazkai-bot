@@ -934,368 +934,391 @@
         applyLang(currentLang);
     }
 
-    /* ── Chatbot ──────────────────────────────────────────────── */
+    /* ── Chatbot — Live Consultant ────────────────────────────── */
     function initChatbot() {
         const isEN = window.location.pathname.includes('/en/');
+        const lang = () => localStorage.getItem('lang') || localStorage.getItem('site_language') || (isEN ? 'en' : 'ru');
+        const ru = () => lang() === 'ru';
+
         const widget = document.createElement('div');
         widget.className = 'chatbot';
         widget.id = 'chatbotWidget';
         widget.innerHTML = `
-            <button class="chatbot__trigger" id="chatbotTrigger" aria-label="AI Sales Assistant" aria-expanded="false" title="${isEN ? 'Ask a question' : 'Задай вопрос'}">
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color: #fff;">
-                    <path d="M12 2C6.48 2 2 6.48 2 12c0 1.54.36 3 .97 4.29L2 22l6.29-1.97C9 21.64 10.46 22 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm0 18c-1.41 0-2.73-.36-3.88-1.02l-.28-.15-2.89.92.92-2.89-.15-.28C4.36 14.73 4 13.41 4 12c0-4.41 3.59-8 8-8s8 3.59 8 8-3.59 8-8 8z"></path>
-                    <circle cx="8" cy="12" r="1.5" fill="currentColor"></circle>
-                    <circle cx="12" cy="12" r="1.5" fill="currentColor"></circle>
-                    <circle cx="16" cy="12" r="1.5" fill="currentColor"></circle>
+            <button class="chatbot__trigger" id="chatbotTrigger" aria-label="${isEN ? 'Chat with consultant' : 'Чат с консультантом'}" aria-expanded="false">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:#fff">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
                 </svg>
             </button>
-            <div class="chatbot__tooltip" id="chatbotTooltip">${isEN ? "Find where you're losing customers" : 'Разберу, где теряешь клиентов'}</div>
-            <div class="chatbot__panel" id="chatbotPanel" role="dialog" aria-label="InfoLady Assistant">
+            <div class="chatbot__tooltip" id="chatbotTooltip">${isEN ? "💬 Larisa is online — ask me anything" : '💬 Лариса онлайн — задайте вопрос'}</div>
+            <div class="chatbot__panel" id="chatbotPanel" role="dialog" aria-label="InfoLady Consultant">
                 <div class="chatbot__header">
                     <div class="chatbot__header-info">
-                        <div class="chatbot__avatar" aria-hidden="true">👋</div>
+                        <div class="chatbot__avatar-initials" aria-hidden="true">${isEN ? 'L' : 'Л'}</div>
                         <div class="chatbot__header-text">
-                            <strong>InfoLady</strong>
-                            <span>${isEN ? 'AI Sales Assistant — Online' : 'AI Sales Assistant — Онлайн'}</span>
+                            <strong>${isEN ? 'Larisa' : 'Лариса'}</strong>
+                            <span><span class="chatbot__online-dot"></span>${isEN ? 'SEO Consultant · Online' : 'Консультант InfoLady · Онлайн'}</span>
                         </div>
                     </div>
-                    <button class="chatbot__close" id="chatbotClose" aria-label="${isEN ? 'Close chat' : 'Закрыть чат'}">✕</button>
+                    <button class="chatbot__close" id="chatbotClose" aria-label="${isEN ? 'Close' : 'Закрыть'}">✕</button>
                 </div>
                 <div class="chatbot__messages" id="chatbotMessages"></div>
                 <div class="chatbot__quick-replies" id="chatbotQR"></div>
                 <div class="chatbot__input-row">
-                    <input type="text" class="chatbot__input" id="chatbotInput" placeholder="${isEN ? 'Ask about SEO…' : 'Спросите про SEO…'}" aria-label="${isEN ? 'Message' : 'Сообщение'}">
-                    <button class="chatbot__send" id="chatbotSend" aria-label="${isEN ? 'Send' : 'Отправить'}">⟳</button>
+                    <input type="text" class="chatbot__input" id="chatbotInput" placeholder="${isEN ? 'Write a message…' : 'Напишите сообщение…'}" aria-label="${isEN ? 'Message' : 'Сообщение'}">
+                    <button class="chatbot__send" id="chatbotSend" aria-label="${isEN ? 'Send' : 'Отправить'}">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                    </button>
                 </div>
             </div>`;
+
         setTimeout(() => {
-        document.body.appendChild(widget);
+            document.body.appendChild(widget);
 
-        const trigger = $('#chatbotTrigger');
-        const panel = $('#chatbotPanel');
-        const tooltip = $('#chatbotTooltip');
-        const closeBtn = $('#chatbotClose');
-        const messagesEl = $('#chatbotMessages');
-        const qrEl = $('#chatbotQR');
-        const input = $('#chatbotInput');
-        const sendBtn = $('#chatbotSend');
+            const trigger    = $('#chatbotTrigger');
+            const panel      = $('#chatbotPanel');
+            const tooltip    = $('#chatbotTooltip');
+            const closeBtn   = $('#chatbotClose');
+            const messagesEl = $('#chatbotMessages');
+            const qrEl       = $('#chatbotQR');
+            const input      = $('#chatbotInput');
+            const sendBtn    = $('#chatbotSend');
 
-        let started = false;
+            let started         = false;
+            let isSending       = false;
+            let userInteracted  = false;
+            let userSegment     = 'cold';
+            let proactiveShown  = false;
+            const localHistory  = [];
 
-        function getLang() { return localStorage.getItem('lang') || localStorage.getItem('site_language') || 'ru'; }
+            const SEGMENT_RANK = { cold: 0, warm: 1, hot: 2 };
+            const HOT_KW = ['сколько стоит','цена','оплатить','стоимость','купить','оплата','прайс',
+                            'how much','price','pricing','pay','payment','buy','cost','purchase'];
 
-        function openTelegram() {
-            const message = getLang() === 'ru'
-                ? 'Помощник InfoLady готов помочь 👇'
-                : 'InfoLady assistant ready to help 👇';
-            const telegramLink = `https://t.me/lyazkai_bot?text=${encodeURIComponent(message)}&start=mobile_chat`;
-            window.open(telegramLink, '_blank');
-        }
+            // ── Helpers ───────────────────────────────────────────
+            function openTelegram(src) {
+                const start = `src_site_lang_${lang()}_${src || 'chat'}`;
+                window.open(`https://t.me/lyazkai_bot?start=${start}`, '_blank');
+            }
 
-        function togglePanel() {
-            const open = panel.classList.toggle('open');
-            trigger.setAttribute('aria-expanded', String(open));
-            if (open && !started) { started = true; startChat(); }
-        }
-
-        trigger.addEventListener('click', (e) => {
-            e.preventDefault();
-            togglePanel();
-        });
-
-        trigger.addEventListener('touchend', (e) => {
-            e.preventDefault();
-            togglePanel();
-        });
-
-        trigger.addEventListener('mouseenter', () => {
-            tooltip.classList.add('show');
-        });
-
-        trigger.addEventListener('mouseleave', () => {
-            tooltip.classList.remove('show');
-        });
-
-        closeBtn.addEventListener('click', () => {
-            panel.classList.remove('open');
-            trigger.setAttribute('aria-expanded', 'false');
-        });
-
-        function addMsg(text, role = 'bot') {
-            const msg = document.createElement('div');
-            msg.className = `chatbot__msg chatbot__msg--${role}`;
-            msg.innerHTML = `<div class="chatbot__bubble">${text}</div>`;
-            messagesEl.appendChild(msg);
-            messagesEl.scrollTop = messagesEl.scrollHeight;
-            return msg;
-        }
-
-        function setQR(replies) {
-            qrEl.innerHTML = replies.map(r => {
-                if (r.includes('Telegram') || r.includes('Switch')) {
-                    return `<button class="chatbot__qr" data-reply="${r}" style="background: linear-gradient(135deg, #229ED9 0%, #0088cc 100%); color: #fff; border: none;">${r}</button>`;
+            function addBadge(count) {
+                let b = trigger.querySelector('.chatbot__badge');
+                if (!b) {
+                    b = document.createElement('span');
+                    b.className = 'chatbot__badge';
+                    trigger.appendChild(b);
                 }
-                return `<button class="chatbot__qr" data-reply="${r}">${r}</button>`;
-            }).join('');
-            
-            $$('.chatbot__qr', qrEl).forEach(btn => {
-                btn.addEventListener('click', () => {
-                    if (btn.dataset.reply.includes('Telegram') || btn.dataset.reply.includes('Switch')) {
-                        openTelegram();
-                    } else {
-                        handleReply(btn.dataset.reply);
-                    }
+                b.textContent = count;
+            }
+
+            function removeBadge() {
+                const b = trigger.querySelector('.chatbot__badge');
+                if (b) b.remove();
+            }
+
+            function togglePanel() {
+                const open = panel.classList.toggle('open');
+                trigger.setAttribute('aria-expanded', String(open));
+                tooltip.classList.remove('proactive', 'show');
+                if (open) {
+                    removeBadge();
+                    userInteracted = true;
+                    if (!started) { started = true; startChat(); }
+                }
+            }
+
+            trigger.addEventListener('click', e => { e.preventDefault(); togglePanel(); });
+            trigger.addEventListener('touchend', e => { e.preventDefault(); togglePanel(); });
+            trigger.addEventListener('mouseenter', () => { if (!panel.classList.contains('open')) tooltip.classList.add('show'); });
+            trigger.addEventListener('mouseleave', () => tooltip.classList.remove('show'));
+            closeBtn.addEventListener('click', () => { panel.classList.remove('open'); trigger.setAttribute('aria-expanded', 'false'); });
+
+            // ── Message rendering ─────────────────────────────────
+            function addMsg(html, role = 'bot') {
+                const el = document.createElement('div');
+                el.className = `chatbot__msg chatbot__msg--${role}`;
+                el.innerHTML = `<div class="chatbot__bubble">${html}</div>`;
+                messagesEl.appendChild(el);
+                messagesEl.scrollTop = messagesEl.scrollHeight;
+                return el;
+            }
+
+            // Typing bubble → replace with real content after delay
+            function addTypingThen(html, role = 'bot', delaySec = 1.2) {
+                const el = addMsg(`<div class="chatbot__typing"><span></span><span></span><span></span></div>`, role);
+                return new Promise(resolve => {
+                    setTimeout(() => {
+                        el.querySelector('.chatbot__bubble').innerHTML = html;
+                        messagesEl.scrollTop = messagesEl.scrollHeight;
+                        resolve(el);
+                    }, delaySec * 1000);
                 });
-            });
-        }
+            }
 
-        // ── State machine ─────────────────────────────────────────
-        // Flow: start → problem_awareness → engagement → impact → solution → offer → close
-        const FLOW_STATES = ['start', 'problem_awareness', 'engagement', 'impact', 'solution', 'offer', 'close'];
-        let chatState = 'start';
-        let autoAdvanceTimer = null;
-        let autoMsgCount = 0;
-        let userInteracted = false;   // true once user types or clicks anything
-        let userSegment = 'cold';     // cold → warm → hot (never downgrades)
-        let capturedUrl = '';
-        let isSending = false;
-        const localHistory = []; // client-side message history
+            function setQR(replies) {
+                qrEl.innerHTML = replies.map(r => {
+                    const isTg = r.includes('Telegram') || r.includes('Switch');
+                    const style = isTg ? ' style="background:linear-gradient(135deg,#229ED9,#0088cc);color:#fff;border:none;"' : '';
+                    return `<button class="chatbot__qr" data-reply="${r}"${style}>${r}</button>`;
+                }).join('');
+                $$('.chatbot__qr', qrEl).forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        if (btn.dataset.reply.includes('Telegram') || btn.dataset.reply.includes('Switch')) {
+                            openTelegram('qr');
+                        } else {
+                            handleReply(btn.dataset.reply);
+                        }
+                    });
+                });
+            }
 
-        // Segment rank for upgrade-only comparison
-        const SEGMENT_RANK = { cold: 0, warm: 1, hot: 2 };
-
-        // Keyword HOT override — price/payment intent always forces hot immediately
-        const HOT_KW = ['сколько стоит', 'цена', 'цены', 'оплатить', 'как оплатить', 'стоимость', 'купить', 'оплата', 'прайс',
-                        'how much', 'price', 'pricing', 'pay', 'payment', 'buy', 'cost', 'purchase'];
-
-        // Compute segment from behavior — pure function, reads window.userBehavior
-        function computeSegment() {
-            const b = window.userBehavior || {};
-            // HOT: viewed the report AND engaged in chat (2+ messages) — fully aware + invested
-            if (b.hasOpenedReport && b.messageCount >= 2) return 'hot';
-            // WARM: any meaningful engagement with the site
-            if (b.hasClickedAnalyze || b.hasOpenedReport || b.timeOnPage > 20 || b.scrollDepth > 40) return 'warm';
-            return 'cold';
-        }
-
-        // Sync current segment to chatbotContext so it's included in every API call
-        function syncSegment() {
-            if (window.chatbotContext) window.chatbotContext.segment = userSegment;
-        }
-
-        // detectSegment: keyword override first, then behavior — never downgrades
-        function detectSegment(text) {
-            if (text) {
-                const t = text.toLowerCase();
-                if (HOT_KW.some(kw => t.includes(kw))) {
-                    userSegment = 'hot';
-                    syncSegment();
-                    return;
+            // ── Segment detection ─────────────────────────────────
+            function computeSegment() {
+                const b = window.userBehavior || {};
+                if (b.hasOpenedReport && b.messageCount >= 2) return 'hot';
+                if (b.hasClickedAnalyze || b.hasOpenedReport || b.timeOnPage > 20 || b.scrollDepth > 40) return 'warm';
+                return 'cold';
+            }
+            function syncSegment() { if (window.chatbotContext) window.chatbotContext.segment = userSegment; }
+            function detectSegment(text) {
+                if (text && HOT_KW.some(kw => text.toLowerCase().includes(kw))) {
+                    userSegment = 'hot'; syncSegment(); return;
                 }
+                const c = computeSegment();
+                if (SEGMENT_RANK[c] > SEGMENT_RANK[userSegment]) { userSegment = c; syncSegment(); }
             }
-            const computed = computeSegment();
-            if (SEGMENT_RANK[computed] > SEGMENT_RANK[userSegment]) {
-                userSegment = computed;
-                syncSegment();
-            }
-        }
+            setInterval(() => detectSegment(null), 5000);
 
-        // Re-evaluate behavior segment every 5s — upgrades if conditions are met
-        setInterval(() => { detectSegment(null); }, 5000);
-
-        function advanceFlowState() {
-            const idx = FLOW_STATES.indexOf(chatState);
-            if (idx < FLOW_STATES.length - 1) chatState = FLOW_STATES[idx + 1];
-        }
-
-        function clearAutoAdvance() {
-            if (autoAdvanceTimer) { clearTimeout(autoAdvanceTimer); autoAdvanceTimer = null; }
-        }
-
-        // At most 1 auto-message; stop entirely once user has interacted
-        function scheduleAutoAdvance(delaySec) {
-            if (autoMsgCount >= 1 || userInteracted || !window.chatbotContext) return;
-            clearAutoAdvance();
-            autoAdvanceTimer = setTimeout(() => {
-                if (panel.classList.contains('open') && !userInteracted) {
-                    autoMsgCount++;
-                    triggerNextStep();
+            // ── Proactive engagement ──────────────────────────────
+            // After 15s: show badge + tooltip; after 35s: auto-open
+            setTimeout(() => {
+                if (!userInteracted && !panel.classList.contains('open')) {
+                    proactiveShown = true;
+                    addBadge(1);
+                    tooltip.classList.add('proactive', 'show');
                 }
-            }, delaySec * 1000);
-        }
-
-        // Scripted messages for silent-user auto-advance (no API call)
-        function triggerNextStep() {
-            const ru = getLang() === 'ru';
-            const ctx = window.chatbotContext || {};
-            advanceFlowState();
-            const domain = ctx.domain || '';
-            const issues = ctx.issues || [];
-            const issue1 = issues[0] || (ru ? 'проблема со структурой страницы' : 'page structure issue');
-            const issue2 = issues[1] || (ru ? 'нет описания для поисковика' : 'missing meta description');
-            const hidden = ctx.hiddenCount || 0;
-
-            if (chatState === 'problem_awareness') {
-                setTimeout(() => {
-                    addMsg(ru
-                        ? `На вашем сайте <strong>${domain}</strong> сразу вижу:<br>— ${issue1}<br>— ${issue2}<br>Это две из видимых проблем — из-за них поисковик не понимает, о чём сайт.`
-                        : `On your site <strong>${domain}</strong> I see right away:<br>— ${issue1}<br>— ${issue2}<br>These two alone make it hard for search engines to understand your site.`, 'bot');
-                    setQR(ru
-                        ? ['Почему это мешает заявкам?', 'Покажи ещё проблему', 'Сколько стоит исправить?']
-                        : ['Why does this hurt leads?', 'Show another issue', 'How much to fix?']);
-                    scheduleAutoAdvance(18);
-                }, 1000);
-                return;
-            }
-
-            if (chatState === 'engagement') {
-                setTimeout(() => {
-                    addMsg(ru
-                        ? `Скажите — у вас сейчас есть стабильный поток заявок с <strong>${domain}</strong>?`
-                        : `Quick question — are you getting a consistent flow of leads from <strong>${domain}</strong>?`, 'bot');
-                    setQR(ru
-                        ? ['Нет, заявок мало', 'Иногда бывает', 'Хочу больше']
-                        : ['Not really', 'Sometimes', 'I want more leads']);
-                    // No auto-advance here — wait for the user's answer
-                }, 1000);
-                return;
-            }
-
-            if (chatState === 'impact') {
-                setTimeout(() => {
-                    addMsg(ru
-                        ? `Вот что это значит для <strong>${domain}</strong> в деньгах:<br>Из-за этих ошибок сайт теряет <strong>20–40% посетителей</strong> ещё до того, как они видят ваш продукт.<br>Каждый день — это заявки, которые уходят к конкурентам.`
-                        : `Here's what this means for <strong>${domain}</strong> in real terms:<br>These issues drive away <strong>20–40% of visitors</strong> before they even see your offer.<br>That's potential revenue leaving every single day.`, 'bot');
-                    setQR(ru
-                        ? ['Как это исправить?', 'Покажи ещё проблему', 'Сколько стоит?']
-                        : ['How do I fix this?', 'Show another issue', 'How much?']);
-                }, 1000);
-                return;
-            }
-
-            // GPT states (solution, offer, close)
-            fetchReply(ru ? 'что можно сделать?' : 'what can be done about this?');
-        }
-
-        // QR sets for non-report pages
-        const QR = {
-            ru: {
-                main: ['🚀 Перейти в Telegram', '🔍 Сканировать сайт', '📊 Запросить аудит', '❓ Что такое GEO?', '💰 Цены'],
-                fallback: ['🔍 Сканировать сайт', '📊 Запросить аудит', '💰 Цены'],
-            },
-            en: {
-                main: ['🚀 Switch to Telegram', '🔍 Scan my website', '📊 Request audit', '❓ What is GEO?', '💰 See pricing'],
-                fallback: ['🔍 Scan my website', '📊 Request audit', '💰 See pricing'],
-            }
-        };
-
-        function startChat() {
-            // On report pages, chatbotContext is set async — wait up to 3s for it
-            if (!window.chatbotContext && window.location.pathname.includes('report') && _startChatRetries < 3) {
-                _startChatRetries++;
-                setTimeout(startChat, 1000);
-                return;
-            }
-            _startChatRetries = 0;
+            }, 15000);
 
             setTimeout(() => {
-                const ru = getLang() === 'ru';
-                const text = ru 
-                    ? 'Привет 👋<br>Я помогу вам понять, как выглядит ваш сайт в ChatGPT и Google. Покажу, где вы теряете клиентов.'
-                    : 'Hi there 👋<br>I can help you understand how your website looks in ChatGPT and Google. I\'ll show you where you\'re losing potential clients.';
-                addMsg(text, 'bot');
-                
-                setQR(ru ? ['🔍 Анализировать мой сайт', '💡 Расскажи подробнее', '💰 Во сколько выйдет?'] : ['🔍 Analyze my website', '💡 Tell me more', '💰 How much does it cost?']);
-            }, 800); // Faster greeting for better UX
-        }
+                if (!userInteracted && !panel.classList.contains('open')) {
+                    togglePanel();
+                }
+            }, 35000);
 
-        async function fetchReply(text) {
-            if (isSending) return;
-            isSending = true;
-            sendBtn.disabled = true;
+            // ── Opening conversation ──────────────────────────────
+            let _startChatRetries = 0;
+            function startChat() {
+                if (!window.chatbotContext && window.location.pathname.includes('report') && _startChatRetries < 3) {
+                    _startChatRetries++; setTimeout(startChat, 1000); return;
+                }
+                _startChatRetries = 0;
 
-            const ru = getLang() === 'ru';
+                const isRu = ru();
+                const ctx  = window.chatbotContext || {};
+                const seg  = userSegment;
 
-            // Add to local history BEFORE sending so backend gets full context
-            localHistory.push({ role: 'user', content: text });
+                // Warm greeting → pause → hook question → quick replies
+                setTimeout(async () => {
+                    // Message 1: short greeting
+                    await addTypingThen(
+                        isRu ? 'Привет 👋' : 'Hi there 👋',
+                        'bot', 0.9
+                    );
 
-            const typingBubble = addMsg(
-                `<div class="typing-indicator" style="display:flex;gap:4px"><span>.</span><span>.</span><span>.</span></div>`,
-                'bot'
-            );
+                    // Message 2: personalised hook based on segment
+                    let hook, qrSet;
 
-            try {
-                const apiUrl = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
-                    ? 'http://localhost:3000/api/gpt-chat'
-                    : 'https://api.infolady.online/api/gpt-chat';
-
-                const res = await fetch(apiUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        message: text,
-                        messages: localHistory.slice(-10), // send last 10 for context
-                        context: {
-                            lang: ctx.lang || getLang(),
-                            page: window.location.pathname,
-                            domain: ctx.domain || window.location.hostname,
-                            issues: ctx.issues || [],
-                            hiddenCount: ctx.hiddenCount || 0,
-                            chatState: chatState,
-                            segment: userSegment,
-                            country: ctx.country || '',
-                            currency: ctx.currency || '',
-                            price: ctx.price || ''
-                        }
-                    })
-                });
-
-                const data = await res.json();
-
-                // Add assistant reply to local history
-                if (data.reply) localHistory.push({ role: 'assistant', content: data.reply });
-
-                setTimeout(() => {
-                    typingBubble.innerHTML = `<div class="chatbot__bubble">${data.reply}</div>`;
-
-                    if (data.showTelegram) {
-                        const payload = `src_site_lang_${getLang()}_step_chat`;
-                        const link = `https://t.me/lyazkai_bot?start=${payload}`;
-                        qrEl.innerHTML = `<button class="chatbot__qr" style="background:#229ED9;color:#fff;border:none" onclick="window.open('${link}', '_blank')">🚀 ` +
-                            (ru ? 'Хочу полный разбор в Telegram' : 'Get analysis in Telegram') + `</button>`;
+                    if (ctx.domain && ctx.issues && ctx.issues.length > 0) {
+                        // Report page — user has scanned a site
+                        const issue1 = ctx.issues[0] || '';
+                        hook = isRu
+                            ? `Я посмотрела ваш сайт <strong>${ctx.domain}</strong> и сразу вижу проблему: ${issue1}.<br>Из-за неё вы, скорее всего, теряете <strong>20–40% заявок</strong>.<br><br>Разобраться?`
+                            : `I looked at <strong>${ctx.domain}</strong> and spotted an issue right away: ${issue1}.<br>This likely costs you <strong>20–40% of potential leads</strong>.<br><br>Want me to break it down?`;
+                        qrSet = isRu
+                            ? ['Да, покажи', 'Сколько это стоит исправить?', 'У меня другой вопрос']
+                            : ['Yes, show me', 'How much to fix?', 'I have another question'];
+                    } else if (seg === 'hot') {
+                        hook = isRu
+                            ? `Вижу, вы уже изучили наши тарифы 🙂<br>Сейчас у меня открылось время — могу сделать разбор вашего сайта прямо сейчас.<br>Какой сайт проверяем?`
+                            : `I see you've already checked our pricing 🙂<br>I have some time right now — I can review your site immediately.<br>Which site should I check?`;
+                        qrSet = isRu
+                            ? ['Вот мой сайт', 'Расскажи про тариф Базовый', 'Расскажи про Премиум']
+                            : ['Here\'s my site', 'Tell me about Basic plan', 'Tell me about Premium'];
+                    } else if (seg === 'warm') {
+                        hook = isRu
+                            ? `Смотрю — вы уже изучаете аудит. Хорошо 🙂<br>Скажите: у вас сейчас нехватка заявок или непонятно, где именно их теряете?`
+                            : `I see you're exploring the audit options 🙂<br>Quick question: is your main problem too few leads, or do you just not know where you're losing them?`;
+                        qrSet = isRu
+                            ? ['Мало заявок с сайта', 'Не понимаю, где теряю', 'Хочу больше клиентов']
+                            : ['Not enough leads', "Don't know where I lose them", 'I want more clients'];
+                    } else {
+                        hook = isRu
+                            ? `Я помогаю бизнесу находить, где сайт теряет клиентов — и это часто неожиданно 🙂<br>Скажите — у вас есть сайт? Посмотрю, что с ним происходит.`
+                            : `I help businesses find where their website loses clients — and it's often surprising 🙂<br>Do you have a website? I'll take a quick look.`;
+                        qrSet = isRu
+                            ? ['Да, хочу разобраться', 'Мало заявок с сайта', 'Что за аудит?']
+                            : ['Yes, let\'s figure it out', 'Not getting enough leads', 'What is an audit?'];
                     }
-                }, 1000);
 
-            } catch (err) {
-                // Roll back history on error so user can retry
-                localHistory.pop();
-                typingBubble.innerHTML = `<div class="chatbot__bubble">${ru ? 'Задумался. Напишите ещё раз!' : 'Thinking. Try again!'}</div>`;
-            } finally {
-                isSending = false;
-                sendBtn.disabled = false;
+                    await addTypingThen(hook, 'bot', 1.6);
+                    setQR(qrSet);
+                }, 600);
             }
-        }
 
-        function handleReply(text) {
-            if (isSending) return;
-            addMsg(text, 'user');
-            qrEl.innerHTML = '';
-            fetchReply(text);
-        }
+            // ── Scripted funnel steps ─────────────────────────────
+            const FUNNEL_STEPS = {
+                no_leads: {
+                    ru: `Понятно. Обычно это 2-3 причины:<br>— Сайт не находят в поиске (SEO ошибки)<br>— Приходят, но не оставляют заявку (проблема конверсии)<br>— Или вообще не попадают в ИИ-ответы ChatGPT и Perplexity<br><br>Под какую нишу ваш сайт?`,
+                    en: `Got it. Usually 2-3 reasons:<br>— Site isn't ranking (SEO issues)<br>— Visitors don't convert (UX/copy problem)<br>— Or you're invisible in ChatGPT and Perplexity answers<br><br>What niche is your site for?`,
+                    qr_ru: ['Услуги / B2B', 'Интернет-магазин', 'Локальный бизнес', 'Другое'],
+                    qr_en: ['Services / B2B', 'E-commerce', 'Local business', 'Other'],
+                },
+                niche_answered: {
+                    ru: (niche) => `Для ${niche} чаще всего теряются клиенты на двух этапах:<br>1️⃣ <strong>Не находят</strong> — плохое SEO или нет в ChatGPT<br>2️⃣ <strong>Уходят</strong> — непонятный оффер или долгая форма<br><br>Я могу проверить ваш сайт за 30 секунд и показать конкретные точки потери.<br><a class="chatbot__cta-btn" href="${window.location.pathname.includes('/en/') ? '/en/visibility-audit.html' : '/ru/visibility-audit.html'}">Проверить сайт бесплатно →</a>`,
+                    en: (niche) => `For ${niche}, clients usually get lost at two stages:<br>1️⃣ <strong>Not found</strong> — weak SEO or not in ChatGPT answers<br>2️⃣ <strong>Leave without converting</strong> — unclear offer or long form<br><br>I can check your site in 30 seconds and show specific drop-off points.<br><a class="chatbot__cta-btn" href="/en/visibility-audit.html">Check my site for free →</a>`,
+                },
+                want_audit: {
+                    ru: `Отлично 🙂 Запустите бесплатный скан — это 30 секунд, без регистрации.<br>Вы сразу увидите оценку и топ-3 проблемы.<br>Если захотите полный PDF-отчёт — это уже платно, от 25 000 ₸.<br><br><a class="chatbot__cta-btn" href="/ru/visibility-audit.html">Запустить бесплатный аудит →</a>`,
+                    en: `Great 🙂 Run the free scan — takes 30 seconds, no signup.<br>You'll instantly see your score and top 3 issues.<br>Full PDF report with growth plan starts at $50.<br><br><a class="chatbot__cta-btn" href="/en/visibility-audit.html">Run free audit →</a>`,
+                },
+                price: {
+                    ru: `Базовый аудит — <strong>25 000 ₸</strong> (топ-ошибки + план роста)<br>Стандарт — <strong>50 000 ₸</strong> (полный SEO + конкуренты + дорожная карта)<br>Премиум — <strong>150 000 ₸</strong> (всё + внедрение + поддержка)<br><br>Начать проще всего с бесплатного скана 👇<br><a class="chatbot__cta-btn" href="/ru/visibility-audit.html">Бесплатный скан →</a>`,
+                    en: `Basic — <strong>$50</strong> (top errors + growth tips)<br>Standard — <strong>$100</strong> (full audit + competitors + roadmap)<br>Premium — <strong>$300</strong> (everything + implementation + support)<br><br>Best to start with the free scan 👇<br><a class="chatbot__cta-btn" href="/en/visibility-audit.html">Free scan →</a>`,
+                },
+                geo_question: {
+                    ru: `GEO — это Generative Engine Optimization. Оптимизация для ИИ-поисковиков — ChatGPT, Perplexity, Google AI.<br><br>Простыми словами: даже если вы в топе Google, ИИ-системы могут вас вообще не упоминать. А именно они всё чаще отвечают на вопросы ваших потенциальных клиентов.<br><br>Наш аудит проверяет это автоматически. Хотите посмотреть?`,
+                    en: `GEO = Generative Engine Optimization. It's about being visible in AI search — ChatGPT, Perplexity, Google AI.<br><br>In plain terms: even if you rank #1 in Google, AI systems may never mention you. And they're increasingly answering your customers' questions.<br><br>Our audit checks this automatically. Want to see how you rank?`,
+                },
+            };
 
-        function handleUserInput(val) {
-            if (!val.trim() || isSending) return;
-            addMsg(val, 'user');
-            input.value = '';
-            fetchReply(val);
-        }
+            // ── Scripted reply matching ───────────────────────────
+            function tryScripted(text) {
+                const t = text.toLowerCase();
+                const isRu = ru();
 
-        sendBtn.addEventListener('click', () => handleUserInput(input.value));
-        input.addEventListener('keydown', e => { if (e.key === 'Enter') handleUserInput(input.value); });
+                // Niche answers
+                const niches = ['услуги','b2b','интернет-магазин','магазин','локальный','local','b2c','services','e-commerce','ecommerce','другое','other'];
+                if (niches.some(n => t.includes(n))) {
+                    const niDisplay = text;
+                    const step = FUNNEL_STEPS.niche_answered;
+                    addTypingThen(isRu ? step.ru(niDisplay) : step.en(niDisplay), 'bot', 1.4);
+                    return true;
+                }
 
-        $$('.chatbot__qr', qrEl).forEach(btn => btn.addEventListener('click', () => handleReply(btn.dataset.reply)));
+                if (t.includes('мало заявок') || t.includes('not enough leads') || t.includes('нет заявок')) {
+                    const s = FUNNEL_STEPS.no_leads;
+                    addTypingThen(isRu ? s.ru : s.en, 'bot', 1.4)
+                        .then(() => setQR(isRu ? s.qr_ru : s.qr_en));
+                    return true;
+                }
+                if (t.includes('не понимаю') || t.includes("don't know") || t.includes('dont know') || t.includes('теряю')) {
+                    addTypingThen(
+                        isRu ? `Это самая частая история 🙂 Сайт работает, трафик есть, но заявки — нет.<br>Обычно причина — в 2-3 конкретных местах, которые не очевидны без аудита.<br>Какой у вас сайт? Посмотрю прямо сейчас.`
+                             : `That's super common 🙂 Site is live, traffic comes in, but no leads.<br>Usually it's 2-3 specific spots — not obvious without an audit.<br>What's your website? I'll check it right now.`,
+                        'bot', 1.4
+                    );
+                    return true;
+                }
+                if (HOT_KW.some(kw => t.includes(kw))) {
+                    addTypingThen(FUNNEL_STEPS.price[isRu ? 'ru' : 'en'], 'bot', 1.2);
+                    return true;
+                }
+                if (t.includes('geo') || t.includes('жео') || t.includes('generative')) {
+                    addTypingThen(FUNNEL_STEPS.geo_question[isRu ? 'ru' : 'en'], 'bot', 1.4);
+                    return true;
+                }
+                if (t.includes('аудит') || t.includes('разобраться') || t.includes('хочу') || t.includes('audit') || t.includes('want')) {
+                    addTypingThen(FUNNEL_STEPS.want_audit[isRu ? 'ru' : 'en'], 'bot', 1.2);
+                    return true;
+                }
+                return false;
+            }
 
-        }, 4000); // end setTimeout
+            // ── API call ──────────────────────────────────────────
+            async function fetchReply(text) {
+                if (isSending) return;
+                isSending = true;
+                sendBtn.disabled = true;
+
+                localHistory.push({ role: 'user', content: text });
+
+                const typingEl = addMsg(
+                    `<div class="chatbot__typing"><span></span><span></span><span></span></div>`, 'bot'
+                );
+
+                try {
+                    const apiUrl = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+                        ? 'http://localhost:3000/api/gpt-chat'
+                        : 'https://api.infolady.online/api/gpt-chat';
+
+                    const ctx = window.chatbotContext || {};
+
+                    const res = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            message: text,
+                            messages: localHistory.slice(-12),
+                            context: {
+                                lang: lang(),
+                                page: window.location.pathname,
+                                domain: ctx.domain || '',
+                                issues: ctx.issues || [],
+                                hiddenCount: ctx.hiddenCount || 0,
+                                segment: userSegment,
+                                country: ctx.country || '',
+                                currency: ctx.currency || '',
+                                price: ctx.price || ''
+                            }
+                        })
+                    });
+
+                    const data = await res.json();
+                    if (data.reply) localHistory.push({ role: 'assistant', content: data.reply });
+
+                    setTimeout(() => {
+                        typingEl.querySelector('.chatbot__bubble').innerHTML = data.reply;
+                        messagesEl.scrollTop = messagesEl.scrollHeight;
+
+                        if (data.showTelegram) {
+                            const isRu = ru();
+                            const link = `https://t.me/lyazkai_bot?start=src_site_lang_${lang()}_step_chat`;
+                            qrEl.innerHTML = `<button class="chatbot__qr" style="background:#229ED9;color:#fff;border:none" onclick="window.open('${link}', '_blank')">🚀 ${isRu ? 'Хочу полный разбор в Telegram' : 'Get full analysis in Telegram'}</button>`;
+                        }
+                    }, 1100);
+
+                } catch {
+                    localHistory.pop();
+                    const isRu = ru();
+                    typingEl.querySelector('.chatbot__bubble').innerHTML = isRu ? 'Задумалась... Напишите ещё раз 🙂' : 'Hmm, something went wrong. Try again 🙂';
+                } finally {
+                    isSending = false;
+                    sendBtn.disabled = false;
+                }
+            }
+
+            // ── User input handling ───────────────────────────────
+            function handleReply(text) {
+                if (isSending) return;
+                userInteracted = true;
+                detectSegment(text);
+                addMsg(text, 'user');
+                qrEl.innerHTML = '';
+                if (!tryScripted(text)) fetchReply(text);
+            }
+
+            function handleUserInput(val) {
+                if (!val.trim() || isSending) return;
+                userInteracted = true;
+                detectSegment(val);
+                addMsg(val, 'user');
+                input.value = '';
+                if (!tryScripted(val)) fetchReply(val);
+            }
+
+            sendBtn.addEventListener('click', () => handleUserInput(input.value));
+            input.addEventListener('keydown', e => { if (e.key === 'Enter') handleUserInput(input.value); });
+
+        }, 3000); // end setTimeout
     }
 
     /* ── Bar Charts (animate fills on view) ─────────────────── */

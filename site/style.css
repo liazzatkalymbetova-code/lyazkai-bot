@@ -4841,3 +4841,93 @@ p, li { line-height: 1.75; }
 .detail-label, .subtitle {
     color: rgba(255, 255, 255, 0.75) !important;
 }
+
+/* ── Live consultant chatbot additions ──────────────────────── */
+.chatbot__badge {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    background: #ff4d4d;
+    color: #fff;
+    font-size: 0.7rem;
+    font-weight: 800;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #0b0f1c;
+    animation: badge-pop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    z-index: 10003;
+}
+@keyframes badge-pop {
+    0% { transform: scale(0); }
+    100% { transform: scale(1); }
+}
+.chatbot__avatar-initials {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #7c5cff 0%, #00e0ff 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 1.05rem;
+    color: #fff;
+    flex-shrink: 0;
+    box-shadow: 0 4px 12px rgba(124,92,255,0.4);
+    border: 2px solid rgba(255,255,255,0.15);
+}
+.chatbot__online-dot {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    background: #10B981;
+    border-radius: 50%;
+    margin-right: 5px;
+    animation: pulse-glow 2s ease-in-out infinite;
+    vertical-align: middle;
+}
+.chatbot__typing {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 0;
+}
+.chatbot__typing span {
+    width: 7px;
+    height: 7px;
+    background: rgba(0, 224, 255, 0.6);
+    border-radius: 50%;
+    display: inline-block;
+    animation: typing-bounce 1.4s ease-in-out infinite;
+}
+.chatbot__typing span:nth-child(2) { animation-delay: 0.2s; }
+.chatbot__typing span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes typing-bounce {
+    0%, 80%, 100% { transform: translateY(0); opacity: 0.5; }
+    40% { transform: translateY(-6px); opacity: 1; }
+}
+.chatbot__cta-btn {
+    display: inline-block;
+    margin-top: 10px;
+    background: linear-gradient(135deg, #00e0ff 0%, #7c5cff 100%);
+    color: #000 !important;
+    font-weight: 700;
+    font-size: 0.85rem;
+    padding: 9px 18px;
+    border-radius: 20px;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.chatbot__cta-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,224,255,0.35);
+    color: #000 !important;
+}
+.chatbot__tooltip.proactive {
+    opacity: 1;
+    transform: translateY(0);
+}
