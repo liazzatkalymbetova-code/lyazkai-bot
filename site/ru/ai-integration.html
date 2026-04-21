@@ -222,18 +222,77 @@
 <p>Наши услуги включают внедрение ИИ в Казахстане, ИИ-автоматизацию бизнеса в Алматы и по всему СНГ, а также оптимизацию того, как получать заявки из сайта в Казахстане.</p>
 </section>
 
-<section class="faq">
-<h2>Частые вопросы</h2>
-
-<h3>Как ИИ увеличивает заявки?</h3>
-<p>ИИ автоматизирует обработку клиентов и повышает конверсию сайта.</p>
-
-<h3>Сколько стоит внедрение?</h3>
-<p>Зависит от бизнеса, начинается с аудита.</p>
-
-<h3>Подходит ли для малого бизнеса?</h3>
-<p>Да, особенно если нет заявок.</p>
+<section class="section section--tinted" style="padding: 80px 0;">
+<div class="container" style="max-width: 760px; margin: 0 auto;">
+  <div style="text-align: center; margin-bottom: 50px;">
+    <h2>Частые вопросы</h2>
+  </div>
+  <div class="faq-item" data-faq>
+    <button class="faq-item__q" aria-expanded="false">Как ИИ увеличивает количество заявок?<span class="faq-item__icon" aria-hidden="true"></span></button>
+    <div class="faq-item__a" hidden><p>ИИ-чатбот отвечает на вопросы посетителей 24/7, квалифицирует лиды и отправляет их прямо в Telegram или CRM. Это убирает задержку между интересом клиента и первым контактом — конверсия растёт без дополнительного трафика.</p></div>
+  </div>
+  <div class="faq-item" data-faq>
+    <button class="faq-item__q" aria-expanded="false">Сколько стоит внедрение ИИ-интеграции?<span class="faq-item__icon" aria-hidden="true"></span></button>
+    <div class="faq-item__a" hidden><p>Стоимость зависит от задач бизнеса. Начинаем с аудита сайта — он бесплатный. По его результатам вы получаете конкретное предложение с ценой и сроками. Никаких абстрактных пакетов — только то, что нужно именно вам.</p></div>
+  </div>
+  <div class="faq-item" data-faq>
+    <button class="faq-item__q" aria-expanded="false">Подходит ли это для малого бизнеса?<span class="faq-item__icon" aria-hidden="true"></span></button>
+    <div class="faq-item__a" hidden><p>Да, особенно если нет стабильного потока заявок. Малый бизнес выигрывает больше всего: нет возможности держать большой отдел продаж — ИИ закрывает этот пробел за фиксированную стоимость.</p></div>
+  </div>
+  <div class="faq-item" data-faq>
+    <button class="faq-item__q" aria-expanded="false">Как быстро виден результат?<span class="faq-item__icon" aria-hidden="true"></span></button>
+    <div class="faq-item__a" hidden><p>Первые лиды из чатбота появляются в течение 1–2 недель после запуска. Полный эффект — рост конверсии и снижение нагрузки на менеджеров — становится заметен через 4–6 недель. Мы показываем статистику в реальном времени.</p></div>
+  </div>
+  <div class="faq-item" data-faq>
+    <button class="faq-item__q" aria-expanded="false">Нужно ли менять сайт или CRM?<span class="faq-item__icon" aria-hidden="true"></span></button>
+    <div class="faq-item__a" hidden><p>Нет. Чатбот встраивается в существующий сайт за 15 минут — через скрипт или виджет. Интеграция с Telegram, WhatsApp, Bitrix24 и другими системами — без перестройки инфраструктуры.</p></div>
+  </div>
+</div>
 </section>
+<style>
+  .faq-item { border-bottom: 1px solid var(--border); padding: 0; }
+  .faq-item__q {
+    width: 100%; background: none; border: none; color: inherit;
+    font-family: inherit; font-size: 1.05rem; font-weight: 600;
+    text-align: left; cursor: pointer;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 16px; padding: 24px 0; line-height: 1.4;
+  }
+  .faq-item__q:hover { color: var(--accent-secondary); }
+  .faq-item__icon {
+    flex-shrink: 0; width: 20px; height: 20px;
+    border-radius: 50%; border: 1.5px solid rgba(255,255,255,0.3);
+    position: relative; transition: border-color 0.25s ease;
+  }
+  .faq-item__icon::before,
+  .faq-item__icon::after {
+    content: ''; position: absolute; top: 50%; left: 50%;
+    background: currentColor; border-radius: 1px;
+    transform: translate(-50%, -50%);
+  }
+  .faq-item__icon::before { width: 10px; height: 1.5px; }
+  .faq-item__icon::after  { width: 1.5px; height: 10px; transition: transform 0.25s ease; }
+  .faq-item__q[aria-expanded="true"] .faq-item__icon { border-color: var(--accent-secondary); color: var(--accent-secondary); }
+  .faq-item__q[aria-expanded="true"] .faq-item__icon::after { transform: translate(-50%, -50%) rotate(90deg); }
+  .faq-item__a p { color: var(--text-muted); line-height: 1.7; margin: 0; padding-bottom: 24px; }
+  @media (max-width: 600px) { .faq-item__q { font-size: 0.97rem; } }
+</style>
+<script>
+  (function () {
+    document.querySelectorAll('[data-faq]').forEach(function (item) {
+      var btn = item.querySelector('.faq-item__q');
+      var ans = item.querySelector('.faq-item__a');
+      btn.addEventListener('click', function () {
+        var open = btn.getAttribute('aria-expanded') === 'true';
+        document.querySelectorAll('[data-faq] .faq-item__q').forEach(function (b) {
+          b.setAttribute('aria-expanded', 'false');
+          b.closest('[data-faq]').querySelector('.faq-item__a').hidden = true;
+        });
+        if (!open) { btn.setAttribute('aria-expanded', 'true'); ans.hidden = false; }
+      });
+    });
+  })();
+</script>
 <footer class="footer" role="contentinfo">
 <style>
 .footer-wrapper {

@@ -194,6 +194,80 @@
 </div>
 </div>
 </section>
+
+<!-- FAQ -->
+<section class="section section--tinted" style="padding: 80px 0;">
+<div class="container" style="max-width: 760px; margin: 0 auto;">
+  <div style="text-align: center; margin-bottom: 50px;">
+    <h2>Frequently Asked Questions</h2>
+  </div>
+  <div class="faq-item" data-faq>
+    <button class="faq-item__q" aria-expanded="false">How does AI increase the number of leads?<span class="faq-item__icon" aria-hidden="true"></span></button>
+    <div class="faq-item__a" hidden><p>An AI chatbot answers visitor questions 24/7, qualifies leads, and sends them directly to Telegram or your CRM. It eliminates the delay between a customer's interest and first contact — conversion grows without extra traffic.</p></div>
+  </div>
+  <div class="faq-item" data-faq>
+    <button class="faq-item__q" aria-expanded="false">How much does AI integration cost?<span class="faq-item__icon" aria-hidden="true"></span></button>
+    <div class="faq-item__a" hidden><p>The cost depends on your business goals. We start with a free website audit. Based on the results, you get a specific proposal with a price and timeline — no abstract packages, only what you actually need.</p></div>
+  </div>
+  <div class="faq-item" data-faq>
+    <button class="faq-item__q" aria-expanded="false">Is this suitable for small businesses?<span class="faq-item__icon" aria-hidden="true"></span></button>
+    <div class="faq-item__a" hidden><p>Yes, especially if you don't have a steady flow of leads. Small businesses benefit the most: without a large sales team, AI fills that gap at a fixed cost.</p></div>
+  </div>
+  <div class="faq-item" data-faq>
+    <button class="faq-item__q" aria-expanded="false">How quickly will I see results?<span class="faq-item__icon" aria-hidden="true"></span></button>
+    <div class="faq-item__a" hidden><p>First chatbot leads typically appear within 1–2 weeks of launch. The full effect — higher conversion and reduced load on your team — becomes visible in 4–6 weeks. We provide real-time stats.</p></div>
+  </div>
+  <div class="faq-item" data-faq>
+    <button class="faq-item__q" aria-expanded="false">Do I need to change my website or CRM?<span class="faq-item__icon" aria-hidden="true"></span></button>
+    <div class="faq-item__a" hidden><p>No. The chatbot embeds into your existing site in 15 minutes via a script or widget. Integration with Telegram, WhatsApp, Bitrix24, and other systems — no infrastructure rebuild required.</p></div>
+  </div>
+</div>
+</section>
+<style>
+  .faq-item { border-bottom: 1px solid var(--border); padding: 0; }
+  .faq-item__q {
+    width: 100%; background: none; border: none; color: inherit;
+    font-family: inherit; font-size: 1.05rem; font-weight: 600;
+    text-align: left; cursor: pointer;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 16px; padding: 24px 0; line-height: 1.4;
+  }
+  .faq-item__q:hover { color: var(--accent-secondary); }
+  .faq-item__icon {
+    flex-shrink: 0; width: 20px; height: 20px;
+    border-radius: 50%; border: 1.5px solid rgba(255,255,255,0.3);
+    position: relative; transition: border-color 0.25s ease;
+  }
+  .faq-item__icon::before,
+  .faq-item__icon::after {
+    content: ''; position: absolute; top: 50%; left: 50%;
+    background: currentColor; border-radius: 1px;
+    transform: translate(-50%, -50%);
+  }
+  .faq-item__icon::before { width: 10px; height: 1.5px; }
+  .faq-item__icon::after  { width: 1.5px; height: 10px; transition: transform 0.25s ease; }
+  .faq-item__q[aria-expanded="true"] .faq-item__icon { border-color: var(--accent-secondary); color: var(--accent-secondary); }
+  .faq-item__q[aria-expanded="true"] .faq-item__icon::after { transform: translate(-50%, -50%) rotate(90deg); }
+  .faq-item__a p { color: var(--text-muted); line-height: 1.7; margin: 0; padding-bottom: 24px; }
+  @media (max-width: 600px) { .faq-item__q { font-size: 0.97rem; } }
+</style>
+<script>
+  (function () {
+    document.querySelectorAll('[data-faq]').forEach(function (item) {
+      var btn = item.querySelector('.faq-item__q');
+      var ans = item.querySelector('.faq-item__a');
+      btn.addEventListener('click', function () {
+        var open = btn.getAttribute('aria-expanded') === 'true';
+        document.querySelectorAll('[data-faq] .faq-item__q').forEach(function (b) {
+          b.setAttribute('aria-expanded', 'false');
+          b.closest('[data-faq]').querySelector('.faq-item__a').hidden = true;
+        });
+        if (!open) { btn.setAttribute('aria-expanded', 'true'); ans.hidden = false; }
+      });
+    });
+  })();
+</script>
+
 </main>
 <!-- ══════════════════════════ FOOTER ════════════════════════ -->
 <footer class="footer" role="contentinfo">
