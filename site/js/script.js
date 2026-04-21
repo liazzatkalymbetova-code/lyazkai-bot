@@ -514,6 +514,7 @@
         initLangSwitcher();
         // initSmartRouting();
         initCurrencySwitcher();
+        initUserBehavior();
         initChatbot();
         initBarCharts();
         initGauges();
@@ -896,12 +897,15 @@
 
         function applyLang(lang) {
             currentLang = lang;
-            localStorage.setItem('lang', lang); // SaaS Standard
-            localStorage.setItem('site_language', lang); // Backwards compatibility
+            localStorage.setItem('lang', lang);
+            localStorage.setItem('site_language', lang);
+            localStorage.setItem('userSelectedLang', lang); // top-priority for bot lang detection
 
-            /* --- Update active button state --- */
             btns.forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
             document.documentElement.lang = lang;
+
+            // Keep chatbot context in sync without reload
+            if (window.chatbotContext) window.chatbotContext.lang = lang;
         }
 
         btns.forEach(btn => {
@@ -1045,36 +1049,155 @@
             });
         }
 
-        let chatState = 'init';
+        // ── State machine ─────────────────────────────────────────
+        // Flow: start → problem_awareness → engagement → impact → solution → offer → close
+        const FLOW_STATES = ['start', 'problem_awareness', 'engagement', 'impact', 'solution', 'offer', 'close'];
+        let chatState = 'start';
+        let autoAdvanceTimer = null;
+        let autoMsgCount = 0;
+        let userInteracted = false;   // true once user types or clicks anything
+        let userSegment = 'cold';     // cold → warm → hot (never downgrades)
         let capturedUrl = '';
         let isSending = false;
         const localHistory = []; // client-side message history
 
-        /* Bilingual quick-reply sets */
+        // Segment rank for upgrade-only comparison
+        const SEGMENT_RANK = { cold: 0, warm: 1, hot: 2 };
+
+        // Keyword HOT override — price/payment intent always forces hot immediately
+        const HOT_KW = ['сколько стоит', 'цена', 'цены', 'оплатить', 'как оплатить', 'стоимость', 'купить', 'оплата', 'прайс',
+                        'how much', 'price', 'pricing', 'pay', 'payment', 'buy', 'cost', 'purchase'];
+
+        // Compute segment from behavior — pure function, reads window.userBehavior
+        function computeSegment() {
+            const b = window.userBehavior || {};
+            // HOT: viewed the report AND engaged in chat (2+ messages) — fully aware + invested
+            if (b.hasOpenedReport && b.messageCount >= 2) return 'hot';
+            // WARM: any meaningful engagement with the site
+            if (b.hasClickedAnalyze || b.hasOpenedReport || b.timeOnPage > 20 || b.scrollDepth > 40) return 'warm';
+            return 'cold';
+        }
+
+        // Sync current segment to chatbotContext so it's included in every API call
+        function syncSegment() {
+            if (window.chatbotContext) window.chatbotContext.segment = userSegment;
+        }
+
+        // detectSegment: keyword override first, then behavior — never downgrades
+        function detectSegment(text) {
+            if (text) {
+                const t = text.toLowerCase();
+                if (HOT_KW.some(kw => t.includes(kw))) {
+                    userSegment = 'hot';
+                    syncSegment();
+                    return;
+                }
+            }
+            const computed = computeSegment();
+            if (SEGMENT_RANK[computed] > SEGMENT_RANK[userSegment]) {
+                userSegment = computed;
+                syncSegment();
+            }
+        }
+
+        // Re-evaluate behavior segment every 5s — upgrades if conditions are met
+        setInterval(() => { detectSegment(null); }, 5000);
+
+        function advanceFlowState() {
+            const idx = FLOW_STATES.indexOf(chatState);
+            if (idx < FLOW_STATES.length - 1) chatState = FLOW_STATES[idx + 1];
+        }
+
+        function clearAutoAdvance() {
+            if (autoAdvanceTimer) { clearTimeout(autoAdvanceTimer); autoAdvanceTimer = null; }
+        }
+
+        // At most 1 auto-message; stop entirely once user has interacted
+        function scheduleAutoAdvance(delaySec) {
+            if (autoMsgCount >= 1 || userInteracted || !window.chatbotContext) return;
+            clearAutoAdvance();
+            autoAdvanceTimer = setTimeout(() => {
+                if (panel.classList.contains('open') && !userInteracted) {
+                    autoMsgCount++;
+                    triggerNextStep();
+                }
+            }, delaySec * 1000);
+        }
+
+        // Scripted messages for silent-user auto-advance (no API call)
+        function triggerNextStep() {
+            const ru = getLang() === 'ru';
+            const ctx = window.chatbotContext || {};
+            advanceFlowState();
+            const domain = ctx.domain || '';
+            const issues = ctx.issues || [];
+            const issue1 = issues[0] || (ru ? 'проблема со структурой страницы' : 'page structure issue');
+            const issue2 = issues[1] || (ru ? 'нет описания для поисковика' : 'missing meta description');
+            const hidden = ctx.hiddenCount || 0;
+
+            if (chatState === 'problem_awareness') {
+                setTimeout(() => {
+                    addMsg(ru
+                        ? `На вашем сайте <strong>${domain}</strong> сразу вижу:<br>— ${issue1}<br>— ${issue2}<br>Это две из видимых проблем — из-за них поисковик не понимает, о чём сайт.`
+                        : `On your site <strong>${domain}</strong> I see right away:<br>— ${issue1}<br>— ${issue2}<br>These two alone make it hard for search engines to understand your site.`, 'bot');
+                    setQR(ru
+                        ? ['Почему это мешает заявкам?', 'Покажи ещё проблему', 'Сколько стоит исправить?']
+                        : ['Why does this hurt leads?', 'Show another issue', 'How much to fix?']);
+                    scheduleAutoAdvance(18);
+                }, 1000);
+                return;
+            }
+
+            if (chatState === 'engagement') {
+                setTimeout(() => {
+                    addMsg(ru
+                        ? `Скажите — у вас сейчас есть стабильный поток заявок с <strong>${domain}</strong>?`
+                        : `Quick question — are you getting a consistent flow of leads from <strong>${domain}</strong>?`, 'bot');
+                    setQR(ru
+                        ? ['Нет, заявок мало', 'Иногда бывает', 'Хочу больше']
+                        : ['Not really', 'Sometimes', 'I want more leads']);
+                    // No auto-advance here — wait for the user's answer
+                }, 1000);
+                return;
+            }
+
+            if (chatState === 'impact') {
+                setTimeout(() => {
+                    addMsg(ru
+                        ? `Вот что это значит для <strong>${domain}</strong> в деньгах:<br>Из-за этих ошибок сайт теряет <strong>20–40% посетителей</strong> ещё до того, как они видят ваш продукт.<br>Каждый день — это заявки, которые уходят к конкурентам.`
+                        : `Here's what this means for <strong>${domain}</strong> in real terms:<br>These issues drive away <strong>20–40% of visitors</strong> before they even see your offer.<br>That's potential revenue leaving every single day.`, 'bot');
+                    setQR(ru
+                        ? ['Как это исправить?', 'Покажи ещё проблему', 'Сколько стоит?']
+                        : ['How do I fix this?', 'Show another issue', 'How much?']);
+                }, 1000);
+                return;
+            }
+
+            // GPT states (solution, offer, close)
+            fetchReply(ru ? 'что можно сделать?' : 'what can be done about this?');
+        }
+
+        // QR sets for non-report pages
         const QR = {
             ru: {
                 main: ['🚀 Перейти в Telegram', '🔍 Сканировать сайт', '📊 Запросить аудит', '❓ Что такое GEO?', '💰 Цены'],
-                postScan: ['💰 Цены', '🔍 Сканировать другой сайт'],
-                postAudit: ['🔍 Сначала сканировать', '💰 Цены'],
-                postGeo: ['🔍 Сканировать сайт', '📚 Подробнее о GEO'],
-                postGeoL: ['🔍 Сканировать сайт', '📊 Запросить аудит'],
-                postPrice: ['📊 Запросить аудит', '🔍 Сначала сканировать'],
                 fallback: ['🔍 Сканировать сайт', '📊 Запросить аудит', '💰 Цены'],
-                report: ['📄 Получить полный отчёт', '🔍 Сканировать другой сайт'],
             },
             en: {
                 main: ['🚀 Switch to Telegram', '🔍 Scan my website', '📊 Request audit', '❓ What is GEO?', '💰 See pricing'],
-                postScan: ['💰 See pricing', '🔍 Scan another site'],
-                postAudit: ['🔍 Scan my website first', '💰 See pricing'],
-                postGeo: ['🔍 Scan my website', '📚 Learn more about GEO'],
-                postGeoL: ['🔍 Scan my website', '📊 Request audit'],
-                postPrice: ['📊 Request audit', '🔍 Scan my website first'],
                 fallback: ['🔍 Scan my website', '📊 Request audit', '💰 See pricing'],
-                report: ['📄 Get Full Audit Report', '🔍 Scan another site'],
             }
         };
 
         function startChat() {
+            // On report pages, chatbotContext is set async — wait up to 3s for it
+            if (!window.chatbotContext && window.location.pathname.includes('report') && _startChatRetries < 3) {
+                _startChatRetries++;
+                setTimeout(startChat, 1000);
+                return;
+            }
+            _startChatRetries = 0;
+
             setTimeout(() => {
                 const ru = getLang() === 'ru';
                 const text = ru 
@@ -1113,9 +1236,16 @@
                         message: text,
                         messages: localHistory.slice(-10), // send last 10 for context
                         context: {
-                            lang: getLang(),
+                            lang: ctx.lang || getLang(),
                             page: window.location.pathname,
-                            domain: window.location.hostname
+                            domain: ctx.domain || window.location.hostname,
+                            issues: ctx.issues || [],
+                            hiddenCount: ctx.hiddenCount || 0,
+                            chatState: chatState,
+                            segment: userSegment,
+                            country: ctx.country || '',
+                            currency: ctx.currency || '',
+                            price: ctx.price || ''
                         }
                     })
                 });

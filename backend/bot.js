@@ -258,18 +258,14 @@ function parseStart(start) {
     
     // NEW format: lang|domain
     if (decoded.includes('|')) {
-        const [lang, domain] = decoded.split('|');
-        return {
-            source: 'site',
-            lang: lang || 'ru',
-            step: 'chat',
-            segment: 'warm',
-            domain: domain || ''
-        };
+        const parts = decoded.split('|');
+        const lang = (parts[0] && ['ru', 'en'].includes(parts[0])) ? parts[0] : 'ru';
+        const domain = (parts[1] && parts[1].length > 0) ? parts[1] : '';
+        return { source: 'site', lang, step: 'chat', segment: 'warm', domain };
     }
     
     // Known simple params from site CTAs
-    const knownCtaParams = ['global_cta', 'mobile_cta', 'audit_root_index', 'audit_root_ru', 'audit_root_en', 'paid_ru', 'paid_en'];
+    const knownCtaParams = ['global_cta', 'mobile_cta', 'audit_root_index', 'audit_root_ru', 'audit_root_en', 'paid_ru', 'paid_en', 'exit_popup'];
     if (knownCtaParams.includes(decoded)) {
         const lang = decoded.includes('en') ? 'en' : 'ru';
         const isPaid = decoded.startsWith('paid_');
@@ -278,14 +274,15 @@ function parseStart(start) {
 
     const parts = decoded.split('_');
     const map = {};
-    for (let i = 0; i < parts.length; i += 2) {
-        if (parts[i] && parts[i+1]) {
-            map[parts[i]] = parts[i+1];
+    for (let i = 0; i + 1 < parts.length; i += 2) {
+        if (parts[i] && typeof parts[i + 1] === 'string') {
+            map[parts[i]] = parts[i + 1];
         }
     }
+    const parsedLang = ['ru', 'en'].includes(map['lang']) ? map['lang'] : 'ru';
     return {
         source: map['src'] || 'site',
-        lang: map['lang'] || 'ru',
+        lang: parsedLang,
         step: map['step'] || 'chat',
         segment: map['interest'] || 'warm',
         domain: map['domain'] || ''
@@ -338,8 +335,9 @@ bot.on('callback_query', async (query) => {
             try {
                 await bot.sendMessage(chatId, l === 'en' ? '🔍 Running analysis...' : '🔍 Запускаю анализ...');
                 const port = process.env.PORT || 3000;
+                const internalBase = process.env.INTERNAL_API_URL || `http://127.0.0.1:${port}`;
                 const apiRes = await axios.get(
-                    `http://localhost:${port}/api/scan?url=${encodeURIComponent(domain)}&lang=${l}`,
+                    `${internalBase}/api/scan?url=${encodeURIComponent(domain)}&lang=${l}`,
                     { timeout: 15000 }
                 );
                 const scanData = apiRes.data;
@@ -394,45 +392,43 @@ bot.on('callback_query', async (query) => {
         const l = state.lang || 'ru';
         const payUrl = `https://infolady.online/${l}/payment.html?plan=basic&source=bot&user=${chatId}`;
         const text = l === 'en'
-            ? `⚠️ I found several critical issues on your site.\n\nThey are actively reducing your conversions and search visibility right now.\n\nThe full audit will show you:\n• exactly where you're losing customers\n• why your site isn't ranking in Google\n• how competitors are outranking you\n\n👇 Tap to see the complete breakdown:`
-            : `⚠️ Я нашёл несколько критических ошибок на вашем сайте.\n\nОни прямо сейчас снижают вашу конверсию и видимость в поиске.\n\nПолный аудит покажет:\n• где именно теряются клиенты\n• почему сайт не виден в Google\n• как конкуренты вас обходят\n\n👇 Нажмите, чтобы увидеть полный разбор:`;
+            ? `⚠️ I found several critical issues on your site.\n\nThey are actively reducing your conversions and search visibility right now.\n\nThe full audit will show you:\n• exactly where you're losing customers\n• why your site isn't ranking in Google\n• how competitors are outranking you\n\n*How to pay:*\n① Open the link → pay via Kaspi (exact amount shown on page)\n② Tick "I paid" → confirm → audit starts in 24–48h\n\n👇 Choose your plan:`
+            : `⚠️ Я нашёл несколько критических ошибок на вашем сайте.\n\nОни прямо сейчас снижают вашу конверсию и видимость в поиске.\n\nПолный аудит покажет:\n• где именно теряются клиенты\n• почему сайт не виден в Google\n• как конкуренты вас обходят\n\n*Как оплатить:*\n① Откройте ссылку → оплатите через Kaspi (сумма указана на странице)\n② Отметьте «Я оплатил» → подтвердите → аудит за 24–48 ч\n\n👇 Выберите тариф:`;
         if (!userStates[chatId]) userStates[chatId] = {};
         userStates[chatId].status = 'payment_pending';
         userStates[chatId].payment_timestamp = Date.now();
+        const base = `https://infolady.online/${l}/payment.html`;
         await bot.sendMessage(chatId, text, {
             reply_markup: {
                 inline_keyboard: [
-                    [{ text: l === 'en' ? "👉 Show Full Audit" : "👉 Показать полный аудит", url: payUrl }]
+                    [{ text: l === 'en' ? "✅ Basic Audit — $50"        : "✅ Базовый аудит — 25 000 ₸",  url: `${base}?plan=basic&source=bot&user=${chatId}` }],
+                    [{ text: l === 'en' ? "📊 Standard — $100"          : "📊 Стандарт — 50 000 ₸",       url: `${base}?plan=standard&source=bot&user=${chatId}` }],
+                    [{ text: l === 'en' ? "🏆 Premium — $300"           : "🏆 Премиум — 150 000 ₸",       url: `${base}?plan=pro&source=bot&user=${chatId}` }]
                 ]
             }
         });
     }
 
     bot.answerCallbackQuery(query.id);
-    if (data === 'get_audit') {
-        const state = userStates[chatId];
-        if (state && state.lastUrl) {
-            await bot.sendMessage(chatId, `Запускаю повторный разбор для ${state.lastUrl}...`);
-            // Trigger can be simulated or ask to type again if desired, but best is to run norm audit
-            await bot.sendMessage(chatId, `Отправьте ссылку заново, чтобы обновить анализ 📈`);
-        } else {
-            await bot.sendMessage(chatId, `👇 **Отправь ссылку (например, mysite.com) прямо сейчас!**`);
-        }
-    }
-
 
     if (data === 'view_price') {
         const state = userStates[chatId] || { lang: 'ru' };
         const l = state.lang || 'ru';
-        const payUrl = `https://infolady.online/${l}/payment.html?plan=basic&source=bot&user=${chatId}`;
+        const base = `https://infolady.online/${l}/payment.html`;
         const text = l === 'en'
-            ? `⚠️ Your site is losing customers right now.\n\nThe audit shows exactly where — and how to fix it.\n\n💰 *Our Plans:*\n\n— *Basic ($50):* Issue audit + top fixes\n— *Standard ($100):* Step-by-step growth plan\n— *Premium ($300):* Personal walkthrough\n\nMost popular: Basic`
-            : `⚠️ Ваш сайт теряет клиентов прямо сейчас.\n\nАудит покажет точно где — и как это исправить.\n\n💰 *Наши Тарифы:*\n\n— *Базовый (25 000 ₸):* Краткий аудит ошибок\n— *Стандарт (50 000 ₸):* Пошаговый план роста\n— *Премиум (150 000 ₸):* Индивидуальный разбор\n\nСамый популярный: Базовый`;
+            ? `⚠️ Your site is losing customers right now.\n\nThe audit shows exactly where — and how to fix it.\n\n💰 *Our Plans:*\n\n— *Basic ($50):* Issue audit + top 3 fixes\n— *Standard ($100):* Full audit + 30-day growth plan\n— *Premium ($300):* Deep audit + personal walkthrough\n\n*How to pay:*\n① Open the payment page → pay via Kaspi\n② Tick "I paid" → confirm → audit starts\n\n👇 Choose your plan:`
+            : `⚠️ Ваш сайт теряет клиентов прямо сейчас.\n\nАудит покажет точно где — и как это исправить.\n\n💰 *Наши тарифы:*\n\n— *Базовый (25 000 ₸):* Аудит ошибок + топ-3 правки\n— *Стандарт (50 000 ₸):* Полный аудит + план роста на 30 дней\n— *Премиум (150 000 ₸):* Глубокий аудит + индивидуальный разбор\n\n*Как оплатить:*\n① Откройте страницу → оплатите через Kaspi\n② Отметьте «Я оплатил» → подтвердите → аудит запускается\n\n👇 Выберите тариф:`;
         await bot.sendMessage(chatId, text, {
             parse_mode: 'Markdown',
             reply_markup: {
                 inline_keyboard: [
-                    [{ text: l === 'en' ? "✅ Get Basic Audit — $50" : "✅ Базовый аудит — 25 000 ₸", url: payUrl }]
+                    [
+                        { text: l === 'en' ? '✅ Basic — $50'      : '✅ Базовый — 25 000 ₸',   url: `${base}?plan=basic&source=bot&user=${chatId}` },
+                        { text: l === 'en' ? 'Standard — $100'     : 'Стандарт — 50 000 ₸',     url: `${base}?plan=standard&source=bot&user=${chatId}` }
+                    ],
+                    [
+                        { text: l === 'en' ? 'Premium — $300'      : 'Премиум — 150 000 ₸',     url: `${base}?plan=pro&source=bot&user=${chatId}` }
+                    ]
                 ]
             }
         });
@@ -481,8 +477,9 @@ bot.on('message', async (msg) => {
 
             try {
                 const port = process.env.PORT || 3000;
+                const internalBase = process.env.INTERNAL_API_URL || `http://127.0.0.1:${port}`;
                 const apiRes = await axios.get(
-                    `http://localhost:${port}/api/scan?url=${encodeURIComponent(targetUrl)}&lang=${lang}`,
+                    `${internalBase}/api/scan?url=${encodeURIComponent(targetUrl)}&lang=${lang}`,
                     { timeout: 15000 }
                 );
                 const data = apiRes.data;
@@ -510,12 +507,14 @@ bot.on('message', async (msg) => {
                 const sellBlock = lang === 'en'
                     ? `We found *${issueCount || 'several'} issues* on ${targetUrl}.\n\n${hiddenNote}*In the full audit you'll get:*\n→ Complete list of all issues\n→ Priority fix plan\n→ 30-day growth roadmap\n→ Competitor gap analysis\n→ PDF delivered within 48h`
                     : `Мы нашли *${issueCount || 'несколько'} проблем* на ${targetUrl}.\n\n${hiddenNote}*В полном аудите вы получите:*\n→ Полный список всех ошибок\n→ Приоритеты и план исправлений\n→ План роста на 30 дней\n→ Анализ конкурентов\n→ PDF за 48 ч`;
+                const payBase = `https://infolady.online/${lang}/payment.html`;
                 const opts = {
                     parse_mode: 'Markdown',
                     reply_markup: {
                         inline_keyboard: [
-                            [{ text: lang === 'en' ? "✅ Get Full Audit — $50" : "✅ Полный аудит — 25 000 ₸", url: `https://infolady.online/${lang}/payment.html?plan=basic&source=${source}&user=${chatId}` }],
-                            [{ text: lang === 'en' ? "📈 See a real case" : "📈 Посмотреть кейс", callback_data: "view_case" }]
+                            [{ text: lang === 'en' ? "✅ Basic Audit — $50" : "✅ Базовый — 25 000 ₸", url: `${payBase}?plan=basic&source=${source}&user=${chatId}` }],
+                            [{ text: lang === 'en' ? "💎 All Plans"         : "💎 Все тарифы",          callback_data: "view_price" }],
+                            [{ text: lang === 'en' ? "📈 See a real case"   : "📈 Посмотреть кейс",     callback_data: "view_case" }]
                         ]
                     }
                 };
@@ -630,11 +629,12 @@ function stopFollowUps(chatId) {
 
 function getFollowUpOpts(chatId) {
     const lang = userStates[chatId]?.lang || 'ru';
-    const payUrl = `https://infolady.online/${lang}/payment.html?plan=basic&source=followup&user=${chatId}`;
+    const base = `https://infolady.online/${lang}/payment.html`;
     return {
         reply_markup: {
             inline_keyboard: [
-                [{ text: lang === 'en' ? "📊 Get Full Audit — $50" : "📊 Получить полный разбор — 25 000 ₸", url: payUrl }]
+                [{ text: lang === 'en' ? "✅ Basic Audit — $50" : "✅ Базовый — 25 000 ₸", url: `${base}?plan=basic&source=followup&user=${chatId}` }],
+                [{ text: lang === 'en' ? "💎 All Plans"         : "💎 Все тарифы",          callback_data: "view_price" }]
             ]
         }
     };
@@ -706,6 +706,18 @@ async function send5(chatId, segment) {
 
 function triggerBotDrip() {
         const now = Date.now();
+        const TTL_MS = 7 * 24 * 3600 * 1000; // 7 days
+
+        // Purge stale sessions to prevent unbounded memory growth
+        for (const chatId in userStates) {
+            const state = userStates[chatId];
+            if (state.timestamp && (now - state.timestamp > TTL_MS)) {
+                delete userStates[chatId];
+                delete followUpTimers[chatId];
+                delete userSources[chatId];
+            }
+        }
+
         for (const chatId in userStates) {
             const state = userStates[chatId];
             if (!state.status) continue;
@@ -726,8 +738,8 @@ function triggerBotDrip() {
             }
 
             // --- ABANDONED PAYMENT DROPS (Item 6) ---
-            if (state.status === 'payment_pending') {
-                const elapsedPay = now - (state.payment_timestamp || now);
+            if (state.status === 'payment_pending' && state.payment_timestamp) {
+                const elapsedPay = now - state.payment_timestamp;
 
                 // 30 Minutes (1 800 000 ms)
                 if (!state.pay_30m && elapsedPay > 1800000) {

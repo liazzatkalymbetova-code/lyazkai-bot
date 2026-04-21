@@ -17,7 +17,34 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (domain && domain !== 'example.com') {
         localStorage.setItem('domain', domain);
     }
-    const isRu = window.location.pathname.includes('/ru/');
+    // Multi-level language detection: userChoice → URL → browser → fallback
+    function detectLang() {
+        const fromUser = localStorage.getItem('userSelectedLang');
+        if (fromUser === 'ru' || fromUser === 'en') return fromUser;
+        if (window.location.pathname.includes('/ru/')) return 'ru';
+        if (window.location.pathname.includes('/en/')) return 'en';
+        const browser = (navigator.language || navigator.userLanguage || '').toLowerCase();
+        const fromBrowser = browser.startsWith('ru') ? 'ru' : 'en';
+        console.log('[InfoLady] Lang fallback to browser:', fromBrowser);
+        return fromBrowser;
+    }
+    const detectedLang = detectLang();
+    const isRu = detectedLang === 'ru';
+
+    // Timezone-based country detection for price/currency localisation
+    function detectCountry() {
+        try {
+            const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+            if (/Almaty|Aqtau|Aqtobe|Atyrau|Oral|Qyzylorda/.test(tz)) return 'KZ';
+            if (/America/.test(tz)) return 'US';
+            if (/Europe/.test(tz)) return 'EU';
+            if (/Asia/.test(tz)) return 'ASIA';
+            return 'OTHER';
+        } catch (e) {
+            return isRu ? 'KZ' : 'US';
+        }
+    }
+    const detectedCountry = detectCountry();
 
     // ─── Referral Tracking & Sources ───
     const ref = params.get('ref');
@@ -132,7 +159,20 @@ document.addEventListener('DOMContentLoaded', async () => {
             const totalIssues   = criticalCount + mediumCount;
             const reportDomain  = data.domain || domain;
             const reportDate    = data.analysisDate || new Date().toLocaleDateString(isRu ? 'ru-RU' : 'en-US', { day: 'numeric', month: 'long', year: 'numeric' });
-            const hiddenCount   = Math.max(0, issuesOnly.length - 3);
+            const hiddenCount   = typeof data.hiddenCount === 'number' ? data.hiddenCount : Math.max(0, issuesOnly.length - 3);
+
+            // Expose report context for chatbot personalization
+            window.chatbotContext = {
+                domain: reportDomain,
+                issues: issuesOnly.slice(0, 5).map(i => i.title),
+                hiddenCount: hiddenCount,
+                isRu: isRu,
+                lang: detectedLang,
+                country: detectedCountry,
+                currency: isRu ? '₸' : '$',
+                price: isRu ? '25 000 ₸' : '$50',
+                payUrl: `/${isRu ? 'ru' : 'en'}/payment.html?plan=basic&domain=${encodeURIComponent(reportDomain)}`
+            };
 
             const isEn = window.location.pathname.includes('/en/');
 
@@ -253,13 +293,13 @@ document.addEventListener('DOMContentLoaded', async () => {
                     <div style="background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 16px; padding: 24px; margin-top: 25px; text-align: center; backdrop-filter: blur(10px); box-shadow: 0 4px 20px rgba(0,0,0,0.4);">
                         <div style="font-weight: 700; color: #fff; font-size: 1.2rem; margin-bottom: 8px;">
                             ${isEn
-                                ? 'We found 7 more critical issues'
-                                : 'Мы нашли ещё 7 критических проблем'}
+                                ? `We found ${hiddenCount} more critical issues`
+                                : `Мы нашли ещё ${hiddenCount} критических проблем`}
                         </div>
                         <p style="font-size: 0.88rem; color: var(--text-dim); margin-bottom: 20px;">
                             ${isEn
-                                ? `7 issues on ${reportDomain} that directly affect leads and sales — not shown in the free version`
-                                : `7 проблем на ${reportDomain}, которые напрямую влияют на заявки и продажи — они не показаны в бесплатной версии`}
+                                ? `${hiddenCount} issues on ${reportDomain} that directly affect leads and sales — not shown in the free version`
+                                : `${hiddenCount} проблем на ${reportDomain}, которые напрямую влияют на заявки и продажи — они не показаны в бесплатной версии`}
                         </p>
                         <div style="display: flex; gap: 12px; max-width: 440px; margin: 0 auto; flex-direction: column;">
                             <input type="email" id="gateEmail" placeholder="example@mail.com" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 12px; color: #fff; width: 100%; outline: none;" />
@@ -363,7 +403,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         window.payForAudit = () => {
             const email = document.getElementById('auditEmail') ? document.getElementById('auditEmail').value : '';
             if (email && email.includes('@')) {
-                window.location.href = `/ru/payment.html?plan=standard&email=${encodeURIComponent(email)}&domain=${encodeURIComponent(domain)}`;
+                window.location.href = `/${isRu ? 'ru' : 'en'}/payment.html?plan=basic&email=${encodeURIComponent(email)}&domain=${encodeURIComponent(domain)}`;
             } else {
                 alert(isRu ? 'Введите корректный Email' : 'Please enter a valid email');
             }
@@ -371,6 +411,17 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         // Re-run lucide icons loading just in case
         if (window.lucide) { lucide.createIcons(); }
+
+        // Auto-open chatbot after 40s for users who haven't paid yet
+        if (!isUnlocked) {
+            setTimeout(() => {
+                const trigger = document.getElementById('chatbotTrigger');
+                const panel = document.getElementById('chatbotPanel');
+                if (trigger && panel && !panel.classList.contains('open')) {
+                    trigger.click();
+                }
+            }, 40000);
+        }
 
 
         // ─── PRO Block Logic ───

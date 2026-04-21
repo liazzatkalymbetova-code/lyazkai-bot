@@ -3,6 +3,7 @@ const axios = require('axios');
 const cheerio = require('cheerio');
 const cors = require('cors');
 const path = require('path');
+const crypto = require('crypto');
 const dotenv = require('dotenv');
 const envPath = path.join(__dirname, '.env');
 // Load .env only in development to avoid overwriting Render's environment variables
@@ -52,10 +53,12 @@ app.use((req, res, next) => {
 });
 
 // --- /report ROUTE (must be ABOVE express.static) ---
-// Handles: /report  AND  /report?user=123  (query params ignored by Express route matching)
-app.get('/report', (req, res) => {
-    console.log('Report route hit:', req.query);
-    res.sendFile(path.join(__dirname, '../site/ru/report.html'));
+// Handles /report, /ru/report, /en/report — lang detected from path then query param
+app.get(['/report', '/ru/report', '/en/report'], (req, res) => {
+    const langFromPath = req.path.includes('/en/') ? 'en' : req.path.includes('/ru/') ? 'ru' : null;
+    const lang = langFromPath || req.query.lang || 'ru';
+    const file = lang === 'en' ? 'en/report.html' : 'ru/report.html';
+    res.sendFile(path.join(__dirname, '../site', file));
 });
 
 // Serve static site files AFTER explicit routes
@@ -479,6 +482,7 @@ const fs = require('fs');
 const LEADS_FILE = path.join(__dirname, 'leads.json');
 const LOG_FILE = path.join(__dirname, 'email_trigger_logs.txt');
 const telegram = require('./telegram');
+const APP_URL = (process.env.APP_URL || 'https://infolady.online').replace(/\/$/, '');
 
 // --- PAYMENT INTENT TRACKING (called when user opens payment page) ---
 app.use(express.json()); // Essential for parsing POST bodies
@@ -487,12 +491,15 @@ app.post('/api/payment-intent', (req, res) => {
     try {
         const { chatId } = req.body;
         if (chatId) {
-            // Mark user as having opened the payment page in bot state
             const { userStates } = require('./bot');
-            if (userStates && !userStates[chatId]) userStates[chatId] = {};
-            if (userStates && userStates[chatId]) {
+            if (userStates) {
+                if (!userStates[chatId]) userStates[chatId] = {};
                 userStates[chatId].status = 'payment_pending';
                 userStates[chatId].payment_timestamp = Date.now();
+                // Reset abandoned-cart flags so follow-ups fire fresh on this attempt
+                userStates[chatId].pay_30m = false;
+                userStates[chatId].pay_2h = false;
+                console.log(`[PAYMENT_INTENT] User ${chatId} started checkout`);
             }
         }
         res.json({ success: true });
@@ -567,7 +574,9 @@ app.post('/api/payment-success', (req, res) => {
 
         let updated = false;
         leads = leads.map(l => {
-            if (l.email === email && (!domain || l.scanned_domain === domain)) {
+            // Require domain match when domain is provided — prevents false updates across sites
+            const domainMatch = domain ? l.scanned_domain === domain : !l.scanned_domain;
+            if (l.email === email && domainMatch) {
                 l.status = 'paid';
                 l.tariff = activeTariff;
                 l.updated_at = new Date().toISOString();
@@ -628,7 +637,7 @@ function triggerEmailDrip() {
         let updated = false;
 
         const updatedLeads = leads.map(lead => {
-            if (lead.status === 'paid' || lead.status === 'lost') return lead;
+            if (lead.status === 'paid' || lead.status === 'purchased') return lead;
 
             const ageMs = now - new Date(lead.created_at).getTime();
             const email = lead.email;
@@ -642,8 +651,8 @@ function triggerEmailDrip() {
             if (!logs.includes(immKey) && ageMs > 0) {
                 const subject = isRu ? "Ваш анализ сайта готов" : "Your website audit is ready";
                 const text = isRu 
-                    ? `Мы нашли критические ошибки, из-за которых вы теряете клиентов.\n\nПосмотреть разбор:\nhttp://localhost:3000/${lead.language}/report.html?domain=${domain}`
-                    : `We found critical issues affecting your conversions.\n\nView report:\nhttp://localhost:3000/${lead.language}/report.html?domain=${domain}`;
+                    ? `Мы нашли критические ошибки, из-за которых вы теряете клиентов.\n\nПосмотреть разбор:\n${APP_URL}/${lead.language}/report.html?domain=${domain}`
+                    : `We found critical issues affecting your conversions.\n\nView report:\n${APP_URL}/${lead.language}/report.html?domain=${domain}`;
                 logMsg += `[${new Date().toISOString()}] Email to ${email} (Immediate) "${subject}": "${text}"\n`;
                 logs += immKey + ',';
                 if (lead.status === 'new') { lead.status = 'emailed'; updated = true; }
@@ -726,20 +735,16 @@ app.get(['/api/leads', '/api/leads-admin'], (req, res) => {
 
     const authHeader = req.headers['authorization'] || req.headers['Authorization'];
     const token = authHeader && authHeader.split(' ')[1]?.trim();
-    const expectedToken = process.env.ADMIN_TOKEN || 'inf0lady-admin-2026'; // Fallback for safety
+    const expectedToken = process.env.ADMIN_TOKEN;
+
+    if (!expectedToken) {
+        console.error('[AUTH] ADMIN_TOKEN env var is not set — admin endpoint disabled');
+        return res.status(503).json({ error: 'Admin endpoint not configured' });
+    }
 
     if (token !== expectedToken) {
-        console.warn(`[AUTH] Unauthorized! Received token: "${token}"`);
-        return res.status(401).json({
-            error: 'Unauthorized',
-            debug: {
-                receivedToken: token,
-                expectedToken: expectedToken,
-                matches: (token === expectedToken),
-                headerReceived: !!authHeader,
-                allHeaders: req.headers
-            }
-        });
+        console.warn(`[AUTH] Unauthorized admin access attempt`);
+        return res.status(401).json({ error: 'Unauthorized' });
     }
 
     if (fs.existsSync(LEADS_FILE)) {

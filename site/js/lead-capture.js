@@ -109,12 +109,12 @@ document.addEventListener('submit', async function (e) {
     // If it's a generic form and doesn't have a specific handler already
     if (emailInput && !form.dataset.handled && !form.getAttribute('action')) {
         e.preventDefault();
+        // Mark as in-flight to block concurrent submissions; cleared on error
         form.dataset.handled = "true";
 
         const btn = form.querySelector('button[type="submit"]') || form.querySelector('input[type="submit"]');
         if (btn) btn.disabled = true;
 
-        const formData = new FormData(form);
         const data = {
             email: emailInput.value,
             source: form.id || 'generic_form',
@@ -122,15 +122,22 @@ document.addEventListener('submit', async function (e) {
             website: form.querySelector('[name="url"], [name="website"]')?.value || ''
         };
 
-        const result = await window.InfoLadyLeads.submitLead(data);
+        let result;
+        try {
+            result = await window.InfoLadyLeads.submitLead(data);
+        } catch (e) {
+            result = { success: false, error: 'Network error' };
+        }
 
         if (btn) btn.disabled = false;
 
         if (result.success) {
+            // Keep dataset.handled = true — form successfully submitted, no retry needed
             form.innerHTML = `<div class="success-msg" style="color:#28c840; padding:10px;">✅ Thank you! We received your request.</div>`;
         } else {
-            alert('Error: ' + result.error);
+            // Allow retry by clearing the lock
             delete form.dataset.handled;
+            alert('Error: ' + (result.error || 'Please try again'));
         }
     }
 });

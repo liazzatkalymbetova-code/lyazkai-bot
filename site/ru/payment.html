@@ -557,6 +557,7 @@
             <a href="/ru/">← Вернуться на главную</a>
         </div>
     </div>
+  </div>
 
     <script src="/js/config.js"></script>
     <script>
@@ -583,10 +584,7 @@
                 pro:      { title: 'Премиум',     price: '150 000 ₸', desc: 'Полный аудит + 2-часовая стратегия' }
             };
 
-            if (!config[plan]) {
-                window.location.href = '/ru/';
-                return;
-            }
+<a href="/ru/#pricing" class="back">← Вернуться к тарифам</a>
 
             localStorage.setItem('selected_plan', plan);
             

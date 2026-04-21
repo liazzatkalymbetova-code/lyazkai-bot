@@ -18,7 +18,7 @@ function loadScans() {
         .then(response => response.json())
         .then(data => {
             spinner.style.display = 'none';
-            if (data && data.length > 0) {
+            if (data && Array.isArray(data) && data.length > 0) {
                 emptyState.style.display = 'none';
                 data.forEach(scan => {
                     const card = document.createElement('div');
